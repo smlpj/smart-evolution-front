@@ -1,7 +1,6 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
-import OutlinedInput from "@mui/material/OutlinedInput";
 import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
@@ -11,13 +10,32 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import globalStyles from "../styles/global.module.css";
+import { makeStyles } from "@material-ui/core/styles";
+import { Icon } from "@mui/material";
+import {MuiButton} from "../styles/button";
+
+const useStyle = makeStyles({
+  input: {
+    backgroundColor: "white",
+    border: "1px solid #ACCFCF",
+
+    borderRadius: "10px",
+    marginBottom: "10px",
+    width: "400px",
+  },
+  button: {
+    backgroundColor: "#5EA3A3",
+    borderRadius: "20px",
+    marginBottom: "10px",
+  },
+});
 
 export default function InputAdornments() {
   const validationSchema = yup.object({
     email: yup
       .string("Ingresa un email")
       .matches(
-        /^[^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$]+$/,
+        /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
         "Ingresa un email válido"
       )
       .required("El email es requerido"),
@@ -57,6 +75,8 @@ export default function InputAdornments() {
     event.preventDefault();
   };
 
+  const classes = useStyle();
+
   return (
     <form onSubmit={formik.handleSubmit}>
       <Box display="flex" flexDirection="column">
@@ -68,6 +88,7 @@ export default function InputAdornments() {
               placeholder="Ingresa tu email"
               name="email"
               type="email"
+              className={classes.input}
               onChange={formik.handleChange}
               value={formik.values.email}
               variant="outlined"
@@ -84,6 +105,7 @@ export default function InputAdornments() {
               placeholder="Ingresa tu contraseña"
               name="password"
               type={values.showPassword ? "text" : "password"}
+              className={classes.input}
               onChange={formik.handleChange}
               value={formik.values.password}
               variant="outlined"
@@ -109,11 +131,20 @@ export default function InputAdornments() {
             />
           </FormControl>
         </Box>
-        <Box display="flex" justifyContent="flex-end">
-          <Button variant="contained" color="primary" type="submit">
-            Enviar
+        <Box display="flex" justifyContent="flex-center">
+          <Button variant="contained" color="primary" type="submit" className={classes.button}>
+            <Icon>
+              <i className="material-icons"></i>
+            </Icon>
+            INICIAR LA PLATAFORMA
           </Button>
         </Box>
+
+        <Box display="flex" justifyContent="flex-center">
+          <MuiButton variant="contained" color="primary" type="submit">
+            INICIAR LA PLATAFORMA
+          </MuiButton>
+        </Box>  
       </Box>
     </form>
   );

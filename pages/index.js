@@ -3,7 +3,7 @@ import Image from "next/image";
 import styles from "../styles/login.module.css";
 import Inputs from "../components/inputs";
 import SignupForm from "../components/formexample";
-import {makeStyles} from "@material-ui/core/styles";
+
 
 export default function Home() {
   return (
