@@ -22,7 +22,7 @@ export default function Home() {
               alt="Smart Evolution"
               className={styles.logo}
             />
-            <Inputs />
+            <Inputs/>
           </div>
         </div>
         <div className={styles.right}>

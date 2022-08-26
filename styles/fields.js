@@ -6,10 +6,10 @@ const smartField = styled(TextField)({
   marginBottom: "10px",
   backgroundColor: "white",
   border: "1px solid #ACCFCF",
-  borderRadius: "10px",
+  borderRadius: "5px",
   padding: "10px",
   "& .MuiInputBase-input": {
-    padding: "10px",
+    padding: "5px",
   },
 });
 

@@ -37,7 +37,7 @@ export default function InputAdornments() {
     email: yup
       .string("Ingresa un email")
       .matches(
-        /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+        /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/,
         "Ingresa un email válido"
       )
       .required("El email es requerido"),
@@ -81,10 +81,10 @@ export default function InputAdornments() {
 
   return (
     <form onSubmit={formik.handleSubmit}>
-      <Box display="flex" flexDirection="column">
+      <Box display="flex" flexDirection="column" sx={{marginTop: "50px"}}>
         <Box display="flex" flexDirection="column">
           <h1 className={globalStyles.subtitulo}>Email</h1>
-          <FormControl fullWidth>
+          <FormControl fullWidth sx={{marginBottom: "20px"}}>
             <MuiTextField
               disableUnderline
               id="email"
@@ -99,6 +99,9 @@ export default function InputAdornments() {
               fullWidth
               error={formik.touched.email && Boolean(formik.errors.email)}
               helperText={formik.touched.email && formik.errors.email}
+              InputProps={{
+                disableUnderline: true,
+              }}
             />
           </FormControl>
           <h1 className={globalStyles.subtitulo}>Contraseña</h1>
@@ -111,7 +114,7 @@ export default function InputAdornments() {
               className={classes.input}
               onChange={formik.handleChange}
               value={formik.values.password}
-              variant="outlined"
+              variant="standard"
               margin="normal"
               fullWidth
               error={formik.errors.password ? true : false}
@@ -119,6 +122,7 @@ export default function InputAdornments() {
                 formik.errors.password ? formik.errors.password : null
               }
               InputProps={{
+                disableUnderline: true,
                 endAdornment: (
                   <InputAdornment position="end">
                     <IconButton
@@ -126,7 +130,7 @@ export default function InputAdornments() {
                       onClick={handleClickShowPassword}
                       onMouseDown={handleMouseDownPassword}
                     >
-                      {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                      {values.showPassword ? <Visibility/> : <VisibilityOff />}
                     </IconButton>
                   </InputAdornment>
                 ),

@@ -6,8 +6,10 @@ const RoundButton = styled(Button)({
     marginBottom: "10px",
     backgroundColor: "#5EA3A3",
     padding: "16px",
-    left: "24%",
-    marginTop: "50px",
+    "&:hover": {
+        backgroundColor: "#5EA3A3C8",   
+    },
+    marginTop: "40px",
 });
 
 export default RoundButton;
