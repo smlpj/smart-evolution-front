@@ -5,8 +5,8 @@ import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import { useFormik } from "formik";
 import * as yup from "yup";
 import globalStyles from "../styles/global.module.css";
@@ -130,7 +130,7 @@ export default function InputAdornments() {
                       onClick={handleClickShowPassword}
                       onMouseDown={handleMouseDownPassword}
                     >
-                      {values.showPassword ? <Visibility/> : <VisibilityOff />}
+                      {values.showPassword ? <VisibilityOutlinedIcon style={{ color: "#69AAA9" }}/> : <VisibilityOffOutlinedIcon style={{ color: "#69AAA9" }} />}
                     </IconButton>
                   </InputAdornment>
                 ),
