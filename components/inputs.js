@@ -12,7 +12,9 @@ import * as yup from "yup";
 import globalStyles from "../styles/global.module.css";
 import { makeStyles } from "@material-ui/core/styles";
 import { Icon } from "@mui/material";
-import {MuiButton} from "../styles/button";
+import MuiButton from "../styles/button";
+import MuiTextField from "../styles/fields";
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 const useStyle = makeStyles({
   input: {
@@ -83,7 +85,8 @@ export default function InputAdornments() {
         <Box display="flex" flexDirection="column">
           <h1 className={globalStyles.subtitulo}>Email</h1>
           <FormControl fullWidth>
-            <TextField
+            <MuiTextField
+              disableUnderline
               id="email"
               placeholder="Ingresa tu email"
               name="email"
@@ -91,7 +94,7 @@ export default function InputAdornments() {
               className={classes.input}
               onChange={formik.handleChange}
               value={formik.values.email}
-              variant="outlined"
+              variant="standard"
               margin="normal"
               fullWidth
               error={formik.touched.email && Boolean(formik.errors.email)}
@@ -100,7 +103,7 @@ export default function InputAdornments() {
           </FormControl>
           <h1 className={globalStyles.subtitulo}>Contraseña</h1>
           <FormControl fullWidth>
-            <TextField
+            <MuiTextField
               id="password"
               placeholder="Ingresa tu contraseña"
               name="password"
@@ -131,18 +134,10 @@ export default function InputAdornments() {
             />
           </FormControl>
         </Box>
-        <Box display="flex" justifyContent="flex-center">
-          <Button variant="contained" color="primary" type="submit" className={classes.button}>
-            <Icon>
-              <i className="material-icons"></i>
-            </Icon>
-            INICIAR LA PLATAFORMA
-          </Button>
-        </Box>
 
         <Box display="flex" justifyContent="flex-center">
-          <MuiButton variant="contained" color="primary" type="submit">
-            INICIAR LA PLATAFORMA
+          <MuiButton variant="contained" color="primary" type="submit" startIcon={<ArrowForwardIcon/>}>
+            Iniciar la plataforma
           </MuiButton>
         </Box>  
       </Box>

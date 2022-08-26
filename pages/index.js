@@ -2,7 +2,6 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/login.module.css";
 import Inputs from "../components/inputs";
-import SignupForm from "../components/formexample";
 
 
 export default function Home() {
