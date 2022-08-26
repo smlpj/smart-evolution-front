@@ -15,6 +15,7 @@ import { Icon } from "@mui/material";
 import MuiButton from "../styles/button";
 import MuiTextField from "../styles/fields";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import HelperText from "../styles/helperText";
 
 const useStyle = makeStyles({
   input: {
@@ -86,7 +87,6 @@ export default function InputAdornments() {
           <h1 className={globalStyles.subtitulo}>Email</h1>
           <FormControl fullWidth sx={{marginBottom: "20px"}}>
             <MuiTextField
-              disableUnderline
               id="email"
               placeholder="Ingresa tu email"
               name="email"
@@ -98,11 +98,11 @@ export default function InputAdornments() {
               margin="normal"
               fullWidth
               error={formik.touched.email && Boolean(formik.errors.email)}
-              helperText={formik.touched.email && formik.errors.email}
               InputProps={{
                 disableUnderline: true,
               }}
             />
+            <HelperText>{formik.touched.email && formik.errors.email}</HelperText>
           </FormControl>
           <h1 className={globalStyles.subtitulo}>Contraseña</h1>
           <FormControl fullWidth>
@@ -118,9 +118,7 @@ export default function InputAdornments() {
               margin="normal"
               fullWidth
               error={formik.errors.password ? true : false}
-              helperText={
-                formik.errors.password ? formik.errors.password : null
-              }
+              
               InputProps={{
                 disableUnderline: true,
                 endAdornment: (
@@ -137,6 +135,7 @@ export default function InputAdornments() {
               }}
             />
           </FormControl>
+          <HelperText>{formik.errors.password ? formik.errors.password : null}</HelperText>
         </Box>
 
         <Box display="flex" justifyContent="flex-center">
