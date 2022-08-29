@@ -3,7 +3,40 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { InputAdornments } from "./components";
 
+import { useFetch } from '../../hooks/useFetch'
+
+import { login } from './queries'
+
 export const InputV = () => {
+
+    // Hooks
+    const {
+        fetch: xd,
+        loading: loginLoading,
+        error: loginError,
+        data: dataLogin
+    } = useFetch({ service: login , init: false})
+
+    // Effects
+
+    React.useEffect(() => {
+
+        if (loginError) {
+            alert();
+        }
+
+        if (dataLogin !== undefined) { 
+            console.log(dataLogin)
+        }
+
+        if (loginLoading) {
+            console.log('loading')
+        }
+
+    },[dataLogin, loginError, loginLoading])
+
+
+
   const validationSchema = yup.object({
     email: yup
       .string("Ingresa un email")
@@ -25,7 +58,7 @@ export const InputV = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      xd(values)
     },
   });
 

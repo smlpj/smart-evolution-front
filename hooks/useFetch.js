@@ -7,10 +7,10 @@ export const useFetch = ({
     service,
     init
 }) => {
-    const [data, setData] = useState<T['result'] | undefined>(undefined)
+    const [data, setData] = useState(undefined)
     const [loading, setLoading] = useState(false)
     const [called, setCalled] = useState(false)
-    const [error, setError] = useState<TError | undefined>(undefined)
+    const [error, setError] = useState(undefined)
     /**
      * Función que ejecuta el servicio y captura los estados de la petición
      * @param {T} args argumentos del servicio
