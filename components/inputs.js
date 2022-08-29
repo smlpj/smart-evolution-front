@@ -17,21 +17,10 @@ import MuiTextField from "../styles/fields";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import HelperText from "../styles/helperText";
 
-const useStyle = makeStyles({
-  input: {
-    backgroundColor: "white",
-    border: "1px solid #ACCFCF",
+const error = "1px solid #E6643180";
+const success = "1px solid #ACCFCF";
 
-    borderRadius: "10px",
-    marginBottom: "10px",
-    width: "400px",
-  },
-  button: {
-    backgroundColor: "#5EA3A3",
-    borderRadius: "20px",
-    marginBottom: "10px",
-  },
-});
+
 
 export default function InputAdornments() {
   const validationSchema = yup.object({
@@ -78,8 +67,6 @@ export default function InputAdornments() {
     event.preventDefault();
   };
 
-  const classes = useStyle();
-
   return (
     <form onSubmit={formik.handleSubmit}>
       <Box display="flex" flexDirection="column" sx={{marginTop: "50px"}}>
@@ -91,7 +78,6 @@ export default function InputAdornments() {
               placeholder="Ingresa tu email"
               name="email"
               type="email"
-              className={classes.input}
               onChange={formik.handleChange}
               value={formik.values.email}
               variant="standard"
@@ -111,13 +97,12 @@ export default function InputAdornments() {
               placeholder="Ingresa tu contraseña"
               name="password"
               type={values.showPassword ? "text" : "password"}
-              className={classes.input}
               onChange={formik.handleChange}
               value={formik.values.password}
               variant="standard"
               margin="normal"
               fullWidth
-              error={formik.errors.password ? true : false}
+              error={formik.touched.password && Boolean(formik.errors.password)}
               
               InputProps={{
                 disableUnderline: true,
@@ -135,10 +120,10 @@ export default function InputAdornments() {
               }}
             />
           </FormControl>
-          <HelperText>{formik.errors.password ? formik.errors.password : null}</HelperText>
+          <HelperText>{formik.touched.password && formik.errors.password}</HelperText>
         </Box>
 
-        <Box display="flex" justifyContent="flex-center">
+        <Box display="flex" justifyContent="center">
           <MuiButton variant="contained" color="primary" type="submit" startIcon={<ArrowForwardIcon/>}>
             Iniciar la plataforma
           </MuiButton>
