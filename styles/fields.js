@@ -16,10 +16,7 @@ const smartField = styled(TextField)({
     padding: "2px",
     fontFamily: "Montserrat",
   },
-  "& .Mui-error": {
-    border: error,
-    
-  },
+  
 });
 
 export default smartField;

@@ -14,8 +14,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Icon } from "@mui/material";
 import MuiButton from "../styles/button";
 import MuiTextField from "../styles/fields";
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import HelperText from "../styles/helperText";
+import LoginIcon from '@mui/icons-material/Login';
 
 
 export default function InputAdornments() {
@@ -23,7 +23,7 @@ export default function InputAdornments() {
     email: yup
       .string("Ingresa un email")
       .matches(
-        /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/,
+        /^[a-zA-Z]+[a-zA-Z0-9_.]+@[a-zA-Z.]+[a-zA-Z]$/,
         "Ingresa un email válido"
       )
       .required("El email es requerido"),
@@ -83,6 +83,7 @@ export default function InputAdornments() {
               InputProps={{
                 disableUnderline: true,
               }}
+              sx={formik.touched.email && Boolean(formik.errors.email) ? {border: "2px solid #E6643180"} : null}
             />
             <HelperText>{formik.touched.email && formik.errors.email}</HelperText>
           </FormControl>
@@ -99,7 +100,7 @@ export default function InputAdornments() {
               margin="normal"
               fullWidth
               error={formik.touched.password && Boolean(formik.errors.password)}
-              
+              sx={formik.touched.password && Boolean(formik.errors.password)? {border: "2px solid #E6643180"} : null}
               
               InputProps={{
                 disableUnderline: true,
@@ -121,7 +122,7 @@ export default function InputAdornments() {
         </Box>
 
         <Box display="flex" justifyContent="center">
-          <MuiButton variant="contained" color="primary" type="submit" startIcon={<ArrowForwardIcon/>}>
+          <MuiButton variant="contained" color="primary" type="submit" startIcon={<LoginIcon/>}>
             Iniciar la plataforma
           </MuiButton>
         </Box>  
