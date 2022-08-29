@@ -11,7 +11,7 @@ export const InputV = () => {
 
     // Hooks
     const {
-        fetch: xd,
+        fetch: loginAux,
         loading: loginLoading,
         error: loginError,
         data: dataLogin
@@ -58,7 +58,7 @@ export const InputV = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      xd(values)
+      loginAux(values)
     },
   });
 
