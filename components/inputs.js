@@ -17,10 +17,6 @@ import MuiTextField from "../styles/fields";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import HelperText from "../styles/helperText";
 
-const error = "1px solid #E6643180";
-const success = "1px solid #ACCFCF";
-
-
 
 export default function InputAdornments() {
   const validationSchema = yup.object({
@@ -103,6 +99,7 @@ export default function InputAdornments() {
               margin="normal"
               fullWidth
               error={formik.touched.password && Boolean(formik.errors.password)}
+              
               
               InputProps={{
                 disableUnderline: true,
