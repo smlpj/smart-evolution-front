@@ -6,7 +6,7 @@ const NavbarButton = styled(Button)({
     border: "0.5px solid #488B8F",
     backgroundColor: "#EBEBEB",
     color: "#488B8F",
-    padding: "15px 40px 15px 40px",
+    padding: "1.5vh 2vh 1.5vh 2vh",
     fontSize: "14px",
 
     "&:hover": {
@@ -14,7 +14,6 @@ const NavbarButton = styled(Button)({
     },
     fontFamily: "Montserrat",
     fontWeight: "bold",
-
 });
 
 export default NavbarButton;

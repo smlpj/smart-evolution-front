@@ -22,7 +22,7 @@ export default function Navbar() {
                                 borderRadius: "4px 4px 0px 0px",
                                 border: "2px solid",
                                 borderColor: "#B5D1C9",
-                                padding: "70px",
+                                padding: "5vh",
                                 borderBottom: 0
                             }}
                         >
@@ -48,7 +48,7 @@ export default function Navbar() {
                                 border: "2px solid",
                                 borderColor: "#B5D1C9",
                                 backgroundColor: "#FAFAFA",
-                                padding: "150px 60px 150px 60px",
+                                padding: "10vh 5vh 10vh 5vh",
                             }}
                         >
                             <NavbarButton sx={{ backgroundColor: "#FFFFFF" }}>
