@@ -2,6 +2,7 @@ import { TextField } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 
+
 const smartField = styled(TextField)({
   width: "100%",
   height: "100%",
@@ -14,7 +15,7 @@ const smartField = styled(TextField)({
     padding: "2px",
     fontFamily: "Montserrat",
   },
-  
+
 });
 
 export default smartField;
