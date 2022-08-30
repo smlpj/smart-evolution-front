@@ -33,7 +33,7 @@ export default function Home() {
         </Grid>
         <Grid
           item
-          xs={0}
+          xs={12}
           md={6}
           style={{ height: "100vh", background: "#b5d1c9", color: "black" }}
           display="flex"
@@ -43,8 +43,8 @@ export default function Home() {
           <div>
             <Image
               src="/assets/Ilustración - Inicio de sesión.svg"
-              height={600}
-              width={600}
+              height='400%'
+              width='400%'
             />
           </div>
         </Grid>
