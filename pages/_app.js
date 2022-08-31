@@ -8,7 +8,7 @@ function MyApp({ Component, pageProps }) {
   const router = useRouter();
   return (
     <>
-      {router.pathname !== "/auth/login" ? <Header /> : null}
+      {/* {router.pathname !== "/auth/login" ? <Header /> : null}
       <Grid container spacing={0}>
         <Grid
           item
@@ -24,7 +24,8 @@ function MyApp({ Component, pageProps }) {
         <Grid item xs={9} sx={{ backgroundColor: "#EBEBEB" }}>
           <Component {...pageProps} />
         </Grid>
-      </Grid>
+      </Grid> */}
+      <Component {...pageProps} />
     </>
   );
 }

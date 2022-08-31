@@ -2,40 +2,34 @@ import * as React from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { InputAdornments } from "./components";
+import { useFetch } from "../../shared/hooks/useFetch";
 
-import { useFetch } from '../../hooks/useFetch'
-
-import { login } from './queries'
+import { login } from "./queries";
 
 export const InputV = () => {
+  // Hooks
+  const {
+    fetch: loginAux,
+    loading: loginLoading,
+    error: loginError,
+    data: dataLogin,
+  } = useFetch({ service: login, init: false });
 
-    // Hooks
-    const {
-        fetch: loginAux,
-        loading: loginLoading,
-        error: loginError,
-        data: dataLogin
-    } = useFetch({ service: login , init: false})
+  // Effects
 
-    // Effects
+  React.useEffect(() => {
+    if (loginError) {
+      alert();
+    }
 
-    React.useEffect(() => {
+    if (dataLogin !== undefined) {
+      console.log(dataLogin);
+    }
 
-        if (loginError) {
-            alert();
-        }
-
-        if (dataLogin !== undefined) { 
-            console.log(dataLogin)
-        }
-
-        if (loginLoading) {
-            console.log('loading')
-        }
-
-    },[dataLogin, loginError, loginLoading])
-
-
+    if (loginLoading) {
+      console.log("loading");
+    }
+  }, [dataLogin, loginError, loginLoading]);
 
   const validationSchema = yup.object({
     email: yup
@@ -58,7 +52,7 @@ export const InputV = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      loginAux(values)
+      loginAux(values);
     },
   });
 
