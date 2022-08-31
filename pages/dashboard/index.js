@@ -1,6 +1,6 @@
 import Head from "next/head";
-import Navbar from "../../../components/navbar";
-import Header from "../../../components/header";
+import Navbar from "../../components/navbar";
+import Header from "../../components/header";
 export default function index() {
     return (
         <div>
@@ -11,7 +11,7 @@ export default function index() {
             </Head>
 
             <Header />
-
+            <Navbar />
         </div>
     )
 }

@@ -1,4 +1,6 @@
-<svg id="Icon_-_Iniciar_Sesión" data-name="Icon - Iniciar Sesión" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
-  <rect id="Rectángulo_1" data-name="Rectángulo 1" width="20" height="20" fill="none"/>
-  <text id="arrow-right-to-bracket" transform="translate(10 16)" fill="#fff" font-size="16" font-family="FontAwesome6Pro-Solid, 'Font Awesome \36  Pro'"><tspan x="-8" y="0">arrow-right-to-bracket</tspan></text>
+<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26">
+  <g id="Icon_-_Iniciar_Sesión" data-name="Icon - Iniciar Sesión" transform="translate(3 3)">
+    <rect id="Rectángulo_1" data-name="Rectángulo 1" width="26" height="26" transform="translate(-3 -3)" fill="none"/>
+    <path id="Trazado_3405" data-name="Trazado 3405" d="M5-13H3a1,1,0,0,0-1,1,1,1,0,0,0,1,1H5a1,1,0,0,1,1,1v8A1,1,0,0,1,5-1H3A1,1,0,0,0,2,0,1,1,0,0,0,3,1H5A3,3,0,0,0,8-2v-8A3,3,0,0,0,5-13ZM2.706-6.706l-4-4a1,1,0,0,0-1.414,0,1,1,0,0,0,0,1.414L-.412-7H-7A1,1,0,0,0-8-6,1,1,0,0,0-7-5H-.412L-2.706-2.707a1,1,0,0,0,0,1.414,1,1,0,0,0,1.414,0l4-4A1,1,0,0,0,2.706-6.706Z" transform="translate(10 16)" fill="#fff"/>
+  </g>
 </svg>
