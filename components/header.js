@@ -7,68 +7,69 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import HeaderButton from "../styles/button_2";
+import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 
 export default function Header() {
   return (
     <>
-      <Box sx={{ width: "100vw" }}>
+      <Box sx={{ width: "100%" }}>
         <AppBar
           position="static"
           sx={{
             backgroundColor: "#EBEBEB",
             borderBottom: "1.4px solid #5EA3A380",
-            padding: "0.5vh 5vw 0.5vh 5vw",
+            padding: "0.5% 5% 0.5% 5%",
           }}
         >
           <Toolbar>
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              sx={{ mr: 2 }}
-            >
-              <img
-                style={{ height: "3.4vh" }}
-                src="/assets/Icono Smart.svg"
-              ></img>
-            </IconButton>
-            <HeaderButton
-              sx={{
-                border: "1.4px solid #5EA3A3",
-                padding: "1vh 1vw 1vh 1vw",
-              }}
-              endIcon={
-                <img
-                  style={{ marginLeft: "2vh" }}
-                  src="/assets/Icon Home.svg"
-                />
-              }
-            >
-              Inicio
-            </HeaderButton>
-            <IconButton
-              size="large"
+            <Box
               display="flex"
-              justifyContent="center"
+              flexDirection="row"
               alignItems="center"
-              edge="end"
-              color="inherit"
-              aria-label="menu"
+              sx={{ flexGrow: 1 }}
             >
+              <IconButton
+                size="large"
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                sx={{ mr: 2 }}
+              >
+                <img
+                  style={{ height: "3rem" }}
+                  src="/assets/Icono Smart.svg"
+                ></img>
+              </IconButton>
               <HeaderButton
                 sx={{
                   border: "1.4px solid #5EA3A3",
-                  borderRadius: "50%",
                   padding: "1vh 1vw 1vh 1vw",
                 }}
+                endIcon={
+                  <img
+                    style={{ marginLeft: "2vh" }}
+                    src="/assets/Icon Home.svg"
+                  />
+                }
               >
-                <img
-                  style={{ height: "2vh" }}
-                  src="/assets/Icon - Notificación.svg"
-                ></img>
+                Inicio
               </HeaderButton>
-            </IconButton>
+            </Box>
+            <Box display="flex" flexDirection="row" alignItems="center">
+              <HeaderButton
+                size="large"
+                edge="start"
+                color="inherit"
+                aria-label="notifications"
+                sx={{
+                  borderRadius: "50%",
+                  border: "1.4px solid #488B8F",
+                  objectFit: "cover",
+                }}
+              >
+                <NotificationsNoneOutlinedIcon />
+              </HeaderButton>
+            </Box>
           </Toolbar>
         </AppBar>
       </Box>

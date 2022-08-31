@@ -13,6 +13,11 @@ const NavbarButton = styled(Button)({
     backgroundColor: "#5EA3A333",
   },
 
+  "&:disabled": {
+    color: "#AAC5C6",
+    borderColor: "#AAC5C6",
+  },
+
   fontFamily: "Montserrat",
   fontWeight: "bold",
 });
