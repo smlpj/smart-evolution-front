@@ -3,16 +3,15 @@ import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
-import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import globalStyles from "../styles/global.module.css";
-import MuiButton from "../styles/button";
-import MuiTextField from "../styles/fields";
-import HelperText from "../styles/helperText";
-import LoginIcon from '@mui/icons-material/Login';
-
+import MuiButton from "../../styles/button";
+import MuiTextField from "../../styles/fields";
+import HelperText from "../../styles/helperText";
+import LoginIcon from "@mui/icons-material/Login";
 
 export default function InputAdornments() {
   const validationSchema = yup.object({
@@ -61,10 +60,10 @@ export default function InputAdornments() {
 
   return (
     <form onSubmit={formik.handleSubmit}>
-      <Box display="flex" flexDirection="column" sx={{marginTop: "50px"}}>
+      <Box display="flex" flexDirection="column" sx={{ marginTop: "50px" }}>
         <Box display="flex" flexDirection="column">
           <h1 className={globalStyles.subtitulo}>Email</h1>
-          <FormControl fullWidth sx={{marginBottom: "20px"}}>
+          <FormControl fullWidth sx={{ marginBottom: "20px" }}>
             <MuiTextField
               id="email"
               placeholder="Ingresa tu email"
@@ -79,9 +78,15 @@ export default function InputAdornments() {
               InputProps={{
                 disableUnderline: true,
               }}
-              sx={formik.touched.email && Boolean(formik.errors.email) ? {border: "2px solid #E6643180"} : null}
+              sx={
+                formik.touched.email && Boolean(formik.errors.email)
+                  ? { border: "2px solid #E6643180" }
+                  : null
+              }
             />
-            <HelperText>{formik.touched.email && formik.errors.email}</HelperText>
+            <HelperText>
+              {formik.touched.email && formik.errors.email}
+            </HelperText>
           </FormControl>
           <h1 className={globalStyles.subtitulo}>Contraseña</h1>
           <FormControl fullWidth>
@@ -96,8 +101,11 @@ export default function InputAdornments() {
               margin="normal"
               fullWidth
               error={formik.touched.password && Boolean(formik.errors.password)}
-              sx={formik.touched.password && Boolean(formik.errors.password)? {border: "2px solid #E6643180"} : null}
-              
+              sx={
+                formik.touched.password && Boolean(formik.errors.password)
+                  ? { border: "2px solid #E6643180" }
+                  : null
+              }
               InputProps={{
                 disableUnderline: true,
                 endAdornment: (
@@ -107,21 +115,34 @@ export default function InputAdornments() {
                       onClick={handleClickShowPassword}
                       onMouseDown={handleMouseDownPassword}
                     >
-                      {values.showPassword ? <VisibilityOutlinedIcon style={{ color: "#69AAA9" }}/> : <VisibilityOffOutlinedIcon style={{ color: "#69AAA9" }} />}
+                      {values.showPassword ? (
+                        <VisibilityOutlinedIcon style={{ color: "#69AAA9" }} />
+                      ) : (
+                        <VisibilityOffOutlinedIcon
+                          style={{ color: "#69AAA9" }}
+                        />
+                      )}
                     </IconButton>
                   </InputAdornment>
                 ),
               }}
             />
           </FormControl>
-          <HelperText>{formik.touched.password && formik.errors.password}</HelperText>
+          <HelperText>
+            {formik.touched.password && formik.errors.password}
+          </HelperText>
         </Box>
 
         <Box display="flex" justifyContent="center">
-          <MuiButton variant="contained" color="primary" type="submit" startIcon={<LoginIcon/>}>
+          <MuiButton
+            variant="contained"
+            color="primary"
+            type="submit"
+            startIcon={<LoginIcon />}
+          >
             Iniciar la plataforma
           </MuiButton>
-        </Box>  
+        </Box>
       </Box>
     </form>
   );

@@ -1,6 +1,6 @@
 import { Grid } from "@mui/material";
 import { Box } from "@mui/system";
-import NavbarButton from "../styles/button_2";
+import NavbarButton from "../../styles/button_2";
 import Header from "./header";
 
 export default function Navbar() {
@@ -19,16 +19,12 @@ export default function Navbar() {
           }}
         >
           <NavbarButton sx={{ marginBottom: "25px" }}>Clientes</NavbarButton>
-          <NavbarButton disabled sx={{ marginBottom: "25px" }}>
+          <NavbarButton sx={{ marginBottom: "25px" }}>
             Pre-Operaciones
           </NavbarButton>
-          <NavbarButton disabled sx={{ marginBottom: "25px" }}>
-            Operaciones
-          </NavbarButton>
-          <NavbarButton disabled sx={{ marginBottom: "25px" }}>
-            Corredores
-          </NavbarButton>
-          <NavbarButton disabled>Administración</NavbarButton>
+          <NavbarButton sx={{ marginBottom: "25px" }}>Operaciones</NavbarButton>
+          <NavbarButton sx={{ marginBottom: "25px" }}>Corredores</NavbarButton>
+          <NavbarButton>Administración</NavbarButton>
         </Box>
         <Box
           display="flex"
