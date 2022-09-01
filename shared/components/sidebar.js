@@ -6,7 +6,11 @@ import Header from "./header";
 export default function Navbar() {
   return (
     <>
-      <Box display="flex" flexDirection="column">
+      <Box
+        sx={{
+          marginLeft: "3%",
+        }}
+      >
         <Box
           display="flex"
           flexDirection="column"
@@ -14,16 +18,16 @@ export default function Navbar() {
             borderRadius: "4px 4px 0px 0px",
             border: "2px solid",
             borderColor: "#B5D1C9",
-            padding: "5vh",
-            borderBottom: 0,
+            padding: "3rem",
+            backgroundColor: "#EBEBEB",
           }}
         >
-          <NavbarButton sx={{ marginBottom: "25px" }}>Clientes</NavbarButton>
-          <NavbarButton sx={{ marginBottom: "25px" }}>
+          <NavbarButton sx={{ marginBottom: "2rem" }}>Clientes</NavbarButton>
+          <NavbarButton sx={{ marginBottom: "2rem" }}>
             Pre-Operaciones
           </NavbarButton>
-          <NavbarButton sx={{ marginBottom: "25px" }}>Operaciones</NavbarButton>
-          <NavbarButton sx={{ marginBottom: "25px" }}>Corredores</NavbarButton>
+          <NavbarButton sx={{ marginBottom: "2rem" }}>Operaciones</NavbarButton>
+          <NavbarButton sx={{ marginBottom: "2rem" }}>Corredores</NavbarButton>
           <NavbarButton>Administración</NavbarButton>
         </Box>
         <Box

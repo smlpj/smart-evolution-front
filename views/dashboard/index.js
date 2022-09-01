@@ -11,6 +11,8 @@ export default function Dashboard() {
 
       {/*  <Header />
       <Navbar /> */}
+
+      <h1 style={{ color: "white" }}>Hola mundo</h1>
     </div>
   );
 }

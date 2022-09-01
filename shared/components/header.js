@@ -12,13 +12,52 @@ import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNone
 export default function Header() {
   return (
     <>
-      <Box sx={{ width: "100%" }}>
+      <AppBar
+        position="static"
+        sx={{
+          backgroundColor: "#EBEBEB",
+          borderBottom: "1.4px solid #5EA3A380",
+        }}
+      >
+        <Toolbar>
+          <img style={{ height: "3rem" }} src="/assets/Icono Smart.svg"></img>
+          <HeaderButton
+            sx={{
+              border: "1.4px solid #5EA3A3",
+              padding: "1vh 1vw 1vh 1vw",
+            }}
+            endIcon={
+              <img style={{ marginLeft: "2vh" }} src="/assets/Icon Home.svg" />
+            }
+          >
+            Inicio
+          </HeaderButton>
+          <Box flexGrow={1} />
+          <HeaderButton
+            sx={{ padding: "1rem 1rem 1rem 1rem", borderRadius: "50%" }}
+          >
+            <NotificationsNoneOutlinedIcon />
+          </HeaderButton>
+          <HeaderButton
+            sx={{
+              padding: "1rem 1rem 1rem 1rem",
+              borderRadius: "50%",
+              backgroundColor: "#488B8F",
+              color: "white",
+              marginLeft: "1vw",
+            }}
+          >
+            S
+          </HeaderButton>
+        </Toolbar>
+      </AppBar>
+      {/* <Box>
         <AppBar
           position="static"
           sx={{
             backgroundColor: "#EBEBEB",
             borderBottom: "1.4px solid #5EA3A380",
-            padding: "0.5% 5% 0.5% 5%",
+            padding: 0,
           }}
         >
           <Toolbar>
@@ -55,11 +94,9 @@ export default function Header() {
                 Inicio
               </HeaderButton>
             </Box>
-            <Box display="flex" flexDirection="row" alignItems="center">
+            <Box>
               <HeaderButton
-                size="large"
                 edge="start"
-                color="inherit"
                 aria-label="notifications"
                 sx={{
                   borderRadius: "50%",
@@ -72,7 +109,7 @@ export default function Header() {
             </Box>
           </Toolbar>
         </AppBar>
-      </Box>
+      </Box> */}
     </>
   );
 }
