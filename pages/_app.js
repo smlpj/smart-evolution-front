@@ -1,7 +1,5 @@
 import "../styles/globals.css";
-import Navbar from "../shared/components/navbar";
 import { useRouter } from "next/router";
-import Header from "../shared/components/header";
 import { Grid } from "@mui/material";
 
 function MyApp({ Component, pageProps }) {

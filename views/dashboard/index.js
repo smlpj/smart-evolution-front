@@ -1,4 +1,5 @@
 import Head from "next/head";
+
 export default function Dashboard() {
   return (
     <div>
@@ -8,7 +9,8 @@ export default function Dashboard() {
         <link rel="icon" href="/assets/Icono Smart.svg" />
       </Head>
 
-      <h1>Hola mundo</h1>
+      {/*  <Header />
+      <Navbar /> */}
     </div>
   );
 }

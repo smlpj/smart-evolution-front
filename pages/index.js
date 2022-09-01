@@ -1,4 +1,4 @@
-import Head from "next/head";
+/* import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/login.module.css";
 import Inputs from "../components/inputs";
@@ -54,3 +54,4 @@ export default function Home() {
     </div>
   );
 }
+ */
