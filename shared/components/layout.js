@@ -27,7 +27,7 @@ export default function Layout({ children }) {
         </Grid>
         <Grid item xs display="flex" alignItems="center">
           <Grid container direction="row">
-            <Grid item xs={3} sx={{ padding: "2%" }}>
+            <Grid item xs={3}>
               <Sidebar />
             </Grid>
             <Grid item xs>

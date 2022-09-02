@@ -14,7 +14,8 @@ export default function Navbar() {
           border: "2px solid",
           borderBottom: "0px",
           borderColor: "#B5D1C9",
-          padding: "8%",
+
+          "@media (max-height: 1110px)": {},
           backgroundColor: "#EBEBEB",
         }}
       >
