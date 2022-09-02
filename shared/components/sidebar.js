@@ -14,17 +14,16 @@ export default function Navbar() {
           border: "2px solid",
           borderBottom: "0px",
           borderColor: "#B5D1C9",
-
           "@media (max-height: 1110px)": {},
           backgroundColor: "#EBEBEB",
         }}
       >
-        <NavbarButton sx={{ marginBottom: "2rem" }}>Clientes</NavbarButton>
-        <NavbarButton sx={{ marginBottom: "2rem" }}>
+        <NavbarButton sx={{ marginBottom: "15%" }}>Clientes</NavbarButton>
+        <NavbarButton sx={{ marginBottom: "15%" }}>
           Pre-Operaciones
         </NavbarButton>
-        <NavbarButton sx={{ marginBottom: "2rem" }}>Operaciones</NavbarButton>
-        <NavbarButton sx={{ marginBottom: "2rem" }}>Corredores</NavbarButton>
+        <NavbarButton sx={{ marginBottom: "15%" }}>Operaciones</NavbarButton>
+        <NavbarButton sx={{ marginBottom: "15%" }}>Corredores</NavbarButton>
         <NavbarButton>Administración</NavbarButton>
       </Box>
       <Box
@@ -35,7 +34,7 @@ export default function Navbar() {
           border: "2px solid",
           borderColor: "#B5D1C9",
           backgroundColor: "#FAFAFA",
-          padding: "25% 15% 25% 15%",
+
           "@media (max-width: 1366px)": {},
         }}
       >
