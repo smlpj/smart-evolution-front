@@ -17,38 +17,62 @@ export default function Header() {
         sx={{
           backgroundColor: "#EBEBEB",
           borderBottom: "1.4px solid #5EA3A380",
+          padding: "0.4% 5% 0.4% 5%",
         }}
       >
         <Toolbar>
-          <img style={{ height: "3rem" }} src="/assets/Icono Smart.svg"></img>
+          <img style={{ height: "2.6rem" }} src="/assets/Icono Smart.svg"></img>
           <HeaderButton
             sx={{
               border: "1.4px solid #5EA3A3",
-              padding: "1vh 1vw 1vh 1vw",
+              padding: "0.7%",
+              marginLeft: "1.3%",
             }}
             endIcon={
-              <img style={{ marginLeft: "2vh" }} src="/assets/Icon Home.svg" />
+              <img style={{ marginLeft: "1vw" }} src="/assets/Icon Home.svg" />
             }
           >
             Inicio
           </HeaderButton>
           <Box flexGrow={1} />
-          <HeaderButton
-            sx={{ padding: "1rem 1rem 1rem 1rem", borderRadius: "50%" }}
-          >
-            <NotificationsNoneOutlinedIcon />
-          </HeaderButton>
-          <HeaderButton
+          {/*           <HeaderButton
             sx={{
-              padding: "1rem 1rem 1rem 1rem",
               borderRadius: "50%",
-              backgroundColor: "#488B8F",
-              color: "white",
-              marginLeft: "1vw",
             }}
           >
-            S
-          </HeaderButton>
+            <NotificationsNoneOutlinedIcon />
+          </HeaderButton> */}
+          <IconButton
+            edge="end"
+            sx={{
+              border: "0.5px solid #488B8F",
+              backgroundColor: "#EBEBEB",
+              color: "#488B8F",
+              padding: "1.2%",
+              marginRight: "1%",
+              "&:hover": {
+                backgroundColor: "#CFDDDD",
+              },
+            }}
+            aria-label="notifications"
+          >
+            <NotificationsNoneOutlinedIcon />
+          </IconButton>
+          <IconButton
+            edge="end"
+            sx={{
+              border: "0.5px solid #488B8F",
+              backgroundColor: "#488B8F",
+              color: "#FFFFFF",
+              padding: "1.2%",
+              "&:hover": {
+                backgroundColor: "#5EA3A3",
+              },
+            }}
+            aria-label="avatar"
+          >
+            <NotificationsNoneOutlinedIcon />
+          </IconButton>
         </Toolbar>
       </AppBar>
       {/* <Box>

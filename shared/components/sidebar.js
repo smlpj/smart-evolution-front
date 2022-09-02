@@ -8,7 +8,9 @@ export default function Navbar() {
     <>
       <Box
         sx={{
-          marginLeft: "3%",
+          marginTop: "1.5%",
+          marginLeft: "4%",
+          width: "20%",
         }}
       >
         <Box
@@ -16,9 +18,9 @@ export default function Navbar() {
           flexDirection="column"
           sx={{
             borderRadius: "4px 4px 0px 0px",
-            border: "2px solid",
+            border: "2px 2px 0px 2px solid",
             borderColor: "#B5D1C9",
-            padding: "3rem",
+            padding: "10%",
             backgroundColor: "#EBEBEB",
           }}
         >
@@ -38,7 +40,10 @@ export default function Navbar() {
             border: "2px solid",
             borderColor: "#B5D1C9",
             backgroundColor: "#FAFAFA",
-            padding: "10vh 5vh 10vh 5vh",
+            padding: "20% 10% 20% 10%",
+            "@media (max-width: 600px)": {
+              backgroundColor: "black",
+            },
           }}
         >
           <NavbarButton sx={{ backgroundColor: "#FFFFFF" }}>
