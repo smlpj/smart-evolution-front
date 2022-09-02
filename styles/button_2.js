@@ -6,7 +6,8 @@ const NavbarButton = styled(Button)({
   border: "0.5px solid #488B8F",
   backgroundColor: "#EBEBEB",
   color: "#488B8F",
-  fontSize: "0.8rem",
+  fontSize: "0.6rem",
+  padding: "1.4rem",
 
   "&:hover": {
     backgroundColor: "#5EA3A333",

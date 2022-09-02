@@ -13,14 +13,15 @@ export default function Header() {
   return (
     <>
       <AppBar
-        position="static"
+        elevation={0}
+        position="relative" // static, fixed, absolute, sticky, relative
         sx={{
           backgroundColor: "#EBEBEB",
           borderBottom: "1.4px solid #5EA3A380",
-          padding: "0.4% 5% 0.4% 5%",
+          padding: "0.6rem",
         }}
       >
-        <Toolbar>
+        <Toolbar sx={{ marginRight: "3%", marginLeft: "3%" }}>
           <img style={{ height: "2.6rem" }} src="/assets/Icono Smart.svg"></img>
           <HeaderButton
             sx={{
@@ -35,20 +36,14 @@ export default function Header() {
             Inicio
           </HeaderButton>
           <Box flexGrow={1} />
-          {/*           <HeaderButton
-            sx={{
-              borderRadius: "50%",
-            }}
-          >
-            <NotificationsNoneOutlinedIcon />
-          </HeaderButton> */}
+
           <IconButton
             edge="end"
             sx={{
               border: "0.5px solid #488B8F",
               backgroundColor: "#EBEBEB",
               color: "#488B8F",
-              padding: "1.2%",
+              padding: "0.8%",
               marginRight: "1%",
               "&:hover": {
                 backgroundColor: "#CFDDDD",
@@ -64,7 +59,7 @@ export default function Header() {
               border: "0.5px solid #488B8F",
               backgroundColor: "#488B8F",
               color: "#FFFFFF",
-              padding: "1.2%",
+              padding: "0.8%",
               "&:hover": {
                 backgroundColor: "#5EA3A3",
               },
