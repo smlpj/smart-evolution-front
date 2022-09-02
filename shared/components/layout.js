@@ -2,6 +2,7 @@ import { Grid } from "@mui/material";
 import NavbarButton from "../../styles/button_2";
 import Header from "./header";
 import Sidebar from "./sidebar";
+import Footer from "./footer";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -35,7 +36,9 @@ export default function Layout({ children }) {
           </Grid>
         </Grid>
         <Grid item xs={1}>
-          <h1>Hola</h1>
+          <Box marginLeft="2rem" marginRight="2rem">
+            <Footer />
+          </Box>
         </Grid>
       </Grid>
     </>
