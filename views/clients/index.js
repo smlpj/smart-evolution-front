@@ -1,115 +1,89 @@
-import { Grid } from "@mui/material";
-import MuiTextField from "../../styles/fields";
-import { Box } from "@mui/material";
-import InputTitles from "../../styles/inputTitles";
+import * as React from "react";
+import { useFormik } from "formik";
+import * as yup from "yup";
+import { InputsForClient } from "./components";
+import { useFetch } from "../../shared/hooks/useFetch";
 
-export default function ClientRegister() {
+import { login } from "./queries";
+
+export default function InputClient() {
+  // Hooks
+  const {
+    fetch: loginAux,
+    loading: loginLoading,
+    error: loginError,
+    data: dataLogin,
+  } = useFetch({ service: login, init: false });
+
+  // Effects
+
+  React.useEffect(() => {
+    if (loginError) {
+      alert();
+    }
+
+    if (dataLogin !== undefined) {
+      console.log(dataLogin);
+    }
+
+    if (loginLoading) {
+      console.log("loading");
+    }
+  }, [dataLogin, loginError, loginLoading]);
+
+  const validationSchema = yup.object({
+    email: yup
+      .string("Ingresa un email")
+      .matches(
+        /^[a-zA-Z]+[a-zA-Z0-9_.]+@[a-zA-Z.]+[a-zA-Z]$/,
+        "Ingresa un email válido"
+      )
+      .required("El email es requerido"),
+    password: yup
+      .string("Ingresa una contraseña")
+      .min(8, "La contraseña debe tener al menos 8 caracteres")
+      .required("La contraseña es requerida"),
+  });
+
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      loginAux(values);
+    },
+  });
+
+  const [values, setValues] = React.useState({
+    amount: "",
+    password: "",
+    weight: "",
+    weightRange: "",
+    showPassword: false,
+  });
+
+  const handleClickShowPassword = () => {
+    setValues({
+      ...values,
+      showPassword: !values.showPassword,
+    });
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
   return (
     <>
-      <Grid container spacing={0}>
-        <Grid
-          item
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          height="100vh"
-          xs={12}
-          sx={{ backgroundColor: "#EBEBEB" }}
-        >
-          <Box display="flex" flexDirection="column">
-            <Box display="flex" flexDirection="column">
-              <InputTitles>Tipo de documento</InputTitles>
-              <MuiTextField
-                placeholder="Ingresa tu número de documento"
-                variant="standard"
-                margin="normal"
-                fullWidth
-                InputProps={{
-                  disableUnderline: true,
-                }}
-                sx={{ width: "20rem", marginBottom: "3rem" }}
-              />
-              <InputTitles>Número de documento</InputTitles>
-              <MuiTextField
-                placeholder="Ingresa tu número de documento"
-                variant="standard"
-                margin="normal"
-                fullWidth
-                InputProps={{
-                  disableUnderline: true,
-                }}
-                sx={{ width: "20rem", marginBottom: "3rem" }}
-              />
-              <InputTitles>Número de documento</InputTitles>
-              <MuiTextField
-                placeholder="Ingresa tu número de documento"
-                variant="standard"
-                margin="normal"
-                fullWidth
-                InputProps={{
-                  disableUnderline: true,
-                }}
-                sx={{ width: "20rem", marginBottom: "3rem" }}
-              />
-              <InputTitles>Número de documento</InputTitles>
-              <MuiTextField
-                placeholder="Ingresa tu número de documento"
-                variant="standard"
-                margin="normal"
-                fullWidth
-                InputProps={{
-                  disableUnderline: true,
-                }}
-                sx={{ width: "20rem", marginBottom: "3rem" }}
-              />
-              <InputTitles>Número de documento</InputTitles>
-              <MuiTextField
-                placeholder="Ingresa tu número de documento"
-                variant="standard"
-                margin="normal"
-                fullWidth
-                InputProps={{
-                  disableUnderline: true,
-                }}
-                sx={{ width: "20rem", marginBottom: "3rem" }}
-              />
-              <InputTitles>Número de documento</InputTitles>
-              <MuiTextField
-                placeholder="Ingresa tu número de documento"
-                variant="standard"
-                margin="normal"
-                fullWidth
-                InputProps={{
-                  disableUnderline: true,
-                }}
-                sx={{ width: "20rem", marginBottom: "3rem" }}
-              />
-              <InputTitles>Número de documento</InputTitles>
-              <MuiTextField
-                placeholder="Ingresa tu número de documento"
-                variant="standard"
-                margin="normal"
-                fullWidth
-                InputProps={{
-                  disableUnderline: true,
-                }}
-                sx={{ width: "20rem", marginBottom: "3rem" }}
-              />
-              <InputTitles>Número de documento</InputTitles>
-              <MuiTextField
-                placeholder="Ingresa tu número de documento"
-                variant="standard"
-                margin="normal"
-                fullWidth
-                InputProps={{
-                  disableUnderline: true,
-                }}
-                sx={{ width: "20rem", marginBottom: "3rem" }}
-              />
-            </Box>
-          </Box>
-        </Grid>
-      </Grid>
+      <InputsForClient
+        formik={formik}
+        values={values}
+        setValues={setValues}
+        handleClickShowPassword={handleClickShowPassword}
+        handleMouseDownPassword={handleMouseDownPassword}
+      />
     </>
   );
 }

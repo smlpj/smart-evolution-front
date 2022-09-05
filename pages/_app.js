@@ -7,7 +7,7 @@ function MyApp({ Component, pageProps }) {
   const router = useRouter();
   return (
     <>
-      {router.pathname !== "/auth/login" ? (
+      {router.pathname !== "/auth/login" && router.pathname !== "/clients" ? (
         <Layout>
           <Component {...pageProps} />
         </Layout>
@@ -16,25 +16,6 @@ function MyApp({ Component, pageProps }) {
       )}
     </>
   );
-}
-
-{
-  /* <Grid container spacing={0}>
-  <Grid
-    item
-    xs={3}
-    sx={{ backgroundColor: "#EBEBEB", height: "92vh", color: "black" }}
-    display="flex"
-    alignItems="center"
-    justifyContent="left"
-    paddingLeft="3%"
-  >
-    {router.pathname !== "/auth/login" ? <Navbar /> : null}
-  </Grid>
-  <Grid item xs={9} sx={{ backgroundColor: "#EBEBEB" }}>
-    <Component {...pageProps} />
-  </Grid>
-</Grid> */
 }
 
 export default MyApp;
