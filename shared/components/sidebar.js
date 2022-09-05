@@ -5,55 +5,14 @@ import Header from "./header";
 
 export default function Navbar() {
   return (
-    /*  <>
-      <Box
-        display="flex"
-        flexDirection="column"
-        sx={{
-          borderRadius: "4px 4px 0px 0px",
-          border: "2px solid",
-          borderBottom: "0px",
-          borderColor: "#B5D1C9",
-          "@media (max-height: 1110px)": {},
-          backgroundColor: "#EBEBEB",
-        }}
-      >
-        <NavbarButton sx={{ marginBottom: "15%" }}>Clientes</NavbarButton>
-        <NavbarButton sx={{ marginBottom: "15%" }}>
-          Pre-Operaciones
-        </NavbarButton>
-        <NavbarButton sx={{ marginBottom: "15%" }}>Operaciones</NavbarButton>
-        <NavbarButton sx={{ marginBottom: "15%" }}>Corredores</NavbarButton>
-        <NavbarButton>Administración</NavbarButton>
-      </Box>
-      <Box
-        display="flex"
-        flexDirection="column"
-        sx={{
-          borderRadius: "0px 0px 4px 4px",
-          border: "2px solid",
-          borderColor: "#B5D1C9",
-          backgroundColor: "#FAFAFA",
-
-          "@media (max-width: 1366px)": {},
-        }}
-      >
-        <NavbarButton sx={{ backgroundColor: "#FFFFFF" }}>
-          Inversores disponibles
-        </NavbarButton>
-      </Box>
-    </> */
-
     <>
       <Grid
         container
         direction="column"
-        justifyContent="center"
-        alignItems="center"
         border="2px solid"
         borderColor="#B5D1C9"
         borderRadius="4px"
-        height="70vh"
+        height="73vh"
       >
         <Grid
           container
@@ -61,33 +20,44 @@ export default function Navbar() {
           direction="column"
           justifyContent="center"
           alignItems="center"
+          borderBottom="2px solid"
+          borderColor="#B5D1C9"
         >
           <NavbarButton
-            sx={{ marginBottom: "8%", width: "70%", height: "10%" }}
+            sx={{ marginBottom: "8%", width: "55%", height: "12%" }}
           >
             Clientes
           </NavbarButton>
           <NavbarButton
-            sx={{ marginBottom: "8%", width: "70%", height: "10%" }}
+            sx={{ marginBottom: "8%", width: "55%", height: "12%" }}
           >
             Pre-Operaciones
           </NavbarButton>
           <NavbarButton
-            sx={{ marginBottom: "8%", width: "70%", height: "10%" }}
+            sx={{ marginBottom: "8%", width: "55%", height: "12%" }}
           >
             Operaciones
           </NavbarButton>
           <NavbarButton
-            sx={{ marginBottom: "8%", width: "70%", height: "10%" }}
+            sx={{ marginBottom: "8%", width: "55%", height: "12%" }}
           >
             Corredores
           </NavbarButton>
-          <NavbarButton sx={{ width: "70%", height: "10%" }}>
+          <NavbarButton sx={{ width: "55%", height: "12%" }}>
             Administración
           </NavbarButton>
         </Grid>
-        <Grid container xs={4} justifyContent="center" alignItems="center">
-          <NavbarButton sx={{ backgroundColor: "#FFFFFF" }}>
+        <Grid
+          item
+          xs={4.3}
+          display="flex"
+          backgroundColor="#FAFAFA"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <NavbarButton
+            sx={{ backgroundColor: "#FFFFFF", width: "70%", height: "20%" }}
+          >
             Inversores disponibles
           </NavbarButton>
         </Grid>
