@@ -5,7 +5,7 @@ import Header from "./header";
 
 export default function Navbar() {
   return (
-    <>
+    /*  <>
       <Box
         display="flex"
         flexDirection="column"
@@ -42,6 +42,56 @@ export default function Navbar() {
           Inversores disponibles
         </NavbarButton>
       </Box>
+    </> */
+
+    <>
+      <Grid
+        container
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
+        border="2px solid"
+        borderColor="#B5D1C9"
+        borderRadius="4px"
+        height="70vh"
+      >
+        <Grid
+          container
+          xs
+          direction="column"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <NavbarButton
+            sx={{ marginBottom: "8%", width: "70%", height: "10%" }}
+          >
+            Clientes
+          </NavbarButton>
+          <NavbarButton
+            sx={{ marginBottom: "8%", width: "70%", height: "10%" }}
+          >
+            Pre-Operaciones
+          </NavbarButton>
+          <NavbarButton
+            sx={{ marginBottom: "8%", width: "70%", height: "10%" }}
+          >
+            Operaciones
+          </NavbarButton>
+          <NavbarButton
+            sx={{ marginBottom: "8%", width: "70%", height: "10%" }}
+          >
+            Corredores
+          </NavbarButton>
+          <NavbarButton sx={{ width: "70%", height: "10%" }}>
+            Administración
+          </NavbarButton>
+        </Grid>
+        <Grid container xs={4} justifyContent="center" alignItems="center">
+          <NavbarButton sx={{ backgroundColor: "#FFFFFF" }}>
+            Inversores disponibles
+          </NavbarButton>
+        </Grid>
+      </Grid>
     </>
   );
 }

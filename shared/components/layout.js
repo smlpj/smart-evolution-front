@@ -25,9 +25,9 @@ export default function Layout({ children }) {
         <Grid item xs={1}>
           <Header />
         </Grid>
-        <Grid item xs display="flex" alignItems="center">
+        <Grid margin="0% 5%" item xs display="flex" alignItems="center">
           <Grid container direction="row">
-            <Grid item xs={3}>
+            <Grid item xs={2.5}>
               <Sidebar />
             </Grid>
             <Grid item xs>
@@ -36,7 +36,7 @@ export default function Layout({ children }) {
           </Grid>
         </Grid>
         <Grid item xs={1}>
-          <Box marginLeft="2rem" marginRight="2rem">
+          <Box margin="0% 5%">
             <Footer />
           </Box>
         </Grid>
