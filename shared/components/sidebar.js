@@ -56,7 +56,7 @@ export default function Navbar() {
           alignItems="center"
         >
           <NavbarButton
-            sx={{ backgroundColor: "#FFFFFF", width: "70%", height: "20%" }}
+            sx={{ backgroundColor: "#FFFFFF", width: "70%", height: "30%" }}
           >
             Inversores disponibles
           </NavbarButton>

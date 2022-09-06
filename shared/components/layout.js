@@ -35,7 +35,7 @@ export default function Layout({ children }) {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={1}>
+        <Grid item xs={0.5}>
           <Box margin="0% 5%">
             <Footer />
           </Box>

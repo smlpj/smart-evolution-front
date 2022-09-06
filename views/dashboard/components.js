@@ -37,7 +37,18 @@ export const DashboardContent = () => {
         </Typography>
         <Image src="/assets/Ilustración - Home.svg" height={500} width={500} />
       </Box>
-      <Box height="26.1vh" sx={{}}>
+      <Box
+        height="26.1vh"
+        display="flex"
+        flexDirection="row"
+        justifyContent="space-around"
+        sx={{
+          overflow: "auto",
+          scrollBehavior: "smooth",
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
+        }}
+      >
         <Box
           display="flex"
           justifyContent="center"
@@ -120,7 +131,7 @@ export const DashboardContent = () => {
             </Box>
           </Box>
         </Box>
-        {/* <Box
+        <Box
           display="flex"
           justifyContent="center"
           margin="0rem 3rem"
@@ -201,7 +212,7 @@ export const DashboardContent = () => {
               </Typography>
             </Box>
           </Box>
-        </Box> */}
+        </Box>
       </Box>
     </>
   );
