@@ -167,6 +167,11 @@ export default function SignUp() {
     { label: "3 Idiots", year: 2009 },
     { label: "Monty Python and the Holy Grail", year: 1975 },
   ];
+
+  const ClientType = [
+    { label: "Persona natural", value: "natural" },
+    { label: "Persona jurídica", value: "juridica" },
+  ];
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -193,6 +198,32 @@ export default function SignUp() {
             sx={{ mt: 3 }}
           >
             <Grid container spacing={4}>
+              <Grid item xs={12}>
+                <Box>
+                  <InputTitles marginBottom={3}>Tipo de cliente</InputTitles>
+                  <Autocomplete
+                    disablePortal
+                    id="combo-box-demo"
+                    options={ClientType}
+                    color="#5EA3A3"
+                    popupIcon={
+                      <KeyboardArrowDownIcon sx={{ color: "#5EA3A3" }} />
+                    }
+                    clearIcon={<Clear sx={{ color: "#5EA3A3" }} />}
+                    renderInput={(params) => (
+                      <MuiTextField
+                        variant="standard"
+                        {...params}
+                        placeholder="Tipo de cliente"
+                        InputProps={{
+                          ...params.InputProps,
+                          disableUnderline: true,
+                        }}
+                      />
+                    )}
+                  />
+                </Box>
+              </Grid>
               <Grid item xs={12}>
                 <Box>
                   <InputTitles marginBottom={3}>

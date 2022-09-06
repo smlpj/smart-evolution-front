@@ -7,7 +7,9 @@ function MyApp({ Component, pageProps }) {
   const router = useRouter();
   return (
     <>
-      {router.pathname !== "/auth/login" && router.pathname !== "/clients" ? (
+      {router.pathname !== "/auth/login" &&
+      router.pathname !== "/clients" &&
+      router.pathname !== "/customers" ? (
         <Layout>
           <Component {...pageProps} />
         </Layout>
