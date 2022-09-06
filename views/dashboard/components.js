@@ -1,4 +1,5 @@
-import { Grid, Typography, Box } from "@mui/material";
+import { Grid, Typography, Box, CircularProgress } from "@mui/material";
+import Image from "next/image";
 
 export const DashboardContent = () => {
   return (
@@ -18,10 +19,34 @@ export const DashboardContent = () => {
         </Grid>
         <Grid item xs={5}></Grid>
       </Grid> */}
-      <Box height="73vh" bgcolor="#B5D1C9">
-        <Typography variant="h5" color="primary">
-          Hola, como tas?
+      <Box height="46.9vh" bgcolor="#B5D1C9" display="flex">
+        <Typography
+          variant="h5"
+          color="#5B898E"
+          fontFamily="Montserrat"
+          alignSelf="center"
+          marginLeft="5rem"
+        >
+          <b>
+            “Para tener éxito tu deseo de alcanzarlo debe ser mayor que tu miedo
+            al fracaso”
+          </b>
+          <br></br> - Bill Cosby
         </Typography>
+        <Image src="/assets/Ilustración - Home.svg" height={500} width={500} />
+      </Box>
+      <Box height="26.1vh" sx={{}}>
+        <CircularProgress
+          variant="determinate"
+          value={82}
+          size="11rem"
+          style={{
+            backgroundColor: "white",
+            color: "#488B8F",
+            borderRadius: "50%",
+          }}
+          thickness={4.5}
+        ></CircularProgress>
       </Box>
     </>
   );
