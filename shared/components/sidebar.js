@@ -24,26 +24,26 @@ export default function Navbar() {
           borderColor="#B5D1C9"
         >
           <NavbarButton
-            sx={{ marginBottom: "8%", width: "55%", height: "12%" }}
+            sx={{ marginBottom: "8%", width: "70%", height: "12%" }}
           >
             Clientes
           </NavbarButton>
           <NavbarButton
-            sx={{ marginBottom: "8%", width: "55%", height: "12%" }}
+            sx={{ marginBottom: "8%", width: "70%", height: "12%" }}
           >
             Pre-Operaciones
           </NavbarButton>
           <NavbarButton
-            sx={{ marginBottom: "8%", width: "55%", height: "12%" }}
+            sx={{ marginBottom: "8%", width: "70%", height: "12%" }}
           >
             Operaciones
           </NavbarButton>
           <NavbarButton
-            sx={{ marginBottom: "8%", width: "55%", height: "12%" }}
+            sx={{ marginBottom: "8%", width: "70%", height: "12%" }}
           >
             Corredores
           </NavbarButton>
-          <NavbarButton sx={{ width: "55%", height: "12%" }}>
+          <NavbarButton sx={{ width: "70%", height: "12%" }}>
             Administración
           </NavbarButton>
         </Grid>
