@@ -27,6 +27,7 @@ import { Clear } from "@mui/icons-material";
 import Head from "next/head";
 import InputTitles from "../../styles/inputTitles";
 import MuiButton from "../../styles/button";
+import Divider from "@mui/material";
 
 const theme = createTheme();
 
@@ -39,6 +40,9 @@ export default function SignUp() {
       password: data.get("password"),
     });
   };
+
+  const [typeOfPerson, setTypeOfPerson] = React.useState([]);
+  const handleChange = (event, value) => setTypeOfPerson(value);
 
   const top100Films = [
     { label: "The Shawshank Redemption", year: 1994 },
@@ -168,28 +172,46 @@ export default function SignUp() {
     { label: "Monty Python and the Holy Grail", year: 1975 },
   ];
 
-  const ClientType = [
-    { label: "Persona natural", value: "natural" },
-    { label: "Persona jurídica", value: "juridica" },
+  const ClientTypeAux = [
+    { label: "Persona natural", value: "Natural" },
+    { label: "Persona juridica", value: "Juridica" },
   ];
+
+  const ClientType = ClientTypeAux.map((item) => {
+    return item.label;
+  });
+
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 5,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
           }}
         >
-          <Image
-            src="/assets/Icono Smart + Texto.svg"
-            height={60}
-            width={280}
-            alt="Smart Evolution"
-          />
+          <Box display="flex" flexDirection="row" alignItems="center">
+            <Image
+              src="/assets/Icono Smart + Texto.svg"
+              height={60}
+              width={280}
+              alt="Smart Evolution"
+            />
+
+            <Typography
+              component="h1"
+              variant="h5"
+              borderLeft="0.5px solid #63595C"
+              paddingLeft="5%"
+              fontFamily="Montserrat"
+              color="#63595C"
+            >
+              Registro de clientes
+            </Typography>
+          </Box>
 
           <Box
             component="form"
@@ -203,9 +225,10 @@ export default function SignUp() {
                   <InputTitles marginBottom={3}>Tipo de cliente</InputTitles>
                   <Autocomplete
                     disablePortal
-                    id="combo-box-demo"
-                    options={ClientType}
+                    id="type_client"
+                    options={[...ClientType]}
                     color="#5EA3A3"
+                    onChange={handleChange}
                     popupIcon={
                       <KeyboardArrowDownIcon sx={{ color: "#5EA3A3" }} />
                     }
@@ -231,7 +254,7 @@ export default function SignUp() {
                   </InputTitles>
                   <Autocomplete
                     disablePortal
-                    id="combo-box-demo"
+                    id="type_identity"
                     options={top100Films}
                     color="#5EA3A3"
                     popupIcon={
@@ -255,55 +278,97 @@ export default function SignUp() {
               <Grid item xs={12}>
                 <InputTitles>Número de identificación</InputTitles>
                 <MuiTextField
-                  id="email"
+                  id="document_number"
                   placeholder="Ingresa tu identificación"
-                  name="email"
-                  type="email"
+                  name="document_number"
                   variant="standard"
                   margin="normal"
                   fullWidth
                   InputProps={{
                     disableUnderline: true,
+                    type: "string",
                   }}
                 />
               </Grid>
-              <Grid item xs={6}>
+              <Grid
+                item
+                xs={6}
+                display={
+                  typeOfPerson == "Persona juridica" || typeOfPerson === null
+                    ? "none"
+                    : null
+                }
+              >
                 <InputTitles>Nombre</InputTitles>
                 <MuiTextField
-                  id="email"
+                  id="first_name"
                   placeholder="Ingresa tu nombre"
-                  name="email"
-                  type="email"
+                  name="first_name"
+                  type="text"
                   variant="standard"
                   margin="normal"
+                  defaultValue={null}
                   fullWidth
                   InputProps={{
                     disableUnderline: true,
                   }}
                 />
               </Grid>
-              <Grid item xs={6}>
+              <Grid
+                item
+                xs={6}
+                display={
+                  typeOfPerson == "Persona juridica" || typeOfPerson === null
+                    ? "none"
+                    : null
+                }
+              >
                 <InputTitles>Apellido</InputTitles>
                 <MuiTextField
-                  id="email"
+                  id="last_name"
                   placeholder="Ingresa tu apellido"
-                  name="email"
-                  type="email"
+                  name="last_name"
+                  type="text"
                   variant="standard"
                   margin="normal"
+                  defaultValue={null}
                   fullWidth
                   InputProps={{
                     disableUnderline: true,
                   }}
                 />
               </Grid>
-              <Grid item xs={6}>
+              <Grid
+                item
+                xs={12}
+                display={
+                  typeOfPerson == "Persona natural" || typeOfPerson === null
+                    ? "none"
+                    : null
+                }
+              >
+                <InputTitles>Razón social</InputTitles>
+                <MuiTextField
+                  id="social_reason"
+                  placeholder="Ingresa tu razón social"
+                  name="social_reason"
+                  type="text"
+                  variant="standard"
+                  margin="normal"
+                  defaultValue={null}
+                  fullWidth
+                  InputProps={{
+                    disableUnderline: true,
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12}>
                 <InputTitles>Dirección</InputTitles>
                 <MuiTextField
-                  id="email"
+                  id="address"
                   placeholder="Ingresa tu dirección"
-                  name="email"
-                  type="email"
+                  name="address"
+                  type="text"
                   variant="standard"
                   margin="normal"
                   fullWidth
@@ -312,7 +377,35 @@ export default function SignUp() {
                   }}
                 />
               </Grid>
-              <Grid item xs={6}>
+
+              <Grid item xs={12}>
+                <Box>
+                  <InputTitles marginBottom={3}>Ciudad</InputTitles>
+                  <Autocomplete
+                    disablePortal
+                    id="city"
+                    options={top100Films}
+                    color="#5EA3A3"
+                    popupIcon={
+                      <KeyboardArrowDownIcon sx={{ color: "#5EA3A3" }} />
+                    }
+                    clearIcon={<Clear sx={{ color: "#5EA3A3" }} />}
+                    renderInput={(params) => (
+                      <MuiTextField
+                        variant="standard"
+                        {...params}
+                        placeholder="Ciudad"
+                        InputProps={{
+                          ...params.InputProps,
+                          disableUnderline: true,
+                        }}
+                      />
+                    )}
+                  />
+                </Box>
+              </Grid>
+
+              <Grid item xs={12}>
                 <InputTitles>Email</InputTitles>
                 <MuiTextField
                   id="email"
@@ -330,10 +423,10 @@ export default function SignUp() {
               <Grid item xs={12}>
                 <InputTitles>Número de teléfono</InputTitles>
                 <MuiTextField
-                  id="email"
+                  id="phone_number"
                   placeholder="Ingresa tu número de teléfono"
-                  name="email"
-                  type="email"
+                  name="phone_number"
+                  type="tel"
                   variant="standard"
                   margin="normal"
                   fullWidth
@@ -344,10 +437,10 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12}>
                 <Box>
-                  <InputTitles marginBottom={3}>Ciudad</InputTitles>
+                  <InputTitles marginBottom={3}>CIUU</InputTitles>
                   <Autocomplete
                     disablePortal
-                    id="combo-box-demo"
+                    id="ciiu"
                     options={top100Films}
                     color="#5EA3A3"
                     popupIcon={
@@ -358,7 +451,7 @@ export default function SignUp() {
                       <MuiTextField
                         variant="standard"
                         {...params}
-                        placeholder="Tipo de identificación"
+                        placeholder="CIUU"
                         InputProps={{
                           ...params.InputProps,
                           disableUnderline: true,
@@ -367,6 +460,47 @@ export default function SignUp() {
                     )}
                   />
                 </Box>
+              </Grid>
+              <Grid item xs={12}>
+                <Box>
+                  <InputTitles marginBottom={3}>Corredor</InputTitles>
+                  <Autocomplete
+                    disablePortal
+                    id="broker"
+                    options={top100Films}
+                    color="#5EA3A3"
+                    popupIcon={
+                      <KeyboardArrowDownIcon sx={{ color: "#5EA3A3" }} />
+                    }
+                    clearIcon={<Clear sx={{ color: "#5EA3A3" }} />}
+                    renderInput={(params) => (
+                      <MuiTextField
+                        variant="standard"
+                        {...params}
+                        placeholder="Corredor"
+                        InputProps={{
+                          ...params.InputProps,
+                          disableUnderline: true,
+                        }}
+                      />
+                    )}
+                  />
+                </Box>
+              </Grid>
+              <Grid item xs={12}>
+                <InputTitles>Ingresos</InputTitles>
+                <MuiTextField
+                  id="income"
+                  placeholder="Ingresa tus ingresos"
+                  name="income"
+                  type="text"
+                  variant="standard"
+                  margin="normal"
+                  fullWidth
+                  InputProps={{
+                    disableUnderline: true,
+                  }}
+                />
               </Grid>
             </Grid>
             <MuiButton
