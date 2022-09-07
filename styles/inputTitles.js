@@ -5,7 +5,7 @@ const InputTitles = styled(Typography)({
   textAlign: "left",
   fontFamily: "Montserrat",
   fontWeight: "bold",
-  fontSize: "14px",
+  fontSize: "12px",
   color: "#63595c",
   letterSpacing: "0px",
   lineHeight: "0px",

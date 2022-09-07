@@ -193,7 +193,12 @@ export default function SignUp() {
             alignItems: "center",
           }}
         >
-          <Box display="flex" flexDirection="row" alignItems="center">
+          <Box
+            display="flex"
+            flexDirection="row"
+            alignItems="center"
+            marginBottom={3}
+          >
             <Image
               src="/assets/Icono Smart + Texto.svg"
               height={60}
@@ -437,7 +442,7 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12}>
                 <Box>
-                  <InputTitles marginBottom={3}>CIUU</InputTitles>
+                  <InputTitles marginBottom={3}>CIIU</InputTitles>
                   <Autocomplete
                     disablePortal
                     id="ciiu"
@@ -451,7 +456,7 @@ export default function SignUp() {
                       <MuiTextField
                         variant="standard"
                         {...params}
-                        placeholder="CIUU"
+                        placeholder="CIIU"
                         InputProps={{
                           ...params.InputProps,
                           disableUnderline: true,

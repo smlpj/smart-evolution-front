@@ -179,13 +179,30 @@ export default function SignUp() {
             alignItems: "center",
           }}
         >
-          <Image
-            src="/assets/Icono Smart + Texto.svg"
-            height={60}
-            width={280}
-            alt="Smart Evolution"
-          />
+          <Box
+            display="flex"
+            flexDirection="row"
+            alignItems="center"
+            marginBottom={3}
+          >
+            <Image
+              src="/assets/Icono Smart + Texto.svg"
+              height={60}
+              width={280}
+              alt="Smart Evolution"
+            />
 
+            <Typography
+              component="h1"
+              variant="h5"
+              borderLeft="0.5px solid #63595C"
+              paddingLeft="5%"
+              fontFamily="Montserrat"
+              color="#63595C"
+            >
+              Registro de corredores
+            </Typography>
+          </Box>
           <Box
             component="form"
             noValidate
