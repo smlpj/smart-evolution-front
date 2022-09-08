@@ -493,19 +493,30 @@ export default function SignUp() {
                 </Box>
               </Grid>
               <Grid item xs={12}>
-                <InputTitles>Ingresos</InputTitles>
-                <MuiTextField
-                  id="income"
-                  placeholder="Ingresa tus ingresos"
-                  name="income"
-                  type="text"
-                  variant="standard"
-                  margin="normal"
-                  fullWidth
-                  InputProps={{
-                    disableUnderline: true,
-                  }}
-                />
+                <Box>
+                  <InputTitles marginBottom={3}>Nacionalidad</InputTitles>
+                  <Autocomplete
+                    disablePortal
+                    id="citizenship"
+                    options={top100Films}
+                    color="#5EA3A3"
+                    popupIcon={
+                      <KeyboardArrowDownIcon sx={{ color: "#5EA3A3" }} />
+                    }
+                    clearIcon={<Clear sx={{ color: "#5EA3A3" }} />}
+                    renderInput={(params) => (
+                      <MuiTextField
+                        variant="standard"
+                        {...params}
+                        placeholder="Nacionalidad"
+                        InputProps={{
+                          ...params.InputProps,
+                          disableUnderline: true,
+                        }}
+                      />
+                    )}
+                  />
+                </Box>
               </Grid>
             </Grid>
             <MuiButton

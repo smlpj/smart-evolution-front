@@ -6,6 +6,7 @@ import InputTitles from "../../styles/inputTitles";
 import RiskButton from "../../styles/riesgos";
 import Image from "next/image";
 import { CircularProgress } from "@material-ui/core";
+import SquareIcon from "@mui/icons-material/Square";
 
 export default function FinancialProfile() {
   return (
@@ -175,62 +176,108 @@ export default function FinancialProfile() {
             </Box>
           </Box>
         </Box>
-        <Box height="46vh">
-          <Box
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            flexDirection="row"
-          >
-            <CircularProgress
-              variant="determinate"
-              value={93}
-              size="10.5vw"
-              style={{
-                backgroundColor: "white",
-                color: "#488B8F",
-                borderRadius: "50%",
-              }}
-              thickness={4.5}
-            />
-            <Box
-              sx={{
-                position: "absolute",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <CircularProgress
-                variant="determinate"
-                value={82}
-                size="9vw"
-                style={{
-                  backgroundColor: "white",
-                  color: "#CFDDDD",
-                  borderRadius: "50%",
-                }}
-                thickness={4.5}
-              />
-              <Box
-                sx={{
-                  position: "absolute",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
+        <Box container height="46vh">
+          <Box display="flex" flexDirection="column">
+            <Box display="flex" flexDirection="row">
+              <Box display="flex" justifyContent="center" alignItems="center">
                 <CircularProgress
                   variant="determinate"
-                  value={45}
-                  size="7.5vw"
+                  value={93}
+                  size="12vw"
+                  onClick={() => console.log("hola")}
                   style={{
                     backgroundColor: "white",
-                    color: "#5EA3A333",
+                    color: "#488B8F",
                     borderRadius: "50%",
                   }}
                   thickness={4.5}
                 />
+                <Box
+                  sx={{
+                    position: "absolute",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <CircularProgress
+                    variant="determinate"
+                    value={75}
+                    size="10vw"
+                    onClick={() => console.log("chao")}
+                    style={{
+                      backgroundColor: "white",
+                      color: "#CFDDDD",
+                      borderRadius: "50%",
+                    }}
+                    thickness={4.5}
+                  />
+                  <Box
+                    sx={{
+                      position: "absolute",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <CircularProgress
+                      variant="determinate"
+                      value={50}
+                      size="8vw"
+                      onClick={() => console.log("como tas")}
+                      style={{
+                        backgroundColor: "white",
+                        color: "#5EA3A333",
+                        borderRadius: "50%",
+                      }}
+                      thickness={4.5}
+                    />
+                  </Box>
+                </Box>
+              </Box>
+              <Box display="flex" flexDirection="column">
+                <Box display="flex" flexDirection="row">
+                  <SquareIcon sx={{ color: "#E0EDED" }} />
+                  <Typography
+                    alignContent="center"
+                    letterSpacing={0}
+                    fontSize="0.8rem"
+                    fontFamily="Montserrat"
+                    fontWeight="regular"
+                    marginBottom="0.7rem"
+                    color="#333333"
+                  >
+                    - 2020
+                  </Typography>
+                </Box>
+                <Box display="flex" flexDirection="row">
+                  <SquareIcon sx={{ color: "#CFDDDD" }} />
+                  <Typography
+                    alignContent="center"
+                    letterSpacing={0}
+                    fontSize="0.8rem"
+                    fontFamily="Montserrat"
+                    fontWeight="regular"
+                    marginBottom="0.7rem"
+                    color="#333333"
+                  >
+                    - 2021
+                  </Typography>
+                </Box>
+                <Box display="flex" flexDirection="row">
+                  <SquareIcon sx={{ color: "#498B8F" }} />
+                  <Typography
+                    alignContent="center"
+                    letterSpacing={0}
+                    fontSize="0.8rem"
+                    fontFamily="Montserrat"
+                    fontWeight="regular"
+                    marginBottom="0.7rem"
+                    color="#333333"
+                  >
+                    - 2022
+                  </Typography>
+                </Box>
               </Box>
             </Box>
           </Box>
