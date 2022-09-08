@@ -16,27 +16,6 @@ export default function FinancialProfile() {
         display="flex"
         flexDirection="column"
         marginLeft="6rem"
-
-        /* sx={{
-          overflowY: "scroll",
-          "&::-webkit-scrollbar": {
-            position: "absolute",
-            width: "9px",
-            webkitAppearance: "none",
-          },
-          "&::-webkit-scrollbar-track": {
-            backgroundColor: "#CFDDDD",
-            borderRadius: "10px",
-          },
-          "&::-webkit-scrollbar-thumb": {
-            backgroundColor: "#5EA3A3",
-            backgroundClip: "content-box",
-            borderColor: "transparent",
-            borderStyle: "solid",
-            borderWidth: "1px 2px",
-            borderRadius: "10px",
-          },
-        }} */
       >
         <Box height="27vh" borderBottom="2px solid #A1A1A1" marginBottom={4}>
           <Box display="flex" flexDirection="column">
@@ -177,7 +156,30 @@ export default function FinancialProfile() {
           </Box>
         </Box>
         <Box container height="46vh">
-          <Box display="flex" flexDirection="column">
+          <Box
+            display="flex"
+            flexDirection="column"
+            sx={{
+              overflowY: "auto",
+              "&::-webkit-scrollbar": {
+                position: "absolute",
+                width: "9px",
+                webkitAppearance: "none",
+              },
+              "&::-webkit-scrollbar-track": {
+                backgroundColor: "#CFDDDD",
+                borderRadius: "10px",
+              },
+              "&::-webkit-scrollbar-thumb": {
+                backgroundColor: "#5EA3A3",
+                backgroundClip: "content-box",
+                borderColor: "transparent",
+                borderStyle: "solid",
+                borderWidth: "1px 2px",
+                borderRadius: "10px",
+              },
+            }}
+          >
             <Box display="flex" flexDirection="row">
               <Box display="flex" justifyContent="center" alignItems="center">
                 <CircularProgress
@@ -235,50 +237,50 @@ export default function FinancialProfile() {
                   </Box>
                 </Box>
               </Box>
-              <Box display="flex" flexDirection="column">
-                <Box display="flex" flexDirection="row">
-                  <SquareIcon sx={{ color: "#E0EDED" }} />
-                  <Typography
-                    alignContent="center"
-                    letterSpacing={0}
-                    fontSize="0.8rem"
-                    fontFamily="Montserrat"
-                    fontWeight="regular"
-                    marginBottom="0.7rem"
-                    color="#333333"
-                  >
-                    - 2020
-                  </Typography>
-                </Box>
-                <Box display="flex" flexDirection="row">
-                  <SquareIcon sx={{ color: "#CFDDDD" }} />
-                  <Typography
-                    alignContent="center"
-                    letterSpacing={0}
-                    fontSize="0.8rem"
-                    fontFamily="Montserrat"
-                    fontWeight="regular"
-                    marginBottom="0.7rem"
-                    color="#333333"
-                  >
-                    - 2021
-                  </Typography>
-                </Box>
-                <Box display="flex" flexDirection="row">
-                  <SquareIcon sx={{ color: "#498B8F" }} />
-                  <Typography
-                    alignContent="center"
-                    letterSpacing={0}
-                    fontSize="0.8rem"
-                    fontFamily="Montserrat"
-                    fontWeight="regular"
-                    marginBottom="0.7rem"
-                    color="#333333"
-                  >
-                    - 2022
-                  </Typography>
-                </Box>
-              </Box>
+            </Box>
+          </Box>
+          <Box display="flex" flexDirection="column">
+            <Box display="flex" flexDirection="row">
+              <SquareIcon sx={{ color: "#E0EDED" }} />
+              <Typography
+                alignContent="center"
+                letterSpacing={0}
+                fontSize="0.8rem"
+                fontFamily="Montserrat"
+                fontWeight="regular"
+                marginBottom="0.7rem"
+                color="#333333"
+              >
+                - 2020
+              </Typography>
+            </Box>
+            <Box display="flex" flexDirection="row">
+              <SquareIcon sx={{ color: "#CFDDDD" }} />
+              <Typography
+                alignContent="center"
+                letterSpacing={0}
+                fontSize="0.8rem"
+                fontFamily="Montserrat"
+                fontWeight="regular"
+                marginBottom="0.7rem"
+                color="#333333"
+              >
+                - 2021
+              </Typography>
+            </Box>
+            <Box display="flex" flexDirection="row">
+              <SquareIcon sx={{ color: "#498B8F" }} />
+              <Typography
+                alignContent="center"
+                letterSpacing={0}
+                fontSize="0.8rem"
+                fontFamily="Montserrat"
+                fontWeight="regular"
+                marginBottom="0.7rem"
+                color="#333333"
+              >
+                - 2022
+              </Typography>
             </Box>
           </Box>
         </Box>
