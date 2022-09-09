@@ -1,3 +1,4 @@
+import * as React from "react";
 import { Box } from "@mui/system";
 import { Typography, Link, SvgIcon } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -7,8 +8,18 @@ import RiskButton from "../../styles/riesgos";
 import Image from "next/image";
 import { CircularProgress } from "@material-ui/core";
 import SquareIcon from "@mui/icons-material/Square";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import MuiTextField from "../../styles/fields";
+import { Formik } from "formik";
 
 export default function FinancialProfile() {
+  const [tabValue, setTabValue] = React.useState("2022-I");
+
+  const handleTabChange = (event, newValue) => {
+    setTabValue(newValue);
+  };
+
   return (
     <>
       <Box
@@ -155,32 +166,35 @@ export default function FinancialProfile() {
             </Box>
           </Box>
         </Box>
-        <Box container height="46vh">
-          <Box
-            display="flex"
-            flexDirection="column"
-            sx={{
-              overflowY: "auto",
-              "&::-webkit-scrollbar": {
-                position: "absolute",
-                width: "9px",
-                webkitAppearance: "none",
-              },
-              "&::-webkit-scrollbar-track": {
-                backgroundColor: "#CFDDDD",
-                borderRadius: "10px",
-              },
-              "&::-webkit-scrollbar-thumb": {
-                backgroundColor: "#5EA3A3",
-                backgroundClip: "content-box",
-                borderColor: "transparent",
-                borderStyle: "solid",
-                borderWidth: "1px 2px",
-                borderRadius: "10px",
-              },
-            }}
-          >
-            <Box display="flex" flexDirection="row">
+        <Box
+          container
+          height="46vh"
+          display="flex"
+          flexDirection="column"
+          sx={{
+            scrollBehavior: "smooth",
+            overflowY: "auto",
+            "&::-webkit-scrollbar": {
+              position: "absolute",
+              width: "9px",
+              webkitAppearance: "none",
+            },
+            "&::-webkit-scrollbar-track": {
+              backgroundColor: "#CFDDDD",
+              borderRadius: "10px",
+            },
+            "&::-webkit-scrollbar-thumb": {
+              backgroundColor: "#5EA3A3",
+              backgroundClip: "content-box",
+              borderColor: "transparent",
+              borderStyle: "solid",
+              borderWidth: "1px 2px",
+              borderRadius: "10px",
+            },
+          }}
+        >
+          <Box display="flex" flexDirection="row">
+            <Box position="relative" height="auto">
               <Box display="flex" justifyContent="center" alignItems="center">
                 <CircularProgress
                   variant="determinate"
@@ -239,7 +253,7 @@ export default function FinancialProfile() {
               </Box>
             </Box>
           </Box>
-          <Box display="flex" flexDirection="column">
+          <Box display="flex" flexDirection="row" marginLeft={3} marginTop={3}>
             <Box display="flex" flexDirection="row">
               <SquareIcon sx={{ color: "#E0EDED" }} />
               <Typography
@@ -248,7 +262,6 @@ export default function FinancialProfile() {
                 fontSize="0.8rem"
                 fontFamily="Montserrat"
                 fontWeight="regular"
-                marginBottom="0.7rem"
                 color="#333333"
               >
                 - 2020
@@ -262,7 +275,6 @@ export default function FinancialProfile() {
                 fontSize="0.8rem"
                 fontFamily="Montserrat"
                 fontWeight="regular"
-                marginBottom="0.7rem"
                 color="#333333"
               >
                 - 2021
@@ -276,12 +288,88 @@ export default function FinancialProfile() {
                 fontSize="0.8rem"
                 fontFamily="Montserrat"
                 fontWeight="regular"
-                marginBottom="0.7rem"
                 color="#333333"
               >
                 - 2022
               </Typography>
             </Box>
+          </Box>
+          <Formik></Formik>
+          <Box
+            sx={{ width: "100%", borderBottom: "2px solid #5EA3A3" }}
+            marginTop={4}
+          >
+            <Tabs
+              value={tabValue}
+              onChange={handleTabChange}
+              aria-label="secondary tabs example"
+              indicatorColor="transparent"
+              sx={{
+                "& button": {
+                  border: "1.8px solid #5EA3A3",
+                  borderRadius: "8px 8px 0px 0px",
+                  marginRight: "0.2rem",
+                  fontFamily: "Montserrat",
+                  fontSize: "0.7rem",
+                  color: "#5EA3A3",
+                  height: "2rem",
+                },
+                "& button:hover": {
+                  backgroundColor: "#5EA3A320",
+                },
+                "& button:focus": {
+                  backgroundColor: "#5EA3A320",
+                },
+                "& button.Mui-selected": {
+                  backgroundColor: "#498B8F",
+                  color: "white",
+                },
+              }}
+            >
+              <Tab value="2022-I" label="Periodo I" />
+              <Tab value="2022-II" label="Periodo II" />
+              <Tab value="2022-III" label="Periodo III" />
+              <Tab value="Historico-de-pedidos" label="Histórico de pedidos" />
+            </Tabs>
+          </Box>
+          <Box sx={{ width: "100%" }}>
+            {tabValue === "2022-I" && (
+              <Box display="flex" flexDirection="column" marginTop={3}>
+                <Typography
+                  alignContent="center"
+                  letterSpacing={0}
+                  fontSize="1.5rem"
+                  fontFamily="Montserrat"
+                  fontWeight="medium"
+                  color="#333333"
+                >
+                  Periodo: {tabValue}
+                </Typography>
+                <Box display="flex" flexDirection="column" marginTop={3}>
+                  <Box>
+                    <InputTitles>Email</InputTitles>
+                    <MuiTextField
+                      id="file"
+                      name="file"
+                      type="file"
+                      onChange={(event) => {
+                        setFieldValue("file", event.currentTarget.files[0]);
+                      }}
+                      placeholder="Ingresa tu email"
+                      variant="standard"
+                      margin="normal"
+                      InputProps={{
+                        disableUnderline: true,
+                        disableBorder: true,
+                        disableRipple: true,
+                      }}
+                    />
+                  </Box>
+                </Box>
+              </Box>
+            )}
+            {tabValue === "2022-II" && <p>a</p>}
+            {tabValue === "2022-III" && <p>a</p>}
           </Box>
         </Box>
       </Box>

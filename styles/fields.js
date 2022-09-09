@@ -6,13 +6,14 @@ const smartField = styled(TextField)({
   border: "1px solid #ACCFCF",
   borderRadius: "5px",
   padding: "10px",
-
+  height: "1.5rem",
   "& .MuiInputBase-input": {
     padding: "2px",
     fontFamily: "Montserrat",
 
     "&::placeholder": {
-      color: "#",
+      color: "#57575780",
+      fontSize: "0.9rem",
     },
   },
   "&:hover": {
