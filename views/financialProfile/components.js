@@ -28,7 +28,35 @@ export default function FinancialProfile() {
         flexDirection="column"
         marginLeft="6rem"
       >
-        <Box height="27vh" borderBottom="2px solid #A1A1A1" marginBottom={4}>
+        <Box
+          container
+          height="27vh"
+          borderBottom="2px solid #A1A1A1"
+          marginBottom={4}
+          display="flex"
+          flexDirection="column"
+          sx={{
+            scrollBehavior: "smooth",
+            overflowY: "auto",
+            "&::-webkit-scrollbar": {
+              position: "absolute",
+              width: "9px",
+              webkitAppearance: "none",
+            },
+            "&::-webkit-scrollbar-track": {
+              backgroundColor: "#CFDDDD",
+              borderRadius: "10px",
+            },
+            "&::-webkit-scrollbar-thumb": {
+              backgroundColor: "#5EA3A3",
+              backgroundClip: "content-box",
+              borderColor: "transparent",
+              borderStyle: "solid",
+              borderWidth: "1px 2px",
+              borderRadius: "10px",
+            },
+          }}
+        >
           <Box display="flex" flexDirection="column">
             <Link href="/dashboard" underline="none">
               <Box display="flex" flexDirection="row">
@@ -166,6 +194,7 @@ export default function FinancialProfile() {
             </Box>
           </Box>
         </Box>
+
         <Box
           container
           height="46vh"
