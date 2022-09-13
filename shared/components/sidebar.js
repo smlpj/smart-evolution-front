@@ -54,12 +54,13 @@ export default function Navbar() {
           backgroundColor="#FAFAFA"
           justifyContent="center"
           alignItems="center"
+          sx={{ content: `"center"`, zIndex: 1 }}
         >
-          <NavbarButton
+          {/* <NavbarButton
             sx={{ backgroundColor: "#FFFFFF", width: "70%", height: "30%" }}
           >
             Inversores disponibles
-          </NavbarButton>
+          </NavbarButton> */}
         </Grid>
       </Grid>
     </>
