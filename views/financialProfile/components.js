@@ -2,6 +2,7 @@ import * as React from "react";
 import { Box } from "@mui/system";
 import { Typography, Link, SvgIcon } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Grid from "@material-ui/core/Grid";
 import InputTitles from "../../styles/inputTitles";
 import RiskButton from "../../styles/riesgos";
@@ -388,7 +389,7 @@ export default function FinancialProfile() {
               </Typography>
             </Box>
           </Box>
-          <Formik></Formik>
+
           <Box
             sx={{ width: "100%", borderBottom: "2px solid #5EA3A3" }}
             marginTop={4}
@@ -448,18 +449,40 @@ export default function FinancialProfile() {
                   <Box display="flex" flexDirection="column" marginTop={3}>
                     <Box>
                       <InputTitles marginBottom={2}>Balance</InputTitles>
-                      <input
-                        style={{ display: "none" }}
-                        id="contained-button-file1"
-                        name="file"
-                        type="file"
-                        onChange={changeHandler}
-                      />
-                      <label
-                        style={{ height: "3rem" }}
-                        htmlFor="contained-button-file1"
-                      >
-                        <FileUploadButton component="span">
+                      {!isFilePicked ? (
+                        <>
+                          <input
+                            style={{ display: "none" }}
+                            id="contained-button-file1"
+                            name="file"
+                            type="file"
+                            onChange={changeHandler}
+                          />
+                          <label
+                            style={{ height: "3rem" }}
+                            htmlFor="contained-button-file1"
+                          >
+                            <FileUploadButton component="span">
+                              <Typography
+                                alignContent="center"
+                                letterSpacing={0}
+                                fontSize="0.9rem"
+                                fontFamily="Montserrat"
+                                fontWeight="regular"
+                                textTransform="none"
+                                padding="0.5rem 2.5rem 0.5rem 1rem"
+                              >
+                                Seleccione archivo a cargar
+                              </Typography>
+                              <PublishRounded
+                                sx={{ margin: "0rem 0.7rem", color: "#5EA3A3" }}
+                                fontSize="small"
+                              />
+                            </FileUploadButton>
+                          </label>
+                        </>
+                      ) : (
+                        <FileUploadButton disabled>
                           <Typography
                             alignContent="center"
                             letterSpacing={0}
@@ -469,14 +492,14 @@ export default function FinancialProfile() {
                             textTransform="none"
                             padding="0.5rem 2.5rem 0.5rem 1rem"
                           >
-                            Seleccione archivo a cargar
+                            {selectedFile.name}
                           </Typography>
-                          <PublishRounded
-                            sx={{ margin: "0rem 0.7rem", color: "#5EA3A3" }}
+                          <ArrowForwardIcon
                             fontSize="small"
+                            sx={{ color: "#5EA3A3", marginRight: "0.5rem" }}
                           />
                         </FileUploadButton>
-                      </label>
+                      )}
                     </Box>
                     <Box marginTop={4}>
                       <InputTitles marginBottom={2}>
