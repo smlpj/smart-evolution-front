@@ -490,6 +490,7 @@ export default function FinancialProfile() {
                             fontFamily="Montserrat"
                             fontWeight="regular"
                             textTransform="none"
+                            color="#63595C"
                             padding="0.5rem 2.5rem 0.5rem 1rem"
                           >
                             {selectedFile.name}
