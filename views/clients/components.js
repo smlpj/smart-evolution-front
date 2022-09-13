@@ -1,45 +1,26 @@
-import { useFormik } from "formik";
-import * as yup from "yup";
-import { InputsForClient } from "./components";
-import { useFetch } from "../../shared/hooks/useFetch";
-
-import { login } from "./queries";
 import * as React from "react";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import MuiTextField from "../../styles/fields";
 import Image from "next/image";
-import SelectField from "../../styles/fieldSelect";
-import { Autocomplete } from "@mui/material";
+import { Autocomplete, Fade } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { Clear } from "@mui/icons-material";
-import Head from "next/head";
 import InputTitles from "../../styles/inputTitles";
 import MuiButton from "../../styles/button";
+import { FormControl } from "@mui/material";
+import HelperText from "../../styles/helperText";
+import { InputAdornment } from "@mui/material";
+import { IconButton } from "@mui/material";
+import { LoginIcon } from "@mui/icons-material/Login";
 
 const theme = createTheme();
 
-export default function SignUp() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-  };
-
+export const SignUpClient = ({ formik, values }) => {
   const top100Films = [
     { label: "The Shawshank Redemption", year: 1994 },
     { label: "The Godfather", year: 1972 },
@@ -168,7 +149,206 @@ export default function SignUp() {
     { label: "Monty Python and the Holy Grail", year: 1975 },
   ];
   return (
-    <ThemeProvider theme={theme}>
+    <Grid container spacing={0}>
+      <Grid
+        item
+        xs={12}
+        md={6}
+        style={{ height: "100vh", background: "#b5d1c9", color: "black" }}
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+      >
+        <div>
+          <Image
+            src="/assets/Ilustración - Creación de Usuario 1.svg"
+            height="400%"
+            width="400%"
+          />
+        </div>
+      </Grid>
+      <Grid
+        item
+        xs={12}
+        md={6}
+        style={{ height: "100vh", background: "#ebebeb" }}
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+      >
+        <form onSubmit={formik.handleSubmit}>
+          <Typography
+            letterSpacing={0}
+            fontSize="1.7rem"
+            fontFamily="Montserrat"
+            fontWeight="regular"
+            marginBottom="0.7rem"
+            color="#5EA3A3"
+            textAlign="left"
+          >
+            Registro de Corredores
+          </Typography>
+          <Grid container spacing={4}>
+            <Grid item xs={6}>
+              <Box>
+                <InputTitles marginBottom={3}>
+                  Tipo de identificación
+                </InputTitles>
+                <Autocomplete
+                  disablePortal
+                  id="combo-box-demo"
+                  options={top100Films}
+                  color="#5EA3A3"
+                  popupIcon={
+                    <KeyboardArrowDownIcon sx={{ color: "#5EA3A3" }} />
+                  }
+                  clearIcon={<Clear sx={{ color: "#5EA3A3" }} />}
+                  renderInput={(params) => (
+                    <MuiTextField
+                      variant="standard"
+                      {...params}
+                      placeholder="Tipo de identificación"
+                      InputProps={{
+                        ...params.InputProps,
+                        disableUnderline: true,
+                      }}
+                    />
+                  )}
+                />
+              </Box>
+            </Grid>
+            <Grid item xs={6}>
+              <InputTitles>Número de identificación</InputTitles>
+              <MuiTextField
+                id="email"
+                placeholder="Ingresa tu identificación"
+                name="email"
+                type="email"
+                variant="standard"
+                margin="normal"
+                fullWidth
+                InputProps={{
+                  disableUnderline: true,
+                }}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <InputTitles>Nombre</InputTitles>
+              <MuiTextField
+                id="email"
+                placeholder="Ingresa tu nombre"
+                name="email"
+                type="email"
+                variant="standard"
+                margin="normal"
+                fullWidth
+                InputProps={{
+                  disableUnderline: true,
+                }}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <InputTitles>Apellido</InputTitles>
+              <MuiTextField
+                id="email"
+                placeholder="Ingresa tu apellido"
+                name="email"
+                type="email"
+                variant="standard"
+                margin="normal"
+                fullWidth
+                InputProps={{
+                  disableUnderline: true,
+                }}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <InputTitles>Dirección</InputTitles>
+              <MuiTextField
+                id="email"
+                placeholder="Ingresa tu dirección"
+                name="email"
+                type="email"
+                variant="standard"
+                margin="normal"
+                fullWidth
+                InputProps={{
+                  disableUnderline: true,
+                }}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <InputTitles>Email</InputTitles>
+              <MuiTextField
+                id="email"
+                placeholder="Ingresa tu email"
+                name="email"
+                type="email"
+                variant="standard"
+                margin="normal"
+                fullWidth
+                InputProps={{
+                  disableUnderline: true,
+                }}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <InputTitles>Número de teléfono</InputTitles>
+              <MuiTextField
+                id="email"
+                placeholder="Ingresa tu número de teléfono"
+                name="email"
+                type="email"
+                variant="standard"
+                margin="normal"
+                fullWidth
+                InputProps={{
+                  disableUnderline: true,
+                }}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Box>
+                <InputTitles marginBottom={3}>Ciudad</InputTitles>
+                <Autocomplete
+                  disablePortal
+                  id="combo-box-demo"
+                  options={top100Films}
+                  color="#5EA3A3"
+                  popupIcon={
+                    <KeyboardArrowDownIcon sx={{ color: "#5EA3A3" }} />
+                  }
+                  clearIcon={<Clear sx={{ color: "#5EA3A3" }} />}
+                  renderInput={(params) => (
+                    <MuiTextField
+                      variant="standard"
+                      {...params}
+                      placeholder="Tipo de identificación"
+                      InputProps={{
+                        ...params.InputProps,
+                        disableUnderline: true,
+                      }}
+                    />
+                  )}
+                />
+              </Box>
+            </Grid>
+          </Grid>
+          <MuiButton
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            <Typography fontFamily="Montserrat" fontWeight="bold">
+              Registrarse
+            </Typography>
+          </MuiButton>
+        </form>
+      </Grid>
+    </Grid>
+
+    /* <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -368,6 +548,6 @@ export default function SignUp() {
           </Box>
         </Box>
       </Container>
-    </ThemeProvider>
+                      </ThemeProvider> */
   );
-}
+};

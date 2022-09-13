@@ -493,7 +493,9 @@ export default function FinancialProfile() {
                             color="#63595C"
                             padding="0.5rem 2.5rem 0.5rem 1rem"
                           >
-                            {selectedFile.name}
+                            {selectedFile.name.length > 20
+                              ? selectedFile.name.substring(0, 20) + "..."
+                              : selectedFile.name}
                           </Typography>
                           <ArrowForwardIcon
                             fontSize="small"
