@@ -177,163 +177,171 @@ export const SignUpClient = ({ formik, values }) => {
         justifyContent="center"
       >
         <form onSubmit={formik.handleSubmit}>
-          <Typography
-            letterSpacing={0}
-            fontSize="1.7rem"
-            fontFamily="Montserrat"
-            fontWeight="regular"
-            marginBottom="0.7rem"
-            color="#5EA3A3"
-            textAlign="left"
-          >
-            Registro de Corredores
-          </Typography>
-          <Grid container spacing={4}>
-            <Grid item xs={6}>
-              <Box>
-                <InputTitles marginBottom={3}>
-                  Tipo de identificación
-                </InputTitles>
-                <Autocomplete
-                  disablePortal
-                  id="combo-box-demo"
-                  options={top100Films}
-                  color="#5EA3A3"
-                  popupIcon={
-                    <KeyboardArrowDownIcon sx={{ color: "#5EA3A3" }} />
-                  }
-                  clearIcon={<Clear sx={{ color: "#5EA3A3" }} />}
-                  renderInput={(params) => (
-                    <MuiTextField
-                      variant="standard"
-                      {...params}
-                      placeholder="Tipo de identificación"
-                      InputProps={{
-                        ...params.InputProps,
-                        disableUnderline: true,
-                      }}
-                    />
-                  )}
+          <Box display="flex" flexDirection="column" alignItems="center">
+            <Typography
+              letterSpacing={0}
+              fontSize="1.7rem"
+              fontFamily="Montserrat"
+              fontWeight="regular"
+              marginBottom="4rem"
+              color="#5EA3A3"
+            >
+              Registro de corredores
+            </Typography>
+            <Box display="flex" flexDirection="row">
+              <Box mb={2}>
+                <Box width="20rem">
+                  <InputTitles marginBottom={2}>
+                    Tipo de identificación
+                  </InputTitles>
+                  <Autocomplete
+                    disablePortal
+                    id="id_type"
+                    options={top100Films}
+                    color="#5EA3A3"
+                    popupIcon={
+                      <KeyboardArrowDownIcon sx={{ color: "#5EA3A3" }} />
+                    }
+                    clearIcon={<Clear sx={{ color: "#5EA3A3" }} />}
+                    renderInput={(params) => (
+                      <MuiTextField
+                        variant="standard"
+                        {...params}
+                        placeholder="Tipo de identificación"
+                        InputProps={{
+                          ...params.InputProps,
+                          disableUnderline: true,
+                        }}
+                      />
+                    )}
+                  />
+                </Box>
+              </Box>
+              <Box mb={2} ml={4} width="20rem">
+                <InputTitles>Número de identificación</InputTitles>
+                <MuiTextField
+                  id="email"
+                  placeholder="Ingresa tu identificación"
+                  name="email"
+                  type="email"
+                  variant="standard"
+                  margin="normal"
+                  fullWidth
+                  InputProps={{
+                    disableUnderline: true,
+                  }}
                 />
               </Box>
-            </Grid>
-            <Grid item xs={6}>
-              <InputTitles>Número de identificación</InputTitles>
-              <MuiTextField
-                id="email"
-                placeholder="Ingresa tu identificación"
-                name="email"
-                type="email"
-                variant="standard"
-                margin="normal"
-                fullWidth
-                InputProps={{
-                  disableUnderline: true,
-                }}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <InputTitles>Nombre</InputTitles>
-              <MuiTextField
-                id="email"
-                placeholder="Ingresa tu nombre"
-                name="email"
-                type="email"
-                variant="standard"
-                margin="normal"
-                fullWidth
-                InputProps={{
-                  disableUnderline: true,
-                }}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <InputTitles>Apellido</InputTitles>
-              <MuiTextField
-                id="email"
-                placeholder="Ingresa tu apellido"
-                name="email"
-                type="email"
-                variant="standard"
-                margin="normal"
-                fullWidth
-                InputProps={{
-                  disableUnderline: true,
-                }}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <InputTitles>Dirección</InputTitles>
-              <MuiTextField
-                id="email"
-                placeholder="Ingresa tu dirección"
-                name="email"
-                type="email"
-                variant="standard"
-                margin="normal"
-                fullWidth
-                InputProps={{
-                  disableUnderline: true,
-                }}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <InputTitles>Email</InputTitles>
-              <MuiTextField
-                id="email"
-                placeholder="Ingresa tu email"
-                name="email"
-                type="email"
-                variant="standard"
-                margin="normal"
-                fullWidth
-                InputProps={{
-                  disableUnderline: true,
-                }}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <InputTitles>Número de teléfono</InputTitles>
-              <MuiTextField
-                id="email"
-                placeholder="Ingresa tu número de teléfono"
-                name="email"
-                type="email"
-                variant="standard"
-                margin="normal"
-                fullWidth
-                InputProps={{
-                  disableUnderline: true,
-                }}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Box>
-                <InputTitles marginBottom={3}>Ciudad</InputTitles>
-                <Autocomplete
-                  disablePortal
-                  id="combo-box-demo"
-                  options={top100Films}
-                  color="#5EA3A3"
-                  popupIcon={
-                    <KeyboardArrowDownIcon sx={{ color: "#5EA3A3" }} />
-                  }
-                  clearIcon={<Clear sx={{ color: "#5EA3A3" }} />}
-                  renderInput={(params) => (
-                    <MuiTextField
-                      variant="standard"
-                      {...params}
-                      placeholder="Tipo de identificación"
-                      InputProps={{
-                        ...params.InputProps,
-                        disableUnderline: true,
-                      }}
-                    />
-                  )}
+            </Box>
+            <Box display="flex" flexDirection="row">
+              <Box mb={2} width="20rem">
+                <InputTitles>Nombre</InputTitles>
+                <MuiTextField
+                  id="email"
+                  placeholder="Ingresa tu nombre"
+                  name="email"
+                  type="email"
+                  variant="standard"
+                  margin="normal"
+                  fullWidth
+                  InputProps={{
+                    disableUnderline: true,
+                  }}
                 />
               </Box>
-            </Grid>
-          </Grid>
+              <Box mb={2} ml={4} width="20rem">
+                <InputTitles>Apellido</InputTitles>
+                <MuiTextField
+                  id="email"
+                  placeholder="Ingresa tu apellido"
+                  name="email"
+                  type="email"
+                  variant="standard"
+                  margin="normal"
+                  fullWidth
+                  InputProps={{
+                    disableUnderline: true,
+                  }}
+                />
+              </Box>
+            </Box>
+            <Box display="flex" flexDirection="row">
+              <Box mb={2} width="20rem">
+                <InputTitles>Dirección</InputTitles>
+                <MuiTextField
+                  id="email"
+                  placeholder="Ingresa tu dirección"
+                  name="email"
+                  type="email"
+                  variant="standard"
+                  margin="normal"
+                  fullWidth
+                  InputProps={{
+                    disableUnderline: true,
+                  }}
+                />
+              </Box>
+              <Box mb={2} ml={4} width="20rem">
+                <InputTitles>Email</InputTitles>
+                <MuiTextField
+                  id="email"
+                  placeholder="Ingresa tu email"
+                  name="email"
+                  type="email"
+                  variant="standard"
+                  margin="normal"
+                  fullWidth
+                  InputProps={{
+                    disableUnderline: true,
+                  }}
+                />
+              </Box>
+            </Box>
+            <Box display="flex" flexDirection="row">
+              <Box mb={2} width="20rem">
+                <InputTitles>Número de teléfono</InputTitles>
+                <MuiTextField
+                  id="email"
+                  placeholder="Ingresa tu número de teléfono"
+                  name="email"
+                  type="email"
+                  variant="standard"
+                  margin="normal"
+                  fullWidth
+                  InputProps={{
+                    disableUnderline: true,
+                  }}
+                />
+              </Box>
+              <Box mb={2} ml={4} width="20rem">
+                <Box>
+                  <InputTitles marginBottom={2}>Ciudad</InputTitles>
+                  <Autocomplete
+                    disablePortal
+                    id="combo-box-demo"
+                    options={top100Films}
+                    color="#5EA3A3"
+                    popupIcon={
+                      <KeyboardArrowDownIcon sx={{ color: "#5EA3A3" }} />
+                    }
+                    clearIcon={<Clear sx={{ color: "#5EA3A3" }} />}
+                    renderInput={(params) => (
+                      <MuiTextField
+                        variant="standard"
+                        {...params}
+                        placeholder="Tipo de identificación"
+                        InputProps={{
+                          ...params.InputProps,
+                          disableUnderline: true,
+                        }}
+                      />
+                    )}
+                  />
+                </Box>
+              </Box>
+            </Box>
+          </Box>
+
           <MuiButton
             type="submit"
             fullWidth

@@ -16,8 +16,13 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { Button } from "@mui/material";
 import FileUploadButton from "../../styles/uploadFileButton";
-import { PublishRounded } from "@mui/icons-material";
+import {
+  BookOutlined,
+  PublishRounded,
+  SaveOutlined,
+} from "@mui/icons-material";
 import RoundButton from "../../styles/button";
+import Fab from "@mui/material/Fab";
 
 export default function FinancialProfile() {
   const [tabValue, setTabValue] = React.useState("2022-I");
@@ -429,7 +434,12 @@ export default function FinancialProfile() {
           </Box>
           <Box sx={{ width: "100%" }}>
             {tabValue === "2022-I" && (
-              <Box display="flex" flexDirection="column" marginTop={3}>
+              <Box
+                display="flex"
+                flexDirection="column"
+                position="relative"
+                marginTop={3}
+              >
                 <Typography
                   alignContent="center"
                   letterSpacing={0}
@@ -717,7 +727,56 @@ export default function FinancialProfile() {
                     </Box>
                   </Box>
                 </Box>
-                <RoundButton onClick={handleSubmission}>Cargar</RoundButton>
+                <Fab
+                  variant="extended"
+                  onClick={handleSubmission}
+                  sx={{
+                    backgroundColor: "#5EA3A3",
+                    borderRadius: "4px",
+                    color: "#FFFFFF",
+                    height: "3rem",
+                    marginTop: "2rem",
+                    marginBottom: "2rem",
+                    position: "absolute",
+                    bottom: "3.5rem",
+                    right: "2rem",
+                    fontSize: "0.7rem",
+                    fontFamily: "Montserrat",
+                    fontWeight: "bold",
+                    "&:hover": {
+                      backgroundColor: "#5EA3A380",
+                    },
+                  }}
+                  aria-label="add"
+                >
+                  GUARDAR BORRADOR
+                  <BookOutlined sx={{ ml: 1, fontSize: "medium" }} />
+                </Fab>
+                <Fab
+                  variant="extended"
+                  onClick={handleSubmission}
+                  sx={{
+                    backgroundColor: "#5EA3A3",
+                    borderRadius: "4px",
+                    color: "#FFFFFF",
+                    height: "3rem",
+                    marginTop: "2rem",
+                    marginBottom: "2rem",
+                    position: "absolute",
+                    bottom: "0rem",
+                    right: "2rem",
+                    fontSize: "0.7rem",
+                    fontFamily: "Montserrat",
+                    fontWeight: "bold",
+                    "&:hover": {
+                      backgroundColor: "#5EA3A380",
+                    },
+                  }}
+                  aria-label="add"
+                >
+                  GUARDAR DATOS ACTUALIZADOS
+                  <SaveOutlined sx={{ ml: 1, fontSize: "medium" }} />
+                </Fab>
               </Box>
             )}
             {tabValue === "2022-II" && <p>a</p>}
