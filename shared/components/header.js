@@ -23,23 +23,29 @@ export default function Header() {
         }}
       >
         <Toolbar sx={{ marginRight: "3%", marginLeft: "3%" }}>
-          <img style={{ height: "4vh" }} src="/assets/Icono Smart.svg"></img>
           <Link href="/dashboard" underline="none">
-            <HeaderButton
-              sx={{
-                border: "1.4px solid #5EA3A3",
-                padding: "0.7%",
-                marginLeft: "1.3%",
-              }}
-              endIcon={
-                <img
-                  style={{ marginLeft: "1vw" }}
-                  src="/assets/Icon Home.svg"
-                />
-              }
-            >
-              Inicio
-            </HeaderButton>
+            <>
+              <img
+                style={{ height: "4vh" }}
+                src="/assets/Icono Smart.svg"
+                alt="Logo"
+              ></img>
+              <HeaderButton
+                sx={{
+                  border: "1.4px solid #5EA3A3",
+                  padding: "0.7%",
+                  marginLeft: "1.3%",
+                }}
+                endIcon={
+                  <img
+                    style={{ marginLeft: "1vw" }}
+                    src="/assets/Icon Home.svg"
+                  />
+                }
+              >
+                Inicio
+              </HeaderButton>
+            </>
           </Link>
           <Box flexGrow={1} />
 
