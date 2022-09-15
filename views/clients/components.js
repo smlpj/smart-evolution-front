@@ -154,7 +154,7 @@ export const SignUpClient = ({ formik, values }) => {
         item
         xs={12}
         md={6}
-        style={{ height: "100vh", background: "#b5d1c9", color: "black" }}
+        style={{ height: "91.5vh", background: "#b5d1c9" }}
         display="flex"
         alignItems="center"
         justifyContent="center"
@@ -162,8 +162,8 @@ export const SignUpClient = ({ formik, values }) => {
         <div>
           <Image
             src="/assets/Ilustración - Creación de Usuario 1.svg"
-            height="400%"
-            width="400%"
+            height="500vh"
+            width="500vw"
           />
         </div>
       </Grid>
@@ -171,13 +171,13 @@ export const SignUpClient = ({ formik, values }) => {
         item
         xs={12}
         md={6}
-        style={{ height: "100vh", background: "#ebebeb" }}
+        style={{ height: "91vh", background: "#EBEBEB" }}
         display="flex"
         alignItems="center"
         justifyContent="center"
       >
         <form onSubmit={formik.handleSubmit}>
-          <Box display="flex" flexDirection="column" alignItems="center">
+          <Box display="flex" flexDirection="column" alignItems="left">
             <Typography
               letterSpacing={0}
               fontSize="1.7rem"
@@ -189,8 +189,8 @@ export const SignUpClient = ({ formik, values }) => {
               Registro de corredores
             </Typography>
             <Box display="flex" flexDirection="row">
-              <Box mb={2}>
-                <Box width="20rem">
+              <Box mb={4}>
+                <Box width="18vw">
                   <InputTitles marginBottom={2}>
                     Tipo de identificación
                   </InputTitles>
@@ -217,7 +217,7 @@ export const SignUpClient = ({ formik, values }) => {
                   />
                 </Box>
               </Box>
-              <Box mb={2} ml={4} width="20rem">
+              <Box mb={4} ml={5} width="18vw">
                 <InputTitles>Número de identificación</InputTitles>
                 <MuiTextField
                   id="email"
@@ -234,7 +234,7 @@ export const SignUpClient = ({ formik, values }) => {
               </Box>
             </Box>
             <Box display="flex" flexDirection="row">
-              <Box mb={2} width="20rem">
+              <Box mb={4} width="18vw">
                 <InputTitles>Nombre</InputTitles>
                 <MuiTextField
                   id="email"
@@ -249,7 +249,7 @@ export const SignUpClient = ({ formik, values }) => {
                   }}
                 />
               </Box>
-              <Box mb={2} ml={4} width="20rem">
+              <Box mb={4} ml={5} width="18vw">
                 <InputTitles>Apellido</InputTitles>
                 <MuiTextField
                   id="email"
@@ -266,7 +266,7 @@ export const SignUpClient = ({ formik, values }) => {
               </Box>
             </Box>
             <Box display="flex" flexDirection="row">
-              <Box mb={2} width="20rem">
+              <Box mb={4} width="18vw">
                 <InputTitles>Dirección</InputTitles>
                 <MuiTextField
                   id="email"
@@ -281,7 +281,7 @@ export const SignUpClient = ({ formik, values }) => {
                   }}
                 />
               </Box>
-              <Box mb={2} ml={4} width="20rem">
+              <Box mb={4} ml={5} width="18vw">
                 <InputTitles>Email</InputTitles>
                 <MuiTextField
                   id="email"
@@ -298,7 +298,7 @@ export const SignUpClient = ({ formik, values }) => {
               </Box>
             </Box>
             <Box display="flex" flexDirection="row">
-              <Box mb={2} width="20rem">
+              <Box mb={4} width="18vw">
                 <InputTitles>Número de teléfono</InputTitles>
                 <MuiTextField
                   id="email"
@@ -313,7 +313,7 @@ export const SignUpClient = ({ formik, values }) => {
                   }}
                 />
               </Box>
-              <Box mb={2} ml={4} width="20rem">
+              <Box mb={4} ml={5} width="18vw">
                 <Box>
                   <InputTitles marginBottom={2}>Ciudad</InputTitles>
                   <Autocomplete
@@ -341,17 +341,26 @@ export const SignUpClient = ({ formik, values }) => {
               </Box>
             </Box>
           </Box>
-
-          <MuiButton
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+          <Box
+            display="flex"
+            flexDirection="row"
+            justifyContent="right"
+            marginRight={-2.5}
           >
-            <Typography fontFamily="Montserrat" fontWeight="bold">
-              Registrarse
-            </Typography>
-          </MuiButton>
+            <MuiButton
+              type="submit"
+              variant="contained"
+              sx={{ mt: 3, mb: 2, boxShadow: "none", borderRadius: "4px" }}
+            >
+              <Typography
+                fontSize="90%"
+                fontFamily="Montserrat"
+                fontWeight="bold"
+              >
+                SIGUIENTE PASO
+              </Typography>
+            </MuiButton>
+          </Box>
         </form>
       </Grid>
     </Grid>

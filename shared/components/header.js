@@ -8,6 +8,7 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import HeaderButton from "../../styles/button_2";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
+import Link from "next/link";
 
 export default function Header() {
   return (
@@ -22,19 +23,24 @@ export default function Header() {
         }}
       >
         <Toolbar sx={{ marginRight: "3%", marginLeft: "3%" }}>
-          <img style={{ height: "2.6rem" }} src="/assets/Icono Smart.svg"></img>
-          <HeaderButton
-            sx={{
-              border: "1.4px solid #5EA3A3",
-              padding: "0.7%",
-              marginLeft: "1.3%",
-            }}
-            endIcon={
-              <img style={{ marginLeft: "1vw" }} src="/assets/Icon Home.svg" />
-            }
-          >
-            Inicio
-          </HeaderButton>
+          <img style={{ height: "4vh" }} src="/assets/Icono Smart.svg"></img>
+          <Link href="/dashboard" underline="none">
+            <HeaderButton
+              sx={{
+                border: "1.4px solid #5EA3A3",
+                padding: "0.7%",
+                marginLeft: "1.3%",
+              }}
+              endIcon={
+                <img
+                  style={{ marginLeft: "1vw" }}
+                  src="/assets/Icon Home.svg"
+                />
+              }
+            >
+              Inicio
+            </HeaderButton>
+          </Link>
           <Box flexGrow={1} />
 
           <IconButton
@@ -43,7 +49,7 @@ export default function Header() {
               border: "0.5px solid #488B8F",
               backgroundColor: "#EBEBEB",
               color: "#488B8F",
-              padding: "0.8%",
+              padding: "0.5%",
               marginRight: "1%",
               "&:hover": {
                 backgroundColor: "#CFDDDD",
@@ -59,7 +65,7 @@ export default function Header() {
               border: "0.5px solid #488B8F",
               backgroundColor: "#488B8F",
               color: "#FFFFFF",
-              padding: "0.8%",
+              padding: "0.5%",
               "&:hover": {
                 backgroundColor: "#5EA3A3",
               },

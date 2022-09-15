@@ -2,6 +2,7 @@ import { Grid } from "@mui/material";
 import { Box } from "@mui/system";
 import NavbarButton from "../../styles/button_2";
 import Header from "./header";
+import Link from "next/link";
 
 export default function Navbar() {
   return (
@@ -23,11 +24,14 @@ export default function Navbar() {
           borderBottom="2px solid"
           borderColor="#B5D1C9"
         >
-          <NavbarButton
-            sx={{ marginBottom: "8%", width: "70%", height: "12%" }}
-          >
-            Clientes
-          </NavbarButton>
+          <Link href="/clients" underline="none">
+            <NavbarButton
+              sx={{ marginBottom: "8%", width: "70%", height: "12%" }}
+            >
+              Clientes
+            </NavbarButton>
+          </Link>
+
           <NavbarButton
             sx={{ marginBottom: "8%", width: "70%", height: "12%" }}
           >
@@ -54,13 +58,12 @@ export default function Navbar() {
           backgroundColor="#FAFAFA"
           justifyContent="center"
           alignItems="center"
-          sx={{ content: `"center"`, zIndex: 1 }}
         >
-          {/* <NavbarButton
+          <NavbarButton
             sx={{ backgroundColor: "#FFFFFF", width: "70%", height: "30%" }}
           >
             Inversores disponibles
-          </NavbarButton> */}
+          </NavbarButton>
         </Grid>
       </Grid>
     </>

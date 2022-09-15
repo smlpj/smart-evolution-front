@@ -504,7 +504,7 @@ export default function FinancialProfile() {
                             padding="0.5rem 2.5rem 0.5rem 1rem"
                           >
                             {selectedFile.name.length > 20
-                              ? selectedFile.name.substring(0, 20) + "..."
+                              ? selectedFile.name.substring(0, 25) + "..."
                               : selectedFile.name}
                           </Typography>
                           <ArrowForwardIcon
