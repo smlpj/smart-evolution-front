@@ -19,10 +19,11 @@ import { InputAdornment } from "@mui/material";
 import { IconButton } from "@mui/material";
 import { LoginIcon } from "@mui/icons-material/Login";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import CitySelect from "../../shared/components/selects/citySelect";
 
 const theme = createTheme();
 
-export const SignUpClient = ({ formik, values }) => {
+export const SignUpClient = ({ formik }) => {
   const top100Films = [
     { label: "The Shawshank Redemption", year: 1994 },
     { label: "The Godfather", year: 1972 },
@@ -204,7 +205,7 @@ export const SignUpClient = ({ formik, values }) => {
                   Registro de corredores
                 </Typography>
                 <Box display="flex" flexDirection="row">
-                  <Box mb={4}>
+                  {/* <Box mb={4}>
                     <Box width="18vw">
                       <InputTitles marginBottom={2}>
                         Tipo de identificación
@@ -235,7 +236,8 @@ export const SignUpClient = ({ formik, values }) => {
                         )}
                       />
                     </Box>
-                  </Box>
+                  </Box> */}
+                  <CitySelect />
                   <Box mb={4} ml={5} width="18vw">
                     <InputTitles>Número de identificación</InputTitles>
                     <MuiTextField

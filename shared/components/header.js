@@ -20,6 +20,8 @@ export default function Header() {
           backgroundColor: "#EBEBEB",
           borderBottom: "1.4px solid #5EA3A380",
           padding: "0.6rem",
+          height: "100%",
+          justifyContent: "center",
         }}
       >
         <Toolbar sx={{ marginRight: "3%", marginLeft: "3%" }}>
