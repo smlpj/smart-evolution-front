@@ -5,32 +5,15 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { SignUpClient } from "./components";
 import { useFetch } from "../../shared/hooks/useFetch";
-import { login } from "./queries";
+import { RegisterClientQuery } from "./queries";
 
 export default function RegisterClient() {
-  // Hooks
   const {
-    fetch: loginAux,
-    loading: loginLoading,
-    error: loginError,
-    data: dataLogin,
-  } = useFetch({ service: login, init: false });
-
-  // Effects
-
-  React.useEffect(() => {
-    if (loginError) {
-      alert();
-    }
-
-    if (dataLogin !== undefined) {
-      console.log(dataLogin);
-    }
-
-    if (loginLoading) {
-      console.log("loading");
-    }
-  }, [dataLogin, loginError, loginLoading]);
+    fetch: fetch,
+    loading: loading,
+    error: error,
+    data: data,
+  } = useFetch({ service: RegisterClientQuery, init: false });
 
   const validationSchema = yup.object({
     document_number: yup
@@ -75,7 +58,7 @@ export default function RegisterClient() {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      loginAux(values);
+      fetch(values);
     },
   });
 

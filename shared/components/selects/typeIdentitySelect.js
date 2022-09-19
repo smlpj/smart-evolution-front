@@ -1,4 +1,4 @@
-import { Cities } from "./queries";
+import { IdentityType } from "./queries";
 import { useFetch } from "../../hooks/useFetch";
 import { useEffect, useState } from "react";
 import { Box } from "@mui/system";
@@ -8,59 +8,44 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Clear from "@mui/icons-material/Clear";
 import MuiTextField from "../../../styles/fields";
 
-export default function CitySelect({ formik }) {
+export default function TypeIDSelect({ formik }) {
   // Hooks
   const {
     fetch: fetch,
     loading: loading,
     error: error,
     data: data,
-  } = useFetch({ service: Cities, init: false });
+  } = useFetch({ service: IdentityType, init: true });
 
-  const [city, setCity] = useState([]);
+  const [typeID, setTypeID] = useState([]);
 
   useEffect(() => {
     if (data) {
-      var cities = [];
-      data.data.map((city) => {
-        cities.push({
-          label: city.description,
-          value: city.id,
-        });
+      var typesID = [];
+      data.data.map((typeID) => {
+        typesID.push({ label: typeID.description, value: typeID.id });
       });
 
-      setCity(cities);
+      setTypeID(typesID);
     }
 
     if (error) console.log(error);
   }, [data, loading, error]);
 
-  useEffect(() => {
-    console.log(formik.values.department);
-    if (
-      formik.values.department !== undefined &&
-      formik.values.department !== null
-    ) {
-      fetch({ department: formik.values.department });
-    } else {
-      setCity([]);
-    }
-  }, [formik.values.department]);
-
   return (
-    <Box mb={4} ml={5} width="18vw">
-      <Box>
-        <InputTitles marginBottom={2}>Ciudad</InputTitles>
+    <Box mb={4}>
+      <Box width="18vw">
+        <InputTitles marginBottom={2}>Tipo de identificación</InputTitles>
         <Autocomplete
-          id="city"
           disablePortal
-          options={city}
+          id="type_identity"
+          options={typeID}
           getOptionLabel={(option) => option.label}
           onChange={(e, value) => {
             if (value !== null) {
-              formik.setFieldValue("city", value.value);
+              formik.setFieldValue("type_identity", value.value);
             } else {
-              formik.setFieldValue("city", null);
+              formik.setFieldValue("type_identity", null);
             }
           }}
           color="#5EA3A3"
@@ -70,8 +55,7 @@ export default function CitySelect({ formik }) {
             <MuiTextField
               variant="standard"
               {...params}
-              name="city"
-              placeholder="Ciudad"
+              placeholder="Tipo de identificación"
               InputProps={{
                 ...params.InputProps,
                 disableUnderline: true,

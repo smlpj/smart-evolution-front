@@ -1,4 +1,4 @@
-import { Cities } from "./queries";
+import { Departments } from "./queries";
 import { useFetch } from "../../hooks/useFetch";
 import { useEffect, useState } from "react";
 import { Box } from "@mui/system";
@@ -8,59 +8,47 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Clear from "@mui/icons-material/Clear";
 import MuiTextField from "../../../styles/fields";
 
-export default function CitySelect({ formik }) {
+export default function DepartmentSelect({ formik }) {
   // Hooks
   const {
     fetch: fetch,
     loading: loading,
     error: error,
     data: data,
-  } = useFetch({ service: Cities, init: false });
+  } = useFetch({ service: Departments, init: true });
 
-  const [city, setCity] = useState([]);
+  const [department, setDepartment] = useState([]);
 
   useEffect(() => {
     if (data) {
-      var cities = [];
-      data.data.map((city) => {
-        cities.push({
-          label: city.description,
-          value: city.id,
+      var departments = [];
+      data.data.map((department) => {
+        departments.push({
+          label: department.description,
+          value: department.id,
         });
       });
 
-      setCity(cities);
+      setDepartment(departments);
     }
 
     if (error) console.log(error);
   }, [data, loading, error]);
 
-  useEffect(() => {
-    console.log(formik.values.department);
-    if (
-      formik.values.department !== undefined &&
-      formik.values.department !== null
-    ) {
-      fetch({ department: formik.values.department });
-    } else {
-      setCity([]);
-    }
-  }, [formik.values.department]);
-
   return (
-    <Box mb={4} ml={5} width="18vw">
+    <Box mb={4} width="18vw">
       <Box>
-        <InputTitles marginBottom={2}>Ciudad</InputTitles>
+        <InputTitles marginBottom={2}>Departamento</InputTitles>
         <Autocomplete
-          id="city"
+          id="department"
           disablePortal
-          options={city}
+          options={department}
           getOptionLabel={(option) => option.label}
           onChange={(e, value) => {
             if (value !== null) {
-              formik.setFieldValue("city", value.value);
+              formik.setFieldValue("department", value.value);
             } else {
-              formik.setFieldValue("city", null);
+              formik.setFieldValue("department", null);
             }
           }}
           color="#5EA3A3"
@@ -70,8 +58,8 @@ export default function CitySelect({ formik }) {
             <MuiTextField
               variant="standard"
               {...params}
-              name="city"
-              placeholder="Ciudad"
+              name="department"
+              placeholder="Departamento"
               InputProps={{
                 ...params.InputProps,
                 disableUnderline: true,
