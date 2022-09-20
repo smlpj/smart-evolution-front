@@ -73,6 +73,7 @@ export default function RegisterClient() {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       fetch(values);
+      alert(JSON.stringify(values, null, 2));
     },
   });
 
