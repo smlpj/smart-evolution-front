@@ -31,10 +31,10 @@ export const InputAdornments = ({
               variant="standard"
               margin="normal"
               fullWidth
-              error={formik.touched.email && Boolean(formik.errors.email)}
               InputProps={{
                 disableUnderline: true,
               }}
+              error={formik.touched.email && Boolean(formik.errors.email)}
               sx={
                 formik.touched.email && Boolean(formik.errors.email)
                   ? { border: "2px solid #E6643180" }

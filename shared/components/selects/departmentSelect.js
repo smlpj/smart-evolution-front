@@ -49,6 +49,7 @@ export default function DepartmentSelect({ formik }) {
               formik.setFieldValue("department", value.value);
             } else {
               formik.setFieldValue("department", null);
+              formik.setFieldValue("city", null);
             }
           }}
           color="#5EA3A3"

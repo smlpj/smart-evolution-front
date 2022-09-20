@@ -3,7 +3,7 @@ import { styled } from "@mui/material/styles";
 
 const smartField = styled(TextField)({
   backgroundColor: "white",
-  border: "1px solid #ACCFCF",
+  border: "1.4px solid #ACCFCF",
   borderRadius: "5px",
   padding: "10px",
   height: "1.5rem",
@@ -17,7 +17,7 @@ const smartField = styled(TextField)({
     },
   },
   "&:hover": {
-    border: "1px solid #ACCFCF",
+    border: "1.4px solid #ACCFCF",
     backgroundColor: "#EBFAF6",
   },
 });

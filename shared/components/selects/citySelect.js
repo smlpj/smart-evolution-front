@@ -7,6 +7,7 @@ import { Autocomplete } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Clear from "@mui/icons-material/Clear";
 import MuiTextField from "../../../styles/fields";
+import HelperText from "../../../styles/helperText";
 
 export default function CitySelect({ formik }) {
   // Hooks
@@ -71,7 +72,15 @@ export default function CitySelect({ formik }) {
               variant="standard"
               {...params}
               name="city"
+              id="cityTextField"
               placeholder="Ciudad"
+              value={formik.values.city}
+              error={formik.touched.city && Boolean(formik.errors.city)}
+              sx={
+                formik.touched.city && Boolean(formik.errors.city)
+                  ? { border: "1.4px solid #E6643180" }
+                  : null
+              }
               InputProps={{
                 ...params.InputProps,
                 disableUnderline: true,
@@ -82,6 +91,9 @@ export default function CitySelect({ formik }) {
             />
           )}
         />
+        <HelperText position="fixed">
+          {formik.touched.city && formik.errors.city}
+        </HelperText>
       </Box>
     </Box>
   );

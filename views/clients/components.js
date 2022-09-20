@@ -79,68 +79,39 @@ export const SignUpClient = ({ formik }) => {
                 >
                   Registro de corredores
                 </Typography>
-                <Box display="flex" flexDirection="row">
-                  {/* <Box mb={4}>
-                    <Box width="18vw">
-                      <InputTitles marginBottom={2}>
-                        Tipo de identificación
-                      </InputTitles>
-                      <Autocomplete
-                        disablePortal
-                        options={top100Films}
-                        color="#5EA3A3"
-                        popupIcon={
-                          <KeyboardArrowDownIcon sx={{ color: "#5EA3A3" }} />
-                        }
-                        clearIcon={<Clear sx={{ color: "#5EA3A3" }} />}
-                        renderInput={(params) => (
-                          <MuiTextField
-                            variant="standard"
-                            {...params}
-                            id="type_identity"
-                            onChange={formik.handleChange}
-                            placeholder="Tipo de identificación"
-                            InputProps={{
-                              ...params.InputProps,
-                              disableUnderline: true,
-                              sx: {
-                                marginTop: "-2px",
-                              },
-                            }}
-                          />
-                        )}
-                      />
-                    </Box>
-                  </Box> */}
+                <Box display="flex" flexDirection="row" position="relative">
                   <TypeIDSelect formik={formik} />
-                  <Box mb={4} ml={5} width="18vw">
-                    <InputTitles>Número de identificación</InputTitles>
-                    <MuiTextField
-                      id="document_number"
-                      placeholder="Ingresa tu identificación"
-                      name="document_number"
-                      type="number"
-                      variant="standard"
-                      margin="normal"
-                      fullWidth
-                      InputProps={{
-                        disableUnderline: true,
-                      }}
-                      onChange={formik.handleChange}
-                      sx={{
-                        "& input[type=number]": {
-                          "-moz-appearance": "textfield",
-                        },
-                        "& input[type=number]::-webkit-outer-spin-button": {
-                          "-webkit-appearance": "none",
-                          margin: 0,
-                        },
-                        "& input[type=number]::-webkit-inner-spin-button": {
-                          "-webkit-appearance": "none",
-                          margin: 0,
-                        },
-                      }}
-                    />
+                  <Box mb={4} ml={5} position="relative">
+                    <Box width="18vw">
+                      <InputTitles>Número de identificación</InputTitles>
+                      <MuiTextField
+                        id="document_number"
+                        placeholder="Ingresa tu identificación"
+                        name="document_number"
+                        type="text"
+                        variant="standard"
+                        margin="normal"
+                        fullWidth
+                        InputProps={{
+                          disableUnderline: true,
+                        }}
+                        onChange={formik.handleChange}
+                        error={
+                          formik.touched.document_number &&
+                          Boolean(formik.errors.document_number)
+                        }
+                        sx={
+                          formik.touched.document_number &&
+                          Boolean(formik.errors.document_number)
+                            ? { border: "1.4px solid #E6643180" }
+                            : null
+                        }
+                      />
+                      <HelperText position="fixed">
+                        {formik.touched.document_number &&
+                          formik.errors.document_number}
+                      </HelperText>
+                    </Box>
                   </Box>
                 </Box>
                 <Box display="flex" flexDirection="row">
@@ -158,7 +129,20 @@ export const SignUpClient = ({ formik }) => {
                         disableUnderline: true,
                       }}
                       onChange={formik.handleChange}
+                      error={
+                        formik.touched.first_name &&
+                        Boolean(formik.errors.first_name)
+                      }
+                      sx={
+                        formik.touched.first_name &&
+                        Boolean(formik.errors.first_name)
+                          ? { border: "1.4px solid #E6643180" }
+                          : null
+                      }
                     />
+                    <HelperText position="fixed">
+                      {formik.touched.first_name && formik.errors.first_name}
+                    </HelperText>
                   </Box>
                   <Box mb={4} ml={5} width="18vw">
                     <InputTitles>Apellido</InputTitles>
@@ -174,7 +158,21 @@ export const SignUpClient = ({ formik }) => {
                         disableUnderline: true,
                       }}
                       onChange={formik.handleChange}
+                      error={
+                        formik.touched.last_name &&
+                        Boolean(formik.errors.last_name)
+                      }
+                      sx={
+                        formik.touched.last_name &&
+                        Boolean(formik.errors.last_name)
+                          ? { border: "1.4px solid #E6643180" }
+                          : null
+                      }
                     />
+
+                    <HelperText position="fixed">
+                      {formik.touched.last_name && formik.errors.last_name}
+                    </HelperText>
                   </Box>
                 </Box>
                 <Box display="flex" flexDirection="row">
@@ -192,7 +190,18 @@ export const SignUpClient = ({ formik }) => {
                         disableUnderline: true,
                       }}
                       onChange={formik.handleChange}
+                      error={
+                        formik.touched.address && Boolean(formik.errors.address)
+                      }
+                      sx={
+                        formik.touched.address && Boolean(formik.errors.address)
+                          ? { border: "1.4px solid #E6643180" }
+                          : null
+                      }
                     />
+                    <HelperText position="fixed">
+                      {formik.touched.address && formik.errors.address}
+                    </HelperText>
                   </Box>
                   <Box mb={4} ml={5} width="18vw">
                     <InputTitles>Email</InputTitles>
@@ -208,11 +217,22 @@ export const SignUpClient = ({ formik }) => {
                         disableUnderline: true,
                       }}
                       onChange={formik.handleChange}
+                      error={
+                        formik.touched.email && Boolean(formik.errors.email)
+                      }
+                      sx={
+                        formik.touched.email && Boolean(formik.errors.email)
+                          ? { border: "1.4px solid #E6643180" }
+                          : null
+                      }
                     />
+                    <HelperText position="fixed">
+                      {formik.touched.email && formik.errors.email}
+                    </HelperText>
                   </Box>
                 </Box>
                 <Box display="flex" flexDirection="row">
-                  <Box mb={4} width="39vw">
+                  <Box mb={4} width="38vw">
                     <InputTitles>Número de teléfono</InputTitles>
                     <MuiTextField
                       id="phone_number"
@@ -226,7 +246,21 @@ export const SignUpClient = ({ formik }) => {
                         disableUnderline: true,
                       }}
                       onChange={formik.handleChange}
+                      error={
+                        formik.touched.phone_number &&
+                        Boolean(formik.errors.phone_number)
+                      }
+                      sx={
+                        formik.touched.phone_number &&
+                        Boolean(formik.errors.phone_number)
+                          ? { border: "1.4px solid #E6643180" }
+                          : null
+                      }
                     />
+                    <HelperText position="fixed">
+                      {formik.touched.phone_number &&
+                        formik.errors.phone_number}
+                    </HelperText>
                   </Box>
                 </Box>
                 <Box display="flex" flexDirection="row">

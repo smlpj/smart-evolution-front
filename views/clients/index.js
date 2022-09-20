@@ -16,6 +16,11 @@ export default function RegisterClient() {
   } = useFetch({ service: RegisterClientQuery, init: false });
 
   const validationSchema = yup.object({
+    type_identity: yup
+      .string("Ingresa el tipo de identificación del corredor")
+      .nullable(true)
+      .required("El tipo de identificación es requerido"),
+
     document_number: yup
       .string("Ingresa un número de documento")
       .matches(/^[0-9]+$/, "Ingresa un número de documento válido")
@@ -39,10 +44,19 @@ export default function RegisterClient() {
       )
       .required("El email es requerido"),
 
+    address: yup
+      .string("Ingresa una dirección")
+      .required("La dirección es requerida"),
+
     phone_number: yup
       .string("Ingresa un número de teléfono")
       .matches(/^[0-9]+$/, "Ingresa un número de teléfono válido")
       .required("El número de teléfono es requerido"),
+
+    city: yup
+      .string("Ingresa una ciudad")
+      .nullable(true)
+      .required("La ciudad es requerida"),
   });
 
   const formik = useFormik({
