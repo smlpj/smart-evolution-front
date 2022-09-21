@@ -8,7 +8,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       {router.pathname !== "/auth/login" &&
-      router.pathname !== "/clients" &&
+      router.pathname !== "/brokers" &&
       router.pathname !== "/customers" ? (
         <Layout>
           <Component {...pageProps} />

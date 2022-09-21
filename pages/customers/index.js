@@ -1,4 +1,4 @@
-import CustomerRegister from "../../views/customers";
+import CustomerRegister from "../../views/customersAux";
 export default function index() {
   return <CustomerRegister />;
 }
