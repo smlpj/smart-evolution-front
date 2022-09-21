@@ -26,7 +26,12 @@ export default function Navbar() {
         >
           <Link href="/clients" underline="none">
             <NavbarButton
-              sx={{ marginBottom: "8%", width: "70%", height: "12%" }}
+              sx={{
+                border: "0.5px solid #488B8F",
+                marginBottom: "8%",
+                width: "70%",
+                height: "12%",
+              }}
             >
               Clientes
             </NavbarButton>

@@ -36,7 +36,7 @@ export default function DepartmentSelect({ formik }) {
   }, [data, loading, error]);
 
   return (
-    <Box mb={4} width="18vw">
+    <Box width="17vw">
       <Box>
         <InputTitles marginBottom={2}>Departamento</InputTitles>
         <Autocomplete
@@ -65,7 +65,7 @@ export default function DepartmentSelect({ formik }) {
                 ...params.InputProps,
                 disableUnderline: true,
                 sx: {
-                  marginTop: "-2px",
+                  marginTop: "-7px",
                 },
               }}
             />

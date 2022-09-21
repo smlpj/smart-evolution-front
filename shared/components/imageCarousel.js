@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import CrossfadeImage from "react-crossfade-image";
+/* import CrossfadeImage from "react-crossfade-image"; */
 
 export default function ImageCarousel() {
   const [curImg, setCurImg] = useState(0);
@@ -24,10 +24,12 @@ export default function ImageCarousel() {
   }, [curImg]);
 
   return (
-    <CrossfadeImage
-      src={images[curImg]}
-      duration={500}
-      timingFunction={"ease-out"}
-    />
+    <>
+      {/* <CrossfadeImage
+        src={images[curImg]}
+        duration={500}
+        timingFunction={"ease-out"}
+      /> */}
+    </>
   );
 }

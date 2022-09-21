@@ -49,7 +49,7 @@ export default function CitySelect({ formik }) {
   }, [formik.values.department]);
 
   return (
-    <Box mb={4} ml={5} width="18vw">
+    <Box ml={5} width="17vw">
       <Box>
         <InputTitles marginBottom={2}>Ciudad</InputTitles>
         <Autocomplete
@@ -85,7 +85,7 @@ export default function CitySelect({ formik }) {
                 ...params.InputProps,
                 disableUnderline: true,
                 sx: {
-                  marginTop: "-2px",
+                  marginTop: "-7px",
                 },
               }}
             />

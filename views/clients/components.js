@@ -41,7 +41,13 @@ export const SignUpClient = ({ formik }) => {
             alignItems="center"
             justifyContent="center"
           >
-            <ImageCarousel />
+            {/* <ImageCarousel /> */}
+            <Image
+              src="/assets/Ilustración - Creación de Usuario 1.svg"
+              alt="clients"
+              width={500}
+              height={500}
+            />
           </Grid>
           <Grid
             item
@@ -66,13 +72,13 @@ export const SignUpClient = ({ formik }) => {
                 </Typography>
                 <Box
                   display="flex"
-                  mb={4}
+                  mb={6}
                   flexDirection="row"
                   position="relative"
                 >
                   <TypeIDSelect formik={formik} />
                   <Box ml={5} position="relative">
-                    <Box width="18vw">
+                    <Box width="17vw">
                       <InputTitles>Número de identificación</InputTitles>
                       <MuiTextField
                         id="document_number"
@@ -84,6 +90,9 @@ export const SignUpClient = ({ formik }) => {
                         fullWidth
                         InputProps={{
                           disableUnderline: true,
+                          sx: {
+                            marginTop: "-5px",
+                          },
                         }}
                         onChange={formik.handleChange}
                         error={
@@ -104,8 +113,13 @@ export const SignUpClient = ({ formik }) => {
                     </Box>
                   </Box>
                 </Box>
-                <Box display="flex" flexDirection="row">
-                  <Box mb={4} width="18vw">
+                <Box
+                  display="flex"
+                  mb={6}
+                  flexDirection="row"
+                  position="relative"
+                >
+                  <Box width="17vw">
                     <InputTitles>Nombre</InputTitles>
                     <MuiTextField
                       id="first_name"
@@ -117,6 +131,9 @@ export const SignUpClient = ({ formik }) => {
                       fullWidth
                       InputProps={{
                         disableUnderline: true,
+                        sx: {
+                          marginTop: "-5px",
+                        },
                       }}
                       onChange={formik.handleChange}
                       error={
@@ -134,7 +151,7 @@ export const SignUpClient = ({ formik }) => {
                       {formik.touched.first_name && formik.errors.first_name}
                     </HelperText>
                   </Box>
-                  <Box mb={4} ml={5} width="18vw">
+                  <Box ml={5} width="17vw">
                     <InputTitles>Apellido</InputTitles>
                     <MuiTextField
                       id="last_name"
@@ -146,6 +163,9 @@ export const SignUpClient = ({ formik }) => {
                       fullWidth
                       InputProps={{
                         disableUnderline: true,
+                        sx: {
+                          marginTop: "-5px",
+                        },
                       }}
                       onChange={formik.handleChange}
                       error={
@@ -165,8 +185,13 @@ export const SignUpClient = ({ formik }) => {
                     </HelperText>
                   </Box>
                 </Box>
-                <Box display="flex" flexDirection="row">
-                  <Box mb={4} width="18vw">
+                <Box
+                  display="flex"
+                  mb={6}
+                  flexDirection="row"
+                  position="relative"
+                >
+                  <Box width="17vw">
                     <InputTitles>Número de teléfono</InputTitles>
                     <MuiTextField
                       id="phone_number"
@@ -178,6 +203,9 @@ export const SignUpClient = ({ formik }) => {
                       fullWidth
                       InputProps={{
                         disableUnderline: true,
+                        sx: {
+                          marginTop: "-5px",
+                        },
                       }}
                       onChange={formik.handleChange}
                       error={
@@ -196,7 +224,7 @@ export const SignUpClient = ({ formik }) => {
                         formik.errors.phone_number}
                     </HelperText>
                   </Box>
-                  <Box mb={4} ml={5} width="18vw">
+                  <Box ml={5} width="17vw">
                     <InputTitles>Email</InputTitles>
                     <MuiTextField
                       id="email"
@@ -208,6 +236,9 @@ export const SignUpClient = ({ formik }) => {
                       fullWidth
                       InputProps={{
                         disableUnderline: true,
+                        sx: {
+                          marginTop: "-5px",
+                        },
                       }}
                       onChange={formik.handleChange}
                       error={
@@ -224,12 +255,17 @@ export const SignUpClient = ({ formik }) => {
                     </HelperText>
                   </Box>
                 </Box>
-                <Box display="flex" flexDirection="row">
+                <Box
+                  display="flex"
+                  mb={6}
+                  flexDirection="row"
+                  position="relative"
+                >
                   <DepartmentSelect formik={formik} />
                   <CitySelect formik={formik} />
                 </Box>
                 <Box display="flex" flexDirection="row">
-                  <Box mb={4} width="38vw">
+                  <Box mb={4} width="100%">
                     <InputTitles>Dirección</InputTitles>
                     <MuiTextField
                       id="address"
@@ -241,6 +277,9 @@ export const SignUpClient = ({ formik }) => {
                       fullWidth
                       InputProps={{
                         disableUnderline: true,
+                        sx: {
+                          marginTop: "-5px",
+                        },
                       }}
                       onChange={formik.handleChange}
                       error={

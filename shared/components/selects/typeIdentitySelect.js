@@ -35,8 +35,8 @@ export default function TypeIDSelect({ formik }) {
 
   return (
     <>
-      <Box mb={4} position="relative">
-        <Box width="18vw">
+      <Box position="relative">
+        <Box width="17vw">
           <InputTitles marginBottom={2}>Tipo de identificación</InputTitles>
           <Autocomplete
             disablePortal
@@ -72,7 +72,7 @@ export default function TypeIDSelect({ formik }) {
                   ...params.InputProps,
                   disableUnderline: true,
                   sx: {
-                    marginTop: "-2px",
+                    marginTop: "-7px",
                   },
                 }}
               />

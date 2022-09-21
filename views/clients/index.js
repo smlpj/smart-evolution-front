@@ -28,7 +28,7 @@ export default function RegisterClient() {
 
     first_name: yup
       .string("Ingresa un nombre")
-      .matches(/^[a-zA-Z]+$/, "Ingresa un nombre válido")
+      .matches(/[a-zA-Z]+/, "Ingresa un nombre válido")
       .required("El nombre es requerido"),
 
     last_name: yup
