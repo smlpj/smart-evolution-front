@@ -28,14 +28,12 @@ export default function RegisterClient() {
 
     first_name: yup
       .string("Ingresa un nombre")
-      .matches(/[a-zA-Z]+/, "Ingresa un nombre válido")
-      .required("El nombre es requerido"),
-
+      .matches(/[a-zA-Z]+/, "Ingresa un nombre válido"),
+    /* .required("El nombre es requerido") */
     last_name: yup
       .string("Ingresa un apellido")
-      .matches(/^[a-zA-Z]+$/, "Ingresa un apellido válido")
-      .required("El apellido es requerido"),
-
+      .matches(/^[a-zA-Z]+$/, "Ingresa un apellido válido"),
+    /* .required("El apellido es requerido") */
     email: yup
       .string("Ingresa un email")
       .matches(
@@ -54,21 +52,37 @@ export default function RegisterClient() {
       .required("El número de teléfono es requerido"),
 
     city: yup
-      .string("Ingresa una ciudad")
+      .string("Selecciona una ciudad")
       .nullable(true)
       .required("La ciudad es requerida"),
+
+    broker: yup
+      .string("Selecciona un corredor")
+      .nullable(true)
+      .required("El corredor es requerido"),
+
+    type_client: yup
+      .string("Selecciona un tipo de cliente")
+      .nullable(true)
+      .required("El tipo de cliente es requerido"),
+
+    social_reason: yup.string("Ingresa una razón social").nullable(true),
+    /* .required("La razón social es requerida") */
   });
 
   const formik = useFormik({
     initialValues: {
       type_identity: "",
       document_number: "",
-      first_name: "",
-      last_name: "",
+      first_name: null,
+      last_name: null,
       address: "",
       email: "",
       phone_number: "",
       city: "",
+      broker: "",
+      type_client: null,
+      social_reason: null,
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {

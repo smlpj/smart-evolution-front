@@ -4,7 +4,7 @@ const token =
 
 export const RegisterClientQuery = async (data) => {
   const res = await Axios.post(
-    "https://smart-evolution-api.herokuapp.com/api/broker/",
+    "https://smart-evolution-api.herokuapp.com/api/client/",
     data,
     {
       headers: {

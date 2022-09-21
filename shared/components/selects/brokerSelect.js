@@ -1,0 +1,87 @@
+import { Broker } from "./queries";
+import { useFetch } from "../../hooks/useFetch";
+import { useEffect, useState } from "react";
+import { Box } from "@mui/system";
+import InputTitles from "../../../styles/inputTitles";
+import { Autocomplete } from "@mui/material";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import Clear from "@mui/icons-material/Clear";
+import MuiTextField from "../../../styles/fields";
+import HelperText from "../../../styles/helperText";
+
+export default function BrokerSelect({ formik }) {
+  // Hooks
+  const {
+    fetch: fetch,
+    loading: loading,
+    error: error,
+    data: data,
+  } = useFetch({ service: Broker, init: true });
+
+  const [broker, setBroker] = useState([]);
+
+  useEffect(() => {
+    if (data) {
+      var Brokers = [];
+      data.data.map((broker) => {
+        Brokers.push({
+          label: `${broker.first_name} ${broker.last_name}`,
+          value: broker.id,
+        });
+      });
+
+      setBroker(Brokers);
+    }
+
+    if (error) console.log(error);
+  }, [data, loading, error]);
+
+  return (
+    <Box ml={5} width="17vw">
+      <Box>
+        <InputTitles marginBottom={2}>Corredor</InputTitles>
+        <Autocomplete
+          id="broker"
+          disablePortal
+          options={broker}
+          getOptionLabel={(option) => option.label}
+          onChange={(e, value) => {
+            if (value !== null) {
+              formik.setFieldValue("broker", value.value);
+            } else {
+              formik.setFieldValue("broker", null);
+            }
+          }}
+          color="#5EA3A3"
+          popupIcon={<KeyboardArrowDownIcon sx={{ color: "#5EA3A3" }} />}
+          clearIcon={<Clear sx={{ color: "#5EA3A3" }} />}
+          renderInput={(params) => (
+            <MuiTextField
+              variant="standard"
+              {...params}
+              name="broker"
+              placeholder="Corredor"
+              value={formik.values.broker}
+              error={formik.touched.broker && Boolean(formik.errors.broker)}
+              sx={
+                formik.touched.broker && Boolean(formik.errors.broker)
+                  ? { border: "1.4px solid #E6643180" }
+                  : null
+              }
+              InputProps={{
+                ...params.InputProps,
+                disableUnderline: true,
+                sx: {
+                  marginTop: "-7px",
+                },
+              }}
+            />
+          )}
+        />
+        <HelperText position="fixed">
+          {formik.touched.broker && formik.errors.broker}
+        </HelperText>
+      </Box>
+    </Box>
+  );
+}

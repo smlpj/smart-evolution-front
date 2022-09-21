@@ -13,6 +13,7 @@ export const Departments = async (data) => {
   );
   return res.data;
 };
+
 export const Cities = async (data) => {
   const res = await Axios.get(
     `https://smart-evolution-api.herokuapp.com/api/city/${data.department}`,
@@ -28,6 +29,53 @@ export const Cities = async (data) => {
 export const IdentityType = async (data) => {
   const res = await Axios.get(
     "https://smart-evolution-api.herokuapp.com/api/type_identity",
+    {
+      headers: {
+        authorization: "Bearer " + token,
+      },
+    }
+  );
+  return res.data;
+};
+
+export const Broker = async (data) => {
+  const res = await Axios.get(
+    "https://smart-evolution-api.herokuapp.com/api/broker",
+    {
+      headers: {
+        authorization: "Bearer " + token,
+      },
+    }
+  );
+  return res.data;
+};
+
+export const ClientType = async (data) => {
+  const res = await Axios.get(
+    "https://smart-evolution-api.herokuapp.com/api/type_client",
+    {
+      headers: {
+        authorization: "Bearer " + token,
+      },
+    }
+  );
+  return res.data;
+};
+export const CIIU = async (data) => {
+  const res = await Axios.get(
+    "https://smart-evolution-api.herokuapp.com/api/ciiu",
+    {
+      headers: {
+        authorization: "Bearer " + token,
+      },
+    }
+  );
+  return res.data;
+};
+
+export const Citizenship = async (data) => {
+  const res = await Axios.get(
+    "https://smart-evolution-api.herokuapp.com/api/citizenship",
     {
       headers: {
         authorization: "Bearer " + token,
