@@ -1,4 +1,4 @@
-import { Broker } from "./queries";
+import { Citizenship } from "./queries";
 import { useFetch } from "../../hooks/useFetch";
 import { useEffect, useState } from "react";
 import { Box } from "@mui/system";
@@ -9,27 +9,27 @@ import Clear from "@mui/icons-material/Clear";
 import MuiTextField from "../../../styles/fields";
 import HelperText from "../../../styles/helperText";
 
-export default function BrokerSelect({ formik }) {
+export default function CitizenshipSelect({ formik }) {
   // Hooks
   const {
     fetch: fetch,
     loading: loading,
     error: error,
     data: data,
-  } = useFetch({ service: Broker, init: true });
+  } = useFetch({ service: Citizenship, init: true });
 
-  const [broker, setBroker] = useState([]);
+  const [citizenship, setCitizenship] = useState([]);
 
   useEffect(() => {
     if (data) {
-      var Brokers = [];
-      data.data.map((broker) => {
-        Brokers.push({
-          label: `${broker.first_name} ${broker.last_name}`,
-          value: broker.id,
+      var Citizenships = [];
+      data.data.map((citizenship) => {
+        Citizenships.push({
+          label: citizenship.description,
+          value: citizenship.id,
         });
       });
-      setBroker(Brokers);
+      setCitizenship(Citizenships);
     }
 
     if (error) console.log(error);
@@ -38,17 +38,17 @@ export default function BrokerSelect({ formik }) {
   return (
     <Box width="17vw">
       <Box>
-        <InputTitles marginBottom={2}>Corredor</InputTitles>
+        <InputTitles marginBottom={2}>Nacionalidad</InputTitles>
         <Autocomplete
-          id="broker"
+          id="citizenship"
           disablePortal
-          options={broker}
+          options={citizenship}
           getOptionLabel={(option) => option.label}
           onChange={(e, value) => {
             if (value !== null) {
-              formik.setFieldValue("broker", value.value);
+              formik.setFieldValue("citizenship", value.value);
             } else {
-              formik.setFieldValue("broker", null);
+              formik.setFieldValue("citizenship", null);
             }
           }}
           color="#5EA3A3"
@@ -58,12 +58,14 @@ export default function BrokerSelect({ formik }) {
             <MuiTextField
               variant="standard"
               {...params}
-              name="broker"
+              name="citizenship"
               placeholder="Corredor"
-              value={formik.values.broker}
-              error={formik.touched.broker && Boolean(formik.errors.broker)}
+              value={formik.values.citizenship}
+              error={
+                formik.touched.citizenship && Boolean(formik.errors.citizenship)
+              }
               sx={
-                formik.touched.broker && Boolean(formik.errors.broker)
+                formik.touched.citizenship && Boolean(formik.errors.citizenship)
                   ? { border: "1.4px solid #E6643180" }
                   : null
               }
@@ -78,7 +80,7 @@ export default function BrokerSelect({ formik }) {
           )}
         />
         <HelperText position="fixed">
-          {formik.touched.broker && formik.errors.broker}
+          {formik.touched.citizenship && formik.errors.citizenship}
         </HelperText>
       </Box>
     </Box>

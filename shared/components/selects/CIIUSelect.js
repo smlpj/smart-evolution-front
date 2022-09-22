@@ -1,4 +1,4 @@
-import { Broker } from "./queries";
+import { CIIU } from "./queries";
 import { useFetch } from "../../hooks/useFetch";
 import { useEffect, useState } from "react";
 import { Box } from "@mui/system";
@@ -9,46 +9,46 @@ import Clear from "@mui/icons-material/Clear";
 import MuiTextField from "../../../styles/fields";
 import HelperText from "../../../styles/helperText";
 
-export default function BrokerSelect({ formik }) {
+export default function CIIUSelect({ formik }) {
   // Hooks
   const {
     fetch: fetch,
     loading: loading,
     error: error,
     data: data,
-  } = useFetch({ service: Broker, init: true });
+  } = useFetch({ service: CIIU, init: true });
 
-  const [broker, setBroker] = useState([]);
+  const [ciiu, setCIIU] = useState([]);
 
   useEffect(() => {
     if (data) {
-      var Brokers = [];
-      data.data.map((broker) => {
-        Brokers.push({
-          label: `${broker.first_name} ${broker.last_name}`,
-          value: broker.id,
+      var CIIUs = [];
+      data.data.map((ciiu) => {
+        CIIUs.push({
+          label: ciiu.code,
+          value: ciiu.id,
         });
       });
-      setBroker(Brokers);
+      setCIIU(CIIUs);
     }
 
     if (error) console.log(error);
   }, [data, loading, error]);
 
   return (
-    <Box width="17vw">
+    <Box ml={5} width="17vw">
       <Box>
-        <InputTitles marginBottom={2}>Corredor</InputTitles>
+        <InputTitles marginBottom={2}>CIIU</InputTitles>
         <Autocomplete
-          id="broker"
+          id="ciiu"
           disablePortal
-          options={broker}
+          options={ciiu}
           getOptionLabel={(option) => option.label}
           onChange={(e, value) => {
             if (value !== null) {
-              formik.setFieldValue("broker", value.value);
+              formik.setFieldValue("ciiu", value.value);
             } else {
-              formik.setFieldValue("broker", null);
+              formik.setFieldValue("ciiu", null);
             }
           }}
           color="#5EA3A3"
@@ -58,12 +58,12 @@ export default function BrokerSelect({ formik }) {
             <MuiTextField
               variant="standard"
               {...params}
-              name="broker"
-              placeholder="Corredor"
-              value={formik.values.broker}
-              error={formik.touched.broker && Boolean(formik.errors.broker)}
+              name="ciiu"
+              placeholder="Seleccione su CIIU"
+              value={formik.values.ciiu}
+              error={formik.touched.ciiu && Boolean(formik.errors.ciiu)}
               sx={
-                formik.touched.broker && Boolean(formik.errors.broker)
+                formik.touched.ciiu && Boolean(formik.errors.ciiu)
                   ? { border: "1.4px solid #E6643180" }
                   : null
               }
@@ -78,7 +78,7 @@ export default function BrokerSelect({ formik }) {
           )}
         />
         <HelperText position="fixed">
-          {formik.touched.broker && formik.errors.broker}
+          {formik.touched.ciiu && formik.errors.ciiu}
         </HelperText>
       </Box>
     </Box>

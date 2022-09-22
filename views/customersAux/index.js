@@ -28,11 +28,13 @@ export default function RegisterClient() {
 
     first_name: yup
       .string("Ingresa un nombre")
-      .matches(/[a-zA-Z]+/, "Ingresa un nombre válido"),
+      .matches(/[a-zA-Z]+/, "Ingresa un nombre válido")
+      .nullable(true),
     /* .required("El nombre es requerido") */
     last_name: yup
       .string("Ingresa un apellido")
-      .matches(/^[a-zA-Z]+$/, "Ingresa un apellido válido"),
+      .matches(/^[a-zA-Z]+$/, "Ingresa un apellido válido")
+      .nullable(true),
     /* .required("El apellido es requerido") */
     email: yup
       .string("Ingresa un email")
@@ -56,15 +58,25 @@ export default function RegisterClient() {
       .nullable(true)
       .required("La ciudad es requerida"),
 
+    type_client: yup
+      .string("Selecciona un tipo de cliente")
+      .nullable(true)
+      .required("El tipo de cliente es requerido"),
+
     broker: yup
       .string("Selecciona un corredor")
       .nullable(true)
       .required("El corredor es requerido"),
 
-    type_client: yup
-      .string("Selecciona un tipo de cliente")
+    ciiu: yup
+      .string("Selecciona un CIIU")
       .nullable(true)
-      .required("El tipo de cliente es requerido"),
+      .required("El CIIU es requerido"),
+
+    citizenship: yup
+      .string("Selecciona una nacionalidad")
+      .nullable(true)
+      .required("La nacionalidad es requerida"),
 
     social_reason: yup.string("Ingresa una razón social").nullable(true),
     /* .required("La razón social es requerida") */
@@ -83,6 +95,8 @@ export default function RegisterClient() {
       broker: "",
       type_client: null,
       social_reason: null,
+      ciiu: null,
+      citizenship: null,
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {

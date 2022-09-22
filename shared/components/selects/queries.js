@@ -1,7 +1,7 @@
 import Axios from "axios";
 
 const token =
-  "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjY1OTg3ODA4LCJpYXQiOjE2NjMzNTk4MDgsImp0aSI6IjEyZmNkMmI5M2VjZjQwYWY5YmNkMzU1NjJmMzZhZjJlIiwidXNlcl9pZCI6ImYyYzcxMWQ5LTA3MmMtNDE1Mi05MGFlLTUwZmU2OWYxMTA1MSIsIm5hbWUiOiJzdXBlciB1c2VyIiwicm9sZXMiOlsic3VwZXJ1c2VyIl0sInBlcm1pc3Npb25zIjpbXSwiaXNfc3VwZXJ1c2VyIjp0cnVlfQ.9i_yR0-1e57yIdEmuA0yz6HieDFSs2cXzGbBYiCNi_A";
+  "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjY2NTA3NjcwLCJpYXQiOjE2NjM4Nzk2NzAsImp0aSI6ImExMjczZDI1ZDE0MjQyOThiNWMwMzA2NTlkYzE1ZDVhIiwidXNlcl9pZCI6ImIxNTU0ZDdhLThlMzAtNGQ5ZC1hMTEwLTk2YTZkMTc5Zjc2NiIsIm5hbWUiOiJhbmRlcnNvbiBzYW5jaGV6Iiwicm9sZXMiOlsic3VwZXJ1c2VyIl0sInBlcm1pc3Npb25zIjpbXSwiaXNfc3VwZXJ1c2VyIjp0cnVlfQ.Ghu9LjggbHBlFn4QdNOIkckxikaYwV8_U1q0oaOroQc";
 export const Departments = async (data) => {
   const res = await Axios.get(
     "https://smart-evolution-api.herokuapp.com/api/department",
@@ -75,7 +75,7 @@ export const CIIU = async (data) => {
 
 export const Citizenship = async (data) => {
   const res = await Axios.get(
-    "https://smart-evolution-api.herokuapp.com/api/citizenship",
+    "https://smart-evolution-api.herokuapp.com/api/country",
     {
       headers: {
         authorization: "Bearer " + token,
