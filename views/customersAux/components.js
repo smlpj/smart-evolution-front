@@ -438,14 +438,17 @@ export const SignUpClient = ({ formik }) => {
                       borderRadius: "4px",
                     }}
                   >
-                    <ArrowForwardIcon
+                    <Typography
+                      fontFamily="icomoon"
                       sx={{
                         color: "#fff",
                         mr: 2,
                         fontSize: "medium",
                         transform: "rotate(180deg)",
                       }}
-                    />
+                    >
+                      &#xe91f;
+                    </Typography>
                     <Typography
                       fontSize="90%"
                       fontFamily="Montserrat"
@@ -479,9 +482,16 @@ export const SignUpClient = ({ formik }) => {
                       >
                         Registrar
                       </Typography>
-                      <ArrowForwardIcon
-                        sx={{ color: "#fff", ml: 2, fontSize: "medium" }}
-                      />
+                      <Typography
+                        fontFamily="icomoon"
+                        sx={{
+                          color: "#fff",
+                          ml: 2,
+                          fontSize: "medium",
+                        }}
+                      >
+                        &#xe91f;
+                      </Typography>
                     </MuiButton>
                   ) : (
                     <MuiButton
@@ -500,13 +510,17 @@ export const SignUpClient = ({ formik }) => {
                       >
                         Siguiente
                       </Typography>
-                      <ArrowForwardIcon
+
+                      <Typography
+                        fontFamily="icomoon"
                         sx={{
                           color: "#fff",
                           ml: 2,
                           fontSize: "medium",
                         }}
-                      />
+                      >
+                        &#xe91f;
+                      </Typography>
                     </MuiButton>
                   )}
                 </Box>
