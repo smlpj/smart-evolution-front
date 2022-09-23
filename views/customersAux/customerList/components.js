@@ -11,8 +11,16 @@ import CustomDataGrid from "../../../styles/tables";
 
 const columns = [
   {
+    field: "Customer",
+    headerName: "CLIENTE",
+    width: 130,
+    renderCell: (params) => {
+      return <InputTitles>{params.value}</InputTitles>;
+    },
+  },
+  {
     field: "Status",
-    headerName: "ESTADO",
+    headerName: "ESTATUS",
     width: 130,
     renderCell: (params) => {
       return (
@@ -32,13 +40,38 @@ const columns = [
     },
   },
   {
-    field: "Customer",
-    headerName: "CLIENTE",
+    field: "EnteredBy",
+    headerName: "INGRESADO POR",
+    width: 160,
+    renderCell: (params) => {
+      return (
+        <Typography
+          fontFamily="Montserrat"
+          fontSize="80%"
+          width="100%"
+          fontWeight="bold"
+          color="#63595C"
+          textAlign="center"
+          border="1.4px solid #63595C"
+          backgroundColor="transparent"
+          textTransform="uppercase"
+          padding="3% 8%"
+          borderRadius="4px"
+        >
+          {params.value}
+        </Typography>
+      );
+    },
+  },
+
+  /* {
+    field: "DateCreated",
+    headerName: "FECHA",
     width: 130,
     renderCell: (params) => {
       return <InputTitles>{params.value}</InputTitles>;
     },
-  },
+  }, */
 ];
 
 const rows = [
@@ -82,7 +115,6 @@ export const ClientListComponent = () => {
     error: error,
     data: data,
   } = useFetch({ service: GetClientList, init: true });
-
   const [customer, setCustomer] = useState([]);
 
   useEffect(() => {
@@ -93,6 +125,8 @@ export const ClientListComponent = () => {
           id: customer.id,
           Customer: `${customer.first_name} ${customer.last_name}`,
           Status: customer.status,
+          EnteredBy: `${customer.entered_by.first_name} ${customer.entered_by.last_name}`,
+          /* DateCreated: customer.created_at.substring(0, 10).replace("-", "/"), */
         });
       });
       setCustomer(Customers);
