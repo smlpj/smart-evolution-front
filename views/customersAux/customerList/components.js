@@ -7,6 +7,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import { GetClientList } from "./queries";
 import { useFetch } from "../../../shared/hooks/useFetch";
 import { useEffect, useState } from "react";
+import CustomDataGrid from "../../../styles/tables";
 
 const columns = [
   { field: "id", headerName: "ID", width: 70 },
@@ -39,6 +40,27 @@ const rows = [
   { id: 7, lastName: "Clifford", firstName: "Ferrara", age: 44 },
   { id: 8, lastName: "Frances", firstName: "Rossini", age: 36 },
   { id: 9, lastName: "Roxie", firstName: "Harvey", age: 65 },
+  { id: 10, lastName: "Roxie", firstName: "Harvey", age: 65 },
+  { id: 11, lastName: "Roxie", firstName: "Harvey", age: 65 },
+  { id: 12, lastName: "Roxie", firstName: "Harvey", age: 65 },
+  { id: 13, lastName: "Roxie", firstName: "Harvey", age: 65 },
+  { id: 14, lastName: "Roxie", firstName: "Harvey", age: 65 },
+  { id: 15, lastName: "Roxie", firstName: "Harvey", age: 65 },
+  { id: 16, lastName: "Roxie", firstName: "Harvey", age: 65 },
+  { id: 17, lastName: "Roxie", firstName: "Harvey", age: 65 },
+  { id: 18, lastName: "Roxie", firstName: "Harvey", age: 65 },
+  { id: 19, lastName: "Roxie", firstName: "Harvey", age: 65 },
+  { id: 20, lastName: "Roxie", firstName: "Harvey", age: 65 },
+  { id: 21, lastName: "Roxie", firstName: "Harvey", age: 65 },
+  { id: 22, lastName: "Roxie", firstName: "Harvey", age: 65 },
+  { id: 23, lastName: "Roxie", firstName: "Harvey", age: 65 },
+  { id: 24, lastName: "Roxie", firstName: "Harvey", age: 65 },
+  { id: 25, lastName: "Roxie", firstName: "Harvey", age: 65 },
+  { id: 26, lastName: "Roxie", firstName: "Harvey", age: 65 },
+  { id: 27, lastName: "Roxie", firstName: "Harvey", age: 65 },
+  { id: 28, lastName: "Roxie", firstName: "Harvey", age: 65 },
+  { id: 29, lastName: "Roxie", firstName: "Harvey", age: 65 },
+  { id: 30, lastName: "Roxie", firstName: "Harvey", age: 65 },
 ];
 
 export const ClientListComponent = () => {
@@ -239,10 +261,12 @@ export const ClientListComponent = () => {
             },
           }}
         >
-          <DataGrid
-            rows={customer}
-            columns={tableCol}
-            pageSize={10}
+          <CustomDataGrid
+            rows={rows}
+            columns={columns}
+            /* rows={customer}
+            columns={tableCol} */
+            pageSize={15}
             rowsPerPageOptions={[5]}
           />
         </Box>
