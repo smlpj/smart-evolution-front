@@ -34,6 +34,9 @@ const CustomDataGrid = styled(DataGrid)({
       backgroundColor: "#F5F5F5",
     },
   },
+
+  /*  "& .MuiDataGrid-column": {}, */
+
   "& .MuiDataGrid-cell": {
     border: "0px",
   },
@@ -74,10 +77,6 @@ const CustomDataGrid = styled(DataGrid)({
   "& .MuiDataGrid-sortIcon": {
     color: "#8C7E82",
     display: "static",
-  },
-
-  "& .MuiDataGrid-iconSeparator": {
-    display: "none",
   },
 
   "& .MuiDataGrid-menuIcon": {

@@ -10,23 +10,34 @@ import { useEffect, useState } from "react";
 import CustomDataGrid from "../../../styles/tables";
 
 const columns = [
-  { field: "id", headerName: "ID", width: 70 },
-  { field: "firstName", headerName: "First name", width: 130 },
-  { field: "lastName", headerName: "Last name", width: 130 },
   {
-    field: "age",
-    headerName: "Age",
-    type: "number",
-    width: 90,
+    field: "Status",
+    headerName: "ESTADO",
+    width: 130,
+    renderCell: (params) => {
+      return (
+        <Typography
+          fontFamily="Montserrat"
+          fontSize="80%"
+          fontWeight="bold"
+          color="#488B8F"
+          backgroundColor="#B5D1C9"
+          textTransform="uppercase"
+          padding="3% 8%"
+          borderRadius="4px"
+        >
+          {params.value === true ? "Validado" : "En proceso"}
+        </Typography>
+      );
+    },
   },
   {
-    field: "fullName",
-    headerName: "Full name",
-    description: "This column has a value getter and is not sortable.",
-    sortable: false,
-    width: 160,
-    valueGetter: (params) =>
-      `${params.row.firstName || ""} ${params.row.lastName || ""}`,
+    field: "Customer",
+    headerName: "CLIENTE",
+    width: 130,
+    renderCell: (params) => {
+      return <InputTitles>{params.value}</InputTitles>;
+    },
   },
 ];
 
@@ -73,32 +84,20 @@ export const ClientListComponent = () => {
   } = useFetch({ service: GetClientList, init: true });
 
   const [customer, setCustomer] = useState([]);
-  const [tableCol, setTableCol] = useState([]);
 
   useEffect(() => {
     if (data) {
-      var Customers = [];
-      var Cols = [];
+      let Customers = [];
       data.data.map((customer) => {
         Customers.push({
-          cliente: `${customer.first_name} ${customer.last_name}`,
-          estado: customer.status,
           id: customer.id,
+          Customer: `${customer.first_name} ${customer.last_name}`,
+          Status: customer.status,
         });
       });
       setCustomer(Customers);
 
-      Object.keys(Customers[0]).map((col) => {
-        Cols.push({
-          field: col,
-          headerName: col.toUpperCase(),
-          width: 130,
-        });
-      });
-      setTableCol(Cols);
-
       console.log(customer);
-      console.log(tableCol);
     }
 
     if (error) console.log(error);
@@ -239,33 +238,12 @@ export const ClientListComponent = () => {
           flexDirection="column"
           width="100%"
           height="100%"
-          sx={{
-            scrollBehavior: "smooth",
-            overflowY: "auto",
-            "&::-webkit-scrollbar": {
-              position: "absolute",
-              width: "9px",
-              webkitAppearance: "none",
-            },
-            "&::-webkit-scrollbar-track": {
-              backgroundColor: "#CFDDDD",
-              borderRadius: "10px",
-            },
-            "&::-webkit-scrollbar-thumb": {
-              backgroundColor: "#5EA3A3",
-              backgroundClip: "content-box",
-              borderColor: "transparent",
-              borderStyle: "solid",
-              borderWidth: "1px 2px",
-              borderRadius: "10px",
-            },
-          }}
         >
           <CustomDataGrid
-            rows={rows}
+            /* rows={rows}
+            columns={columns} */
+            rows={customer}
             columns={columns}
-            /* rows={customer}
-            columns={tableCol} */
             pageSize={15}
             rowsPerPageOptions={[5]}
           />
