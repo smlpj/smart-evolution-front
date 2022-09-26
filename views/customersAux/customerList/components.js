@@ -15,9 +15,38 @@ import { Fade } from "@mui/material";
 
 const columns = [
   {
+    field: "id",
+    headerName: "ID",
+    width: 70,
+    renderCell: (params) => {
+      return (
+        <CustomTooltip
+          title={params.value}
+          arrow
+          placement="bottom-start"
+          TransitionComponent={Fade}
+          PopperProps={{
+            modifiers: [
+              {
+                name: "offset",
+                options: {
+                  offset: [0, 0],
+                },
+              },
+            ],
+          }}
+        >
+          <InputTitles>
+            {params.value.substring(params.value.length - 5)}
+          </InputTitles>
+        </CustomTooltip>
+      );
+    },
+  },
+  {
     field: "Customer",
     headerName: "CLIENTE",
-    width: 190,
+    width: 170,
     renderCell: (params) => {
       return <InputTitles>{params.value}</InputTitles>;
     },
@@ -73,7 +102,7 @@ const columns = [
   {
     field: "DateCreated",
     headerName: "FECHA",
-    width: 130,
+    width: 110,
     renderCell: (params) => {
       return <InputTitles>{params.value}</InputTitles>;
     },
@@ -653,8 +682,6 @@ export const ClientListComponent = () => {
           height="100%"
         >
           <CustomDataGrid
-            /* rows={rows}
-            columns={columns} */
             rows={customer}
             columns={columns}
             pageSize={15}
