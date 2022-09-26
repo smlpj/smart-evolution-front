@@ -31,11 +31,13 @@ const columns = [
         <Typography
           fontFamily="Montserrat"
           fontSize="80%"
+          width="100%"
           fontWeight="bold"
           color="#488B8F"
           backgroundColor="#B5D1C9"
           textTransform="uppercase"
-          padding="3% 8%"
+          textAlign="center"
+          padding="5.5% 8%"
           borderRadius="4px"
         >
           {params.value === true ? "Validado" : "En proceso"}
@@ -521,12 +523,7 @@ export const ClientListComponent = () => {
 
   return (
     <>
-      <Box
-        height="73vh"
-        display="flex"
-        flexDirection="column"
-        marginLeft="6rem"
-      >
+      <Box height="78vh" display="flex" flexDirection="column" marginLeft="5%">
         <Box
           container
           display="flex"
@@ -664,6 +661,20 @@ export const ClientListComponent = () => {
             rowsPerPageOptions={[5]}
             disableSelectionOnClick
             disableColumnMenu
+            components={{
+              ColumnSortedAscendingIcon: () => (
+                <Typography fontFamily="icomoon" fontSize="0.7rem">
+                  &#xe908;
+                </Typography>
+              ),
+
+              ColumnSortedDescendingIcon: () => (
+                <Typography fontFamily="icomoon" fontSize="0.7rem">
+                  &#xe908;
+                </Typography>
+              ),
+            }}
+            loading={loading}
           />
         </Box>
       </Box>

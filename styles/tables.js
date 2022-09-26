@@ -1,8 +1,26 @@
 import { DataGrid } from "@mui/x-data-grid";
 import { styled } from "@mui/material/styles";
+import { Typography } from "@mui/material";
 
 const CustomDataGrid = styled(DataGrid)({
   border: "none",
+
+  "&. MuiDataGrid-ColumnHeaderFilteredIconButton": {
+    /* <Typography
+      fontFamily="icomoon"
+      fontSize="1.9rem"
+      color="#488B8F"
+      borderRadius="5px"
+      sx={{
+        "&:hover": {
+          backgroundColor: "#B5D1C980",
+        },
+        cursor: "pointer",
+      }}
+    >
+      &#xe902;
+    </Typography> */
+  },
 
   "& .MuiDataGrid-virtualScroller": {
     scrollBehavior: "smooth",
@@ -11,6 +29,7 @@ const CustomDataGrid = styled(DataGrid)({
     "&::-webkit-scrollbar": {
       position: "absolute",
       width: "9px",
+      height: "9px",
       webkitAppearance: "none",
     },
     "&::-webkit-scrollbar-track": {
@@ -38,10 +57,11 @@ const CustomDataGrid = styled(DataGrid)({
     },
   },
 
-  /*  "& .MuiDataGrid-column": {}, */
-
   "& .MuiDataGrid-cell": {
     border: "0px solid transparent",
+    "&:focus": {
+      outline: "none",
+    },
   },
   "& .MuiDataGrid-columnsContainer": {
     backgroundColor: "#F5F5F5",
@@ -61,8 +81,19 @@ const CustomDataGrid = styled(DataGrid)({
     color: "#8C7E82",
     letterSpacing: "0px",
   },
+
   "& .MuiDataGrid-columnHeaders": {
     borderBottom: "none",
+  },
+
+  "& .MuiDataGrid-columnHeader ": {
+    "&:focus": {
+      outline: "none",
+    },
+
+    "&:focus-within": {
+      outline: "none",
+    },
   },
 
   "& .MuiDataGrid-footerContainer": {
