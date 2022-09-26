@@ -2,9 +2,12 @@ import { DataGrid } from "@mui/x-data-grid";
 import { styled } from "@mui/material/styles";
 
 const CustomDataGrid = styled(DataGrid)({
+  border: "none",
+
   "& .MuiDataGrid-virtualScroller": {
     scrollBehavior: "smooth",
     overflowY: "auto",
+    overflowX: "auto",
     "&::-webkit-scrollbar": {
       position: "absolute",
       width: "9px",
@@ -38,7 +41,7 @@ const CustomDataGrid = styled(DataGrid)({
   /*  "& .MuiDataGrid-column": {}, */
 
   "& .MuiDataGrid-cell": {
-    border: "0px",
+    border: "0px solid transparent",
   },
   "& .MuiDataGrid-columnsContainer": {
     backgroundColor: "#F5F5F5",
@@ -50,9 +53,7 @@ const CustomDataGrid = styled(DataGrid)({
   "& .MuiDataGrid-columnsContainerSeparator": {
     display: "none",
   },
-  "& .MuiDataGrid-columnHeader": {
-    border: "0",
-  },
+
   "& .MuiDataGrid-columnHeaderTitle": {
     fontFamily: "Montserrat",
     fontWeight: "bold",
@@ -60,6 +61,14 @@ const CustomDataGrid = styled(DataGrid)({
     color: "#8C7E82",
     letterSpacing: "0px",
   },
+  "& .MuiDataGrid-columnHeaders": {
+    borderBottom: "none",
+  },
+
+  "& .MuiDataGrid-footerContainer": {
+    borderTop: "none",
+  },
+
   "& .MuiDataGrid-columnHeaderTitleContainer": {
     justifyContent: "left",
     hover: "none",
