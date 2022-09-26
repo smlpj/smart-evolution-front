@@ -24,7 +24,7 @@ export default function Navbar() {
           borderBottom="2px solid"
           borderColor="#B5D1C9"
         >
-          <Link href="/customers" underline="none">
+          <Link href="/customers/customerList" underline="none">
             <NavbarButton
               sx={{
                 border: "0.5px solid #488B8F",

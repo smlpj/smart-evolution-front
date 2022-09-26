@@ -4,7 +4,7 @@ import { Typography } from "@mui/material";
 import Link from "next/link";
 import InputTitles from "../../../styles/inputTitles";
 import { DataGrid } from "@mui/x-data-grid";
-import { GetClientList } from "./queries";
+import { GetClientList, GetClientListByQuery } from "./queries";
 import { useFetch } from "../../../shared/hooks/useFetch";
 import { useEffect, useState } from "react";
 import CustomDataGrid from "../../../styles/tables";
@@ -12,6 +12,7 @@ import { compareAsc, format } from "date-fns";
 import Image from "next/image";
 import CustomTooltip from "../../../styles/customTooltip";
 import { Fade } from "@mui/material";
+import { Pagination } from "@mui/material";
 
 const columns = [
   {
@@ -102,7 +103,7 @@ const columns = [
   {
     field: "DateCreated",
     headerName: "FECHA",
-    width: 110,
+    width: 100,
     renderCell: (params) => {
       return <InputTitles>{params.value}</InputTitles>;
     },
@@ -526,12 +527,15 @@ export const ClientListComponent = () => {
     error: error,
     data: data,
   } = useFetch({ service: GetClientList, init: true });
+
   const [customer, setCustomer] = useState([]);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     if (data) {
       let Customers = [];
-      data.data.map((customer) => {
+      let pageSizeForPagination = data.count;
+      data.results.map((customer) => {
         Customers.push({
           id: customer.id,
           Customer: `${customer.first_name} ${customer.last_name}`,
@@ -544,7 +548,7 @@ export const ClientListComponent = () => {
       });
       setCustomer(Customers);
 
-      console.log(customer);
+      console.log(data);
     }
 
     if (error) console.log(error);
@@ -700,6 +704,51 @@ export const ClientListComponent = () => {
                   &#xe908;
                 </Typography>
               ),
+
+              /*  Pagination: () => (
+                <Box
+                  container
+                  display="flex"
+                  flexDirection="row"
+                  justifyContent="space-between"
+                >
+                  Mostrando {page * 15 - 14} - {page * 15} de {data.count}{" "}
+                  registros
+                  <Box
+                    container
+                    display="flex"
+                    flexDirection="row"
+                    justifyContent="space-between"
+                  >
+                    <Typography
+                      fontFamily="icomoon"
+                      fontSize="1.2rem"
+                      color="#63595C"
+                      marginRight="0.9rem"
+                      onClick={() => {
+                        if (page > 1) {
+                          setPage(page - 1);
+                        }
+                      }}
+                    >
+                      &#xe90a;
+                    </Typography>
+                    <Typography
+                      fontFamily="icomoon"
+                      fontSize="1.2rem"
+                      color="#63595C"
+                      marginLeft="0.9rem"
+                      onClick={() => {
+                        if (page < Math.ceil(data.count / 15)) {
+                          setPage(page + 1);
+                        }
+                      }}
+                    >
+                      &#xe909;
+                    </Typography>
+                  </Box>
+                </Box>
+              ), */
             }}
             loading={loading}
           />

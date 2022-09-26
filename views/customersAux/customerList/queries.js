@@ -5,7 +5,18 @@ const token =
 export const GetClientList = async (data) => {
   const res = await Axios.get(
     "https://smart-evolution-api.herokuapp.com/api/client/",
-    data,
+    {
+      headers: {
+        authorization: "Bearer " + token,
+      },
+    }
+  );
+  return res.data;
+};
+
+export const GetClientListByQuery = async (page) => {
+  const res = await Axios.get(
+    `https://smart-evolution-api.herokuapp.com/api/client/?page=${page}`,
     {
       headers: {
         authorization: "Bearer " + token,
