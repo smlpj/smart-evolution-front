@@ -47,11 +47,13 @@ export default function Navbar() {
           >
             Operaciones
           </NavbarButton>
-          <NavbarButton
-            sx={{ marginBottom: "8%", width: "70%", height: "12%" }}
-          >
-            Corredores
-          </NavbarButton>
+          <Link href="/brokers" underline="none">
+            <NavbarButton
+              sx={{ marginBottom: "8%", width: "70%", height: "12%" }}
+            >
+              Corredores
+            </NavbarButton>
+          </Link>
           <NavbarButton sx={{ width: "70%", height: "12%" }}>
             Administración
           </NavbarButton>

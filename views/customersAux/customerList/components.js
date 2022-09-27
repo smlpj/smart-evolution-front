@@ -1,18 +1,18 @@
-import { Button, IconButton } from "@mui/material";
+import { Button } from "@mui/material";
 import { Box } from "@mui/material";
 import { Typography } from "@mui/material";
 import Link from "next/link";
 import InputTitles from "../../../styles/inputTitles";
-import { DataGrid } from "@mui/x-data-grid";
 import { GetClientList, GetClientListByQuery } from "./queries";
 import { useFetch } from "../../../shared/hooks/useFetch";
 import { useEffect, useState } from "react";
 import CustomDataGrid from "../../../styles/tables";
-import { compareAsc, format } from "date-fns";
+import { format } from "date-fns";
 import Image from "next/image";
 import CustomTooltip from "../../../styles/customTooltip";
 import { Fade } from "@mui/material";
-import { Pagination } from "@mui/material";
+import MuiTextField from "../../../styles/fields";
+import { SearchOutlined } from "@mui/icons-material";
 
 const columns = [
   {
@@ -486,38 +486,7 @@ const columns = [
   },
 ];
 
-const rows = [
-  { id: 1, lastName: "Snow", firstName: "Jon", age: 35 },
-  { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
-  { id: 3, lastName: "Lannister", firstName: "Jaime", age: 45 },
-  { id: 4, lastName: "Stark", firstName: "Arya", age: 16 },
-  { id: 5, lastName: "Targaryen", firstName: "Daenerys", age: null },
-  { id: 6, lastName: "Melisandre", firstName: null, age: 150 },
-  { id: 7, lastName: "Clifford", firstName: "Ferrara", age: 44 },
-  { id: 8, lastName: "Frances", firstName: "Rossini", age: 36 },
-  { id: 9, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  { id: 10, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  { id: 11, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  { id: 12, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  { id: 13, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  { id: 14, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  { id: 15, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  { id: 16, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  { id: 17, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  { id: 18, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  { id: 19, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  { id: 20, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  { id: 21, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  { id: 22, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  { id: 23, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  { id: 24, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  { id: 25, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  { id: 26, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  { id: 27, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  { id: 28, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  { id: 29, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  { id: 30, lastName: "Roxie", firstName: "Harvey", age: 65 },
-];
+let dataCount;
 
 export const ClientListComponent = () => {
   // Hooks
@@ -534,7 +503,7 @@ export const ClientListComponent = () => {
   useEffect(() => {
     if (data) {
       let Customers = [];
-      let pageSizeForPagination = data.count;
+      dataCount = data.count;
       data.results.map((customer) => {
         Customers.push({
           id: customer.id,
@@ -553,6 +522,35 @@ export const ClientListComponent = () => {
 
     if (error) console.log(error);
   }, [data, loading, error]);
+
+  const {
+    fetch: fetch2,
+    loading: loading2,
+    error: error2,
+    data: data2,
+  } = useFetch({
+    service: GetClientListByQuery,
+    init: false,
+  });
+
+  useEffect(() => {
+    if (data2) {
+      let Customers = [];
+      let pageSizeForPagination = data2.count;
+      data2.results.map((customer) => {
+        Customers.push({
+          id: customer.id,
+          Customer: `${customer.first_name} ${customer.last_name}`,
+          Status: customer.status,
+          EnteredBy: `${customer.entered_by.first_name} ${customer.entered_by.last_name}`,
+          DateCreated: format(new Date(customer.created_at), "dd / MM / yyyy"),
+          FinancialProfile: customer.financial_profile,
+          RiskProfile: customer.risk_profile,
+        });
+      });
+      setCustomer(Customers);
+    }
+  }, [data2, loading2, error2]);
 
   return (
     <>
@@ -608,7 +606,13 @@ export const ClientListComponent = () => {
         </Box>
         <Box container display="flex" flexDirection="column" mt={3}>
           <InputTitles>Buscar cliente</InputTitles>
-          <Box container display="flex" flexDirection="row" mt={2}>
+          <Box
+            container
+            display="flex"
+            flexDirection="row"
+            mt={2}
+            alignItems="center"
+          >
             <Button
               variant="standard"
               size="medium"
@@ -675,6 +679,24 @@ export const ClientListComponent = () => {
                 Estatus
               </Typography>
             </Button>
+            <MuiTextField
+              id="searchCustomer"
+              placeholder="Nombre de cliente"
+              type="text"
+              variant="standard"
+              margin="normal"
+              sx={{
+                marginTop: "0",
+                marginBottom: "0",
+              }}
+              InputProps={{
+                disableUnderline: true,
+                sx: {
+                  marginTop: "-5px",
+                },
+                endAdornment: <SearchOutlined sx={{ color: "#5EA3A3" }} />,
+              }}
+            />
           </Box>
         </Box>
         <Box
@@ -705,15 +727,23 @@ export const ClientListComponent = () => {
                 </Typography>
               ),
 
-              /*  Pagination: () => (
+              Pagination: () => (
                 <Box
                   container
                   display="flex"
                   flexDirection="row"
                   justifyContent="space-between"
+                  alignItems="center"
                 >
-                  Mostrando {page * 15 - 14} - {page * 15} de {data.count}{" "}
-                  registros
+                  <Typography
+                    fontFamily="Montserrat"
+                    fontSize="0.8rem"
+                    fontWeight="600"
+                    color="#5EA3A3"
+                  >
+                    Mostrando {page * 15 - 14} - {page * 15} de {dataCount}{" "}
+                    registros
+                  </Typography>
                   <Box
                     container
                     display="flex"
@@ -723,32 +753,49 @@ export const ClientListComponent = () => {
                     <Typography
                       fontFamily="icomoon"
                       fontSize="1.2rem"
-                      color="#63595C"
-                      marginRight="0.9rem"
+                      marginRight="0.3rem"
+                      marginLeft="0.5rem"
+                      sx={{
+                        cursor: "pointer",
+                        transform: "rotate(180deg)",
+                        color: "#63595C",
+                      }}
                       onClick={() => {
                         if (page > 1) {
+                          fetch2(page - 1);
                           setPage(page - 1);
                         }
                       }}
                     >
-                      &#xe90a;
+                      &#xe91f;
                     </Typography>
                     <Typography
                       fontFamily="icomoon"
                       fontSize="1.2rem"
-                      color="#63595C"
-                      marginLeft="0.9rem"
+                      marginRight="0.3rem"
+                      marginLeft="0.5rem"
+                      sx={{
+                        cursor: "pointer",
+
+                        color: "#63595C",
+                      }}
                       onClick={() => {
-                        if (page < Math.ceil(data.count / 15)) {
+                        if (page < dataCount / 15) {
+                          fetch2(page + 1);
                           setPage(page + 1);
                         }
                       }}
                     >
-                      &#xe909;
+                      &#xe91f;
                     </Typography>
                   </Box>
                 </Box>
-              ), */
+              ),
+            }}
+            componentsProps={{
+              pagination: {
+                color: "#5EA3A3",
+              },
             }}
             loading={loading}
           />

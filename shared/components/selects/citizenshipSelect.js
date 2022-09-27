@@ -25,7 +25,7 @@ export default function CitizenshipSelect({ formik }) {
       var Citizenships = [];
       data.data.map((citizenship) => {
         Citizenships.push({
-          label: citizenship.description,
+          label: citizenship.name_es,
           value: citizenship.id,
         });
       });
@@ -36,7 +36,7 @@ export default function CitizenshipSelect({ formik }) {
   }, [data, loading, error]);
 
   return (
-    <Box width="17vw">
+    <Box width="100%">
       <Box>
         <InputTitles marginBottom={2}>Nacionalidad</InputTitles>
         <Autocomplete

@@ -136,6 +136,77 @@ export const SignUpClient = ({ formik }) => {
                         </Box>
                       </Box>
                     </Box>
+
+                    <Box
+                      display="flex"
+                      mb={6}
+                      flexDirection="row"
+                      position="relative"
+                    >
+                      <Box width="17vw">
+                        <InputTitles>Número de teléfono</InputTitles>
+                        <MuiTextField
+                          id="phone_number"
+                          placeholder="Ingresa tu número de teléfono"
+                          name="phone_number"
+                          type="tel"
+                          variant="standard"
+                          margin="normal"
+                          fullWidth
+                          InputProps={{
+                            disableUnderline: true,
+                            sx: {
+                              marginTop: "-5px",
+                            },
+                          }}
+                          onChange={formik.handleChange}
+                          error={
+                            formik.touched.phone_number &&
+                            Boolean(formik.errors.phone_number)
+                          }
+                          sx={
+                            formik.touched.phone_number &&
+                            Boolean(formik.errors.phone_number)
+                              ? { border: "1.4px solid #E6643180" }
+                              : null
+                          }
+                        />
+                        <HelperText position="fixed">
+                          {formik.touched.phone_number &&
+                            formik.errors.phone_number}
+                        </HelperText>
+                      </Box>
+                      <Box ml={5} width="17vw">
+                        <InputTitles>Email</InputTitles>
+                        <MuiTextField
+                          id="email"
+                          placeholder="Ingresa tu email"
+                          name="email"
+                          type="email"
+                          variant="standard"
+                          margin="normal"
+                          fullWidth
+                          InputProps={{
+                            disableUnderline: true,
+                            sx: {
+                              marginTop: "-5px",
+                            },
+                          }}
+                          onChange={formik.handleChange}
+                          error={
+                            formik.touched.email && Boolean(formik.errors.email)
+                          }
+                          sx={
+                            formik.touched.email && Boolean(formik.errors.email)
+                              ? { border: "1.4px solid #E6643180" }
+                              : null
+                          }
+                        />
+                        <HelperText position="fixed">
+                          {formik.touched.email && formik.errors.email}
+                        </HelperText>
+                      </Box>
+                    </Box>
                     <Box display="flex" flexDirection="row">
                       <ClientTypeSelect formik={formik} />
                     </Box>
@@ -254,77 +325,6 @@ export const SignUpClient = ({ formik }) => {
                         </Box>
                       </Box>
                     )}
-
-                    <Box
-                      display="flex"
-                      mb={6}
-                      flexDirection="row"
-                      position="relative"
-                    >
-                      <Box width="17vw">
-                        <InputTitles>Número de teléfono</InputTitles>
-                        <MuiTextField
-                          id="phone_number"
-                          placeholder="Ingresa tu número de teléfono"
-                          name="phone_number"
-                          type="tel"
-                          variant="standard"
-                          margin="normal"
-                          fullWidth
-                          InputProps={{
-                            disableUnderline: true,
-                            sx: {
-                              marginTop: "-5px",
-                            },
-                          }}
-                          onChange={formik.handleChange}
-                          error={
-                            formik.touched.phone_number &&
-                            Boolean(formik.errors.phone_number)
-                          }
-                          sx={
-                            formik.touched.phone_number &&
-                            Boolean(formik.errors.phone_number)
-                              ? { border: "1.4px solid #E6643180" }
-                              : null
-                          }
-                        />
-                        <HelperText position="fixed">
-                          {formik.touched.phone_number &&
-                            formik.errors.phone_number}
-                        </HelperText>
-                      </Box>
-                      <Box ml={5} width="17vw">
-                        <InputTitles>Email</InputTitles>
-                        <MuiTextField
-                          id="email"
-                          placeholder="Ingresa tu email"
-                          name="email"
-                          type="email"
-                          variant="standard"
-                          margin="normal"
-                          fullWidth
-                          InputProps={{
-                            disableUnderline: true,
-                            sx: {
-                              marginTop: "-5px",
-                            },
-                          }}
-                          onChange={formik.handleChange}
-                          error={
-                            formik.touched.email && Boolean(formik.errors.email)
-                          }
-                          sx={
-                            formik.touched.email && Boolean(formik.errors.email)
-                              ? { border: "1.4px solid #E6643180" }
-                              : null
-                          }
-                        />
-                        <HelperText position="fixed">
-                          {formik.touched.email && formik.errors.email}
-                        </HelperText>
-                      </Box>
-                    </Box>
                   </Box>
                 )}
                 {activeStep === 1 && (
@@ -532,42 +532,3 @@ export const SignUpClient = ({ formik }) => {
     </>
   );
 };
-
-/* i think that you dont remember those times
-we used to, we used to stay till dawn
-And I felt lost tears on my eyes
-Exactly what I thought would happen
-
-At some point we're gonna meet again
-and I need to ask you some things
-I remember all those times
-when we had to options
-when we had to options to choose
-
-I remember those times
-when I couldn't make up my mind
-(...)
-
-I know what it takes to break a heart
-Should I call you now?
-You know what, nevermind
-From the beginning 
-I already knew
-that you were not gonna be mine
-
-Ours and ours by your side
-Make a wish, a shooting star is falling down
-Scream out loud
-that you don't want us to say a last goodbye
-
-At some point we're gonna meet again
-and I need to ask you some things
-I remember all those times
-when we had to options
-when we had to options to choose
-
-At some point we're gonna meet again
-and I need to ask you some things
-We could have stayed for a while more
-till we had an option
-till we had an option to choose */
