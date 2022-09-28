@@ -25,3 +25,27 @@ export const GetClientListByQuery = async (page) => {
   );
   return res.data;
 };
+
+export const DeleteClientById = async (id) => {
+  const res = await Axios.delete(
+    `https://smart-evolution-api.herokuapp.com/api/client/${id}`,
+    {
+      headers: {
+        authorization: "Bearer " + token,
+      },
+    }
+  );
+  return res.data;
+};
+
+export const GetFinancialProfileById = async (id) => {
+  const res = await Axios.get(
+    `https://smart-evolution-api.herokuapp.com/api/financial_profile/${id}`,
+    {
+      headers: {
+        authorization: "Bearer " + token,
+      },
+    }
+  );
+  return res.data;
+};

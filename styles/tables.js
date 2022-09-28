@@ -5,23 +5,6 @@ import { Typography } from "@mui/material";
 const CustomDataGrid = styled(DataGrid)({
   border: "none",
 
-  "&. MuiDataGrid-ColumnHeaderFilteredIconButton": {
-    /* <Typography
-      fontFamily="icomoon"
-      fontSize="1.9rem"
-      color="#488B8F"
-      borderRadius="5px"
-      sx={{
-        "&:hover": {
-          backgroundColor: "#B5D1C980",
-        },
-        cursor: "pointer",
-      }}
-    >
-      &#xe902;
-    </Typography> */
-  },
-
   "& .MuiDataGrid-virtualScroller": {
     scrollBehavior: "smooth",
     overflowY: "auto",

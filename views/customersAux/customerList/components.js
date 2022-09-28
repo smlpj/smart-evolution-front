@@ -3,7 +3,11 @@ import { Box } from "@mui/material";
 import { Typography } from "@mui/material";
 import Link from "next/link";
 import InputTitles from "../../../styles/inputTitles";
-import { GetClientList, GetClientListByQuery } from "./queries";
+import {
+  GetClientList,
+  GetClientListByQuery,
+  DeleteClientById,
+} from "./queries";
 import { useFetch } from "../../../shared/hooks/useFetch";
 import { useEffect, useState } from "react";
 import CustomDataGrid from "../../../styles/tables";
@@ -14,112 +18,97 @@ import { Fade } from "@mui/material";
 import MuiTextField from "../../../styles/fields";
 import { SearchOutlined } from "@mui/icons-material";
 
-const columns = [
-  {
-    field: "id",
-    headerName: "ID",
-    width: 70,
-    renderCell: (params) => {
-      return (
-        <CustomTooltip
-          title={params.value}
-          arrow
-          placement="bottom-start"
-          TransitionComponent={Fade}
-          PopperProps={{
-            modifiers: [
-              {
-                name: "offset",
-                options: {
-                  offset: [0, 0],
+let dataCount;
+
+export const ClientListComponent = () => {
+  const columns = [
+    {
+      field: "DocumentNumber",
+      headerName: "# ID",
+      width: 110,
+      renderCell: (params) => {
+        return (
+          <CustomTooltip
+            title={params.value}
+            arrow
+            placement="bottom-start"
+            TransitionComponent={Fade}
+            PopperProps={{
+              modifiers: [
+                {
+                  name: "offset",
+                  options: {
+                    offset: [0, 0],
+                  },
                 },
-              },
-            ],
-          }}
-        >
-          <InputTitles>
-            {params.value.substring(params.value.length - 5)}
-          </InputTitles>
-        </CustomTooltip>
-      );
+              ],
+            }}
+          >
+            <InputTitles>{params.value}</InputTitles>
+          </CustomTooltip>
+        );
+      },
     },
-  },
-  {
-    field: "Customer",
-    headerName: "CLIENTE",
-    width: 170,
-    renderCell: (params) => {
-      return <InputTitles>{params.value}</InputTitles>;
+    {
+      field: "Customer",
+      headerName: "CLIENTE",
+      width: 160,
+      renderCell: (params) => {
+        return (
+          <CustomTooltip
+            title={params.value}
+            arrow
+            placement="bottom-start"
+            TransitionComponent={Fade}
+            PopperProps={{
+              modifiers: [
+                {
+                  name: "offset",
+                  options: {
+                    offset: [0, 0],
+                  },
+                },
+              ],
+            }}
+          >
+            <InputTitles>{params.value}</InputTitles>
+          </CustomTooltip>
+        );
+      },
     },
-  },
-  {
-    field: "Status",
-    headerName: "ESTATUS",
-    width: 130,
-    renderCell: (params) => {
-      return (
-        <Typography
-          fontFamily="Montserrat"
-          fontSize="80%"
-          width="100%"
-          fontWeight="bold"
-          color="#488B8F"
-          backgroundColor="#B5D1C9"
-          textTransform="uppercase"
-          textAlign="center"
-          padding="5.5% 8%"
-          borderRadius="4px"
-        >
-          {params.value === true ? "Validado" : "En proceso"}
-        </Typography>
-      );
-    },
-  },
-  {
-    field: "EnteredBy",
-    headerName: "INGRESADO POR",
-    width: 160,
-    renderCell: (params) => {
-      return (
-        <Typography
-          fontFamily="Montserrat"
-          fontSize="80%"
-          width="100%"
-          fontWeight="bold"
-          color="#63595C"
-          textAlign="center"
-          border="1.4px solid #63595C"
-          backgroundColor="transparent"
-          textTransform="uppercase"
-          padding="3% 8%"
-          borderRadius="4px"
-        >
-          {params.value}
-        </Typography>
-      );
-    },
-  },
-
-  {
-    field: "DateCreated",
-    headerName: "FECHA",
-    width: 100,
-    renderCell: (params) => {
-      return <InputTitles>{params.value}</InputTitles>;
-    },
-  },
-
-  {
-    field: "FinancialProfile",
-    headerName: "PERFIL FINANCIERO",
-    width: 180,
-    renderCell: (params) => {
-      return params.value === true ? (
-        <>
+    {
+      field: "Status",
+      headerName: "ESTATUS",
+      width: 120,
+      renderCell: (params) => {
+        return (
           <Typography
             fontFamily="Montserrat"
             fontSize="80%"
-            width="80%"
+            width="100%"
+            fontWeight="bold"
+            color="#488B8F"
+            backgroundColor="#B5D1C9"
+            textTransform="uppercase"
+            textAlign="center"
+            padding="5.5% 8%"
+            borderRadius="4px"
+          >
+            {params.value === true ? "Validado" : "En proceso"}
+          </Typography>
+        );
+      },
+    },
+    {
+      field: "EnteredBy",
+      headerName: "INGRESADO POR",
+      width: 160,
+      renderCell: (params) => {
+        return (
+          <Typography
+            fontFamily="Montserrat"
+            fontSize="80%"
+            width="100%"
             fontWeight="bold"
             color="#63595C"
             textAlign="center"
@@ -129,325 +118,363 @@ const columns = [
             padding="3% 8%"
             borderRadius="4px"
           >
-            Cargado
+            {params.value}
           </Typography>
-          <Typography fontFamily="icomoon" fontSize="1.5rem" color="#488B8F">
-            &#xe906;
-          </Typography>
-        </>
-      ) : (
-        <>
-          <Typography
-            fontFamily="Montserrat"
-            fontSize="80%"
-            width="80%"
-            fontWeight="bold"
-            color="#E66431"
+        );
+      },
+    },
+    {
+      field: "DateCreated",
+      headerName: "FECHA",
+      width: 100,
+      renderCell: (params) => {
+        return <InputTitles>{params.value}</InputTitles>;
+      },
+    },
+    {
+      field: "FinancialProfile",
+      headerName: "PERFIL FINANCIERO",
+      width: 160,
+      renderCell: (params) => {
+        return params.value === true ? (
+          <>
+            <Typography
+              fontFamily="Montserrat"
+              fontSize="80%"
+              width="80%"
+              fontWeight="bold"
+              color="#63595C"
+              textAlign="center"
+              border="1.4px solid #63595C"
+              backgroundColor="transparent"
+              textTransform="uppercase"
+              padding="3% 8%"
+              borderRadius="4px"
+            >
+              Cargado
+            </Typography>
+            <Typography fontFamily="icomoon" fontSize="1.5rem" color="#488B8F">
+              &#xe906;
+            </Typography>
+          </>
+        ) : (
+          <>
+            <Typography
+              fontFamily="Montserrat"
+              fontSize="80%"
+              width="80%"
+              fontWeight="bold"
+              color="#E66431"
+              textAlign="center"
+              border="1.4px solid #E66431"
+              backgroundColor="#E6643133"
+              textTransform="uppercase"
+              padding="3% 8%"
+              borderRadius="4px"
+            >
+              Sin cargar
+            </Typography>
+            <Typography fontFamily="icomoon" fontSize="1.5rem" color="#E66431">
+              &#xe907;
+            </Typography>
+          </>
+        );
+      },
+    },
+
+    {
+      field: "RiskProfile",
+      headerName: "PERFIL DE RIESGO",
+      width: 160,
+
+      renderCell: (params) => {
+        return params.value === true ? (
+          <>
+            <Typography
+              fontFamily="Montserrat"
+              fontSize="80%"
+              width="100%"
+              fontWeight="bold"
+              color="#FFFFFF"
+              textAlign="center"
+              backgroundColor="#488B8F"
+              textTransform="uppercase"
+              padding="3% 8%"
+              borderRadius="4px"
+            >
+              <Typography
+                fontFamily="icomoon"
+                fontSize="1.5rem"
+                color="#FFFFFF"
+              >
+                &#xe91a;
+              </Typography>
+              Riesgo medio
+            </Typography>
+          </>
+        ) : (
+          <Box
+            display="flex"
+            flexDirection="row"
+            justifyContent="center"
             textAlign="center"
-            border="1.4px solid #E66431"
-            backgroundColor="#E6643133"
-            textTransform="uppercase"
+            alignItems="center"
             padding="3% 8%"
             borderRadius="4px"
-          >
-            Sin cargar
-          </Typography>
-          <Typography fontFamily="icomoon" fontSize="1.5rem" color="#E66431">
-            &#xe907;
-          </Typography>
-        </>
-      );
-    },
-  },
-
-  {
-    field: "RiskProfile",
-    headerName: "PERFIL DE RIESGO",
-    width: 160,
-
-    renderCell: (params) => {
-      return params.value === true ? (
-        <>
-          <Typography
-            fontFamily="Montserrat"
-            fontSize="80%"
-            width="100%"
-            fontWeight="bold"
-            color="#FFFFFF"
-            textAlign="center"
             backgroundColor="#488B8F"
-            textTransform="uppercase"
-            padding="3% 8%"
-            borderRadius="4px"
           >
-            <Typography fontFamily="icomoon" fontSize="1.5rem" color="#FFFFFF">
-              &#xe91a;
+            <Image
+              src="/assets/Icon - Perfil de riesgo - Desconocido.svg"
+              width={30}
+              height={30}
+            />
+            <Typography
+              fontFamily="Montserrat"
+              fontSize="80%"
+              width="100%"
+              fontWeight="bold"
+              color="#FFFFFF"
+              textTransform="uppercase"
+            >
+              Desconocido
             </Typography>
-            Riesgo medio
-          </Typography>
-        </>
-      ) : (
-        <Box
-          display="flex"
-          flexDirection="row"
-          justifyContent="center"
-          textAlign="center"
-          alignItems="center"
-          padding="3% 8%"
-          borderRadius="4px"
-          backgroundColor="#488B8F"
-        >
-          <Image
-            src="/assets/Icon - Perfil de riesgo - Desconocido.svg"
-            width={30}
-            height={30}
-          />
-          <Typography
-            fontFamily="Montserrat"
-            fontSize="80%"
-            width="100%"
-            fontWeight="bold"
-            color="#FFFFFF"
-            textTransform="uppercase"
-          >
-            Desconocido
-          </Typography>
-        </Box>
-      );
+          </Box>
+        );
+      },
     },
-  },
 
-  {
-    field: "Resumen financiero",
-    headerName: "",
-    width: 50,
-    sortable: false,
-    filterable: false,
-    renderCell: () => {
-      return (
-        <Link href="/customers">
-          <CustomTooltip
-            title="Resumen financiero"
-            arrow
-            placement="bottom-start"
-            TransitionComponent={Fade}
-            PopperProps={{
-              modifiers: [
-                {
-                  name: "offset",
-                  options: {
-                    offset: [0, -15],
+    {
+      field: "Resumen financiero",
+      headerName: "",
+      width: 50,
+      sortable: false,
+      filterable: false,
+      renderCell: () => {
+        return (
+          <Link href="/customers">
+            <CustomTooltip
+              title="Resumen financiero"
+              arrow
+              placement="bottom-start"
+              TransitionComponent={Fade}
+              PopperProps={{
+                modifiers: [
+                  {
+                    name: "offset",
+                    options: {
+                      offset: [0, -15],
+                    },
                   },
-                },
-              ],
-            }}
-          >
-            <Typography
-              fontFamily="icomoon"
-              fontSize="1.9rem"
-              color="#488B8F"
-              borderRadius="5px"
-              sx={{
-                "&:hover": {
-                  backgroundColor: "#B5D1C980",
-                },
-                cursor: "pointer",
+                ],
               }}
             >
-              &#xe905;
-            </Typography>
-          </CustomTooltip>
-        </Link>
-      );
+              <Typography
+                fontFamily="icomoon"
+                fontSize="1.9rem"
+                color="#488B8F"
+                borderRadius="5px"
+                sx={{
+                  "&:hover": {
+                    backgroundColor: "#B5D1C980",
+                  },
+                  cursor: "pointer",
+                }}
+              >
+                &#xe905;
+              </Typography>
+            </CustomTooltip>
+          </Link>
+        );
+      },
     },
-  },
 
-  {
-    field: "Expediente Cliente",
-    headerName: "",
-    width: 50,
-    sortable: false,
-    filterable: false,
-    renderCell: () => {
-      return (
-        <Link href="/customers">
-          <CustomTooltip
-            title="Expediente Cliente"
-            arrow
-            placement="bottom-start"
-            TransitionComponent={Fade}
-            PopperProps={{
-              modifiers: [
-                {
-                  name: "offset",
-                  options: {
-                    offset: [0, -15],
+    //Iconos de acciones
+
+    {
+      field: "Expediente Cliente",
+      headerName: "",
+      width: 20,
+      sortable: false,
+      filterable: false,
+      renderCell: () => {
+        return (
+          <Link href="/customers">
+            <CustomTooltip
+              title="Expediente Cliente"
+              arrow
+              placement="bottom-start"
+              TransitionComponent={Fade}
+              PopperProps={{
+                modifiers: [
+                  {
+                    name: "offset",
+                    options: {
+                      offset: [0, -15],
+                    },
                   },
-                },
-              ],
-            }}
-          >
-            <Typography
-              fontFamily="icomoon"
-              fontSize="1.9rem"
-              color="#488B8F"
-              borderRadius="5px"
-              sx={{
-                "&:hover": {
-                  backgroundColor: "#B5D1C980",
-                },
-                cursor: "pointer",
+                ],
               }}
             >
-              &#xe902;
-            </Typography>
-          </CustomTooltip>
-        </Link>
-      );
-    },
-  },
-  {
-    field: "Perfil Financiero Cliente",
-    headerName: "",
-    width: 50,
-    sortable: false,
-    filterable: false,
-    renderCell: () => {
-      return (
-        <Link href="/customers">
-          <CustomTooltip
-            title="Perfil Financiero Cliente"
-            arrow
-            placement="bottom-start"
-            TransitionComponent={Fade}
-            PopperProps={{
-              modifiers: [
-                {
-                  name: "offset",
-                  options: {
-                    offset: [0, -15],
+              <Typography
+                fontFamily="icomoon"
+                fontSize="1.9rem"
+                color="#488B8F"
+                borderRadius="5px"
+                sx={{
+                  "&:hover": {
+                    backgroundColor: "#B5D1C980",
                   },
-                },
-              ],
-            }}
-          >
-            <Typography
-              fontFamily="icomoon"
-              fontSize="1.9rem"
-              color="#488B8F"
-              borderRadius="5px"
-              sx={{
-                "&:hover": {
-                  backgroundColor: "#B5D1C980",
-                },
-                cursor: "pointer",
+                  cursor: "pointer",
+                }}
+              >
+                &#xe902;
+              </Typography>
+            </CustomTooltip>
+          </Link>
+        );
+      },
+    },
+    {
+      field: "Perfil Financiero Cliente",
+      headerName: "",
+      width: 20,
+      sortable: false,
+      filterable: false,
+      renderCell: (params) => {
+        return (
+          <Link href={`/financialProfile?id=${params.row.id}`}>
+            <CustomTooltip
+              title="Perfil Financiero Cliente"
+              arrow
+              placement="bottom-start"
+              TransitionComponent={Fade}
+              PopperProps={{
+                modifiers: [
+                  {
+                    name: "offset",
+                    options: {
+                      offset: [0, -15],
+                    },
+                  },
+                ],
               }}
             >
-              &#xe904;
-            </Typography>
-          </CustomTooltip>
-        </Link>
-      );
-    },
-  },
-  {
-    field: "Perfil de riesgo Cliente",
-    headerName: "",
-    width: 70,
-    sortable: false,
-    filterable: false,
-    renderCell: () => {
-      return (
-        <Link href="/customers">
-          <CustomTooltip
-            title="Perfil de Riesgo Cliente"
-            arrow
-            placement="bottom-start"
-            TransitionComponent={Fade}
-            PopperProps={{
-              modifiers: [
-                {
-                  name: "offset",
-                  options: {
-                    offset: [0, -15],
+              <Typography
+                fontFamily="icomoon"
+                fontSize="1.9rem"
+                color="#488B8F"
+                borderRadius="5px"
+                sx={{
+                  "&:hover": {
+                    backgroundColor: "#B5D1C980",
                   },
-                },
-              ],
-            }}
-          >
-            <Typography
-              fontFamily="icomoon"
-              fontSize="1.9rem"
-              color="#488B8F"
-              borderRadius="5px"
-              sx={{
-                "&:hover": {
-                  backgroundColor: "#B5D1C980",
-                },
-                cursor: "pointer",
+                  cursor: "pointer",
+                }}
+              >
+                &#xe904;
+              </Typography>
+            </CustomTooltip>
+          </Link>
+        );
+      },
+    },
+    {
+      field: "Perfil de riesgo Cliente",
+      headerName: "",
+      width: 60,
+      sortable: false,
+      filterable: false,
+      renderCell: () => {
+        return (
+          <Link href="/customers">
+            <CustomTooltip
+              title="Perfil de Riesgo Cliente"
+              arrow
+              placement="bottom-start"
+              TransitionComponent={Fade}
+              PopperProps={{
+                modifiers: [
+                  {
+                    name: "offset",
+                    options: {
+                      offset: [0, -15],
+                    },
+                  },
+                ],
               }}
             >
-              &#xe903;
-            </Typography>
-          </CustomTooltip>
-        </Link>
-      );
-    },
-  },
-  {
-    field: "Editar cliente",
-    headerName: "",
-    width: 50,
-    sortable: false,
-    filterable: false,
-    renderCell: () => {
-      return (
-        <Link href="/customers">
-          <CustomTooltip
-            title="Editar cliente"
-            arrow
-            placement="bottom-start"
-            TransitionComponent={Fade}
-            PopperProps={{
-              modifiers: [
-                {
-                  name: "offset",
-                  options: {
-                    offset: [0, -15],
+              <Typography
+                fontFamily="icomoon"
+                fontSize="1.9rem"
+                color="#488B8F"
+                borderRadius="5px"
+                sx={{
+                  "&:hover": {
+                    backgroundColor: "#B5D1C980",
                   },
-                },
-              ],
-            }}
-          >
-            <Typography
-              fontFamily="icomoon"
-              fontSize="1.9rem"
-              color="#999999"
-              borderRadius="5px"
-              sx={{
-                "&:hover": {
-                  backgroundColor: "#B5D1C980",
-                  color: "#488B8F",
-                },
-                cursor: "pointer",
+                  cursor: "pointer",
+                }}
+              >
+                &#xe903;
+              </Typography>
+            </CustomTooltip>
+          </Link>
+        );
+      },
+    },
+    {
+      field: "Editar cliente",
+      headerName: "",
+      width: 50,
+      sortable: false,
+      filterable: false,
+      renderCell: () => {
+        return (
+          <Link href="/customers">
+            <CustomTooltip
+              title="Editar cliente"
+              arrow
+              placement="bottom-start"
+              TransitionComponent={Fade}
+              PopperProps={{
+                modifiers: [
+                  {
+                    name: "offset",
+                    options: {
+                      offset: [0, -15],
+                    },
+                  },
+                ],
               }}
             >
-              &#xe900;
-            </Typography>
-          </CustomTooltip>
-        </Link>
-      );
+              <Typography
+                fontFamily="icomoon"
+                fontSize="1.9rem"
+                color="#999999"
+                borderRadius="5px"
+                sx={{
+                  "&:hover": {
+                    backgroundColor: "#B5D1C980",
+                    color: "#488B8F",
+                  },
+                  cursor: "pointer",
+                }}
+              >
+                &#xe900;
+              </Typography>
+            </CustomTooltip>
+          </Link>
+        );
+      },
     },
-  },
-  {
-    field: "Eliminar",
-    headerName: "",
-    width: 50,
-    sortable: false,
-    filterable: false,
-    renderCell: () => {
-      return (
-        <Link href="/customers">
+    {
+      field: "Eliminar",
+      headerName: "",
+      width: 50,
+      sortable: false,
+      filterable: false,
+      renderCell: (params) => {
+        return (
           <CustomTooltip
             title="Eliminar"
             arrow
@@ -476,19 +503,23 @@ const columns = [
                 },
                 cursor: "pointer",
               }}
+              //Delete customer by id
+
+              onClick={() => {
+                console.log(params.row.id);
+                setCustomer(
+                  customer.filter((item) => item.id !== params.row.id)
+                );
+                DeleteClientById(params.row.id);
+              }}
             >
               &#xe901;
             </Typography>
           </CustomTooltip>
-        </Link>
-      );
+        );
+      },
     },
-  },
-];
-
-let dataCount;
-
-export const ClientListComponent = () => {
+  ];
   // Hooks
   const {
     fetch: fetch,
@@ -507,6 +538,7 @@ export const ClientListComponent = () => {
       data.results.map((customer) => {
         Customers.push({
           id: customer.id,
+          DocumentNumber: customer.document_number,
           Customer: `${customer.first_name} ${customer.last_name}`,
           Status: customer.status,
           EnteredBy: `${customer.entered_by.first_name} ${customer.entered_by.last_name}`,
@@ -540,6 +572,7 @@ export const ClientListComponent = () => {
       data2.results.map((customer) => {
         Customers.push({
           id: customer.id,
+          DocumentNumber: customer.document_number,
           Customer: `${customer.first_name} ${customer.last_name}`,
           Status: customer.status,
           EnteredBy: `${customer.entered_by.first_name} ${customer.entered_by.last_name}`,
@@ -554,7 +587,14 @@ export const ClientListComponent = () => {
 
   return (
     <>
-      <Box height="78vh" display="flex" flexDirection="column" marginLeft="5%">
+      <Box
+        height="78vh"
+        display="flex"
+        flexDirection="column"
+        width="67.6%"
+        position="fixed"
+        marginLeft="5%"
+      >
         <Box
           container
           display="flex"
@@ -741,8 +781,7 @@ export const ClientListComponent = () => {
                     fontWeight="600"
                     color="#5EA3A3"
                   >
-                    Mostrando {page * 15 - 14} - {page * 15} de {dataCount}{" "}
-                    registros
+                    {page * 15 - 14} - {page * 15} de {dataCount}{" "}
                   </Typography>
                   <Box
                     container

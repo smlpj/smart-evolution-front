@@ -1,9 +1,8 @@
-import * as React from "react";
+import { useEffect, useState } from "react";
 import { Box } from "@mui/system";
-import { Typography, Link, SvgIcon } from "@mui/material";
+import { Typography, SvgIcon } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import Grid from "@material-ui/core/Grid";
 import InputTitles from "../../styles/inputTitles";
 import RiskButton from "../../styles/riesgos";
 import Image from "next/image";
@@ -14,43 +13,70 @@ import Tab from "@mui/material/Tab";
 import MuiTextField from "../../styles/fields";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { Button } from "@mui/material";
 import FileUploadButton from "../../styles/uploadFileButton";
+import { useFetch } from "../../shared/hooks/useFetch";
+import Link from "next/link";
 import {
   BookOutlined,
   PublishRounded,
   SaveOutlined,
 } from "@mui/icons-material";
-import RoundButton from "../../styles/button";
 import Fab from "@mui/material/Fab";
+import { useRouter } from "next/router";
+import { GetCustomerById } from "./queries";
 
 export default function FinancialProfile() {
-  const [tabValue, setTabValue] = React.useState("2022-I");
+  //Get ID from URL
+
+  const {
+    fetch: fetch,
+    loading: loading,
+    error: error,
+    data: data,
+  } = useFetch({ service: GetCustomerById, init: false });
+
+  const [id, setID] = useState("");
+  const router = useRouter();
+
+  useEffect(() => {
+    if (router && router.query) {
+      console.log(router.query);
+      setID(router.query.id);
+    }
+  }, [router]);
+
+  useEffect(() => {
+    if (id) {
+      fetch(id);
+    }
+  }, [id, loading]);
+
+  const [tabValue, setTabValue] = useState("2022-I");
 
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
   };
 
-  const [selectedFile, setSelectedFile] = React.useState();
-  const [isFilePicked, setIsFilePicked] = React.useState(false);
+  const [selectedFile, setSelectedFile] = useState();
+  const [isFilePicked, setIsFilePicked] = useState(false);
 
-  const [selectedFile2, setSelectedFile2] = React.useState();
-  const [isFilePicked2, setIsFilePicked2] = React.useState(false);
+  const [selectedFile2, setSelectedFile2] = useState();
+  const [isFilePicked2, setIsFilePicked2] = useState(false);
 
-  const [selectedFile3, setSelectedFile3] = React.useState();
-  const [isFilePicked3, setIsFilePicked3] = React.useState(false);
+  const [selectedFile3, setSelectedFile3] = useState();
+  const [isFilePicked3, setIsFilePicked3] = useState(false);
 
-  const [selectedFile4, setSelectedFile4] = React.useState();
-  const [isFilePicked4, setIsFilePicked4] = React.useState(false);
+  const [selectedFile4, setSelectedFile4] = useState();
+  const [isFilePicked4, setIsFilePicked4] = useState(false);
 
-  const [selectedFile5, setSelectedFile5] = React.useState();
-  const [isFilePicked5, setIsFilePicked5] = React.useState(false);
+  const [selectedFile5, setSelectedFile5] = useState();
+  const [isFilePicked5, setIsFilePicked5] = useState(false);
 
-  const [selectedFile6, setSelectedFile6] = React.useState();
-  const [isFilePicked6, setIsFilePicked6] = React.useState(false);
+  const [selectedFile6, setSelectedFile6] = useState();
+  const [isFilePicked6, setIsFilePicked6] = useState(false);
 
-  const [selectedFile7, setSelectedFile7] = React.useState();
-  const [isFilePicked7, setIsFilePicked7] = React.useState(false);
+  const [selectedFile7, setSelectedFile7] = useState();
+  const [isFilePicked7, setIsFilePicked7] = useState(false);
 
   const changeHandler = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -131,10 +157,10 @@ export default function FinancialProfile() {
           <Box display="flex" flexDirection="column">
             <Link href="/dashboard" underline="none">
               <Box display="flex" flexDirection="row">
-                <ArrowBackIcon fontSize="12px" sx={{ color: "#5EA3A3" }} />
+                <ArrowBackIcon fontSize="50%" sx={{ color: "#5EA3A3" }} />
                 <Typography
                   letterSpacing={0}
-                  fontSize="0.9rem"
+                  fontSize="80%"
                   fontFamily="Montserrat"
                   fontWeight="bold"
                   marginBottom="0.7rem"
@@ -149,7 +175,7 @@ export default function FinancialProfile() {
             <Box marginBottom={3}>
               <Typography
                 letterSpacing={0}
-                fontSize="1.7rem"
+                fontSize="170%"
                 fontFamily="Montserrat"
                 fontWeight="regular"
                 marginBottom="0.7rem"
@@ -169,40 +195,168 @@ export default function FinancialProfile() {
                   <InputTitles marginBottom={2}>N° ID</InputTitles>
                   <Typography
                     letterSpacing={0}
-                    fontSize="1.3rem"
+                    fontSize="130%"
                     fontFamily="Montserrat"
                     fontWeight="medium"
                     color="#333333"
                   >
-                    12345
+                    {data?.data?.document_number}
                   </Typography>
                 </Box>
                 <Box display="flex" flexDirection="column">
                   <InputTitles marginBottom={2}>Cliente</InputTitles>
                   <Typography
                     letterSpacing={0}
-                    fontSize="1.3rem"
+                    fontSize="130%"
                     fontFamily="Montserrat"
                     fontWeight="medium"
                     color="#333333"
                   >
-                    Benfor S.A.S
+                    {`${data?.data?.first_name} ${data?.data?.last_name}`}
                   </Typography>
                 </Box>
                 <Box display="flex" flexDirection="column">
                   <InputTitles marginBottom={2}>PERFIL DE RIESGO</InputTitles>
-                  <RiskButton
-                    width="2rem"
-                    startIcon={
+
+                  {data?.data?.riskProfile === null && (
+                    <Link href={`/riskProfile?id=${id}`} underline="none">
+                      <Box
+                        display="flex"
+                        flexDirection="row"
+                        justifyContent="center"
+                        textAlign="center"
+                        alignItems="center"
+                        padding="3% 8%"
+                        borderRadius="4px"
+                        width="40%"
+                        backgroundColor="#488B8F"
+                      >
+                        <Typography
+                          fontFamily="Montserrat"
+                          fontSize="70%"
+                          width="50%"
+                          fontWeight="bold"
+                          color="#FFFFFF"
+                          textTransform="uppercase"
+                        >
+                          Cargar
+                        </Typography>
+                      </Box>
+                    </Link>
+                  )}
+
+                  {data?.data?.risk_profile === 0 && (
+                    <Box
+                      display="flex"
+                      flexDirection="row"
+                      justifyContent="center"
+                      textAlign="center"
+                      alignItems="center"
+                      padding="3% 8%"
+                      borderRadius="4px"
+                      backgroundColor="#488B8F"
+                    >
+                      <Image
+                        src="/assets/Icon - Perfil de riesgo - Desconocido.svg"
+                        width={30}
+                        height={30}
+                      />
+                      <Typography
+                        fontFamily="Montserrat"
+                        fontSize="80%"
+                        width="100%"
+                        fontWeight="bold"
+                        color="#FFFFFF"
+                        textTransform="uppercase"
+                      >
+                        Desconocido
+                      </Typography>
+                    </Box>
+                  )}
+                  {data?.data?.riskProfile === 1 && (
+                    <Box
+                      display="flex"
+                      flexDirection="row"
+                      justifyContent="center"
+                      textAlign="center"
+                      alignItems="center"
+                      padding="3% 8%"
+                      borderRadius="4px"
+                      backgroundColor="#488B8F"
+                    >
+                      <Image
+                        src="/assets/Icon - Perfil de riesgo - Bajo.svg"
+                        width={30}
+                        height={30}
+                      />
+                      <Typography
+                        fontFamily="Montserrat"
+                        fontSize="80%"
+                        width="100%"
+                        fontWeight="bold"
+                        color="#FFFFFF"
+                        textTransform="uppercase"
+                      >
+                        Riesgo bajo
+                      </Typography>
+                    </Box>
+                  )}
+                  {data?.data?.risk_profile === 2 && (
+                    <Box
+                      display="flex"
+                      flexDirection="row"
+                      justifyContent="center"
+                      textAlign="center"
+                      alignItems="center"
+                      padding="3% 8%"
+                      borderRadius="4px"
+                      backgroundColor="#488B8F"
+                    >
+                      <Image
+                        src="/assets/Icon - Perfil de riesgo - Medio.svg"
+                        width={30}
+                        height={30}
+                      />
+                      <Typography
+                        fontFamily="Montserrat"
+                        fontSize="80%"
+                        width="100%"
+                        fontWeight="bold"
+                        color="#FFFFFF"
+                        textTransform="uppercase"
+                      >
+                        Riesgo medio
+                      </Typography>
+                    </Box>
+                  )}
+                  {data?.data?.risk_profile === 3 && (
+                    <Box
+                      display="flex"
+                      flexDirection="row"
+                      justifyContent="center"
+                      textAlign="center"
+                      alignItems="center"
+                      padding="3% 8%"
+                      borderRadius="4px"
+                      backgroundColor="#488B8F"
+                    >
                       <Image
                         src="/assets/Icon - Perfil de riesgo - Alto.svg"
                         width={30}
                         height={30}
                       />
-                    }
-                  >
-                    RIESGO ALTO
-                  </RiskButton>
+                      <Typography
+                        fontFamily="Montserrat"
+                        fontSize="80%"
+                        width="100%"
+                        fontWeight="bold"
+                        color="#FFFFFF"
+                        textTransform="uppercase"
+                      >
+                        Riesgo alto
+                      </Typography>
+                    </Box>
+                  )}
                 </Box>
                 <Box display="flex" flexDirection="column">
                   <InputTitles marginBottom={2}>INGRESADO POR</InputTitles>
@@ -227,7 +381,7 @@ export default function FinancialProfile() {
                   <InputTitles marginBottom={2}>NIT DEL CLIENTE</InputTitles>
                   <Typography
                     letterSpacing={0}
-                    fontSize="1.3rem"
+                    fontSize="130%"
                     fontFamily="Montserrat"
                     fontWeight="medium"
                     color="#333333"
@@ -241,7 +395,7 @@ export default function FinancialProfile() {
                   </InputTitles>
                   <Typography
                     letterSpacing={0}
-                    fontSize="1.3rem"
+                    fontSize="130%"
                     fontFamily="Montserrat"
                     fontWeight="medium"
                     color="#333333"
@@ -253,7 +407,7 @@ export default function FinancialProfile() {
                   <InputTitles marginBottom={2}>CORREO ELECTRÓNICO</InputTitles>
                   <Typography
                     letterSpacing={0}
-                    fontSize="1.3rem"
+                    fontSize="130%"
                     fontFamily="Montserrat"
                     fontWeight="medium"
                     color="#333333"
