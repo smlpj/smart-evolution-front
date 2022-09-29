@@ -5,7 +5,7 @@ const token =
 // Get Financial Profile by ID
 export const GetFinancialProfileById = async (id) => {
   const res = await Axios.get(
-    `https://smart-evolution-api.herokuapp.com/api/financial_profile/${id}`,
+    `https://smart-evolution-api2.herokuapp.com/api/financial_profile/${id}`,
     {
       headers: {
         authorization: "Bearer " + token,
@@ -18,7 +18,7 @@ export const GetFinancialProfileById = async (id) => {
 // Get Customer By ID
 export const GetCustomerById = async (id) => {
   const res = await Axios.get(
-    `https://smart-evolution-api.herokuapp.com/api/client/${id}`,
+    `https://smart-evolution-api2.herokuapp.com/api/client/${id}`,
     {
       headers: {
         authorization: "Bearer " + token,

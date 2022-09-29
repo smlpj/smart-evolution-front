@@ -36,7 +36,7 @@ export default function CitizenshipSelect({ formik }) {
   }, [data, loading, error]);
 
   return (
-    <Box width="100%">
+    <Box ml={5} width="17vw">
       <Box>
         <InputTitles marginBottom={2}>Nacionalidad</InputTitles>
         <Autocomplete

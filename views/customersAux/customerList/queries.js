@@ -1,10 +1,10 @@
 import Axios from "axios";
 const token =
-  "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjY2NTc4MDY2LCJpYXQiOjE2NjM5NTAwNjYsImp0aSI6IjgwNzc0NTY4ZTZlYTQ5YzRiZjMyOTc3MzQwOTllOWU1IiwidXNlcl9pZCI6ImIxNTU0ZDdhLThlMzAtNGQ5ZC1hMTEwLTk2YTZkMTc5Zjc2NiIsIm5hbWUiOiJhbmRlcnNvbiBzYW5jaGV6Iiwicm9sZXMiOlsic3VwZXJ1c2VyIl0sInBlcm1pc3Npb25zIjpbXSwiaXNfc3VwZXJ1c2VyIjp0cnVlfQ.PQSW90jcIoEirNESUjcUztM70kUtgIlvoX8VaOPsfzU";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjY3MTA4MTkxLCJpYXQiOjE2NjQ0ODAxOTEsImp0aSI6IjA0NzAxNjMyYWFkNzRiNDBhZGUwZWUzYzA4MzQ2OTg0IiwidXNlcl9pZCI6ImQxM2QwZGQ1LTcxZmItNDM4ZC05OTIwLWYyYjVmNTEzNzE4ZSIsIm5hbWUiOiJwcm9kdWN0aW9uIHVzZXIiLCJyb2xlcyI6WyJzdXBlcnVzZXIiXSwiaXNfc3VwZXJ1c2VyIjp0cnVlfQ.8DGchR4wdf3Y7c3TH_xaEzCwcZBQ22mMjIeYrC0as9s";
 
 export const GetClientList = async (data) => {
   const res = await Axios.get(
-    "https://smart-evolution-api.herokuapp.com/api/client/",
+    "https://smart-evolution-api2.herokuapp.com/api/client/",
     {
       headers: {
         authorization: "Bearer " + token,
@@ -16,7 +16,7 @@ export const GetClientList = async (data) => {
 
 export const GetClientListByQuery = async (page) => {
   const res = await Axios.get(
-    `https://smart-evolution-api.herokuapp.com/api/client/?page=${page}`,
+    `https://smart-evolution-api2.herokuapp.com/api/client/?page=${page}`,
     {
       headers: {
         authorization: "Bearer " + token,
@@ -28,7 +28,7 @@ export const GetClientListByQuery = async (page) => {
 
 export const DeleteClientById = async (id) => {
   const res = await Axios.delete(
-    `https://smart-evolution-api.herokuapp.com/api/client/${id}`,
+    `https://smart-evolution-api2.herokuapp.com/api/client/${id}`,
     {
       headers: {
         authorization: "Bearer " + token,
@@ -40,7 +40,7 @@ export const DeleteClientById = async (id) => {
 
 export const GetFinancialProfileById = async (id) => {
   const res = await Axios.get(
-    `https://smart-evolution-api.herokuapp.com/api/financial_profile/${id}`,
+    `https://smart-evolution-api2.herokuapp.com/api/financial_profile/${id}`,
     {
       headers: {
         authorization: "Bearer " + token,

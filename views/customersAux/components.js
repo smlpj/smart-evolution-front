@@ -400,7 +400,7 @@ export const SignUpClient = ({ formik }) => {
                         position="relative"
                       >
                         <BrokerSelect formik={formik} />
-                        <CIIUSelect formik={formik} />
+                        <CitizenshipSelect formik={formik} />
                       </Box>
                       <Box
                         display="flex"
@@ -408,7 +408,7 @@ export const SignUpClient = ({ formik }) => {
                         flexDirection="row"
                         position="relative"
                       >
-                        <CitizenshipSelect formik={formik} />
+                        <CIIUSelect formik={formik} />
                       </Box>
                     </Box>
                   </>

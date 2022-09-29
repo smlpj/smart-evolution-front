@@ -447,7 +447,7 @@ export default function FinancialProfile() {
             },
           }}
         >
-          <Box display="flex" flexDirection="row">
+          {/* <Box display="flex" flexDirection="row">
             <Box position="relative" height="auto">
               <Box display="flex" justifyContent="center" alignItems="center">
                 <CircularProgress
@@ -547,7 +547,7 @@ export default function FinancialProfile() {
                 - 2022
               </Typography>
             </Box>
-          </Box>
+          </Box> */}
 
           <Box
             sx={{ width: "100%", borderBottom: "2px solid #5EA3A3" }}

@@ -539,7 +539,9 @@ export const ClientListComponent = () => {
         Customers.push({
           id: customer.id,
           DocumentNumber: customer.document_number,
-          Customer: `${customer.first_name} ${customer.last_name}`,
+          Customer: `${customer.first_name ?? ""} ${customer.last_name ?? ""} ${
+            customer.social_reason ?? ""
+          }`,
           Status: customer.status,
           EnteredBy: `${customer.entered_by.first_name} ${customer.entered_by.last_name}`,
           DateCreated: format(new Date(customer.created_at), "dd / MM / yyyy"),

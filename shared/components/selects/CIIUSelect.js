@@ -25,10 +25,21 @@ export default function CIIUSelect({ formik }) {
       var CIIUs = [];
       data.data.map((ciiu) => {
         CIIUs.push({
-          label: ciiu.code,
+          label: `${ciiu.code} - ${ciiu.activity.description}`,
           value: ciiu.id,
         });
       });
+
+      CIIUs.sort((a, b) => {
+        if (a.label < b.label) {
+          return -1;
+        }
+        if (a.label > b.label) {
+          return 1;
+        }
+        return 0;
+      });
+
       setCIIU(CIIUs);
     }
 
@@ -36,7 +47,7 @@ export default function CIIUSelect({ formik }) {
   }, [data, loading, error]);
 
   return (
-    <Box ml={5} width="17vw">
+    <Box width="100%">
       <Box>
         <InputTitles marginBottom={2}>CIIU</InputTitles>
         <Autocomplete
