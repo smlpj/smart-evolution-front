@@ -65,18 +65,35 @@ export default function FinancialProfile() {
 
   return (
     <>
-      <Box
-        height="73vh"
-        display="flex"
-        flexDirection="column"
-        marginLeft="6rem"
-      >
+      <Box height="73vh" display="flex" flexDirection="column" marginLeft="5%">
         <Box
           container
           borderBottom="2px solid #A1A1A1"
           marginBottom={4}
           display="flex"
           flexDirection="column"
+          height="27vh"
+          sx={{
+            scrollBehavior: "smooth",
+            overflowY: "auto",
+            "&::-webkit-scrollbar": {
+              position: "absolute",
+              width: "9px",
+              webkitAppearance: "none",
+            },
+            "&::-webkit-scrollbar-track": {
+              backgroundColor: "#CFDDDD",
+              borderRadius: "10px",
+            },
+            "&::-webkit-scrollbar-thumb": {
+              backgroundColor: "#5EA3A3",
+              backgroundClip: "content-box",
+              borderColor: "transparent",
+              borderStyle: "solid",
+              borderWidth: "1px 2px",
+              borderRadius: "10px",
+            },
+          }}
         >
           <Box display="flex" flexDirection="column">
             <Link href="/dashboard" underline="none">
@@ -146,28 +163,28 @@ export default function FinancialProfile() {
 
                   {data?.data?.riskProfile === null && (
                     <Link href={`/riskProfile?id=${id}`} underline="none">
-                      <Box
-                        display="flex"
-                        flexDirection="row"
-                        justifyContent="center"
-                        textAlign="center"
-                        alignItems="center"
-                        padding="3% 8%"
-                        borderRadius="4px"
-                        width="40%"
-                        backgroundColor="#488B8F"
+                      <Button
+                        variant="standard"
+                        sx={{
+                          backgroundColor: "#488B8F",
+                          color: "#FFFFFF",
+                          textTransform: "none",
+                          borderRadius: "4px",
+                          width: "40%",
+
+                          "&:hover": { backgroundColor: "#5EA3A3" },
+                        }}
                       >
                         <Typography
                           fontFamily="Montserrat"
-                          fontSize="70%"
-                          width="50%"
+                          fontSize="85.714%"
                           fontWeight="bold"
                           color="#FFFFFF"
                           textTransform="uppercase"
                         >
                           Cargar
                         </Typography>
-                      </Box>
+                      </Button>
                     </Link>
                   )}
 
@@ -286,22 +303,18 @@ export default function FinancialProfile() {
                 </Box>
                 <Box display="flex" flexDirection="column">
                   <InputTitles marginBottom={2}>INGRESADO POR</InputTitles>
-                  <Box
-                    border="2px solid #63595C"
-                    padding="0rem 1rem"
+                  <Typography
+                    fontFamily="Montserrat"
+                    fontSize="80%"
+                    fontWeight="bold"
+                    color="#63595C"
+                    border="1.4px solid #63595C"
+                    backgroundColor="transparent"
+                    textTransform="uppercase"
                     borderRadius="4px"
-                    width={70}
                   >
-                    <Typography
-                      letterSpacing={0}
-                      fontSize="0.8rem"
-                      fontFamily="Montserrat"
-                      fontWeight="bold"
-                      color="#333333"
-                    >
-                      ASESOR 1
-                    </Typography>
-                  </Box>
+                    {`${data?.data?.entered_by?.first_name} ${data?.data?.entered_by?.last_name}`}
+                  </Typography>
                 </Box>
                 <Box display="flex" flexDirection="column">
                   <InputTitles marginBottom={2}>NIT DEL CLIENTE</InputTitles>
@@ -350,6 +363,7 @@ export default function FinancialProfile() {
           container
           display="flex"
           flexDirection="column"
+          height="46vh"
           sx={{
             scrollBehavior: "smooth",
             overflowY: "auto",
@@ -599,7 +613,7 @@ export default function FinancialProfile() {
                   variant="standard"
                   onClick={handleSubmission}
                   sx={{
-                    backgroundColor: "#5EA3A3",
+                    backgroundColor: "#488B8F",
                     borderRadius: "4px",
                     color: "#FFFFFF",
                     height: "3rem",
@@ -612,7 +626,7 @@ export default function FinancialProfile() {
                     fontFamily: "Montserrat",
                     fontWeight: "bold",
                     "&:hover": {
-                      backgroundColor: "#5EA3A395",
+                      backgroundColor: "#5EA3A3",
                     },
                   }}
                   aria-label="add"
@@ -624,7 +638,7 @@ export default function FinancialProfile() {
                   variant="standard"
                   onClick={handleSubmission}
                   sx={{
-                    backgroundColor: "#5EA3A3",
+                    backgroundColor: "#488B8F",
                     borderRadius: "4px",
                     color: "#FFFFFF",
                     height: "3rem",
@@ -637,7 +651,7 @@ export default function FinancialProfile() {
                     fontFamily: "Montserrat",
                     fontWeight: "bold",
                     "&:hover": {
-                      backgroundColor: "#5EA3A395",
+                      backgroundColor: "#5EA3A3",
                     },
                   }}
                   aria-label="add"
