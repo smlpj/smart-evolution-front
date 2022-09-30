@@ -1,18 +1,12 @@
 import { useEffect, useState } from "react";
 import { Box } from "@mui/system";
-import { Typography, SvgIcon } from "@mui/material";
+import { Typography, SvgIcon, Button } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import InputTitles from "../../styles/inputTitles";
-import RiskButton from "../../styles/riesgos";
 import Image from "next/image";
-import { CircularProgress } from "@material-ui/core";
-import SquareIcon from "@mui/icons-material/Square";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import MuiTextField from "../../styles/fields";
-import { Formik } from "formik";
-import * as Yup from "yup";
 import FileUploadButton from "../../styles/uploadFileButton";
 import { useFetch } from "../../shared/hooks/useFetch";
 import Link from "next/link";
@@ -43,13 +37,13 @@ export default function FinancialProfile() {
       console.log(router.query);
       setID(router.query.id);
     }
-  }, [router]);
+  }, [router.query]);
 
   useEffect(() => {
     if (id) {
       fetch(id);
     }
-  }, [id, loading]);
+  }, [id]);
 
   const [tabValue, setTabValue] = useState("2022-I");
 
@@ -60,61 +54,13 @@ export default function FinancialProfile() {
   const [selectedFile, setSelectedFile] = useState();
   const [isFilePicked, setIsFilePicked] = useState(false);
 
-  const [selectedFile2, setSelectedFile2] = useState();
-  const [isFilePicked2, setIsFilePicked2] = useState(false);
-
-  const [selectedFile3, setSelectedFile3] = useState();
-  const [isFilePicked3, setIsFilePicked3] = useState(false);
-
-  const [selectedFile4, setSelectedFile4] = useState();
-  const [isFilePicked4, setIsFilePicked4] = useState(false);
-
-  const [selectedFile5, setSelectedFile5] = useState();
-  const [isFilePicked5, setIsFilePicked5] = useState(false);
-
-  const [selectedFile6, setSelectedFile6] = useState();
-  const [isFilePicked6, setIsFilePicked6] = useState(false);
-
-  const [selectedFile7, setSelectedFile7] = useState();
-  const [isFilePicked7, setIsFilePicked7] = useState(false);
-
   const changeHandler = (event) => {
     setSelectedFile(event.target.files[0]);
     setIsFilePicked(true);
   };
 
-  const changeHandler2 = (event) => {
-    setSelectedFile2(event.target.files[0]);
-    setIsFilePicked2(true);
-  };
-
-  const changeHandler3 = (event) => {
-    setSelectedFile3(event.target.files[0]);
-    setIsFilePicked3(true);
-  };
-
-  const changeHandler4 = (event) => {
-    setSelectedFile4(event.target.files[0]);
-    setIsFilePicked4(true);
-  };
-
-  const changeHandler5 = (event) => {
-    setSelectedFile5(event.target.files[0]);
-    setIsFilePicked5(true);
-  };
-
-  const changeHandler6 = (event) => {
-    setSelectedFile6(event.target.files[0]);
-    setIsFilePicked6(true);
-  };
-
-  const changeHandler7 = (event) => {
-    setSelectedFile7(event.target.files[0]);
-    setIsFilePicked7(true);
-  };
-
   const handleSubmission = () => {
-    console.log(isFilePicked7);
+    console.log(isFilePicked);
   };
 
   return (
@@ -127,32 +73,10 @@ export default function FinancialProfile() {
       >
         <Box
           container
-          height="27vh"
           borderBottom="2px solid #A1A1A1"
           marginBottom={4}
           display="flex"
           flexDirection="column"
-          sx={{
-            scrollBehavior: "smooth",
-            overflowY: "auto",
-            "&::-webkit-scrollbar": {
-              position: "absolute",
-              width: "9px",
-              webkitAppearance: "none",
-            },
-            "&::-webkit-scrollbar-track": {
-              backgroundColor: "#CFDDDD",
-              borderRadius: "10px",
-            },
-            "&::-webkit-scrollbar-thumb": {
-              backgroundColor: "#5EA3A3",
-              backgroundClip: "content-box",
-              borderColor: "transparent",
-              borderStyle: "solid",
-              borderWidth: "1px 2px",
-              borderRadius: "10px",
-            },
-          }}
         >
           <Box display="flex" flexDirection="column">
             <Link href="/dashboard" underline="none">
@@ -195,7 +119,7 @@ export default function FinancialProfile() {
                   <InputTitles marginBottom={2}>N° ID</InputTitles>
                   <Typography
                     letterSpacing={0}
-                    fontSize="130%"
+                    fontSize="120%"
                     fontFamily="Montserrat"
                     fontWeight="medium"
                     color="#333333"
@@ -207,12 +131,14 @@ export default function FinancialProfile() {
                   <InputTitles marginBottom={2}>Cliente</InputTitles>
                   <Typography
                     letterSpacing={0}
-                    fontSize="130%"
+                    fontSize="120%"
                     fontFamily="Montserrat"
                     fontWeight="medium"
                     color="#333333"
                   >
-                    {`${data?.data?.first_name} ${data?.data?.last_name}`}
+                    {`${data?.data?.first_name ?? ""} ${
+                      data?.data?.last_name ?? ""
+                    } ${data?.data?.social_reason ?? ""}`}
                   </Typography>
                 </Box>
                 <Box display="flex" flexDirection="column">
@@ -422,7 +348,6 @@ export default function FinancialProfile() {
 
         <Box
           container
-          height="46vh"
           display="flex"
           flexDirection="column"
           sx={{
@@ -668,221 +593,10 @@ export default function FinancialProfile() {
                         </FileUploadButton>
                       )}
                     </Box>
-                    <Box marginTop={4}>
-                      <InputTitles marginBottom={2}>
-                        Estado de situación financiera
-                      </InputTitles>
-                      <input
-                        style={{ display: "none" }}
-                        id="contained-button-file2"
-                        name="file"
-                        type="file"
-                        onChange={changeHandler2}
-                      />
-                      <label
-                        style={{ height: "3rem" }}
-                        htmlFor="contained-button-file2"
-                      >
-                        <FileUploadButton component="span">
-                          <Typography
-                            alignContent="center"
-                            letterSpacing={0}
-                            fontSize="0.9rem"
-                            fontFamily="Montserrat"
-                            fontWeight="regular"
-                            textTransform="none"
-                            padding="0.5rem 2.5rem 0.5rem 1rem"
-                          >
-                            Seleccione archivo a cargar
-                          </Typography>
-                          <PublishRounded
-                            sx={{ margin: "0rem 0.7rem", color: "#5EA3A3" }}
-                            fontSize="small"
-                          />
-                        </FileUploadButton>
-                      </label>
-                    </Box>
-                    <Box marginTop={4}>
-                      <InputTitles marginBottom={2}>
-                        Dictamen de estados financieros
-                      </InputTitles>
-                      <input
-                        style={{ display: "none" }}
-                        id="contained-button-file3"
-                        name="file"
-                        type="file"
-                        onChange={changeHandler3}
-                      />
-                      <label
-                        style={{ height: "3rem" }}
-                        htmlFor="contained-button-file3"
-                      >
-                        <FileUploadButton component="span">
-                          <Typography
-                            alignContent="center"
-                            letterSpacing={0}
-                            fontSize="0.9rem"
-                            fontFamily="Montserrat"
-                            fontWeight="regular"
-                            textTransform="none"
-                            padding="0.5rem 2.5rem 0.5rem 1rem"
-                          >
-                            Seleccione archivo a cargar
-                          </Typography>
-                          <PublishRounded
-                            sx={{ margin: "0rem 0.7rem", color: "#5EA3A3" }}
-                            fontSize="small"
-                          />
-                        </FileUploadButton>
-                      </label>
-                    </Box>
-                    <Box marginTop={4}>
-                      <InputTitles marginBottom={2}>
-                        Certificado de composición accionaria
-                      </InputTitles>
-                      <input
-                        style={{ display: "none" }}
-                        id="contained-button-file4"
-                        name="file"
-                        type="file"
-                        onChange={changeHandler4}
-                      />
-                      <label
-                        style={{ height: "3rem" }}
-                        htmlFor="contained-button-file4"
-                      >
-                        <FileUploadButton component="span">
-                          <Typography
-                            alignContent="center"
-                            letterSpacing={0}
-                            fontSize="0.9rem"
-                            fontFamily="Montserrat"
-                            fontWeight="regular"
-                            textTransform="none"
-                            padding="0.5rem 2.5rem 0.5rem 1rem"
-                          >
-                            Seleccione archivo a cargar
-                          </Typography>
-                          <PublishRounded
-                            sx={{ margin: "0rem 0.7rem", color: "#5EA3A3" }}
-                            fontSize="small"
-                          />
-                        </FileUploadButton>
-                      </label>
-                    </Box>
-                  </Box>
-                  <Box
-                    display="flex"
-                    flexDirection="column"
-                    marginTop={3}
-                    marginLeft={15}
-                  >
-                    <Box>
-                      <InputTitles marginBottom={2}>
-                        Estado de flujo de efectivo
-                      </InputTitles>
-                      <input
-                        style={{ display: "none" }}
-                        id="contained-button-file5"
-                        name="file"
-                        type="file"
-                        onChange={changeHandler5}
-                      />
-                      <label
-                        style={{ height: "3rem" }}
-                        htmlFor="contained-button-file5"
-                      >
-                        <FileUploadButton component="span">
-                          <Typography
-                            alignContent="center"
-                            letterSpacing={0}
-                            fontSize="0.9rem"
-                            fontFamily="Montserrat"
-                            fontWeight="regular"
-                            textTransform="none"
-                            padding="0.5rem 2.5rem 0.5rem 1rem"
-                          >
-                            Seleccione archivo a cargar
-                          </Typography>
-                          <PublishRounded
-                            sx={{ margin: "0rem 0.7rem", color: "#5EA3A3" }}
-                            fontSize="small"
-                          />
-                        </FileUploadButton>
-                      </label>
-                    </Box>
-                    <Box marginTop={4}>
-                      <InputTitles marginBottom={2}>
-                        Informe de gestión - Periodo {tabValue}
-                      </InputTitles>
-                      <input
-                        style={{ display: "none" }}
-                        id="contained-button-file6"
-                        name="file"
-                        type="file"
-                        onChange={changeHandler6}
-                      />
-                      <label
-                        style={{ height: "3rem" }}
-                        htmlFor="contained-button-file6"
-                      >
-                        <FileUploadButton component="span">
-                          <Typography
-                            alignContent="center"
-                            letterSpacing={0}
-                            fontSize="0.9rem"
-                            fontFamily="Montserrat"
-                            fontWeight="regular"
-                            textTransform="none"
-                            padding="0.5rem 2.5rem 0.5rem 1rem"
-                          >
-                            Seleccione archivo a cargar
-                          </Typography>
-                          <PublishRounded
-                            sx={{ margin: "0rem 0.7rem", color: "#5EA3A3" }}
-                            fontSize="small"
-                          />
-                        </FileUploadButton>
-                      </label>
-                    </Box>
-                    <Box marginTop={4}>
-                      <InputTitles marginBottom={2}>
-                        Declaración de renta
-                      </InputTitles>
-                      <input
-                        style={{ display: "none" }}
-                        id="contained-button-file7"
-                        name="file"
-                        type="file"
-                        onChange={changeHandler7}
-                      />
-                      <label
-                        style={{ height: "3rem" }}
-                        htmlFor="contained-button-file7"
-                      >
-                        <FileUploadButton component="span">
-                          <Typography
-                            alignContent="center"
-                            letterSpacing={0}
-                            fontSize="0.9rem"
-                            fontFamily="Montserrat"
-                            fontWeight="regular"
-                            textTransform="none"
-                            padding="0.5rem 2.5rem 0.5rem 1rem"
-                          >
-                            Seleccione archivo a cargar
-                          </Typography>
-                          <PublishRounded
-                            sx={{ margin: "0rem 0.7rem", color: "#5EA3A3" }}
-                            fontSize="small"
-                          />
-                        </FileUploadButton>
-                      </label>
-                    </Box>
                   </Box>
                 </Box>
-                <Fab
-                  variant="extended"
+                <Button
+                  variant="standard"
                   onClick={handleSubmission}
                   sx={{
                     backgroundColor: "#5EA3A3",
@@ -898,16 +612,16 @@ export default function FinancialProfile() {
                     fontFamily: "Montserrat",
                     fontWeight: "bold",
                     "&:hover": {
-                      backgroundColor: "#5EA3A380",
+                      backgroundColor: "#5EA3A395",
                     },
                   }}
                   aria-label="add"
                 >
                   GUARDAR BORRADOR
                   <BookOutlined sx={{ ml: 1, fontSize: "medium" }} />
-                </Fab>
-                <Fab
-                  variant="extended"
+                </Button>
+                <Button
+                  variant="standard"
                   onClick={handleSubmission}
                   sx={{
                     backgroundColor: "#5EA3A3",
@@ -923,14 +637,14 @@ export default function FinancialProfile() {
                     fontFamily: "Montserrat",
                     fontWeight: "bold",
                     "&:hover": {
-                      backgroundColor: "#5EA3A380",
+                      backgroundColor: "#5EA3A395",
                     },
                   }}
                   aria-label="add"
                 >
                   GUARDAR DATOS ACTUALIZADOS
                   <SaveOutlined sx={{ ml: 1, fontSize: "medium" }} />
-                </Fab>
+                </Button>
               </Box>
             )}
             {tabValue === "2022-II" && <p>a</p>}
