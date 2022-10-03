@@ -42,6 +42,7 @@ export default function FinancialProfile() {
   useEffect(() => {
     if (id) {
       fetch(id);
+      console.log(data.data);
     }
   }, [id]);
 
@@ -128,12 +129,13 @@ export default function FinancialProfile() {
             <Box display="flex" flexDirection="column">
               <Box
                 display="grid"
-                gridTemplateColumns="1fr 1fr 1fr 1fr"
+                gridTemplateColumns="1fr 1fr 1fr"
                 gridTemplateRows="1fr 1fr"
                 gap={3}
+                width="80%"
               >
                 <Box display="flex" flexDirection="column">
-                  <InputTitles marginBottom={2}>N° ID</InputTitles>
+                  <InputTitles marginBottom={2}>N° Identificación</InputTitles>
                   <Typography
                     letterSpacing={0}
                     fontSize="120%"
@@ -303,55 +305,54 @@ export default function FinancialProfile() {
                 </Box>
                 <Box display="flex" flexDirection="column">
                   <InputTitles marginBottom={2}>INGRESADO POR</InputTitles>
-                  <Typography
-                    fontFamily="Montserrat"
-                    fontSize="80%"
-                    fontWeight="bold"
-                    color="#63595C"
-                    border="1.4px solid #63595C"
-                    backgroundColor="transparent"
-                    textTransform="uppercase"
-                    borderRadius="4px"
-                  >
-                    {`${data?.data?.entered_by?.first_name} ${data?.data?.entered_by?.last_name}`}
-                  </Typography>
+                  <Box borderRadius="4px">
+                    <Typography
+                      fontFamily="Montserrat"
+                      fontSize="80%"
+                      fontWeight="bold"
+                      color="#63595C"
+                      backgroundColor="transparent"
+                      textTransform="uppercase"
+                      borderRadius="4px"
+                      display="inline-block"
+                      border="1.4px solid #63595C"
+                      padding="4px 8px"
+                    >
+                      {`${data?.data?.entered_by?.first_name ?? ""} ${
+                        data?.data?.entered_by?.last_name ?? ""
+                      }`}
+                    </Typography>
+                  </Box>
                 </Box>
-                <Box display="flex" flexDirection="column">
-                  <InputTitles marginBottom={2}>NIT DEL CLIENTE</InputTitles>
-                  <Typography
-                    letterSpacing={0}
-                    fontSize="130%"
-                    fontFamily="Montserrat"
-                    fontWeight="medium"
-                    color="#333333"
-                  >
-                    123.456.789-2
-                  </Typography>
-                </Box>
+
                 <Box display="flex" flexDirection="column">
                   <InputTitles marginBottom={2}>
                     REPRESENTANTE LEGAL
                   </InputTitles>
                   <Typography
                     letterSpacing={0}
-                    fontSize="130%"
+                    fontSize="120%"
                     fontFamily="Montserrat"
                     fontWeight="medium"
                     color="#333333"
+                    noWrap
                   >
-                    Juan Pablo Hernandez
+                    {`${data?.data?.legalRepresentative[0]?.first_name ?? ""} ${
+                      data?.data?.legalRepresentative[0]?.last_name ?? ""
+                    } 
+                    ${data?.data?.legalRepresentative[0]?.social_reason ?? ""}`}
                   </Typography>
                 </Box>
                 <Box display="flex" flexDirection="column">
                   <InputTitles marginBottom={2}>CORREO ELECTRÓNICO</InputTitles>
                   <Typography
                     letterSpacing={0}
-                    fontSize="130%"
+                    fontSize="120%"
                     fontFamily="Montserrat"
                     fontWeight="medium"
                     color="#333333"
                   >
-                    gerencia@benfor.com.co
+                    {data?.data?.email ?? ""}
                   </Typography>
                 </Box>
               </Box>
@@ -577,10 +578,15 @@ export default function FinancialProfile() {
                               >
                                 Seleccione archivo a cargar
                               </Typography>
-                              <PublishRounded
-                                sx={{ margin: "0rem 0.7rem", color: "#5EA3A3" }}
-                                fontSize="small"
-                              />
+
+                              <Typography
+                                fontFamily="icomoon"
+                                fontSize="1.5rem"
+                                color="#5EA3A3"
+                                margin="0rem 0.7rem"
+                              >
+                                
+                              </Typography>
                             </FileUploadButton>
                           </label>
                         </>
