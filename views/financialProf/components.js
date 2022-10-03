@@ -42,7 +42,6 @@ export default function FinancialProfile() {
   useEffect(() => {
     if (id) {
       fetch(id);
-      console.log(data.data);
     }
   }, [id]);
 
