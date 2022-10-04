@@ -41,7 +41,7 @@ export const OperationsComponents = () => {
                 }}
               />
             </Box>
-            <Box display="flex" flexDirection="column" mt={6}>
+            <Box display="flex" flexDirection="column" mt={4}>
               <InputTitles>Buscar N° Factura</InputTitles>
               <MuiTextField
                 id="searchInvoice"
@@ -61,7 +61,7 @@ export const OperationsComponents = () => {
                 }}
               />
             </Box>
-            <Box display="flex" flexDirection="column" mt={6}>
+            <Box display="flex" flexDirection="column" mt={4}>
               <InputTitles>Buscar nombres</InputTitles>
               <MuiTextField
                 id="searchName"
@@ -89,9 +89,297 @@ export const OperationsComponents = () => {
             sx={{
               backgroundColor: "#488B8F",
               borderRadius: "4px",
-              padding: "0.5rem",
             }}
-          ></Box>
+          >
+            <Box
+              display="grid"
+              gridTemplateColumns="1fr 1fr"
+              gridTemplateRows="1fr 1fr 1fr 1fr 1fr"
+              gap={2}
+              padding="1rem 2rem"
+            >
+              <Box display="flex" flexDirection="row" alignItems="center">
+                <Typography
+                  letterSpacing={0}
+                  fontSize="80%"
+                  fontFamily="Montserrat"
+                  fontWeight="bold"
+                  color="#EBEBEB"
+                  textTransform="uppercase"
+                >
+                  Comisión
+                </Typography>
+                <Typography
+                  letterSpacing={0}
+                  fontSize="90%"
+                  fontFamily="Montserrat"
+                  fontWeight="500"
+                  color="#EBEBEB"
+                  border="1px solid #C7C7C780"
+                  borderRadius="4px"
+                  backgroundColor="#5B979A"
+                  padding="0.35rem"
+                  ml={1}
+                  width="45%"
+                  textAlign="right"
+                >
+                  543.220.140
+                </Typography>
+              </Box>
+              <Box display="flex" flexDirection="row" alignItems="center">
+                <Typography
+                  letterSpacing={0}
+                  fontSize="80%"
+                  fontFamily="Montserrat"
+                  fontWeight="bold"
+                  color="#EBEBEB"
+                  textTransform="uppercase"
+                >
+                  Comisión
+                </Typography>
+                <Typography
+                  letterSpacing={0}
+                  fontSize="90%"
+                  fontFamily="Montserrat"
+                  fontWeight="500"
+                  color="#EBEBEB"
+                  border="1px solid #C7C7C780"
+                  borderRadius="4px"
+                  backgroundColor="#5B979A"
+                  padding="0.35rem"
+                  ml={1}
+                  width="45%"
+                  textAlign="right"
+                >
+                  543.220.140
+                </Typography>
+              </Box>
+              <Box display="flex" flexDirection="row" alignItems="center">
+                <Typography
+                  letterSpacing={0}
+                  fontSize="80%"
+                  fontFamily="Montserrat"
+                  fontWeight="bold"
+                  color="#EBEBEB"
+                  textTransform="uppercase"
+                >
+                  Comisión
+                </Typography>
+                <Typography
+                  letterSpacing={0}
+                  fontSize="90%"
+                  fontFamily="Montserrat"
+                  fontWeight="500"
+                  color="#EBEBEB"
+                  border="1px solid #C7C7C780"
+                  borderRadius="4px"
+                  backgroundColor="#5B979A"
+                  padding="0.35rem"
+                  ml={1}
+                  width="45%"
+                  textAlign="right"
+                >
+                  543.220.140
+                </Typography>
+              </Box>
+              <Box display="flex" flexDirection="row" alignItems="center">
+                <Typography
+                  letterSpacing={0}
+                  fontSize="80%"
+                  fontFamily="Montserrat"
+                  fontWeight="bold"
+                  color="#EBEBEB"
+                  textTransform="uppercase"
+                >
+                  Comisión
+                </Typography>
+                <Typography
+                  letterSpacing={0}
+                  fontSize="90%"
+                  fontFamily="Montserrat"
+                  fontWeight="500"
+                  color="#EBEBEB"
+                  border="1px solid #C7C7C780"
+                  borderRadius="4px"
+                  backgroundColor="#5B979A"
+                  padding="0.35rem"
+                  ml={1}
+                  width="45%"
+                  textAlign="right"
+                >
+                  543.220.140
+                </Typography>
+              </Box>
+              <Box display="flex" flexDirection="row" alignItems="center">
+                <Typography
+                  letterSpacing={0}
+                  fontSize="80%"
+                  fontFamily="Montserrat"
+                  fontWeight="bold"
+                  color="#EBEBEB"
+                  textTransform="uppercase"
+                >
+                  Comisión
+                </Typography>
+                <Typography
+                  letterSpacing={0}
+                  fontSize="90%"
+                  fontFamily="Montserrat"
+                  fontWeight="500"
+                  color="#EBEBEB"
+                  border="1px solid #C7C7C780"
+                  borderRadius="4px"
+                  backgroundColor="#5B979A"
+                  padding="0.35rem"
+                  ml={1}
+                  width="45%"
+                  textAlign="right"
+                >
+                  543.220.140
+                </Typography>
+              </Box>
+              <Box display="flex" flexDirection="row" alignItems="center">
+                <Typography
+                  letterSpacing={0}
+                  fontSize="80%"
+                  fontFamily="Montserrat"
+                  fontWeight="bold"
+                  color="#EBEBEB"
+                  textTransform="uppercase"
+                >
+                  Comisión
+                </Typography>
+                <Typography
+                  letterSpacing={0}
+                  fontSize="90%"
+                  fontFamily="Montserrat"
+                  fontWeight="500"
+                  color="#EBEBEB"
+                  border="1px solid #C7C7C780"
+                  borderRadius="4px"
+                  backgroundColor="#5B979A"
+                  padding="0.35rem"
+                  ml={1}
+                  width="45%"
+                  textAlign="right"
+                >
+                  543.220.140
+                </Typography>
+              </Box>
+              <Box display="flex" flexDirection="row" alignItems="center">
+                <Typography
+                  letterSpacing={0}
+                  fontSize="80%"
+                  fontFamily="Montserrat"
+                  fontWeight="bold"
+                  color="#EBEBEB"
+                  textTransform="uppercase"
+                >
+                  Comisión
+                </Typography>
+                <Typography
+                  letterSpacing={0}
+                  fontSize="90%"
+                  fontFamily="Montserrat"
+                  fontWeight="500"
+                  color="#EBEBEB"
+                  border="1px solid #C7C7C780"
+                  borderRadius="4px"
+                  backgroundColor="#5B979A"
+                  padding="0.35rem"
+                  ml={1}
+                  width="45%"
+                  textAlign="right"
+                >
+                  543.220.140
+                </Typography>
+              </Box>
+              <Box display="flex" flexDirection="row" alignItems="center">
+                <Typography
+                  letterSpacing={0}
+                  fontSize="80%"
+                  fontFamily="Montserrat"
+                  fontWeight="bold"
+                  color="#EBEBEB"
+                  textTransform="uppercase"
+                >
+                  Comisión
+                </Typography>
+                <Typography
+                  letterSpacing={0}
+                  fontSize="90%"
+                  fontFamily="Montserrat"
+                  fontWeight="500"
+                  color="#EBEBEB"
+                  border="1px solid #C7C7C780"
+                  borderRadius="4px"
+                  backgroundColor="#5B979A"
+                  padding="0.35rem"
+                  ml={1}
+                  width="45%"
+                  textAlign="right"
+                >
+                  543.220.140
+                </Typography>
+              </Box>
+              <Box display="flex" flexDirection="row" alignItems="center">
+                <Typography
+                  letterSpacing={0}
+                  fontSize="80%"
+                  fontFamily="Montserrat"
+                  fontWeight="bold"
+                  color="#EBEBEB"
+                  textTransform="uppercase"
+                >
+                  Comisión
+                </Typography>
+                <Typography
+                  letterSpacing={0}
+                  fontSize="90%"
+                  fontFamily="Montserrat"
+                  fontWeight="500"
+                  color="#EBEBEB"
+                  border="1px solid #C7C7C780"
+                  borderRadius="4px"
+                  backgroundColor="#5B979A"
+                  padding="0.35rem"
+                  ml={1}
+                  width="45%"
+                  textAlign="right"
+                >
+                  543.220.140
+                </Typography>
+              </Box>
+              <Box display="flex" flexDirection="row" alignItems="center">
+                <Typography
+                  letterSpacing={0}
+                  fontSize="80%"
+                  fontFamily="Montserrat"
+                  fontWeight="bold"
+                  color="#EBEBEB"
+                  textTransform="uppercase"
+                >
+                  Comisión
+                </Typography>
+                <Typography
+                  letterSpacing={0}
+                  fontSize="90%"
+                  fontFamily="Montserrat"
+                  fontWeight="500"
+                  color="#EBEBEB"
+                  border="1px solid #C7C7C780"
+                  borderRadius="4px"
+                  backgroundColor="#5B979A"
+                  padding="0.35rem"
+                  ml={1}
+                  width="45%"
+                  textAlign="right"
+                >
+                  543.220.140
+                </Typography>
+              </Box>
+            </Box>
+          </Box>
         </Box>
       </Box>
     </>
