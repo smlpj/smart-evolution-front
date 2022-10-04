@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Image from "next/image";
 import * as React from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";

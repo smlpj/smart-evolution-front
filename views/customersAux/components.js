@@ -1,26 +1,18 @@
 import * as React from "react";
-import { useState } from "react";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import MuiTextField from "../../styles/fields";
 import Image from "next/image";
 import InputTitles from "../../styles/inputTitles";
 import MuiButton from "../../styles/button";
 import Header from "../../shared/components/header";
 import HelperText from "../../styles/helperText";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import CitySelect from "../../shared/components/selects/citySelect";
 import TypeIDSelect from "../../shared/components/selects/typeIdentitySelect";
 import DepartmentSelect from "../../shared/components/selects/departmentSelect";
-import ImageCarousel from "../../shared/components/imageCarousel";
 import BrokerSelect from "../../shared/components/selects/brokerSelect";
 import ClientTypeSelect from "../../shared/components/selects/clientTypeSelect";
-import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
-import StepLabel from "@mui/material/StepLabel";
-import Button from "@mui/material/Button";
 import CIIUSelect from "../../shared/components/selects/CIIUSelect";
 import CitizenshipSelect from "../../shared/components/selects/citizenshipSelect";
 

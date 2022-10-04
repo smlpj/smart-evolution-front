@@ -19,7 +19,16 @@ import Fab from "@mui/material/Fab";
 import { useRouter } from "next/router";
 import { GetCustomerById } from "./queries";
 
-export default function FinancialProfile() {
+function getBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+  });
+}
+
+export const FinancialProfile = ({ formik }) => {
   //Get ID from URL
 
   const {
@@ -51,16 +60,24 @@ export default function FinancialProfile() {
     setTabValue(newValue);
   };
 
-  const [selectedFile, setSelectedFile] = useState();
-  const [isFilePicked, setIsFilePicked] = useState(false);
-
-  const changeHandler = (event) => {
-    setSelectedFile(event.target.files[0]);
-    setIsFilePicked(true);
+  const handleSubmission = () => {
+    console.log(allFiles);
   };
 
-  const handleSubmission = () => {
-    console.log(isFilePicked);
+  const [allFiles, setAllFiles] = useState({
+    file1: null,
+    file2: null,
+    file3: null,
+    file4: null,
+    file5: null,
+    file6: null,
+  });
+
+  const changeHandler = (event) => {
+    setAllFiles({
+      ...allFiles,
+      [event.target.name]: event.target.value,
+    });
   };
 
   return (
@@ -527,44 +544,46 @@ export default function FinancialProfile() {
           </Box>
           <Box sx={{ width: "100%" }}>
             {tabValue === "2022-I" && (
-              <Box
-                display="flex"
-                flexDirection="column"
-                position="relative"
-                marginTop={3}
-              >
-                <Typography
-                  alignContent="center"
-                  letterSpacing={0}
-                  fontSize="1.5rem"
-                  fontFamily="Montserrat"
-                  fontWeight="medium"
-                  color="#333333"
-                >
-                  Periodo: {tabValue}
-                </Typography>
+              <form onSubmit={formik.handleSubmit}>
                 <Box
                   display="flex"
+                  flexDirection="column"
                   position="relative"
-                  flexDirection="row"
                   marginTop={3}
                 >
-                  <Box display="flex" flexDirection="column" marginTop={3}>
-                    <Box>
-                      <InputTitles marginBottom={2}>Balance</InputTitles>
-                      {!isFilePicked ? (
+                  <Typography
+                    alignContent="center"
+                    letterSpacing={0}
+                    fontSize="1.5rem"
+                    fontFamily="Montserrat"
+                    fontWeight="medium"
+                    color="#333333"
+                  >
+                    Periodo: {tabValue}
+                  </Typography>
+                  <Box
+                    display="flex"
+                    position="relative"
+                    flexDirection="row"
+                    marginTop={3}
+                  >
+                    <Box display="flex" flexDirection="column" marginTop={3}>
+                      <Box>
+                        <InputTitles marginBottom={2}>Balance</InputTitles>
                         <>
                           <input
                             style={{ display: "none" }}
-                            id="contained-button-file1"
-                            name="file"
+                            id="file1"
+                            name="file1"
                             type="file"
-                            onChange={changeHandler}
+                            onChange={(e) => {
+                              formik.setFieldValue(
+                                "file1",
+                                e.currentTarget.files[0]
+                              );
+                            }}
                           />
-                          <label
-                            style={{ height: "3rem" }}
-                            htmlFor="contained-button-file1"
-                          >
+                          <label style={{ height: "3rem" }} htmlFor="file1">
                             <FileUploadButton component="span">
                               <Typography
                                 alignContent="center"
@@ -589,82 +608,149 @@ export default function FinancialProfile() {
                             </FileUploadButton>
                           </label>
                         </>
-                      ) : (
-                        <FileUploadButton disabled>
-                          <Typography
-                            alignContent="center"
-                            letterSpacing={0}
-                            fontSize="0.9rem"
-                            fontFamily="Montserrat"
-                            fontWeight="regular"
-                            textTransform="none"
-                            color="#63595C"
-                            padding="0.5rem 2.5rem 0.5rem 1rem"
-                          >
-                            {selectedFile.name.length > 20
-                              ? selectedFile.name.substring(0, 25) + "..."
-                              : selectedFile.name}
-                          </Typography>
-                          <ArrowForwardIcon
-                            fontSize="small"
-                            sx={{ color: "#5EA3A3", marginRight: "0.5rem" }}
+                      </Box>
+                      <Box>
+                        <InputTitles mt={3} marginBottom={2}>
+                          Hola2
+                        </InputTitles>
+                        <>
+                          <input
+                            style={{ display: "none" }}
+                            id="file2"
+                            name="file2"
+                            type="file"
+                            onChange={(e) => {
+                              formik.setFieldValue(
+                                "file2",
+                                e.currentTarget.files[0]
+                              );
+                            }}
                           />
-                        </FileUploadButton>
-                      )}
+                          <label style={{ height: "3rem" }} htmlFor="file2">
+                            <FileUploadButton component="span">
+                              <Typography
+                                alignContent="center"
+                                letterSpacing={0}
+                                fontSize="0.9rem"
+                                fontFamily="Montserrat"
+                                fontWeight="regular"
+                                textTransform="none"
+                                padding="0.5rem 2.5rem 0.5rem 1rem"
+                              >
+                                Seleccione archivo a cargar
+                              </Typography>
+
+                              <Typography
+                                fontFamily="icomoon"
+                                fontSize="1.5rem"
+                                color="#5EA3A3"
+                                margin="0rem 0.7rem"
+                              >
+                                
+                              </Typography>
+                            </FileUploadButton>
+                          </label>
+                        </>
+                      </Box>
+                      <Box>
+                        <InputTitles mt={3} marginBottom={2}>
+                          Hola
+                        </InputTitles>
+                        <>
+                          <input
+                            style={{ display: "none" }}
+                            id="file3"
+                            name="file3"
+                            type="file"
+                            onChange={(e) => {
+                              getBase64(e.currentTarget.files[0]).then((data) =>
+                                formik.setFieldValue(
+                                  "file3",
+                                  data.substring(data.indexOf(",") + 1)
+                                )
+                              );
+                            }}
+                          />
+                          <label style={{ height: "3rem" }} htmlFor="file3">
+                            <FileUploadButton component="span">
+                              <Typography
+                                alignContent="center"
+                                letterSpacing={0}
+                                fontSize="0.9rem"
+                                fontFamily="Montserrat"
+                                fontWeight="regular"
+                                textTransform="none"
+                                padding="0.5rem 2.5rem 0.5rem 1rem"
+                              >
+                                Seleccione archivo a cargar
+                              </Typography>
+
+                              <Typography
+                                fontFamily="icomoon"
+                                fontSize="1.5rem"
+                                color="#5EA3A3"
+                                margin="0rem 0.7rem"
+                              >
+                                
+                              </Typography>
+                            </FileUploadButton>
+                          </label>
+                        </>
+                      </Box>
                     </Box>
                   </Box>
+                  <Button
+                    variant="standard"
+                    onClick={formik.handleSubmit}
+                    sx={{
+                      backgroundColor: "#488B8F",
+                      borderRadius: "4px",
+                      color: "#FFFFFF",
+                      height: "3rem",
+                      marginTop: "2rem",
+                      marginBottom: "2rem",
+                      position: "absolute",
+                      bottom: "3.5rem",
+                      right: "2rem",
+                      fontSize: "0.7rem",
+                      fontFamily: "Montserrat",
+                      fontWeight: "bold",
+                      "&:hover": {
+                        backgroundColor: "#5EA3A3",
+                      },
+                    }}
+                    aria-label="add"
+                  >
+                    GUARDAR BORRADOR
+                    <BookOutlined sx={{ ml: 1, fontSize: "medium" }} />
+                  </Button>
+                  <Button
+                    variant="standard"
+                    onClick={handleSubmission}
+                    sx={{
+                      backgroundColor: "#488B8F",
+                      borderRadius: "4px",
+                      color: "#FFFFFF",
+                      height: "3rem",
+                      marginTop: "2rem",
+                      marginBottom: "2rem",
+                      position: "absolute",
+                      bottom: "0rem",
+                      right: "2rem",
+                      fontSize: "0.7rem",
+                      fontFamily: "Montserrat",
+                      fontWeight: "bold",
+                      "&:hover": {
+                        backgroundColor: "#5EA3A3",
+                      },
+                    }}
+                    aria-label="add"
+                  >
+                    GUARDAR DATOS ACTUALIZADOS
+                    <SaveOutlined sx={{ ml: 1, fontSize: "medium" }} />
+                  </Button>
                 </Box>
-                <Button
-                  variant="standard"
-                  onClick={handleSubmission}
-                  sx={{
-                    backgroundColor: "#488B8F",
-                    borderRadius: "4px",
-                    color: "#FFFFFF",
-                    height: "3rem",
-                    marginTop: "2rem",
-                    marginBottom: "2rem",
-                    position: "absolute",
-                    bottom: "3.5rem",
-                    right: "2rem",
-                    fontSize: "0.7rem",
-                    fontFamily: "Montserrat",
-                    fontWeight: "bold",
-                    "&:hover": {
-                      backgroundColor: "#5EA3A3",
-                    },
-                  }}
-                  aria-label="add"
-                >
-                  GUARDAR BORRADOR
-                  <BookOutlined sx={{ ml: 1, fontSize: "medium" }} />
-                </Button>
-                <Button
-                  variant="standard"
-                  onClick={handleSubmission}
-                  sx={{
-                    backgroundColor: "#488B8F",
-                    borderRadius: "4px",
-                    color: "#FFFFFF",
-                    height: "3rem",
-                    marginTop: "2rem",
-                    marginBottom: "2rem",
-                    position: "absolute",
-                    bottom: "0rem",
-                    right: "2rem",
-                    fontSize: "0.7rem",
-                    fontFamily: "Montserrat",
-                    fontWeight: "bold",
-                    "&:hover": {
-                      backgroundColor: "#5EA3A3",
-                    },
-                  }}
-                  aria-label="add"
-                >
-                  GUARDAR DATOS ACTUALIZADOS
-                  <SaveOutlined sx={{ ml: 1, fontSize: "medium" }} />
-                </Button>
-              </Box>
+              </form>
             )}
             {tabValue === "2022-II" && <p>a</p>}
             {tabValue === "2022-III" && <p>a</p>}
@@ -673,4 +759,4 @@ export default function FinancialProfile() {
       </Box>
     </>
   );
-}
+};
