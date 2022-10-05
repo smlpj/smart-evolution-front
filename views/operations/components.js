@@ -3,11 +3,63 @@ import { Box } from "@mui/system";
 import InputTitles from "../../styles/inputTitles";
 import MuiTextField from "../../styles/fields";
 import { SearchOutlined } from "@mui/icons-material";
+import CustomDataGrid from "../../styles/tables";
+
+const columns = [
+  { field: "id", headerName: "ID", width: 90 },
+  {
+    field: "firstName",
+    headerName: "First name",
+    width: 150,
+    editable: true,
+  },
+  {
+    field: "lastName",
+    headerName: "Last name",
+    width: 150,
+    editable: true,
+  },
+  {
+    field: "age",
+    headerName: "Age",
+    type: "number",
+    width: 110,
+    editable: true,
+  },
+  {
+    field: "fullName",
+    headerName: "Full name",
+    description: "This column has a value getter and is not sortable.",
+    sortable: false,
+    width: 160,
+    valueGetter: (params) =>
+      `${params.row.firstName || ""} ${params.row.lastName || ""}`,
+  },
+];
+
+const rows = [
+  { id: 1, lastName: "Snow", firstName: "Jon", age: 35 },
+  { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
+  { id: 3, lastName: "Lannister", firstName: "Jaime", age: 45 },
+  { id: 4, lastName: "Stark", firstName: "Arya", age: 16 },
+  { id: 5, lastName: "Targaryen", firstName: "Daenerys", age: null },
+  { id: 6, lastName: "Melisandre", firstName: null, age: 150 },
+  { id: 7, lastName: "Clifford", firstName: "Ferrara", age: 44 },
+  { id: 8, lastName: "Frances", firstName: "Rossini", age: 36 },
+  { id: 9, lastName: "Roxie", firstName: "Harvey", age: 65 },
+];
 
 export const OperationsComponents = () => {
   return (
     <>
-      <Box height="73vh" display="flex" flexDirection="column" marginLeft="5%">
+      <Box
+        height="78vh"
+        display="flex"
+        flexDirection="column"
+        marginLeft="5%"
+        width="67.6%"
+        position="fixed"
+      >
         <Typography
           letterSpacing={0}
           fontSize="1.7rem"
@@ -19,10 +71,38 @@ export const OperationsComponents = () => {
           Consulta de Operaciones
         </Typography>
 
-        <Box display="flex" flexDirection="row" mt={3}>
+        <Box
+          display="flex"
+          flexDirection="row"
+          mt={3}
+          alignItems="center"
+          height="45vh"
+          sx={{
+            scrollBehavior: "smooth",
+            overflowY: "auto",
+            "&::-webkit-scrollbar": {
+              position: "absolute",
+              width: "9px",
+              webkitAppearance: "none",
+            },
+            "&::-webkit-scrollbar-track": {
+              backgroundColor: "#CFDDDD",
+              borderRadius: "10px",
+            },
+            "&::-webkit-scrollbar-thumb": {
+              backgroundColor: "#5EA3A3",
+              backgroundClip: "content-box",
+              borderColor: "transparent",
+              borderStyle: "solid",
+              borderWidth: "1px 2px",
+              borderRadius: "10px",
+            },
+          }}
+        >
           <Box display="flex" flexDirection="column" width="45%">
             <Box display="flex" flexDirection="column">
               <InputTitles>Buscar N° Operación</InputTitles>
+
               <MuiTextField
                 id="searchOperation"
                 placeholder="N° Operación"
@@ -41,7 +121,7 @@ export const OperationsComponents = () => {
                 }}
               />
             </Box>
-            <Box display="flex" flexDirection="column" mt={4}>
+            <Box display="flex" flexDirection="column" mt={2.5}>
               <InputTitles>Buscar N° Factura</InputTitles>
               <MuiTextField
                 id="searchInvoice"
@@ -61,7 +141,7 @@ export const OperationsComponents = () => {
                 }}
               />
             </Box>
-            <Box display="flex" flexDirection="column" mt={4}>
+            <Box display="flex" flexDirection="column" mt={2.5}>
               <InputTitles>Buscar nombres</InputTitles>
               <MuiTextField
                 id="searchName"
@@ -82,23 +162,24 @@ export const OperationsComponents = () => {
               />
             </Box>
           </Box>
-          <Box
-            display="flex"
-            flexDirection="column"
-            width="55%"
-            sx={{
-              backgroundColor: "#488B8F",
-              borderRadius: "4px",
-            }}
-          >
+          <Box display="flex" flexDirection="column" width="55%" height="100%">
             <Box
               display="grid"
               gridTemplateColumns="1fr 1fr"
               gridTemplateRows="1fr 1fr 1fr 1fr 1fr"
-              gap={2}
+              gap={1}
               padding="1rem 2rem"
+              sx={{
+                backgroundColor: "#488B8F",
+                borderRadius: "4px",
+              }}
             >
-              <Box display="flex" flexDirection="row" alignItems="center">
+              <Box
+                display="flex"
+                flexDirection="row"
+                alignItems="center"
+                justifyContent="flex-end"
+              >
                 <Typography
                   letterSpacing={0}
                   fontSize="80%"
@@ -106,6 +187,7 @@ export const OperationsComponents = () => {
                   fontWeight="bold"
                   color="#EBEBEB"
                   textTransform="uppercase"
+                  textAlign="right"
                 >
                   Comisión
                 </Typography>
@@ -120,13 +202,18 @@ export const OperationsComponents = () => {
                   backgroundColor="#5B979A"
                   padding="0.35rem"
                   ml={1}
-                  width="45%"
+                  width="55%"
                   textAlign="right"
                 >
                   543.220.140
                 </Typography>
               </Box>
-              <Box display="flex" flexDirection="row" alignItems="center">
+              <Box
+                display="flex"
+                flexDirection="row"
+                alignItems="center"
+                justifyContent="flex-end"
+              >
                 <Typography
                   letterSpacing={0}
                   fontSize="80%"
@@ -134,8 +221,9 @@ export const OperationsComponents = () => {
                   fontWeight="bold"
                   color="#EBEBEB"
                   textTransform="uppercase"
+                  textAlign="right"
                 >
-                  Comisión
+                  Otros
                 </Typography>
                 <Typography
                   letterSpacing={0}
@@ -148,13 +236,18 @@ export const OperationsComponents = () => {
                   backgroundColor="#5B979A"
                   padding="0.35rem"
                   ml={1}
-                  width="45%"
+                  width="55%"
                   textAlign="right"
                 >
-                  543.220.140
+                  0
                 </Typography>
               </Box>
-              <Box display="flex" flexDirection="row" alignItems="center">
+              <Box
+                display="flex"
+                flexDirection="row"
+                alignItems="center"
+                justifyContent="flex-end"
+              >
                 <Typography
                   letterSpacing={0}
                   fontSize="80%"
@@ -162,8 +255,9 @@ export const OperationsComponents = () => {
                   fontWeight="bold"
                   color="#EBEBEB"
                   textTransform="uppercase"
+                  textAlign="right"
                 >
-                  Comisión
+                  IVA
                 </Typography>
                 <Typography
                   letterSpacing={0}
@@ -176,13 +270,18 @@ export const OperationsComponents = () => {
                   backgroundColor="#5B979A"
                   padding="0.35rem"
                   ml={1}
-                  width="45%"
+                  width="55%"
                   textAlign="right"
                 >
-                  543.220.140
+                  101.121.827
                 </Typography>
               </Box>
-              <Box display="flex" flexDirection="row" alignItems="center">
+              <Box
+                display="flex"
+                flexDirection="row"
+                alignItems="center"
+                justifyContent="flex-end"
+              >
                 <Typography
                   letterSpacing={0}
                   fontSize="80%"
@@ -190,8 +289,9 @@ export const OperationsComponents = () => {
                   fontWeight="bold"
                   color="#EBEBEB"
                   textTransform="uppercase"
+                  textAlign="right"
                 >
-                  Comisión
+                  Valor inversor
                 </Typography>
                 <Typography
                   letterSpacing={0}
@@ -204,13 +304,18 @@ export const OperationsComponents = () => {
                   backgroundColor="#5B979A"
                   padding="0.35rem"
                   ml={1}
-                  width="45%"
+                  width="55%"
                   textAlign="right"
                 >
-                  543.220.140
+                  49.483.766.518
                 </Typography>
               </Box>
-              <Box display="flex" flexDirection="row" alignItems="center">
+              <Box
+                display="flex"
+                flexDirection="row"
+                alignItems="center"
+                justifyContent="flex-end"
+              >
                 <Typography
                   letterSpacing={0}
                   fontSize="80%"
@@ -218,8 +323,9 @@ export const OperationsComponents = () => {
                   fontWeight="bold"
                   color="#EBEBEB"
                   textTransform="uppercase"
+                  textAlign="right"
                 >
-                  Comisión
+                  RETEFUENTE
                 </Typography>
                 <Typography
                   letterSpacing={0}
@@ -232,13 +338,18 @@ export const OperationsComponents = () => {
                   backgroundColor="#5B979A"
                   padding="0.35rem"
                   ml={1}
-                  width="45%"
+                  width="55%"
                   textAlign="right"
                 >
-                  543.220.140
+                  58.544.215
                 </Typography>
               </Box>
-              <Box display="flex" flexDirection="row" alignItems="center">
+              <Box
+                display="flex"
+                flexDirection="row"
+                alignItems="center"
+                justifyContent="flex-end"
+              >
                 <Typography
                   letterSpacing={0}
                   fontSize="80%"
@@ -246,8 +357,9 @@ export const OperationsComponents = () => {
                   fontWeight="bold"
                   color="#EBEBEB"
                   textTransform="uppercase"
+                  textAlign="right"
                 >
-                  Comisión
+                  FACTURAR NETO
                 </Typography>
                 <Typography
                   letterSpacing={0}
@@ -260,13 +372,18 @@ export const OperationsComponents = () => {
                   backgroundColor="#5B979A"
                   padding="0.35rem"
                   ml={1}
-                  width="45%"
+                  width="55%"
                   textAlign="right"
                 >
-                  543.220.140
+                  574.797.751
                 </Typography>
               </Box>
-              <Box display="flex" flexDirection="row" alignItems="center">
+              <Box
+                display="flex"
+                flexDirection="row"
+                alignItems="center"
+                justifyContent="flex-end"
+              >
                 <Typography
                   letterSpacing={0}
                   fontSize="80%"
@@ -274,8 +391,9 @@ export const OperationsComponents = () => {
                   fontWeight="bold"
                   color="#EBEBEB"
                   textTransform="uppercase"
+                  textAlign="right"
                 >
-                  Comisión
+                  RETEICA
                 </Typography>
                 <Typography
                   letterSpacing={0}
@@ -288,13 +406,18 @@ export const OperationsComponents = () => {
                   backgroundColor="#5B979A"
                   padding="0.35rem"
                   ml={1}
-                  width="45%"
+                  width="55%"
                   textAlign="right"
                 >
-                  543.220.140
+                  0
                 </Typography>
               </Box>
-              <Box display="flex" flexDirection="row" alignItems="center">
+              <Box
+                display="flex"
+                flexDirection="row"
+                alignItems="center"
+                justifyContent="flex-end"
+              >
                 <Typography
                   letterSpacing={0}
                   fontSize="80%"
@@ -302,8 +425,9 @@ export const OperationsComponents = () => {
                   fontWeight="bold"
                   color="#EBEBEB"
                   textTransform="uppercase"
+                  textAlign="right"
                 >
-                  Comisión
+                  VALOR FUTURO
                 </Typography>
                 <Typography
                   letterSpacing={0}
@@ -316,13 +440,18 @@ export const OperationsComponents = () => {
                   backgroundColor="#5B979A"
                   padding="0.35rem"
                   ml={1}
-                  width="45%"
+                  width="55%"
                   textAlign="right"
                 >
-                  543.220.140
+                  50.330.594.558
                 </Typography>
               </Box>
-              <Box display="flex" flexDirection="row" alignItems="center">
+              <Box
+                display="flex"
+                flexDirection="row"
+                alignItems="center"
+                justifyContent="flex-end"
+              >
                 <Typography
                   letterSpacing={0}
                   fontSize="80%"
@@ -330,8 +459,9 @@ export const OperationsComponents = () => {
                   fontWeight="bold"
                   color="#EBEBEB"
                   textTransform="uppercase"
+                  textAlign="right"
                 >
-                  Comisión
+                  RETEIVA
                 </Typography>
                 <Typography
                   letterSpacing={0}
@@ -344,13 +474,18 @@ export const OperationsComponents = () => {
                   backgroundColor="#5B979A"
                   padding="0.35rem"
                   ml={1}
-                  width="45%"
+                  width="55%"
                   textAlign="right"
                 >
-                  543.220.140
+                  0
                 </Typography>
               </Box>
-              <Box display="flex" flexDirection="row" alignItems="center">
+              <Box
+                display="flex"
+                flexDirection="row"
+                alignItems="center"
+                justifyContent="flex-end"
+              >
                 <Typography
                   letterSpacing={0}
                   fontSize="80%"
@@ -358,8 +493,9 @@ export const OperationsComponents = () => {
                   fontWeight="bold"
                   color="#EBEBEB"
                   textTransform="uppercase"
+                  textAlign="right"
                 >
-                  Comisión
+                  VALOR A GIRAR
                 </Typography>
                 <Typography
                   letterSpacing={0}
@@ -372,14 +508,44 @@ export const OperationsComponents = () => {
                   backgroundColor="#5B979A"
                   padding="0.35rem"
                   ml={1}
-                  width="45%"
+                  width="55%"
                   textAlign="right"
                 >
-                  543.220.140
+                  48.908.968.767
                 </Typography>
               </Box>
             </Box>
           </Box>
+        </Box>
+        <Box
+          container
+          marginTop={4}
+          display="flex"
+          flexDirection="column"
+          width="100%"
+          height="100%"
+        >
+          <CustomDataGrid
+            rows={rows}
+            columns={columns}
+            pageSize={15}
+            rowsPerPageOptions={[5]}
+            disableSelectionOnClick
+            disableColumnMenu
+            components={{
+              ColumnSortedAscendingIcon: () => (
+                <Typography fontFamily="icomoon" fontSize="0.7rem">
+                  &#xe908;
+                </Typography>
+              ),
+
+              ColumnSortedDescendingIcon: () => (
+                <Typography fontFamily="icomoon" fontSize="0.7rem">
+                  &#xe908;
+                </Typography>
+              ),
+            }}
+          />
         </Box>
       </Box>
     </>
