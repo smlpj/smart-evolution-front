@@ -4,9 +4,9 @@ import { Typography } from "@mui/material";
 import Link from "next/link";
 import InputTitles from "../../../styles/inputTitles";
 import {
-  GetClientList,
-  GetClientListByQuery,
-  DeleteClientById,
+  GetBrokerList,
+  GetBrokerListByQuery,
+  DeleteBrokerById,
 } from "./queries";
 import { useFetch } from "../../../shared/hooks/useFetch";
 import { useEffect, useState } from "react";
@@ -20,7 +20,7 @@ import { SearchOutlined } from "@mui/icons-material";
 
 let dataCount;
 
-export const ClientListComponent = () => {
+export const BrokerListComponent = () => {
   const columns = [
     {
       field: "DocumentNumber",
@@ -428,9 +428,9 @@ export const ClientListComponent = () => {
       width: 50,
       sortable: false,
       filterable: false,
-      renderCell: (params) => {
+      renderCell: () => {
         return (
-          <Link href={`/customers?modify=${params.row.id}`}>
+          <Link href="/customers">
             <CustomTooltip
               title="Editar cliente"
               arrow
@@ -615,7 +615,7 @@ export const ClientListComponent = () => {
           >
             Consulta de Clientes
           </Typography>
-          <Link href="/customers?=register" underline="none">
+          <Link href="/customers" underline="none">
             <Button
               variant="standard"
               color="primary"

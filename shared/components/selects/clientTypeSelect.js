@@ -19,10 +19,11 @@ export default function ClientTypeSelect({ formik }) {
   } = useFetch({ service: ClientType, init: true });
 
   const [type_client, setTypeClient] = useState([]);
+  const [type_client_id, setTypeClientID] = useState("");
 
   useEffect(() => {
     if (data) {
-      var ClientTypes = [];
+      let ClientTypes = [];
       data.data.map((type_client) => {
         if (type_client.description !== "gobierno") {
           ClientTypes.push({
@@ -56,7 +57,6 @@ export default function ClientTypeSelect({ formik }) {
             } else {
               formik.setFieldValue("type_client", null);
             }
-            console.log(formik.values.type_client);
           }}
           color="#5EA3A3"
           popupIcon={<KeyboardArrowDownIcon sx={{ color: "#5EA3A3" }} />}
@@ -67,7 +67,6 @@ export default function ClientTypeSelect({ formik }) {
               {...params}
               name="type_client"
               placeholder="Tipo de cliente"
-              value={formik.values.type_client}
               error={
                 formik.touched.type_client && Boolean(formik.errors.type_client)
               }

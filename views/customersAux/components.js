@@ -103,6 +103,7 @@ export const SignUpClient = ({ formik }) => {
                             variant="standard"
                             margin="normal"
                             fullWidth
+                            value={formik.values.document_number}
                             InputProps={{
                               disableUnderline: true,
                               sx: {
@@ -145,6 +146,7 @@ export const SignUpClient = ({ formik }) => {
                           variant="standard"
                           margin="normal"
                           fullWidth
+                          value={formik.values.phone_number}
                           InputProps={{
                             disableUnderline: true,
                             sx: {
@@ -178,6 +180,7 @@ export const SignUpClient = ({ formik }) => {
                           variant="standard"
                           margin="normal"
                           fullWidth
+                          value={formik.values.email}
                           InputProps={{
                             disableUnderline: true,
                             sx: {
@@ -220,6 +223,7 @@ export const SignUpClient = ({ formik }) => {
                             variant="standard"
                             margin="normal"
                             fullWidth
+                            value={formik.values.first_name}
                             InputProps={{
                               disableUnderline: true,
                               sx: {
@@ -253,6 +257,7 @@ export const SignUpClient = ({ formik }) => {
                             variant="standard"
                             margin="normal"
                             fullWidth
+                            value={formik.values.last_name}
                             InputProps={{
                               disableUnderline: true,
                               sx: {
@@ -292,6 +297,7 @@ export const SignUpClient = ({ formik }) => {
                             variant="standard"
                             margin="normal"
                             fullWidth
+                            value={formik.values.social_reason}
                             InputProps={{
                               disableUnderline: true,
                               sx: {
@@ -362,6 +368,7 @@ export const SignUpClient = ({ formik }) => {
                             variant="standard"
                             margin="normal"
                             fullWidth
+                            value={formik.values.address}
                             InputProps={{
                               disableUnderline: true,
                               sx: {

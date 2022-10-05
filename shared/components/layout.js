@@ -1,14 +1,8 @@
 import { Grid } from "@mui/material";
-import NavbarButton from "../../styles/button_2";
 import Header from "./header";
 import Sidebar from "./sidebar";
 import Footer from "./footer";
-import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import HeaderButton from "../../styles/button_2";
-import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 
 export default function Layout({ children }) {
   return (

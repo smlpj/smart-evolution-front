@@ -4,15 +4,60 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { SignUpClient } from "./components";
 import { useFetch } from "../../shared/hooks/useFetch";
-import { RegisterClientQuery } from "./queries";
+import {
+  RegisterClientQuery,
+  ModifyClientQuery,
+  GetClientByID,
+} from "./queries";
+import { useRouter } from "next/router";
+import { useState, useEffect } from "react";
 
 export default function RegisterClient() {
+  const [option, setOption] = useState("");
+  const router = useRouter();
+
+  useEffect(() => {
+    if (router && router.query) {
+      console.log(Object.values(router.query)[0]);
+      setOption(Object.values(router.query)[0]);
+    }
+  }, [router.query]);
+
   const {
     fetch: fetch,
     loading: loading,
     error: error,
     data: data,
   } = useFetch({ service: RegisterClientQuery, init: false });
+
+  const {
+    fetch: fetch2,
+    loading: loading2,
+    error: error2,
+    data: data2,
+  } = useFetch({ service: GetClientByID, init: false });
+
+  useEffect(() => {
+    if (option !== "register") {
+      fetch2(option).then((data) => {
+        formik.setValues({
+          type_identity: data?.data?.type_identity,
+          document_number: data?.data?.document_number,
+          first_name: data?.data?.first_name,
+          last_name: data?.data?.last_name,
+          email: data?.data?.email,
+          address: data?.data?.address,
+          phone_number: data?.data?.phone_number,
+          city: data?.data?.city,
+          type_client: data?.data?.type_client,
+          broker: data?.data?.broker,
+          ciiu: data?.data?.ciiu,
+          citizenship: data?.data?.citizenship,
+          social_reason: data?.data?.social_reason,
+        });
+      });
+    }
+  }, [option]);
 
   const validationSchema = yup.object({
     type_identity: yup
@@ -81,26 +126,35 @@ export default function RegisterClient() {
     /* .required("La razón social es requerida") */
   });
 
+  const initualValues = {
+    type_identity: "",
+    document_number: "",
+    first_name: "",
+    last_name: "",
+    email: "",
+    address: "",
+    phone_number: "",
+    city: "",
+    type_client: "",
+    broker: "",
+    ciiu: "",
+    citizenship: "",
+    social_reason: "",
+  };
+
   const formik = useFormik({
-    initialValues: {
-      type_identity: "",
-      document_number: "",
-      first_name: null,
-      last_name: null,
-      address: "",
-      email: "",
-      phone_number: "",
-      city: "",
-      broker: "",
-      type_client: null,
-      social_reason: null,
-      ciiu: null,
-      citizenship: null,
-    },
+    initialValues: initualValues,
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      fetch(values);
-      alert(JSON.stringify(values, null, 2));
+      if (option === "register") {
+        console.log("Registrado el cliente");
+        alert(JSON.stringify(values, null, 2));
+        fetch(values);
+      } else {
+        console.log("Actualizado el cliente");
+        alert(JSON.stringify(values, null, 2));
+        fetch2(values);
+      }
     },
   });
 
