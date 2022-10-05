@@ -42,11 +42,13 @@ export default function Navbar() {
           >
             Pre-Operaciones
           </NavbarButton>
-          <NavbarButton
-            sx={{ marginBottom: "8%", width: "70%", height: "12%" }}
-          >
-            Operaciones
-          </NavbarButton>
+          <Link href="/operations" underline="none">
+            <NavbarButton
+              sx={{ marginBottom: "8%", width: "70%", height: "12%" }}
+            >
+              Operaciones
+            </NavbarButton>
+          </Link>
           <Link href="/brokers" underline="none">
             <NavbarButton
               sx={{ marginBottom: "8%", width: "70%", height: "12%" }}
