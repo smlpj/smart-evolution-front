@@ -63,6 +63,14 @@ export default function CIIUSelect({ formik }) {
             }
           }}
           color="#5EA3A3"
+          inputValue={
+            ciiu.filter((option) => option.value === formik.values.ciiu)[0]
+              ?.label
+          }
+          value={
+            ciiu.filter((option) => option.value === formik.values.ciiu)[0] ||
+            null
+          }
           popupIcon={<KeyboardArrowDownIcon sx={{ color: "#5EA3A3" }} />}
           clearIcon={<Clear sx={{ color: "#5EA3A3" }} />}
           renderInput={(params) => (

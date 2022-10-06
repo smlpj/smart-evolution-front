@@ -60,7 +60,12 @@ export default function ClientTypeSelect({ formik }) {
           inputValue={
             type_client.filter(
               (option) => option.value === formik.values.type_client
-            )[0]?.label || null
+            )[0]?.label
+          }
+          value={
+            type_client.filter(
+              (option) => option.value === formik.values.type_client
+            )[0] || null
           }
           color="#5EA3A3"
           popupIcon={<KeyboardArrowDownIcon sx={{ color: "#5EA3A3" }} />}

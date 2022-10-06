@@ -51,6 +51,16 @@ export default function TypeIDSelect({ formik }) {
               }
             }}
             color="#5EA3A3"
+            inputValue={
+              typeID.filter(
+                (option) => option.value === formik.values.type_identity
+              )[0]?.label
+            }
+            value={
+              typeID.filter(
+                (option) => option.value === formik.values.type_identity
+              )[0] || null
+            }
             popupIcon={<KeyboardArrowDownIcon sx={{ color: "#5EA3A3" }} />}
             clearIcon={<Clear sx={{ color: "#5EA3A3" }} />}
             renderInput={(params) => (

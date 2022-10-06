@@ -18,7 +18,7 @@ import CitizenshipSelect from "../../shared/components/selects/citizenshipSelect
 
 const steps = ["Primer paso", "Segundo paso"];
 
-export const SignUpClient = ({ formik }) => {
+export const SignUpClient = ({ formik, option }) => {
   const [activeStep, setActiveStep] = React.useState(0);
 
   const handleNext = () => {
@@ -53,7 +53,6 @@ export const SignUpClient = ({ formik }) => {
             alignItems="center"
             justifyContent="center"
           >
-            {/* <ImageCarousel /> */}
             <Image
               src="/assets/Ilustración - Creación de Usuario 2.svg"
               alt="clients"
@@ -83,7 +82,9 @@ export const SignUpClient = ({ formik }) => {
                       marginBottom="4rem"
                       color="#5EA3A3"
                     >
-                      Registro de clientes
+                      {option === "register"
+                        ? "Registro de cliente"
+                        : "Modificación de cliente"}
                     </Typography>
                     <Box
                       display="flex"
@@ -340,7 +341,9 @@ export const SignUpClient = ({ formik }) => {
                         marginBottom="4rem"
                         color="#5EA3A3"
                       >
-                        Registro de clientes
+                        {option === "register"
+                          ? "Registro de cliente"
+                          : "Modificación de cliente"}
                       </Typography>
 
                       <Box
@@ -479,7 +482,7 @@ export const SignUpClient = ({ formik }) => {
                         fontFamily="Montserrat"
                         fontWeight="bold"
                       >
-                        Registrar
+                        {option === "register" ? "Registrar" : "Modificar"}
                       </Typography>
                       <Typography
                         fontFamily="icomoon"

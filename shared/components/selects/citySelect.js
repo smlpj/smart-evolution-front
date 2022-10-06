@@ -64,6 +64,14 @@ export default function CitySelect({ formik }) {
               formik.setFieldValue("city", null);
             }
           }}
+          inputValue={
+            city.filter((option) => option.value === formik.values.city)[0]
+              ?.label
+          }
+          value={
+            city.filter((option) => option.value === formik.values.city)[0] ||
+            null
+          }
           color="#5EA3A3"
           popupIcon={<KeyboardArrowDownIcon sx={{ color: "#5EA3A3" }} />}
           clearIcon={<Clear sx={{ color: "#5EA3A3" }} />}

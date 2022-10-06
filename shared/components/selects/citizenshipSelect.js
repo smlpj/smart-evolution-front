@@ -52,6 +52,16 @@ export default function CitizenshipSelect({ formik }) {
             }
           }}
           color="#5EA3A3"
+          inputValue={
+            citizenship.filter(
+              (option) => option.value === formik.values.citizenship
+            )[0]?.label
+          }
+          value={
+            citizenship.filter(
+              (option) => option.value === formik.values.citizenship
+            )[0] || null
+          }
           popupIcon={<KeyboardArrowDownIcon sx={{ color: "#5EA3A3" }} />}
           clearIcon={<Clear sx={{ color: "#5EA3A3" }} />}
           renderInput={(params) => (

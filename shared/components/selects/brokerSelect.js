@@ -52,6 +52,15 @@ export default function BrokerSelect({ formik }) {
             }
           }}
           color="#5EA3A3"
+          inputValue={
+            broker.filter((option) => option.value === formik.values.broker)[0]
+              ?.label
+          }
+          value={
+            broker.filter(
+              (option) => option.value === formik.values.broker
+            )[0] || null
+          }
           popupIcon={<KeyboardArrowDownIcon sx={{ color: "#5EA3A3" }} />}
           clearIcon={<Clear sx={{ color: "#5EA3A3" }} />}
           renderInput={(params) => (

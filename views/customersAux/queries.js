@@ -28,8 +28,9 @@ export const GetClientByID = async (id) => {
 };
 
 export const ModifyClientQuery = async (data) => {
+  console.log(data);
   const res = await Axios.patch(
-    `https://smart-evolution-api2.herokuapp.com/api/client/${data.id}/`,
+    `https://smart-evolution-api2.herokuapp.com/api/client/${data.id}`,
     data,
     {
       headers: {

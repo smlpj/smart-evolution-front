@@ -52,6 +52,16 @@ export default function DepartmentSelect({ formik }) {
               formik.setFieldValue("city", null);
             }
           }}
+          inputValue={
+            department.filter(
+              (option) => option.value === formik.values.department
+            )[0]?.label
+          }
+          value={
+            department.filter(
+              (option) => option.value === formik.values.department
+            )[0] || null
+          }
           color="#5EA3A3"
           popupIcon={<KeyboardArrowDownIcon sx={{ color: "#5EA3A3" }} />}
           clearIcon={<Clear sx={{ color: "#5EA3A3" }} />}
