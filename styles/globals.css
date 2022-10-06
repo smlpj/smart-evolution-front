@@ -7,11 +7,5 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif,
     "Montserrat";
-}
-
-@media (prefers-color-scheme: dark) {
-  body {
-    color: black;
-    background: #ebebeb;
-  }
+  background: #ebebeb;
 }
