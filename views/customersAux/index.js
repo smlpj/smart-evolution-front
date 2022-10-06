@@ -38,7 +38,7 @@ export default function RegisterClient() {
   } = useFetch({ service: GetClientByID, init: false });
 
   useEffect(() => {
-    if (option !== "register") {
+    if (option !== "register" && option !== "" && option !== undefined) {
       fetch2(option).then((data) => {
         formik.setValues({
           type_identity: data?.data?.type_identity,
