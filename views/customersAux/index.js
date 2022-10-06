@@ -18,7 +18,6 @@ export default function RegisterClient() {
 
   useEffect(() => {
     if (router && router.query) {
-      console.log(Object.values(router.query)[0]);
       setOption(Object.values(router.query)[0]);
     }
   }, [router.query]);
@@ -136,20 +135,20 @@ export default function RegisterClient() {
   });
 
   const initualValues = {
-    type_identity: "",
+    type_identity: null,
     document_number: "",
-    first_name: "",
-    last_name: "",
+    first_name: null,
+    last_name: null,
     email: "",
     address: "",
     phone_number: "",
-    city: "",
-    type_client: "",
-    department: "",
-    broker: "",
-    ciiu: "",
-    citizenship: "",
-    social_reason: "",
+    city: null,
+    type_client: null,
+    department: null,
+    broker: null,
+    ciiu: null,
+    citizenship: null,
+    social_reason: null,
   };
 
   const formik = useFormik({

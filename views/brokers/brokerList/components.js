@@ -506,7 +506,6 @@ export const BrokerListComponent = () => {
               //Delete customer by id
 
               onClick={() => {
-                console.log(params.row.id);
                 setCustomer(
                   customer.filter((item) => item.id !== params.row.id)
                 );
