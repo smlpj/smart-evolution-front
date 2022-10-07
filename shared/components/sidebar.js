@@ -1,7 +1,5 @@
 import { Grid } from "@mui/material";
-import { Box } from "@mui/system";
 import NavbarButton from "../../styles/button_2";
-import Header from "./header";
 import Link from "next/link";
 
 export default function Navbar() {
@@ -49,7 +47,7 @@ export default function Navbar() {
               Operaciones
             </NavbarButton>
           </Link>
-          <Link href="/brokers" underline="none">
+          <Link href="/brokers/brokerList" underline="none">
             <NavbarButton
               sx={{ marginBottom: "8%", width: "70%", height: "12%" }}
             >

@@ -3,7 +3,6 @@ import { useState } from "react";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import MuiTextField from "../../styles/fields";
 import Image from "next/image";
 import InputTitles from "../../styles/inputTitles";
@@ -14,9 +13,8 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import CitySelect from "../../shared/components/selects/citySelect";
 import TypeIDSelect from "../../shared/components/selects/typeIdentitySelect";
 import DepartmentSelect from "../../shared/components/selects/departmentSelect";
-import ImageCarousel from "../../shared/components/imageCarousel";
 
-export const SignUpClient = ({ formik }) => {
+export const SignUpBroker = ({ formik, option }) => {
   return (
     <>
       <Grid
@@ -41,7 +39,6 @@ export const SignUpClient = ({ formik }) => {
             alignItems="center"
             justifyContent="center"
           >
-            {/* <ImageCarousel /> */}
             <Image
               src="/assets/Ilustración - Creación de Usuario 1.svg"
               alt="clients"
@@ -68,7 +65,9 @@ export const SignUpClient = ({ formik }) => {
                   marginBottom="4rem"
                   color="#5EA3A3"
                 >
-                  Registro de corredores
+                  {option === "register"
+                    ? "Registro de corredores"
+                    : "Modificación de corredor"}
                 </Typography>
                 <Box
                   display="flex"
@@ -88,6 +87,7 @@ export const SignUpClient = ({ formik }) => {
                         variant="standard"
                         margin="normal"
                         fullWidth
+                        value={formik.values.document_number}
                         InputProps={{
                           disableUnderline: true,
                           sx: {
@@ -129,6 +129,7 @@ export const SignUpClient = ({ formik }) => {
                       variant="standard"
                       margin="normal"
                       fullWidth
+                      value={formik.values.first_name}
                       InputProps={{
                         disableUnderline: true,
                         sx: {
@@ -161,6 +162,7 @@ export const SignUpClient = ({ formik }) => {
                       variant="standard"
                       margin="normal"
                       fullWidth
+                      value={formik.values.last_name}
                       InputProps={{
                         disableUnderline: true,
                         sx: {
@@ -201,6 +203,7 @@ export const SignUpClient = ({ formik }) => {
                       variant="standard"
                       margin="normal"
                       fullWidth
+                      value={formik.values.phone_number}
                       InputProps={{
                         disableUnderline: true,
                         sx: {
@@ -234,6 +237,7 @@ export const SignUpClient = ({ formik }) => {
                       variant="standard"
                       margin="normal"
                       fullWidth
+                      value={formik.values.email}
                       InputProps={{
                         disableUnderline: true,
                         sx: {
@@ -275,6 +279,7 @@ export const SignUpClient = ({ formik }) => {
                       variant="standard"
                       margin="normal"
                       fullWidth
+                      value={formik.values.address}
                       InputProps={{
                         disableUnderline: true,
                         sx: {
@@ -314,7 +319,7 @@ export const SignUpClient = ({ formik }) => {
                     fontFamily="Montserrat"
                     fontWeight="bold"
                   >
-                    Registrar
+                    {option === "register" ? "Registrar" : "Modificar"}
                   </Typography>
                   <ArrowForwardIcon
                     sx={{ color: "#fff", ml: 2, fontSize: "medium" }}

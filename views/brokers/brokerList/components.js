@@ -115,9 +115,9 @@ export const BrokerListComponent = () => {
       width: 50,
       sortable: false,
       filterable: false,
-      renderCell: () => {
+      renderCell: (params) => {
         return (
-          <Link href="/brokers">
+          <Link href={`/brokers?modify=${params.row.id}`}>
             <CustomTooltip
               title="Editar corredor"
               arrow
@@ -194,7 +194,7 @@ export const BrokerListComponent = () => {
 
               onClick={() => {
                 setBroker(broker.filter((item) => item.id !== params.row.id));
-                DeleteClientById(params.row.id);
+                DeleteBrokerById(params.row.id);
               }}
             >
               &#xe901;
@@ -210,7 +210,7 @@ export const BrokerListComponent = () => {
     loading: loading,
     error: error,
     data: data,
-  } = useFetch({ service: GetClientList, init: true });
+  } = useFetch({ service: GetBrokerList, init: true });
 
   const [broker, setBroker] = useState([]);
   const [page, setPage] = useState(1);
@@ -244,7 +244,7 @@ export const BrokerListComponent = () => {
     error: error2,
     data: data2,
   } = useFetch({
-    service: GetClientListByQuery,
+    service: GetBrokerListByQuery,
     init: false,
   });
 
@@ -296,7 +296,7 @@ export const BrokerListComponent = () => {
           >
             Consulta de Corredores
           </Typography>
-          <Link href="/brokers" underline="none">
+          <Link href="/brokers?=register" underline="none">
             <Button
               variant="standard"
               color="primary"
@@ -315,7 +315,7 @@ export const BrokerListComponent = () => {
                 fontWeight="bold"
                 color="#63595C"
               >
-                Registrar nuevo cliente
+                Registrar nuevo corredor
               </Typography>
 
               <Typography
@@ -330,7 +330,7 @@ export const BrokerListComponent = () => {
           </Link>
         </Box>
         <Box container display="flex" flexDirection="column" mt={3}>
-          <InputTitles>Buscar cliente</InputTitles>
+          <InputTitles>Buscar corredor</InputTitles>
           <Box
             container
             display="flex"
@@ -357,7 +357,7 @@ export const BrokerListComponent = () => {
                 color="#5EA3A3"
                 textTransform="none"
               >
-                Cliente
+                Corredor
               </Typography>
             </Button>
             <Button
@@ -379,7 +379,7 @@ export const BrokerListComponent = () => {
                 color="#5EA3A3"
                 textTransform="none"
               >
-                Nº ID Cliente
+                Nº ID Corredor
               </Typography>
             </Button>
             <Button
@@ -406,7 +406,7 @@ export const BrokerListComponent = () => {
             </Button>
             <MuiTextField
               id="searchBroker"
-              placeholder="Nombre de cliente"
+              placeholder="Nombre de corredor"
               type="text"
               variant="standard"
               margin="normal"
