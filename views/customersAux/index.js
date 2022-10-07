@@ -64,6 +64,7 @@ export default function RegisterClient() {
           citizenship: data?.data?.citizenship,
           social_reason: data?.data?.social_reason,
         });
+        console.log(data);
       });
     }
   }, [option]);

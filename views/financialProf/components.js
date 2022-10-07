@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Box } from "@mui/system";
 import { Typography, SvgIcon, Button } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import InputTitles from "../../styles/inputTitles";
 import Image from "next/image";
 import Tabs from "@mui/material/Tabs";
@@ -15,7 +14,6 @@ import {
   PublishRounded,
   SaveOutlined,
 } from "@mui/icons-material";
-import Fab from "@mui/material/Fab";
 import { useRouter } from "next/router";
 import { GetCustomerById } from "./queries";
 
@@ -82,7 +80,7 @@ export const FinancialProfile = ({ formik }) => {
 
   return (
     <>
-      <Box height="73vh" display="flex" flexDirection="column" marginLeft="5%">
+      <Box height="76vh" display="flex" flexDirection="column" marginLeft="5%">
         <Box
           container
           borderBottom="2px solid #A1A1A1"
@@ -664,10 +662,8 @@ export const FinancialProfile = ({ formik }) => {
                             type="file"
                             onChange={(e) => {
                               getBase64(e.currentTarget.files[0]).then((data) =>
-                                formik.setFieldValue(
-                                  "file3",
-                                  data.substring(data.indexOf(",") + 1)
-                                )
+                                /* formik.setFieldValue("file3", data) */
+                                console.log(data)
                               );
                             }}
                           />

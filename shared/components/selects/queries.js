@@ -28,7 +28,7 @@ export const Cities = async (data) => {
 
 export const IdentityType = async (data) => {
   const res = await Axios.get(
-    "https://smart-evolution-api2.herokuapp.com/api/type_identity",
+    "https://smart-evolution-api2.herokuapp.com/api/type_identity/",
     {
       headers: {
         authorization: "Bearer " + token,
@@ -40,7 +40,7 @@ export const IdentityType = async (data) => {
 
 export const Broker = async (data) => {
   const res = await Axios.get(
-    "https://smart-evolution-api2.herokuapp.com/api/broker",
+    "https://smart-evolution-api2.herokuapp.com/api/broker/",
     {
       headers: {
         authorization: "Bearer " + token,
@@ -52,7 +52,7 @@ export const Broker = async (data) => {
 
 export const ClientType = async (data) => {
   const res = await Axios.get(
-    "https://smart-evolution-api2.herokuapp.com/api/type_client",
+    "https://smart-evolution-api2.herokuapp.com/api/type_client/",
     {
       headers: {
         authorization: "Bearer " + token,
@@ -63,7 +63,7 @@ export const ClientType = async (data) => {
 };
 export const CIIU = async (data) => {
   const res = await Axios.get(
-    "https://smart-evolution-api2.herokuapp.com/api/ciiu",
+    "https://smart-evolution-api2.herokuapp.com/api/ciiu/",
     {
       headers: {
         authorization: "Bearer " + token,
@@ -75,7 +75,7 @@ export const CIIU = async (data) => {
 
 export const Citizenship = async (data) => {
   const res = await Axios.get(
-    "https://smart-evolution-api2.herokuapp.com/api/country",
+    "https://smart-evolution-api2.herokuapp.com/api/country/",
     {
       headers: {
         authorization: "Bearer " + token,

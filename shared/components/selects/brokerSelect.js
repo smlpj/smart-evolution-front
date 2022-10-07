@@ -23,7 +23,7 @@ export default function BrokerSelect({ formik }) {
   useEffect(() => {
     if (data) {
       var Brokers = [];
-      data.data.map((broker) => {
+      data.results.map((broker) => {
         Brokers.push({
           label: `${broker.first_name} ${broker.last_name}`,
           value: broker.id,
