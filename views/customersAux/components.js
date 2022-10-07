@@ -341,7 +341,9 @@ export const SignUpClient = ({ formik, option }) => {
                         marginBottom="4rem"
                         color="#5EA3A3"
                       >
-                        {option === "register"
+                        {option === "register" ||
+                        option === "" ||
+                        option === null
                           ? "Registro de cliente"
                           : "Modificación de cliente"}
                       </Typography>
