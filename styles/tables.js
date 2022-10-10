@@ -29,6 +29,11 @@ const CustomDataGrid = styled(DataGrid)({
     },
   },
 
+  "& .MuiDataGrid-cellCheckbox": {
+    color: "#488B8F",
+    border: "none",
+  },
+
   "& .MuiDataGrid-row": {
     backgroundColor: "transparent",
     color: "#000000",

@@ -532,6 +532,7 @@ export const InvoicesComponents = () => {
             rowsPerPageOptions={[5]}
             disableSelectionOnClick
             disableColumnMenu
+            checkboxSelection
             components={{
               ColumnSortedAscendingIcon: () => (
                 <Typography fontFamily="icomoon" fontSize="0.7rem">
