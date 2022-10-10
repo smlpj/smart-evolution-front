@@ -84,3 +84,15 @@ export const Citizenship = async (data) => {
   );
   return res.data;
 };
+
+export const Clients = async (data) => {
+  const res = await Axios.get(
+    "https://smart-evolution-api2.herokuapp.com/api/client/all",
+    {
+      headers: {
+        authorization: "Bearer " + token,
+      },
+    }
+  );
+  return res.data;
+};
