@@ -1,4 +1,4 @@
-import ClientList from "../../../views/customersAux/customerList";
+import ClientList from "../../../views/customers/customerList";
 
 export default function index() {
   return <ClientList />;

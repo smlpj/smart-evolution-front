@@ -3,16 +3,16 @@ import { useState } from "react";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import MuiTextField from "../../styles/fields";
+import MuiTextField from "../../../styles/fields";
 import Image from "next/image";
-import InputTitles from "../../styles/inputTitles";
-import MuiButton from "../../styles/button";
-import Header from "../../shared/components/header";
-import HelperText from "../../styles/helperText";
+import InputTitles from "../../../styles/inputTitles";
+import MuiButton from "../../../styles/button";
+import Header from "../../../shared/components/header";
+import HelperText from "../../../styles/helperText";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import CitySelect from "../../shared/components/selects/citySelect";
-import TypeIDSelect from "../../shared/components/selects/typeIdentitySelect";
-import DepartmentSelect from "../../shared/components/selects/departmentSelect";
+import CitySelect from "../../../shared/components/selects/citySelect";
+import TypeIDSelect from "../../../shared/components/selects/typeIdentitySelect";
+import DepartmentSelect from "../../../shared/components/selects/departmentSelect";
 
 export const SignUpBroker = ({ formik, option }) => {
   return (

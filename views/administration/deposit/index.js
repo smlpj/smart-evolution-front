@@ -3,7 +3,7 @@ import * as React from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { SignUpBroker } from "./components";
-import { useFetch } from "../../shared/hooks/useFetch";
+import { useFetch } from "../../../shared/hooks/useFetch";
 import {
   RegisterBrokerQuery,
   ModifyBrokerQuery,
