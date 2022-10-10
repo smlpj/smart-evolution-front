@@ -36,7 +36,7 @@ export default function Navbar() {
               </NavbarButton>
             </Link>
 
-            <Link href="/customers/customerList" underline="none">
+            <Link href="/invoices" underline="none">
               <NavbarButton
                 sx={{
                   border: "0.5px solid #488B8F",

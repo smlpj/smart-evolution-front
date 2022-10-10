@@ -33,6 +33,9 @@ export const InputAdornments = ({
               fullWidth
               InputProps={{
                 disableUnderline: true,
+                sx: {
+                  marginTop: "-5px",
+                },
               }}
               error={formik.touched.email && Boolean(formik.errors.email)}
               sx={
@@ -65,6 +68,9 @@ export const InputAdornments = ({
               }
               InputProps={{
                 disableUnderline: true,
+                sx: {
+                  marginTop: "-5px",
+                },
                 endAdornment: (
                   <InputAdornment position="end">
                     <IconButton

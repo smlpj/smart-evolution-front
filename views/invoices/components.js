@@ -1,9 +1,13 @@
-import { Typography } from "@mui/material";
+import { TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import InputTitles from "../../styles/inputTitles";
 import MuiTextField from "../../styles/fields";
-import { SearchOutlined } from "@mui/icons-material";
+import { ArrowForward, SearchOutlined } from "@mui/icons-material";
 import CustomDataGrid from "../../styles/tables";
+import { Link, Button } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import UploadFileOutlinedIcon from "@mui/icons-material/UploadFileOutlined";
+import Divider from "@mui/material/Divider";
 
 const columns = [
   { field: "id", headerName: "ID", width: 90 },
@@ -60,463 +64,235 @@ export const InvoicesComponents = () => {
         width="67.6%"
         position="fixed"
       >
-        <Typography
-          letterSpacing={0}
-          fontSize="1.7rem"
-          fontFamily="Montserrat"
-          fontWeight="regular"
-          marginBottom="0.7rem"
-          color="#5EA3A3"
-        >
-          Control de Factura Electrónica
-        </Typography>
-
-        <Box
-          display="flex"
-          flexDirection="row"
-          mt={3}
-          alignItems="center"
-          height="45vh"
-          sx={{
-            scrollBehavior: "smooth",
-            overflowY: "auto",
-            "&::-webkit-scrollbar": {
-              position: "absolute",
-              width: "9px",
-              webkitAppearance: "none",
-            },
-            "&::-webkit-scrollbar-track": {
-              backgroundColor: "#CFDDDD",
-              borderRadius: "10px",
-            },
-            "&::-webkit-scrollbar-thumb": {
-              backgroundColor: "#5EA3A3",
-              backgroundClip: "content-box",
-              borderColor: "transparent",
-              borderStyle: "solid",
-              borderWidth: "1px 2px",
-              borderRadius: "10px",
-            },
-          }}
-        >
-          <Box display="flex" flexDirection="column" width="45%">
-            <Box display="flex" flexDirection="column">
-              <InputTitles>Buscar N° Operación</InputTitles>
-
-              <MuiTextField
-                id="searchOperation"
-                placeholder="N° Operación"
-                type="text"
-                variant="standard"
-                margin="normal"
-                sx={{
-                  width: "60%",
-                }}
-                InputProps={{
-                  disableUnderline: true,
-                  sx: {
-                    marginTop: "-5px",
-                  },
-                  endAdornment: <SearchOutlined sx={{ color: "#5EA3A3" }} />,
-                }}
-              />
-            </Box>
-            <Box display="flex" flexDirection="column" mt={2.5}>
-              <InputTitles>Buscar N° Factura</InputTitles>
-              <MuiTextField
-                id="searchInvoice"
-                placeholder="N° Factura"
-                type="text"
-                variant="standard"
-                margin="normal"
-                sx={{
-                  width: "60%",
-                }}
-                InputProps={{
-                  disableUnderline: true,
-                  sx: {
-                    marginTop: "-5px",
-                  },
-                  endAdornment: <SearchOutlined sx={{ color: "#5EA3A3" }} />,
-                }}
-              />
-            </Box>
-            <Box display="flex" flexDirection="column" mt={2.5}>
-              <InputTitles>Buscar nombres</InputTitles>
-              <MuiTextField
-                id="searchName"
-                placeholder="Nombre"
-                type="text"
-                variant="standard"
-                margin="normal"
-                sx={{
-                  width: "60%",
-                }}
-                InputProps={{
-                  disableUnderline: true,
-                  sx: {
-                    marginTop: "-5px",
-                  },
-                  endAdornment: <SearchOutlined sx={{ color: "#5EA3A3" }} />,
-                }}
-              />
-            </Box>
-          </Box>
-          <Box display="flex" flexDirection="column" width="55%" height="100%">
-            <Box
-              display="grid"
-              gridTemplateColumns="1fr 1fr"
-              gridTemplateRows="1fr 1fr 1fr 1fr 1fr"
-              gap={1}
-              padding="1rem 2rem"
+        <Box display="flex" flexDirection="row" alignItems="center">
+          <Link href="/dashboard" underline="none">
+            <Button
+              variant="standard"
+              color="transparent"
+              justifyContent="flex-start"
+              alignItems="center"
+              startIcon={<ArrowBackIcon sx={{ color: "#5EA3A3" }} />}
               sx={{
-                backgroundColor: "#488B8F",
+                width: "6%",
+                height: "10%",
+                fontFamily: "Montserrat",
+                fontWeight: "bold",
+                letterSpacing: "0",
+                textTransform: "uppercase",
+                color: "#5EA3A3",
+                fontSize: "70%",
                 borderRadius: "4px",
               }}
             >
-              <Box
-                display="flex"
-                flexDirection="row"
-                alignItems="center"
-                justifyContent="flex-end"
-              >
-                <Typography
-                  letterSpacing={0}
-                  fontSize="80%"
-                  fontFamily="Montserrat"
-                  fontWeight="bold"
-                  color="#EBEBEB"
-                  textTransform="uppercase"
-                  textAlign="right"
-                >
-                  Comisión
-                </Typography>
-                <Typography
-                  letterSpacing={0}
-                  fontSize="90%"
-                  fontFamily="Montserrat"
-                  fontWeight="500"
-                  color="#EBEBEB"
-                  border="1px solid #C7C7C780"
-                  borderRadius="4px"
-                  backgroundColor="#5B979A"
-                  padding="0.35rem"
-                  ml={1}
-                  width="55%"
-                  textAlign="right"
-                >
-                  543.220.140
-                </Typography>
-              </Box>
-              <Box
-                display="flex"
-                flexDirection="row"
-                alignItems="center"
-                justifyContent="flex-end"
-              >
-                <Typography
-                  letterSpacing={0}
-                  fontSize="80%"
-                  fontFamily="Montserrat"
-                  fontWeight="bold"
-                  color="#EBEBEB"
-                  textTransform="uppercase"
-                  textAlign="right"
-                >
-                  Otros
-                </Typography>
-                <Typography
-                  letterSpacing={0}
-                  fontSize="90%"
-                  fontFamily="Montserrat"
-                  fontWeight="500"
-                  color="#EBEBEB"
-                  border="1px solid #C7C7C780"
-                  borderRadius="4px"
-                  backgroundColor="#5B979A"
-                  padding="0.35rem"
-                  ml={1}
-                  width="55%"
-                  textAlign="right"
-                >
-                  0
-                </Typography>
-              </Box>
-              <Box
-                display="flex"
-                flexDirection="row"
-                alignItems="center"
-                justifyContent="flex-end"
-              >
-                <Typography
-                  letterSpacing={0}
-                  fontSize="80%"
-                  fontFamily="Montserrat"
-                  fontWeight="bold"
-                  color="#EBEBEB"
-                  textTransform="uppercase"
-                  textAlign="right"
-                >
-                  IVA
-                </Typography>
-                <Typography
-                  letterSpacing={0}
-                  fontSize="90%"
-                  fontFamily="Montserrat"
-                  fontWeight="500"
-                  color="#EBEBEB"
-                  border="1px solid #C7C7C780"
-                  borderRadius="4px"
-                  backgroundColor="#5B979A"
-                  padding="0.35rem"
-                  ml={1}
-                  width="55%"
-                  textAlign="right"
-                >
-                  101.121.827
-                </Typography>
-              </Box>
-              <Box
-                display="flex"
-                flexDirection="row"
-                alignItems="center"
-                justifyContent="flex-end"
-              >
-                <Typography
-                  letterSpacing={0}
-                  fontSize="80%"
-                  fontFamily="Montserrat"
-                  fontWeight="bold"
-                  color="#EBEBEB"
-                  textTransform="uppercase"
-                  textAlign="right"
-                >
-                  Valor inversor
-                </Typography>
-                <Typography
-                  letterSpacing={0}
-                  fontSize="90%"
-                  fontFamily="Montserrat"
-                  fontWeight="500"
-                  color="#EBEBEB"
-                  border="1px solid #C7C7C780"
-                  borderRadius="4px"
-                  backgroundColor="#5B979A"
-                  padding="0.35rem"
-                  ml={1}
-                  width="55%"
-                  textAlign="right"
-                >
-                  49.483.766.518
-                </Typography>
-              </Box>
-              <Box
-                display="flex"
-                flexDirection="row"
-                alignItems="center"
-                justifyContent="flex-end"
-              >
-                <Typography
-                  letterSpacing={0}
-                  fontSize="80%"
-                  fontFamily="Montserrat"
-                  fontWeight="bold"
-                  color="#EBEBEB"
-                  textTransform="uppercase"
-                  textAlign="right"
-                >
-                  RETEFUENTE
-                </Typography>
-                <Typography
-                  letterSpacing={0}
-                  fontSize="90%"
-                  fontFamily="Montserrat"
-                  fontWeight="500"
-                  color="#EBEBEB"
-                  border="1px solid #C7C7C780"
-                  borderRadius="4px"
-                  backgroundColor="#5B979A"
-                  padding="0.35rem"
-                  ml={1}
-                  width="55%"
-                  textAlign="right"
-                >
-                  58.544.215
-                </Typography>
-              </Box>
-              <Box
-                display="flex"
-                flexDirection="row"
-                alignItems="center"
-                justifyContent="flex-end"
-              >
-                <Typography
-                  letterSpacing={0}
-                  fontSize="80%"
-                  fontFamily="Montserrat"
-                  fontWeight="bold"
-                  color="#EBEBEB"
-                  textTransform="uppercase"
-                  textAlign="right"
-                >
-                  FACTURAR NETO
-                </Typography>
-                <Typography
-                  letterSpacing={0}
-                  fontSize="90%"
-                  fontFamily="Montserrat"
-                  fontWeight="500"
-                  color="#EBEBEB"
-                  border="1px solid #C7C7C780"
-                  borderRadius="4px"
-                  backgroundColor="#5B979A"
-                  padding="0.35rem"
-                  ml={1}
-                  width="55%"
-                  textAlign="right"
-                >
-                  574.797.751
-                </Typography>
-              </Box>
-              <Box
-                display="flex"
-                flexDirection="row"
-                alignItems="center"
-                justifyContent="flex-end"
-              >
-                <Typography
-                  letterSpacing={0}
-                  fontSize="80%"
-                  fontFamily="Montserrat"
-                  fontWeight="bold"
-                  color="#EBEBEB"
-                  textTransform="uppercase"
-                  textAlign="right"
-                >
-                  RETEICA
-                </Typography>
-                <Typography
-                  letterSpacing={0}
-                  fontSize="90%"
-                  fontFamily="Montserrat"
-                  fontWeight="500"
-                  color="#EBEBEB"
-                  border="1px solid #C7C7C780"
-                  borderRadius="4px"
-                  backgroundColor="#5B979A"
-                  padding="0.35rem"
-                  ml={1}
-                  width="55%"
-                  textAlign="right"
-                >
-                  0
-                </Typography>
-              </Box>
-              <Box
-                display="flex"
-                flexDirection="row"
-                alignItems="center"
-                justifyContent="flex-end"
-              >
-                <Typography
-                  letterSpacing={0}
-                  fontSize="80%"
-                  fontFamily="Montserrat"
-                  fontWeight="bold"
-                  color="#EBEBEB"
-                  textTransform="uppercase"
-                  textAlign="right"
-                >
-                  VALOR FUTURO
-                </Typography>
-                <Typography
-                  letterSpacing={0}
-                  fontSize="90%"
-                  fontFamily="Montserrat"
-                  fontWeight="500"
-                  color="#EBEBEB"
-                  border="1px solid #C7C7C780"
-                  borderRadius="4px"
-                  backgroundColor="#5B979A"
-                  padding="0.35rem"
-                  ml={1}
-                  width="55%"
-                  textAlign="right"
-                >
-                  50.330.594.558
-                </Typography>
-              </Box>
-              <Box
-                display="flex"
-                flexDirection="row"
-                alignItems="center"
-                justifyContent="flex-end"
-              >
-                <Typography
-                  letterSpacing={0}
-                  fontSize="80%"
-                  fontFamily="Montserrat"
-                  fontWeight="bold"
-                  color="#EBEBEB"
-                  textTransform="uppercase"
-                  textAlign="right"
-                >
-                  RETEIVA
-                </Typography>
-                <Typography
-                  letterSpacing={0}
-                  fontSize="90%"
-                  fontFamily="Montserrat"
-                  fontWeight="500"
-                  color="#EBEBEB"
-                  border="1px solid #C7C7C780"
-                  borderRadius="4px"
-                  backgroundColor="#5B979A"
-                  padding="0.35rem"
-                  ml={1}
-                  width="55%"
-                  textAlign="right"
-                >
-                  0
-                </Typography>
-              </Box>
-              <Box
-                display="flex"
-                flexDirection="row"
-                alignItems="center"
-                justifyContent="flex-end"
-              >
-                <Typography
-                  letterSpacing={0}
-                  fontSize="80%"
-                  fontFamily="Montserrat"
-                  fontWeight="bold"
-                  color="#EBEBEB"
-                  textTransform="uppercase"
-                  textAlign="right"
-                >
-                  VALOR A GIRAR
-                </Typography>
-                <Typography
-                  letterSpacing={0}
-                  fontSize="90%"
-                  fontFamily="Montserrat"
-                  fontWeight="500"
-                  color="#EBEBEB"
-                  border="1px solid #C7C7C780"
-                  borderRadius="4px"
-                  backgroundColor="#5B979A"
-                  padding="0.35rem"
-                  ml={1}
-                  width="55%"
-                  textAlign="right"
-                >
-                  48.908.968.767
-                </Typography>
-              </Box>
+              Atrás
+            </Button>
+          </Link>
+          <Typography
+            letterSpacing={0}
+            fontSize="1.6rem"
+            fontFamily="Montserrat"
+            fontWeight="medium"
+            marginBottom="0.7rem"
+            color="#5EA3A3"
+          >
+            Control de Factura Electrónica
+          </Typography>
+          <Box flexGrow={1} />
+          <Button
+            variant="standard"
+            startIcon={<UploadFileOutlinedIcon sx={{ color: "#488B8F" }} />}
+            sx={{
+              border: "2px solid #488B8F",
+              borderRadius: "4px",
+              hover: {
+                backgroundColor: "#488B8F",
+              },
+              height: "100%",
+            }}
+          >
+            <Typography
+              letterSpacing={0}
+              fontSize="90%"
+              fontFamily="Montserrat"
+              fontWeight="bold"
+              color="#488B8F"
+            >
+              Extraer Factura
+            </Typography>
+          </Button>
+          <Button
+            variant="standard"
+            startIcon={<UploadFileOutlinedIcon sx={{ color: "#488B8F" }} />}
+            sx={{
+              border: "2px solid #488B8F",
+              borderRadius: "4px",
+              hover: {
+                backgroundColor: "#488B8F",
+              },
+              height: "100%",
+              marginLeft: "0.6rem",
+            }}
+          >
+            <Typography
+              letterSpacing={0}
+              fontSize="90%"
+              fontFamily="Montserrat"
+              fontWeight="bold"
+              color="#488B8F"
+            >
+              Extraer Notas de Crédito
+            </Typography>
+          </Button>
+        </Box>
+
+        <Box display="flex" flexDirection="column" marginTop="1.5rem">
+          <Typography
+            letterSpacing={0}
+            fontSize="95%"
+            fontFamily="Montserrat"
+            fontWeight="bold"
+            color="#488B8F"
+            textTransform="uppercase"
+          >
+            Cambios Globales
+          </Typography>
+          <Box
+            display="flex"
+            flexDirection="row"
+            marginTop="0.5rem"
+            alignItems="center"
+          >
+            <Typography
+              letterSpacing={0}
+              fontSize="95%"
+              fontFamily="Montserrat"
+              fontWeight="bold"
+              color="#B5D1C9"
+              textTransform="uppercase"
+              marginRight="1.5rem"
+            >
+              Retenciones
+            </Typography>
+            <Typography
+              letterSpacing={0}
+              fontSize="85%"
+              fontFamily="Montserrat"
+              fontWeight="bold"
+              color="#488B8F"
+              textTransform="uppercase"
+              marginRight="0.5rem"
+            >
+              Valor Ret. ICA
+            </Typography>
+            <TextField
+              id="ICA"
+              placeholder="0.00%"
+              type="number"
+              variant="standard"
+              sx={{
+                backgroundColor: "#488B8F1A",
+                border: "1px solid #488B8F",
+                borderRadius: "4px",
+                padding: "10px",
+                height: "0.8rem",
+                width: "5rem",
+                textAlign: "right",
+                alignContent: "center",
+                "& .MuiInputBase-input": {
+                  padding: "2px",
+                  fontFamily: "Montserrat",
+                  color: "#488B8F",
+                  fontSize: "0.9rem",
+                  fontWeight: "600",
+                  textAlign: "right",
+
+                  "&::placeholder": {
+                    color: "#488B8F",
+                    fontSize: "0.9rem",
+                    fontWeight: "600",
+                    textAlign: "right",
+                  },
+                },
+              }}
+              InputProps={{
+                disableUnderline: true,
+                sx: {
+                  marginTop: "-5px",
+                },
+              }}
+            />
+            <Box
+              sx={{
+                marginLeft: "0.2rem",
+                backgroundColor: "#488B8F",
+                padding: "0.25rem 0.4rem",
+                borderRadius: "4px",
+              }}
+            >
+              <ArrowForward sx={{ color: "white" }} />
+            </Box>
+            <Typography
+              letterSpacing={0}
+              fontSize="85%"
+              fontFamily="Montserrat"
+              fontWeight="bold"
+              color="#488B8F"
+              textTransform="uppercase"
+              marginRight="0.5rem"
+              marginLeft="0.7rem"
+            >
+              Valor Ref. FTE
+            </Typography>
+            <TextField
+              id="ICA"
+              placeholder="0.00%"
+              type="text"
+              variant="standard"
+              sx={{
+                backgroundColor: "#488B8F1A",
+                border: "1px solid #488B8F",
+                borderRadius: "4px",
+                padding: "10px",
+                height: "0.8rem",
+                width: "5rem",
+                textAlign: "right",
+                alignContent: "center",
+                "& .MuiInputBase-input": {
+                  padding: "2px",
+                  fontFamily: "Montserrat",
+                  color: "#488B8F",
+                  fontSize: "0.9rem",
+                  fontWeight: "600",
+                  textAlign: "right",
+
+                  "&::placeholder": {
+                    color: "#488B8F",
+                    fontSize: "0.9rem",
+                    fontWeight: "600",
+                    textAlign: "right",
+                  },
+                },
+              }}
+              InputProps={{
+                disableUnderline: true,
+                sx: {
+                  marginTop: "-5px",
+                },
+              }}
+            />
+            <Box
+              sx={{
+                marginLeft: "0.2rem",
+                backgroundColor: "#488B8F",
+                padding: "0.25rem 0.4rem",
+                borderRadius: "4px",
+              }}
+            >
+              <ArrowForward sx={{ color: "white" }} />
             </Box>
           </Box>
         </Box>
+        <Divider sx={{ marginTop: 2, backgroundColor: "#B5D1C9" }} />
         <Box
           container
           marginTop={4}
