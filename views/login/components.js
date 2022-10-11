@@ -8,6 +8,7 @@ import MuiButton from "../../styles/button";
 import MuiTextField from "../../styles/fields";
 import HelperText from "../../styles/helperText";
 import LoginIcon from "@mui/icons-material/Login";
+import { Typography } from "@mui/material";
 
 export const InputAdornments = ({
   formik,
@@ -40,7 +41,7 @@ export const InputAdornments = ({
               error={formik.touched.email && Boolean(formik.errors.email)}
               sx={
                 formik.touched.email && Boolean(formik.errors.email)
-                  ? { border: "2px solid #E6643180" }
+                  ? { border: "1.4px solid #E6643180" }
                   : null
               }
             />
@@ -63,7 +64,7 @@ export const InputAdornments = ({
               error={formik.touched.password && Boolean(formik.errors.password)}
               sx={
                 formik.touched.password && Boolean(formik.errors.password)
-                  ? { border: "2px solid #E6643180" }
+                  ? { border: "1.4px solid #E6643180" }
                   : null
               }
               InputProps={{
@@ -90,12 +91,21 @@ export const InputAdornments = ({
 
         <Box display="flex" justifyContent="center">
           <MuiButton
-            variant="contained"
+            variant="standard"
             color="primary"
             type="submit"
             startIcon={<LoginIcon />}
           >
-            Iniciar la plataforma
+            <Typography
+              sx={{
+                fontFamily: "Montserrat",
+                fontStyle: "normal",
+                fontWeight: "bold",
+                fontSize: "0.8rem",
+              }}
+            >
+              Iniciar la plataforma
+            </Typography>
           </MuiButton>
         </Box>
       </Box>

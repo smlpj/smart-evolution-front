@@ -23,6 +23,13 @@ export default function Navbar() {
             borderColor="#B5D1C9"
             height="100%"
           >
+            <Link href="/operations" underline="none">
+              <NavbarButton
+                sx={{ marginBottom: "8%", width: "70%", height: "10%" }}
+              >
+                Prospecto
+              </NavbarButton>
+            </Link>
             <Link href="/customers/customerList" underline="none">
               <NavbarButton
                 sx={{
@@ -36,7 +43,7 @@ export default function Navbar() {
               </NavbarButton>
             </Link>
 
-            <Link href="/invoices" underline="none">
+            <Link href="/bills" underline="none">
               <NavbarButton
                 sx={{
                   border: "0.5px solid #488B8F",
@@ -49,11 +56,6 @@ export default function Navbar() {
               </NavbarButton>
             </Link>
 
-            <NavbarButton
-              sx={{ marginBottom: "8%", width: "70%", height: "10%" }}
-            >
-              Pre-Operaciones
-            </NavbarButton>
             <Link href="/operations" underline="none">
               <NavbarButton
                 sx={{ marginBottom: "8%", width: "70%", height: "10%" }}

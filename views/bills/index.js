@@ -1,7 +1,7 @@
-import { InvoicesComponents } from "./components";
+import { BillsComponents } from "./components";
 import Head from "next/head";
 
-export default function Invoices() {
+export default function Bills() {
   return (
     <>
       <Head>
@@ -9,7 +9,7 @@ export default function Invoices() {
         <meta name="description" content="Control de Factura Electrónica" />
         <link rel="icon" href="/assets/Icono Smart.svg" />
       </Head>
-      <InvoicesComponents />
+      <BillsComponents />
     </>
   );
 }

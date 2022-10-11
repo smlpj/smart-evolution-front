@@ -53,7 +53,7 @@ const rows = [
   { id: 9, lastName: "Roxie", firstName: "Harvey", age: 65 },
 ];
 
-export const InvoicesComponents = () => {
+export const BillsComponents = () => {
   return (
     <>
       <Box
