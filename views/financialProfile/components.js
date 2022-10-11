@@ -112,21 +112,26 @@ export const FinancialProfile = ({ formik }) => {
         >
           <Box display="flex" flexDirection="column">
             <Link href="/dashboard" underline="none">
-              <Box display="flex" flexDirection="row">
-                <ArrowBackIcon fontSize="50%" sx={{ color: "#5EA3A3" }} />
-                <Typography
-                  letterSpacing={0}
-                  fontSize="80%"
-                  fontFamily="Montserrat"
-                  fontWeight="bold"
-                  marginBottom="0.7rem"
-                  textTransform="uppercase"
-                  color="#5EA3A3"
-                  marginLeft="0.5rem"
-                >
-                  Atrás
-                </Typography>
-              </Box>
+              <Button
+                variant="standard"
+                color="transparent"
+                justifyContent="flex-start"
+                alignItems="center"
+                startIcon={<ArrowBackIcon sx={{ color: "#5EA3A3" }} />}
+                sx={{
+                  width: "6%",
+                  height: "10%",
+                  fontFamily: "Montserrat",
+                  fontWeight: "bold",
+                  letterSpacing: "0",
+                  textTransform: "uppercase",
+                  color: "#5EA3A3",
+                  fontSize: "70%",
+                  borderRadius: "4px",
+                }}
+              >
+                Atrás
+              </Button>
             </Link>
             <Box marginBottom={3}>
               <Typography

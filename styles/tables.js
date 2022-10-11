@@ -1,6 +1,5 @@
 import { DataGrid } from "@mui/x-data-grid";
 import { styled } from "@mui/material/styles";
-import { Typography } from "@mui/material";
 
 const CustomDataGrid = styled(DataGrid)({
   border: "none",
@@ -30,8 +29,9 @@ const CustomDataGrid = styled(DataGrid)({
   },
 
   "& .MuiDataGrid-cellCheckbox": {
-    color: "#488B8F",
-    border: "none",
+    "& .MuiCheckbox-root": {
+      color: "#488B8F",
+    },
   },
 
   "& .MuiDataGrid-row": {
@@ -91,6 +91,9 @@ const CustomDataGrid = styled(DataGrid)({
   "& .MuiDataGrid-columnHeaderTitleContainer": {
     justifyContent: "left",
     hover: "none",
+    "& .MuiCheckbox-root": {
+      color: "#488B8F",
+    },
   },
   "& .MuiDataGrid-columnHeaderCheckbox": {
     justifyContent: "center",
