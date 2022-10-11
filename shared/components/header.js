@@ -28,7 +28,7 @@ export default function Header() {
           <>
             <img
               style={{ height: "4vh" }}
-              src="/assets/Icono Smart.svg"
+              src="/assets/Logo Smart - Lite.svg"
               alt="Logo"
             ></img>
             <Link href="/dashboard" underline="none">

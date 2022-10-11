@@ -124,7 +124,7 @@ export const OperationsComponents = () => {
             <Box display="flex" flexDirection="column" mt={2.5}>
               <InputTitles>Buscar N° Factura</InputTitles>
               <MuiTextField
-                id="searchInvoice"
+                id="searchBill"
                 placeholder="N° Factura"
                 type="text"
                 variant="standard"
