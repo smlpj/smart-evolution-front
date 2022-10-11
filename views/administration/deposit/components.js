@@ -14,8 +14,17 @@ import CitySelect from "../../../shared/components/selects/citySelect";
 import TypeIDSelect from "../../../shared/components/selects/typeIdentitySelect";
 import DepartmentSelect from "../../../shared/components/selects/departmentSelect";
 import ClientSelect from "../../../shared/components/selects/customerSelect";
+import AccountSelect from "../../../shared/components/selects/accountSelect";
+import dayjs from "dayjs";
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
-export const SignUpBroker = ({ formik, option }) => {
+export const Deposit = ({ formik, option }) => {
+  const [valueD, setValue] = useState(dayjs("2014-08-18T21:11:54"));
+  const handleChange = (newValue) => {
+    setValue(newValue);
+  };
   return (
     <>
       <Grid
@@ -27,16 +36,22 @@ export const SignUpBroker = ({ formik, option }) => {
           height: "100vh",
         }}
       >
-        <Grid item xs={1} sx>
+        <Grid item xs={1}>
           <Header />
         </Grid>
-        <Grid item xs sx={{height:"100%"}}>
-          <Grid container direction="row" display="flex" spacing={0} sx={{height:"100%", maxHeight: "100vh"}} >
+        <Grid item xs sx={{ height: "100%" }}>
+          <Grid
+            container
+            direction="row"
+            display="flex"
+            spacing={0}
+            sx={{ height: "100%", maxHeight: "100vh" }}
+          >
             <Grid
               item
               xs={12}
               md={6}
-              sx={{height:"100%"}}
+              sx={{ height: "100%" }}
               style={{ background: "#b5d1c9" }}
               display="flex"
               alignItems="center"
@@ -53,7 +68,7 @@ export const SignUpBroker = ({ formik, option }) => {
               item
               xs={12}
               md={6}
-              sx={{height:"100%", overflowY: "auto"}}
+              sx={{ height: "100%" }}
               style={{ background: "#EBEBEB" }}
               display="flex"
               alignItems="center"
@@ -70,8 +85,8 @@ export const SignUpBroker = ({ formik, option }) => {
                     color="#5EA3A3"
                   >
                     {option === "register"
-                      ? "Registro de giros-inversionistas"
-                      : "Modificación de giros-inversionistas"}
+                      ? "Registro de giro-inversionista"
+                      : "Modificación de giro-inversionista"}
                   </Typography>
                   <Box
                     display="flex"
@@ -82,34 +97,8 @@ export const SignUpBroker = ({ formik, option }) => {
                     <ClientSelect formik={formik} />
                     <Box ml={5} position="relative">
                       <Box width="17vw">
-                        <InputTitles>Número de identificación</InputTitles>
-                        <MuiTextField
-                          id="document_number"
-                          placeholder="Ingresa tu identificación"
-                          name="document_number"
-                          type="text"
-                          variant="standard"
-                          margin="normal"
-                          fullWidth
-                          value={formik.values.document_number}
-                          InputProps={{
-                            disableUnderline: true,
-                            sx: {
-                              marginTop: "-5px",
-                            },
-                          }}
-                          onChange={formik.handleChange}
-                          error={
-                            formik.touched.document_number &&
-                            Boolean(formik.errors.document_number)
-                          }
-                          sx={
-                            formik.touched.document_number &&
-                            Boolean(formik.errors.document_number)
-                              ? { border: "1.4px solid #E6643180" }
-                              : null
-                          }
-                        />
+                        <InputTitles>Cuenta inversionista</InputTitles>
+                        <AccountSelect formik={formik} />
                         <HelperText position="fixed">
                           {formik.touched.document_number &&
                             formik.errors.document_number}
@@ -124,16 +113,16 @@ export const SignUpBroker = ({ formik, option }) => {
                     position="relative"
                   >
                     <Box width="17vw">
-                      <InputTitles>Nombre</InputTitles>
+                      <InputTitles>Monto operación</InputTitles>
                       <MuiTextField
-                        id="first_name"
-                        placeholder="Ingresa tu nombre"
-                        name="first_name"
-                        type="text"
+                        id="amount"
+                        placeholder="Ingresa monto de operación"
+                        name="amount"
+                        type="number"
                         variant="standard"
                         margin="normal"
                         fullWidth
-                        value={formik.values.first_name}
+                        value={formik.values.amount}
                         InputProps={{
                           disableUnderline: true,
                           sx: {
@@ -142,148 +131,94 @@ export const SignUpBroker = ({ formik, option }) => {
                         }}
                         onChange={formik.handleChange}
                         error={
-                          formik.touched.first_name &&
-                          Boolean(formik.errors.first_name)
+                          formik.touched.amount && Boolean(formik.errors.amount)
                         }
                         sx={
-                          formik.touched.first_name &&
-                          Boolean(formik.errors.first_name)
-                            ? { border: "1.4px solid #E6643180" }
-                            : null
+                          formik.touched.amount && Boolean(formik.errors.amount)
+                            ? {
+                                border: "1.4px solid #E6643180",
+                                "input::-webkit-outer-spin-button": {
+                                  WebkitAppearance: "none",
+                                  margin: 0,
+                                },
+                                "input::-webkit-inner-spin-button": {
+                                  WebkitAppearance: "none",
+                                  margin: 0,
+                                },
+                              }
+                            : {
+                                "input::-webkit-outer-spin-button": {
+                                  WebkitAppearance: "none",
+                                  margin: 0,
+                                },
+                                "input::-webkit-inner-spin-button": {
+                                  WebkitAppearance: "none",
+                                  margin: 0,
+                                },
+                              }
                         }
                       />
                       <HelperText position="fixed">
-                        {formik.touched.first_name && formik.errors.first_name}
+                        {formik.touched.amount && formik.errors.amount}
                       </HelperText>
                     </Box>
                     <Box ml={5} width="17vw">
-                      <InputTitles>Apellido</InputTitles>
-                      <MuiTextField
-                        id="last_name"
-                        placeholder="Ingresa tu apellido"
-                        name="last_name"
-                        type="text"
-                        variant="standard"
-                        margin="normal"
-                        fullWidth
-                        value={formik.values.last_name}
-                        InputProps={{
-                          disableUnderline: true,
-                          sx: {
-                            marginTop: "-5px",
-                          },
-                        }}
-                        onChange={formik.handleChange}
-                        error={
-                          formik.touched.last_name &&
-                          Boolean(formik.errors.last_name)
-                        }
-                        sx={
-                          formik.touched.last_name &&
-                          Boolean(formik.errors.last_name)
-                            ? { border: "1.4px solid #E6643180" }
-                            : null
-                        }
-                      />
+                      <InputTitles>Fecha</InputTitles>
+                      <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DesktopDatePicker
+                          label="Date desktop"
+                          inputFormat="MM/DD/YYYY"
+                          value={valueD}
+                          onChange={handleChange}
+                          renderInput={(params) => (
+                            <MuiTextField
+                              id="date"
+                              placeholder="Ingresa la fecha"
+                              name="date"
+                              type="date"
+                              variant="standard"
+                              margin="normal"
+                              fullWidth
+                              value={formik.values.date}
+                              InputProps={{
+                                disableUnderline: true,
+                                sx: {
+                                  marginTop: "-5px",
+                                },
+                              }}
+                              onChange={formik.handleChange}
+                              error={
+                                formik.touched.date &&
+                                Boolean(formik.errors.date)
+                              }
+                              sx={
+                                formik.touched.date &&
+                                Boolean(formik.errors.date)
+                                  ? { border: "1.4px solid #E6643180" }
+                                  : null
+                              }
+                            />
+                          )}
+                        />
+                      </LocalizationProvider>
 
                       <HelperText position="fixed">
-                        {formik.touched.last_name && formik.errors.last_name}
+                        {formik.touched.date && formik.errors.date}
                       </HelperText>
                     </Box>
-                  </Box>
-                  <Box
-                    display="flex"
-                    mb={6}
-                    flexDirection="row"
-                    position="relative"
-                  >
-                    <Box width="17vw">
-                      <InputTitles>Número de teléfono</InputTitles>
-                      <MuiTextField
-                        id="phone_number"
-                        placeholder="Ingresa tu número de teléfono"
-                        name="phone_number"
-                        type="tel"
-                        variant="standard"
-                        margin="normal"
-                        fullWidth
-                        value={formik.values.phone_number}
-                        InputProps={{
-                          disableUnderline: true,
-                          sx: {
-                            marginTop: "-5px",
-                          },
-                        }}
-                        onChange={formik.handleChange}
-                        error={
-                          formik.touched.phone_number &&
-                          Boolean(formik.errors.phone_number)
-                        }
-                        sx={
-                          formik.touched.phone_number &&
-                          Boolean(formik.errors.phone_number)
-                            ? { border: "1.4px solid #E6643180" }
-                            : null
-                        }
-                      />
-                      <HelperText position="fixed">
-                        {formik.touched.phone_number &&
-                          formik.errors.phone_number}
-                      </HelperText>
-                    </Box>
-                    <Box ml={5} width="17vw">
-                      <InputTitles>Email</InputTitles>
-                      <MuiTextField
-                        id="email"
-                        placeholder="Ingresa tu email"
-                        name="email"
-                        type="email"
-                        variant="standard"
-                        margin="normal"
-                        fullWidth
-                        value={formik.values.email}
-                        InputProps={{
-                          disableUnderline: true,
-                          sx: {
-                            marginTop: "-5px",
-                          },
-                        }}
-                        onChange={formik.handleChange}
-                        error={
-                          formik.touched.email && Boolean(formik.errors.email)
-                        }
-                        sx={
-                          formik.touched.email && Boolean(formik.errors.email)
-                            ? { border: "1.4px solid #E6643180" }
-                            : null
-                        }
-                      />
-                      <HelperText position="fixed">
-                        {formik.touched.email && formik.errors.email}
-                      </HelperText>
-                    </Box>
-                  </Box>
-                  <Box
-                    display="flex"
-                    mb={6}
-                    flexDirection="row"
-                    position="relative"
-                  >
-                    <DepartmentSelect formik={formik} />
-                    <CitySelect formik={formik} />
                   </Box>
                   <Box display="flex" flexDirection="row">
                     <Box mb={4} width="100%">
-                      <InputTitles>Dirección</InputTitles>
+                      <InputTitles>Observaciones</InputTitles>
                       <MuiTextField
-                        id="address"
-                        placeholder="Ingresa tu dirección"
-                        name="address"
+                        id="observations"
+                        placeholder="Ingresa una observación"
+                        name="observations"
                         type="text"
                         variant="standard"
                         margin="normal"
                         fullWidth
-                        value={formik.values.address}
+                        value={formik.values.observations}
                         InputProps={{
                           disableUnderline: true,
                           sx: {
@@ -292,18 +227,19 @@ export const SignUpBroker = ({ formik, option }) => {
                         }}
                         onChange={formik.handleChange}
                         error={
-                          formik.touched.address &&
-                          Boolean(formik.errors.address)
+                          formik.touched.observations &&
+                          Boolean(formik.errors.observations)
                         }
                         sx={
-                          formik.touched.address &&
-                          Boolean(formik.errors.address)
+                          formik.touched.observations &&
+                          Boolean(formik.errors.observations)
                             ? { border: "1.4px solid #E6643180" }
                             : null
                         }
                       />
                       <HelperText position="fixed">
-                        {formik.touched.address && formik.errors.address}
+                        {formik.touched.observations &&
+                          formik.errors.observations}
                       </HelperText>
                     </Box>
                   </Box>

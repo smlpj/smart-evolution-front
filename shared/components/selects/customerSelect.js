@@ -18,15 +18,15 @@ export default function ClientSelect({ formik }) {
     data: data,
   } = useFetch({ service: Clients, init: true });
 
-  const [customer, setClient] = useState([]);
+  const [client, setClient] = useState([]);
 
   useEffect(() => {
     if (data) {
       var Clients = [];
-      data.data.map((customer) => {
+      data.data.map((client) => {
         Clients.push({
-          label: `${customer.first_name} ${customer.last_name}`,
-          value: customer.id,
+          label: `${client.first_name} ${client.last_name}`,
+          value: client.id,
         });
       });
       setClient(Clients);
@@ -40,25 +40,25 @@ export default function ClientSelect({ formik }) {
       <Box>
         <InputTitles marginBottom={2}>Nombre Inversionista</InputTitles>
         <Autocomplete
-          id="customer"
+          id="client"
           disablePortal
-          options={customer}
+          options={client}
           getOptionLabel={(option) => option.label}
           onChange={(e, value) => {
             if (value !== null) {
-              formik.setFieldValue("customer", value.value);
+              formik.setFieldValue("client", value.value);
             } else {
-              formik.setFieldValue("customer", null);
+              formik.setFieldValue("client", null);
             }
           }}
           color="#5EA3A3"
           inputValue={
-            customer.filter((option) => option.value === formik.values.customer)[0]
+            client.filter((option) => option.value === formik.values.client)[0]
               ?.label
           }
           value={
-            customer.filter(
-              (option) => option.value === formik.values.customer
+            client.filter(
+              (option) => option.value === formik.values.client
             )[0] || null
           }
           popupIcon={<KeyboardArrowDownIcon sx={{ color: "#5EA3A3" }} />}
@@ -67,12 +67,12 @@ export default function ClientSelect({ formik }) {
             <MuiTextField
               variant="standard"
               {...params}
-              name="customer"
+              name="client"
               placeholder="Corredor"
-              value={formik.values.customer}
-              error={formik.touched.customer && Boolean(formik.errors.customer)}
+              value={formik.values.client}
+              error={formik.touched.client && Boolean(formik.errors.client)}
               sx={
-                formik.touched.customer && Boolean(formik.errors.customer)
+                formik.touched.client && Boolean(formik.errors.client)
                   ? { border: "1.4px solid #E6643180" }
                   : null
               }
@@ -87,7 +87,7 @@ export default function ClientSelect({ formik }) {
           )}
         />
         <HelperText position="fixed">
-          {formik.touched.customer && formik.errors.customer}
+          {formik.touched.client && formik.errors.client}
         </HelperText>
       </Box>
     </Box>

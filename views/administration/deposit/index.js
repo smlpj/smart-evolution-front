@@ -2,24 +2,23 @@ import Head from "next/head";
 import * as React from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { SignUpBroker } from "./components";
+import { Deposit } from "./components";
 import { useFetch } from "../../../shared/hooks/useFetch";
 import {
-  RegisterBrokerQuery,
-  ModifyBrokerQuery,
-  GetBrokerByID,
+  RegisterDepositQuery,
+  ModifyDepositQuery,
+  GetDepositByID,
 } from "./queries";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 
-export default function RegisterBroker() {
+export default function RegisterDeposit() {
   const [option, setOption] = useState("");
   const router = useRouter();
 
   useEffect(() => {
     if (router && router.query) {
       setOption(Object.values(router.query)[0]);
-      console.log(option);
     }
   }, [router.query]);
 
@@ -28,96 +27,58 @@ export default function RegisterBroker() {
     loading: loading,
     error: error,
     data: data,
-  } = useFetch({ service: RegisterBrokerQuery, init: false });
+  } = useFetch({ service: RegisterDepositQuery, init: false });
 
   const {
     fetch: fetch2,
     loading: loading2,
     error: error2,
     data: data2,
-  } = useFetch({ service: GetBrokerByID, init: false });
+  } = useFetch({ service: GetDepositByID, init: false });
 
   const {
     fetch: fetch3,
     loading: loading3,
     error: error3,
     data: data3,
-  } = useFetch({ service: ModifyBrokerQuery, init: false });
+  } = useFetch({ service: ModifyDepositQuery, init: false });
 
   useEffect(() => {
     if (option !== "register" && option !== "" && option !== undefined) {
-      fetch2(option).then((data) => {
-        formik.setValues({
-          id: data?.data?.id,
-          type_identity: data?.data?.type_identity,
-          document_number: data?.data?.document_number,
-          department: data?.data?.department,
-          first_name: data?.data?.first_name,
-          last_name: data?.data?.last_name,
-          email: data?.data?.email,
-          address: data?.data?.address,
-          phone_number: data?.data?.phone_number,
-          city: data?.data?.city,
-        });
-      });
     }
   }, [option]);
 
   const validationSchema = yup.object({
-    type_identity: yup
-      .string("Ingresa el tipo de identificación del corredor")
+    client: yup
+      .string("Selecciona el corredor")
       .nullable(true)
-      .required("El tipo de identificación es requerido"),
-
-    document_number: yup
-      .string("Ingresa un número de documento")
-      .matches(/^[0-9]+$/, "Ingresa un número de documento válido")
-      .required("El número de documento es requerido"),
-
-    first_name: yup
-      .string("Ingresa un nombre")
-      .matches(/[a-zA-Z]+/, "Ingresa un nombre válido")
-      .required("El nombre es requerido"),
-
-    last_name: yup
-      .string("Ingresa un apellido")
-      .matches(/^[a-zA-Z]+$/, "Ingresa un apellido válido")
-      .required("El apellido es requerido"),
-
-    email: yup
-      .string("Ingresa un email")
-      .matches(
-        /^[a-zA-Z]+[a-zA-Z0-9_.]+@[a-zA-Z.]+[a-zA-Z]$/,
-        "Ingresa un email válido"
-      )
-      .required("El email es requerido"),
-
-    address: yup
-      .string("Ingresa una dirección")
-      .required("La dirección es requerida"),
-
-    phone_number: yup
-      .string("Ingresa un número de teléfono")
-      .matches(/^[0-9]+$/, "Ingresa un número de teléfono válido")
-      .required("El número de teléfono es requerido"),
-
-    city: yup
-      .string("Ingresa una ciudad")
+      .required("El corredor es requerido"),
+    
+    account: yup
+      .string("Selecciona la cuenta")
       .nullable(true)
-      .required("La ciudad es requerida"),
+      .required("La cuenta es requerida"),
+
+
+    date: yup
+      .string("Ingresa la fecha de giro")
+      .required("La fecha es requerida"),
+
+    amount: yup
+      .string("Ingresa el monto de operación")
+      .required("El monto es requerido"),
+
+    observations: yup
+      .string("Ingresa una observación")
+      .nullable(true)
   });
 
   const initialValues = {
-    type_identity: null,
-    document_number: "",
-    first_name: null,
-    last_name: null,
-    email: "",
-    address: "",
-    phone_number: "",
-    city: null,
-    department: null,
-    social_reason: null,
+    client: null,
+    account: null,
+    amount: "",
+    date: null,
+    observations : "",
   };
 
   const formik = useFormik({
@@ -125,11 +86,11 @@ export default function RegisterBroker() {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       if (option === "register") {
-        console.log("Registrado el corredor");
+        console.log("Registrado el giro-inversionista");
         alert(JSON.stringify(values, null, 2));
         fetch(values);
       } else {
-        console.log("Actualizado el corredor");
+        console.log("Actualizado el giro-inversionista");
         alert(JSON.stringify(values, null, 2));
         fetch3(values);
       }
@@ -139,11 +100,13 @@ export default function RegisterBroker() {
   return (
     <>
       <Head>
-        <title>Registro de giros-inversionistas</title>
+        <title>
+          {option === "register" ? "Registrar corredor" : "Modificar corredor"}
+        </title>
         <meta name="description" content="Generated by create next app" />
         <link rel="icon" href="/assets/Icono Smart.svg" />
       </Head>
-      <SignUpBroker formik={formik} option={option} />
+      <Deposit formik={formik} option={option} />
     </>
   );
 }
