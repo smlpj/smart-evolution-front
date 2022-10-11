@@ -8,7 +8,7 @@ import { Link, Button } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import UploadFileOutlinedIcon from "@mui/icons-material/UploadFileOutlined";
 import Divider from "@mui/material/Divider";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 export const BillsComponents = () => {
   const [rowsToModify, setRowsToModify] = useState([]);
@@ -150,6 +150,14 @@ export const BillsComponents = () => {
     },
     { id: 9, lastName: "Roxie", firstName: "Harvey", age: 65, ica: 0, fte: 0 },
   ]);
+
+  const fileInput = useRef();
+
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
+    console.log(file);
+  };
+
   return (
     <>
       <Box
@@ -205,7 +213,10 @@ export const BillsComponents = () => {
               },
               height: "100%",
             }}
-            onClick={() => {}}
+            onClick={() => {
+              console.log("click");
+              fileInput.current.click();
+            }}
           >
             <Typography
               letterSpacing={0}
@@ -217,6 +228,18 @@ export const BillsComponents = () => {
               Extraer Factura
             </Typography>
           </Button>
+          <input
+            ref={fileInput}
+            id="extractBill"
+            type="file"
+            multiple="multiple"
+            style={{ display: "none" }}
+            onChange={(e) => {
+              const formData = new FormData();
+              formData.append("bills", e.target.files);
+              console.log(formData.get("bills"));
+            }}
+          />
           <Button
             variant="standard"
             startIcon={<UploadFileOutlinedIcon sx={{ color: "#488B8F" }} />}
