@@ -9,6 +9,9 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import UploadFileOutlinedIcon from "@mui/icons-material/UploadFileOutlined";
 import Divider from "@mui/material/Divider";
 import { useState, useRef } from "react";
+import { ReadBills } from "./queries";
+import { useFetch } from "../../shared/hooks/useFetch";
+import { useEffect } from "react";
 
 export const BillsComponents = () => {
   const [rowsToModify, setRowsToModify] = useState([]);
@@ -152,11 +155,25 @@ export const BillsComponents = () => {
   ]);
 
   const fileInput = useRef();
+  const [filesBill, setFilesBill] = useState([]);
 
-  const handleFileUpload = (e) => {
-    const file = e.target.files[0];
-    console.log(file);
-  };
+  const {
+    fetch: fetch,
+    loading: loading,
+    error: error,
+    data: data,
+  } = useFetch({ service: ReadBills, init: false });
+
+  useEffect(() => {
+    if (filesBill) {
+      fetch(filesBill);
+    }
+  }, [filesBill]);
+
+  useEffect(() => {
+    console.log(data);
+    console.log(error);
+  }, [data, error]);
 
   return (
     <>
@@ -237,7 +254,7 @@ export const BillsComponents = () => {
             onChange={(e) => {
               const formData = new FormData();
               formData.append("bills", e.target.files);
-              console.log(formData.get("bills"));
+              setFilesBill(formData);
             }}
           />
           <Button
@@ -291,7 +308,8 @@ export const BillsComponents = () => {
               textTransform="uppercase"
               marginRight="1.5rem"
             >
-              Retenciones
+              {/* Retenciones */}
+              {filesBill.length}
             </Typography>
             <Box display="flex" flexDirection="row" alignItems="center">
               <Typography
