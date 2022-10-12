@@ -12,6 +12,9 @@ import { useState, useRef } from "react";
 import { ReadBills } from "./queries";
 import { useFetch } from "../../shared/hooks/useFetch";
 import { useEffect } from "react";
+import CustomTooltip from "../../styles/customTooltip";
+import { Fade } from "@material-ui/core";
+import { format } from "date-fns";
 
 export const BillsComponents = () => {
   const [rowsToModify, setRowsToModify] = useState([]);
@@ -22,37 +25,271 @@ export const BillsComponents = () => {
     setRowsToModify(selectedRowsData);
   };
 
+  const fileInput = useRef();
+  const [filesBill, setFilesBill] = useState([]);
+  const [bill, setBill] = useState([]);
+  const [otherRet, setOtherRet] = useState([]);
+  const [creditNote, setCreditNote] = useState([]);
+  const [retIVA, setRetIVA] = useState([]);
+  const [retICA, setRetICA] = useState([]);
+  const [retFTE, setRetFTE] = useState([]);
+
+  const {
+    fetch: fetch,
+    loading: loading,
+    error: error,
+    data: data,
+  } = useFetch({ service: ReadBills, init: false });
+
+  useEffect(() => {
+    if (filesBill !== []) {
+      fetch(filesBill);
+    }
+  }, [filesBill]);
+
+  useEffect(() => {
+    if (data) {
+      let Bills = [];
+      data.data.map((bill) => {
+        Bills.push({
+          id: bill.billId,
+          Status: bill.typeBill,
+          EmitterName: bill.emitterName,
+          EmmitterId: bill.emitterId,
+          PayerID: bill.payerId,
+          PayerName: bill.payerName,
+          dateBill: format(new Date(bill.dateBill), "dd / MM / yyyy"),
+          datePayment: format(new Date(bill.datePayment), "dd / MM / yyyy"),
+          BillValue: bill.billValue,
+          IVA: bill.iva,
+          CreditNote: 0,
+          /* creditNote !== []
+              ? creditNote.find(
+                  (creditN) => creditN.associatedInvoice === bill.billId
+                ).total
+              : 0, */
+          SubTotal: bill.subTotal,
+          Total: bill.total,
+        });
+      });
+      console.log(data);
+      setBill(Bills);
+    }
+  }, [data]);
+
   const columns = [
-    { field: "id", headerName: "ID", width: 90 },
     {
-      field: "firstName",
-      headerName: "First name",
-      width: 150,
-      editable: true,
+      field: "id",
+      headerName: "ID",
+      width: 90,
+      renderCell: (params) => (
+        <CustomTooltip
+          title={params.value}
+          arrow
+          placement="bottom-start"
+          TransitionComponent={Fade}
+          PopperProps={{
+            modifiers: [
+              {
+                name: "offset",
+                options: {
+                  offset: [0, 0],
+                },
+              },
+            ],
+          }}
+        >
+          <InputTitles>{params.value}</InputTitles>
+        </CustomTooltip>
+      ),
     },
     {
-      field: "lastName",
-      headerName: "Last name",
+      field: "Status",
+      headerName: "Estado",
       width: 150,
-      editable: true,
+      renderCell: (params) => {
+        return (
+          <Typography
+            fontFamily="Montserrat"
+            fontSize="80%"
+            width="100%"
+            fontWeight="bold"
+            color="white"
+            backgroundColor="#488B8F"
+            textTransform="uppercase"
+            textAlign="center"
+            padding="5.5% 8%"
+            border="1.4px solid #B5D1C9"
+            borderRadius="4px"
+          >
+            {params.value !== null
+              ? params.value === "a7c70741-8c1a-4485-8ed4-5297e54a978a"
+                ? "FV"
+                : "FV-TV"
+              : null}
+          </Typography>
+        );
+      },
     },
     {
-      field: "age",
-      headerName: "Age",
+      field: "EmitterName",
+      headerName: "Nombre Emisor",
+      width: 150,
+      renderCell: (params) => (
+        <CustomTooltip
+          title={params.value}
+          arrow
+          placement="bottom-start"
+          TransitionComponent={Fade}
+          PopperProps={{
+            modifiers: [
+              {
+                name: "offset",
+                options: {
+                  offset: [0, 0],
+                },
+              },
+            ],
+          }}
+        >
+          <InputTitles>{params.value}</InputTitles>
+        </CustomTooltip>
+      ),
+    },
+    {
+      field: "EmmitterId",
+      headerName: "NIT Emisor",
       type: "number",
-      width: 110,
-      editable: true,
+      width: 130,
+      renderCell: (params) => (
+        <CustomTooltip
+          title={params.value}
+          arrow
+          placement="bottom-start"
+          TransitionComponent={Fade}
+          PopperProps={{
+            modifiers: [
+              {
+                name: "offset",
+                options: {
+                  offset: [0, 0],
+                },
+              },
+            ],
+          }}
+        >
+          <InputTitles>{params.value}</InputTitles>
+        </CustomTooltip>
+      ),
     },
     {
-      field: "fullName",
-      headerName: "Full name",
-      description: "This column has a value getter and is not sortable.",
-      sortable: false,
-      width: 160,
-      valueGetter: (params) =>
-        `${params.row.firstName || ""} ${params.row.lastName || ""}`,
+      field: "PayerName",
+      headerName: "Nombre Pagador",
+      width: 150,
+      renderCell: (params) => (
+        <CustomTooltip
+          title={params.value}
+          arrow
+          placement="bottom-start"
+          TransitionComponent={Fade}
+          PopperProps={{
+            modifiers: [
+              {
+                name: "offset",
+                options: {
+                  offset: [0, 0],
+                },
+              },
+            ],
+          }}
+        >
+          <InputTitles>{params.value}</InputTitles>
+        </CustomTooltip>
+      ),
     },
     {
+      field: "PayerID",
+      headerName: "NIT Pagador",
+      width: 130,
+      renderCell: (params) => (
+        <CustomTooltip
+          title={params.value}
+          arrow
+          placement="bottom-start"
+          TransitionComponent={Fade}
+          PopperProps={{
+            modifiers: [
+              {
+                name: "offset",
+                options: {
+                  offset: [0, 0],
+                },
+              },
+            ],
+          }}
+        >
+          <InputTitles>{params.value}</InputTitles>
+        </CustomTooltip>
+      ),
+    },
+    {
+      field: "dateBill",
+      headerName: "Fecha Emisión",
+      width: 100,
+      renderCell: (params) => {
+        return <InputTitles>{params.value}</InputTitles>;
+      },
+    },
+    {
+      field: "datePayment",
+      headerName: "Fecha Vencimiento",
+      width: 100,
+      renderCell: (params) => {
+        return <InputTitles>{params.value}</InputTitles>;
+      },
+    },
+    {
+      field: "BillValue",
+      headerName: "Valor Factura",
+      width: 100,
+      renderCell: (params) => {
+        return <InputTitles>{params.value}</InputTitles>;
+      },
+    },
+    {
+      field: "IVA",
+      headerName: "IVA",
+      width: 100,
+      renderCell: (params) => {
+        return <InputTitles>{params.value}</InputTitles>;
+      },
+    },
+    {
+      field: "CreditNote",
+      headerName: "Nota Crédito",
+      width: 100,
+      renderCell: (params) => {
+        return <InputTitles>{params.value}</InputTitles>;
+      },
+    },
+    {
+      field: "SubTotal",
+      headerName: "Subtotal",
+      width: 100,
+      renderCell: (params) => {
+        return <InputTitles>{params.value}</InputTitles>;
+      },
+    },
+    {
+      field: "Total",
+      headerName: "Total",
+      width: 100,
+      renderCell: (params) => {
+        return <InputTitles>{params.value}</InputTitles>;
+      },
+    },
+
+    /* {
       field: "ica",
       headerName: "RET. ICA",
       width: 90,
@@ -97,7 +334,7 @@ export const BillsComponents = () => {
           {params.value === 0 ? "%" : `${params.value}%`}
         </Typography>
       ),
-    },
+    }, */
   ];
 
   const [rows, setRows] = useState([
@@ -153,28 +390,6 @@ export const BillsComponents = () => {
     },
     { id: 9, lastName: "Roxie", firstName: "Harvey", age: 65, ica: 0, fte: 0 },
   ]);
-
-  const fileInput = useRef();
-  const [filesBill, setFilesBill] = useState([]);
-
-  const {
-    fetch: fetch,
-    loading: loading,
-    error: error,
-    data: data,
-  } = useFetch({ service: ReadBills, init: false });
-
-  useEffect(() => {
-    if (filesBill !== []) {
-      fetch(filesBill);
-    }
-  }, [filesBill]);
-
-  useEffect(() => {
-    if (data) {
-      console.log(data);
-    }
-  }, [data, error]);
 
   return (
     <>
@@ -259,7 +474,6 @@ export const BillsComponents = () => {
                 formData.append("bills", file);
               });
               setFilesBill(formData);
-              /* setFilesBill(formData.get("bills")); */
             }}
           />
           <Button
@@ -313,9 +527,98 @@ export const BillsComponents = () => {
               textTransform="uppercase"
               marginRight="1.5rem"
             >
-              {/* Retenciones */}
-              {filesBill.length}
+              Retenciones
             </Typography>
+            <Box display="flex" flexDirection="row" alignItems="center">
+              <Typography
+                letterSpacing={0}
+                fontSize="85%"
+                fontFamily="Montserrat"
+                fontWeight="bold"
+                color={rowsToModify.length === 0 ? "#488B8F50" : "#488B8F"}
+                textTransform="uppercase"
+                marginRight="0.5rem"
+              >
+                Valor Ret. IVA
+              </Typography>
+              <TextField
+                id="IVA"
+                placeholder="0,00%"
+                disabled={rowsToModify.length === 0 ? true : false}
+                type="number"
+                variant="standard"
+                sx={{
+                  backgroundColor: "#488B8F1A",
+                  opacity: rowsToModify.length === 0 ? "0.5" : "1",
+                  border: "1px solid #488B8F",
+                  borderRadius: "4px",
+                  padding: "10px",
+                  height: "0.8rem",
+                  width: "5rem",
+                  textAlign: "right",
+                  alignContent: "center",
+                  "input::-webkit-outer-spin-button": {
+                    "-webkit-appearance": "none",
+                    margin: 0,
+                  },
+                  "input::-webkit-inner-spin-button": {
+                    "-webkit-appearance": "none",
+                    margin: 0,
+                  },
+                  "& .MuiInputBase-input": {
+                    padding: "2px",
+                    fontFamily: "Montserrat",
+                    color: "#488B8F",
+                    fontSize: "0.9rem",
+                    fontWeight: "600",
+                    textAlign: "right",
+
+                    "&::placeholder": {
+                      color: "#488B8F",
+                      fontSize: "0.9rem",
+                      fontWeight: "600",
+                      textAlign: "right",
+                      opacity: 1,
+                    },
+                  },
+                }}
+                InputProps={{
+                  disableUnderline: true,
+                  sx: {
+                    marginTop: "-5px",
+                  },
+                }}
+              />
+              <IconButton
+                aria-label="save"
+                disabled={rowsToModify.length === 0 ? true : false}
+                sx={{
+                  opacity: rowsToModify.length === 0 ? "0.5" : "1",
+                  width: "2rem",
+                  height: "2.2rem",
+                  marginLeft: "0.2rem",
+                  backgroundColor: "#488B8F",
+                  padding: "0 1.3rem",
+                  borderRadius: "4px",
+                  "&:hover": {
+                    backgroundColor: "#488B8F80",
+                    transition: "0.3s",
+                  },
+                  "&:disabled": {
+                    backgroundColor: "#488B8F",
+                  },
+                  transition:
+                    "background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
+
+                  "& .MuiButton-startIcon": { margin: 0 },
+                }}
+                onClick={() => {
+                  console.log("clicked");
+                }}
+              >
+                <ArrowForward sx={{ color: "white" }} />
+              </IconButton>
+            </Box>
             <Box display="flex" flexDirection="row" alignItems="center">
               <Typography
                 letterSpacing={0}
@@ -513,7 +816,7 @@ export const BillsComponents = () => {
           height="100%"
         >
           <CustomDataGrid
-            rows={rows}
+            rows={bill}
             columns={columns}
             pageSize={15}
             rowsPerPageOptions={[5]}
