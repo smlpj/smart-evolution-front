@@ -14,11 +14,16 @@ import { useState, useEffect } from "react";
 
 export default function RegisterDeposit() {
   const [option, setOption] = useState("");
+  const [id, setId] = useState("");
   const router = useRouter();
 
   useEffect(() => {
     if (router && router.query) {
       setOption(Object.values(router.query)[0]);
+      if (router.query.id) {
+        console.log(router.query.id);
+        setId(router.query.id);
+      }
     }
   }, [router.query]);
 
@@ -45,6 +50,16 @@ export default function RegisterDeposit() {
 
   useEffect(() => {
     if (option !== "register" && option !== "" && option !== undefined) {
+      fetch2(option).then((data) => {
+        formik.setValues({
+          id: data?.data?.id,
+          date: data?.data?.date,
+          amount: data?.data?.amount,
+          observations: data?.data?.description,
+          client: data?.data?.client,
+          account: data?.data?.account,
+        });
+      });
     }
   }, [option]);
 
@@ -53,12 +68,11 @@ export default function RegisterDeposit() {
       .string("Selecciona el corredor")
       .nullable(true)
       .required("El corredor es requerido"),
-    
+
     account: yup
       .string("Selecciona la cuenta")
       .nullable(true)
       .required("La cuenta es requerida"),
-
 
     date: yup
       .string("Ingresa la fecha de giro")
@@ -68,17 +82,15 @@ export default function RegisterDeposit() {
       .string("Ingresa el monto de operación")
       .required("El monto es requerido"),
 
-    observations: yup
-      .string("Ingresa una observación")
-      .nullable(true)
+    observations: yup.string("Ingresa una observación").nullable(true),
   });
 
   const initialValues = {
     client: null,
     account: null,
     amount: "",
-    date: null,
-    observations : "",
+    date: "",
+    observations: "",
   };
 
   const formik = useFormik({
@@ -87,11 +99,11 @@ export default function RegisterDeposit() {
     onSubmit: (values) => {
       if (option === "register") {
         console.log("Registrado el giro-inversionista");
-        alert(JSON.stringify(values, null, 2));
+        alert("Registrado el giro-inversionista");
         fetch(values);
       } else {
         console.log("Actualizado el giro-inversionista");
-        alert(JSON.stringify(values, null, 2));
+        alert("Actualizado el giro-inversionista");
         fetch3(values);
       }
     },

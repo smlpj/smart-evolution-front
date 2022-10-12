@@ -28,7 +28,6 @@ export const GetDepositByID = async (id) => {
 };
 
 export const ModifyDepositQuery = async (data) => {
-  console.log(data);
   const res = await Axios.patch(
     `https://smart-evolution-api2.herokuapp.com/api/deposit/${data.id}`,
     data,
