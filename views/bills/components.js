@@ -165,14 +165,15 @@ export const BillsComponents = () => {
   } = useFetch({ service: ReadBills, init: false });
 
   useEffect(() => {
-    if (filesBill) {
+    if (filesBill !== []) {
       fetch(filesBill);
     }
   }, [filesBill]);
 
   useEffect(() => {
-    console.log(data);
-    console.log(error);
+    if (data) {
+      console.log(data);
+    }
   }, [data, error]);
 
   return (
@@ -253,8 +254,12 @@ export const BillsComponents = () => {
             style={{ display: "none" }}
             onChange={(e) => {
               const formData = new FormData();
-              formData.append("bills", e.target.files);
+              const files = Array.from(e.target.files);
+              files.forEach((file) => {
+                formData.append("bills", file);
+              });
               setFilesBill(formData);
+              /* setFilesBill(formData.get("bills")); */
             }}
           />
           <Button
