@@ -20,7 +20,7 @@ export const BillsComponents = () => {
   const [rowsToModify, setRowsToModify] = useState([]);
 
   const onRowsSelectionHandler = (ids) => {
-    const selectedRowsData = ids.map((id) => rows.find((row) => row.id === id));
+    const selectedRowsData = ids.map((id) => bill.find((row) => row.id === id));
     console.log(selectedRowsData);
     setRowsToModify(selectedRowsData);
   };
@@ -30,7 +30,6 @@ export const BillsComponents = () => {
   const [bill, setBill] = useState([]);
   const [otherRet, setOtherRet] = useState([]);
   const [creditNote, setCreditNote] = useState([]);
-  const [retIVA, setRetIVA] = useState([]);
   const [retICA, setRetICA] = useState([]);
   const [retFTE, setRetFTE] = useState([]);
 
@@ -81,7 +80,7 @@ export const BillsComponents = () => {
     {
       field: "id",
       headerName: "ID",
-      width: 90,
+      width: 70,
       renderCell: (params) => (
         <CustomTooltip
           title={params.value}
@@ -105,8 +104,8 @@ export const BillsComponents = () => {
     },
     {
       field: "Status",
-      headerName: "Estado",
-      width: 150,
+      headerName: "ESTADO",
+      width: 120,
       renderCell: (params) => {
         return (
           <Typography
@@ -124,8 +123,8 @@ export const BillsComponents = () => {
           >
             {params.value !== null
               ? params.value === "a7c70741-8c1a-4485-8ed4-5297e54a978a"
-                ? "FV"
-                : "FV-TV"
+                ? "FV-TV"
+                : "FV"
               : null}
           </Typography>
         );
@@ -133,8 +132,8 @@ export const BillsComponents = () => {
     },
     {
       field: "EmitterName",
-      headerName: "Nombre Emisor",
-      width: 150,
+      headerName: "NOMBRE EMISOR",
+      width: 160,
       renderCell: (params) => (
         <CustomTooltip
           title={params.value}
@@ -152,15 +151,18 @@ export const BillsComponents = () => {
             ],
           }}
         >
-          <InputTitles>{params.value}</InputTitles>
+          <InputTitles>
+            {params.value.length > 17
+              ? params.value.substring(0, 17) + "..."
+              : params.value}
+          </InputTitles>
         </CustomTooltip>
       ),
     },
     {
       field: "EmmitterId",
-      headerName: "NIT Emisor",
-      type: "number",
-      width: 130,
+      headerName: "NIT EMISOR",
+      width: 100,
       renderCell: (params) => (
         <CustomTooltip
           title={params.value}
@@ -184,8 +186,8 @@ export const BillsComponents = () => {
     },
     {
       field: "PayerName",
-      headerName: "Nombre Pagador",
-      width: 150,
+      headerName: "NOMBRE PAGADOR",
+      width: 160,
       renderCell: (params) => (
         <CustomTooltip
           title={params.value}
@@ -203,14 +205,18 @@ export const BillsComponents = () => {
             ],
           }}
         >
-          <InputTitles>{params.value}</InputTitles>
+          <InputTitles>
+            {params.value.length > 17
+              ? params.value.substring(0, 17) + "..."
+              : params.value}
+          </InputTitles>
         </CustomTooltip>
       ),
     },
     {
       field: "PayerID",
-      headerName: "NIT Pagador",
-      width: 130,
+      headerName: "NIT PAGADOR",
+      width: 110,
       renderCell: (params) => (
         <CustomTooltip
           title={params.value}
@@ -234,24 +240,24 @@ export const BillsComponents = () => {
     },
     {
       field: "dateBill",
-      headerName: "Fecha Emisión",
-      width: 100,
+      headerName: "FECHA EMISIÓN",
+      width: 120,
       renderCell: (params) => {
         return <InputTitles>{params.value}</InputTitles>;
       },
     },
     {
       field: "datePayment",
-      headerName: "Fecha Vencimiento",
-      width: 100,
+      headerName: "FECHA VENCIMIENTO",
+      width: 150,
       renderCell: (params) => {
         return <InputTitles>{params.value}</InputTitles>;
       },
     },
     {
       field: "BillValue",
-      headerName: "Valor Factura",
-      width: 100,
+      headerName: "VALOR FACTURA",
+      width: 120,
       renderCell: (params) => {
         return <InputTitles>{params.value}</InputTitles>;
       },
@@ -259,22 +265,22 @@ export const BillsComponents = () => {
     {
       field: "IVA",
       headerName: "IVA",
-      width: 100,
+      width: 60,
       renderCell: (params) => {
         return <InputTitles>{params.value}</InputTitles>;
       },
     },
     {
       field: "CreditNote",
-      headerName: "Nota Crédito",
-      width: 100,
+      headerName: "NOTA CRÉDITO",
+      width: 110,
       renderCell: (params) => {
         return <InputTitles>{params.value}</InputTitles>;
       },
     },
     {
       field: "SubTotal",
-      headerName: "Subtotal",
+      headerName: "SUBTOTAL",
       width: 100,
       renderCell: (params) => {
         return <InputTitles>{params.value}</InputTitles>;
@@ -282,17 +288,17 @@ export const BillsComponents = () => {
     },
     {
       field: "Total",
-      headerName: "Total",
+      headerName: "TOTAL",
       width: 100,
       renderCell: (params) => {
         return <InputTitles>{params.value}</InputTitles>;
       },
     },
 
-    /* {
+    {
       field: "ica",
       headerName: "RET. ICA",
-      width: 90,
+      width: 130,
       sortable: false,
       renderCell: (params) => (
         <Typography
@@ -331,65 +337,11 @@ export const BillsComponents = () => {
           padding="5.5% 8%"
           borderRadius="4px"
         >
-          {params.value === 0 ? "%" : `${params.value}%`}
+          {params.value === 0 ? "%" : `${params.row.id}%`}
         </Typography>
       ),
-    }, */
+    },
   ];
-
-  const [rows, setRows] = useState([
-    { id: 1, lastName: "Snow", firstName: "Jon", age: 35, ica: 0, fte: 0 },
-    {
-      id: 2,
-      lastName: "Lannister",
-      firstName: "Cersei",
-      age: 42,
-      ica: 0,
-      fte: 0,
-    },
-    {
-      id: 3,
-      lastName: "Lannister",
-      firstName: "Jaime",
-      age: 45,
-      ica: 0,
-      fte: 0,
-    },
-    { id: 4, lastName: "Stark", firstName: "Arya", age: 16, ica: 0, fte: 0 },
-    {
-      id: 5,
-      lastName: "Targaryen",
-      firstName: "Daenerys",
-      age: null,
-      ica: 0,
-      fte: 0,
-    },
-    {
-      id: 6,
-      lastName: "Melisandre",
-      firstName: null,
-      age: 150,
-      ica: 0,
-      fte: 0,
-    },
-    {
-      id: 7,
-      lastName: "Clifford",
-      firstName: "Ferrara",
-      age: 44,
-      ica: 0,
-      fte: 0,
-    },
-    {
-      id: 8,
-      lastName: "Frances",
-      firstName: "Rossini",
-      age: 36,
-      ica: 0,
-      fte: 0,
-    },
-    { id: 9, lastName: "Roxie", firstName: "Harvey", age: 65, ica: 0, fte: 0 },
-  ]);
 
   return (
     <>
@@ -447,7 +399,6 @@ export const BillsComponents = () => {
               height: "100%",
             }}
             onClick={() => {
-              console.log("click");
               fileInput.current.click();
             }}
           >
@@ -529,96 +480,7 @@ export const BillsComponents = () => {
             >
               Retenciones
             </Typography>
-            <Box display="flex" flexDirection="row" alignItems="center">
-              <Typography
-                letterSpacing={0}
-                fontSize="85%"
-                fontFamily="Montserrat"
-                fontWeight="bold"
-                color={rowsToModify.length === 0 ? "#488B8F50" : "#488B8F"}
-                textTransform="uppercase"
-                marginRight="0.5rem"
-              >
-                Valor Ret. IVA
-              </Typography>
-              <TextField
-                id="IVA"
-                placeholder="0,00%"
-                disabled={rowsToModify.length === 0 ? true : false}
-                type="number"
-                variant="standard"
-                sx={{
-                  backgroundColor: "#488B8F1A",
-                  opacity: rowsToModify.length === 0 ? "0.5" : "1",
-                  border: "1px solid #488B8F",
-                  borderRadius: "4px",
-                  padding: "10px",
-                  height: "0.8rem",
-                  width: "5rem",
-                  textAlign: "right",
-                  alignContent: "center",
-                  "input::-webkit-outer-spin-button": {
-                    "-webkit-appearance": "none",
-                    margin: 0,
-                  },
-                  "input::-webkit-inner-spin-button": {
-                    "-webkit-appearance": "none",
-                    margin: 0,
-                  },
-                  "& .MuiInputBase-input": {
-                    padding: "2px",
-                    fontFamily: "Montserrat",
-                    color: "#488B8F",
-                    fontSize: "0.9rem",
-                    fontWeight: "600",
-                    textAlign: "right",
 
-                    "&::placeholder": {
-                      color: "#488B8F",
-                      fontSize: "0.9rem",
-                      fontWeight: "600",
-                      textAlign: "right",
-                      opacity: 1,
-                    },
-                  },
-                }}
-                InputProps={{
-                  disableUnderline: true,
-                  sx: {
-                    marginTop: "-5px",
-                  },
-                }}
-              />
-              <IconButton
-                aria-label="save"
-                disabled={rowsToModify.length === 0 ? true : false}
-                sx={{
-                  opacity: rowsToModify.length === 0 ? "0.5" : "1",
-                  width: "2rem",
-                  height: "2.2rem",
-                  marginLeft: "0.2rem",
-                  backgroundColor: "#488B8F",
-                  padding: "0 1.3rem",
-                  borderRadius: "4px",
-                  "&:hover": {
-                    backgroundColor: "#488B8F80",
-                    transition: "0.3s",
-                  },
-                  "&:disabled": {
-                    backgroundColor: "#488B8F",
-                  },
-                  transition:
-                    "background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
-
-                  "& .MuiButton-startIcon": { margin: 0 },
-                }}
-                onClick={() => {
-                  console.log("clicked");
-                }}
-              >
-                <ArrowForward sx={{ color: "white" }} />
-              </IconButton>
-            </Box>
             <Box display="flex" flexDirection="row" alignItems="center">
               <Typography
                 letterSpacing={0}
@@ -834,6 +696,20 @@ export const BillsComponents = () => {
               ColumnSortedDescendingIcon: () => (
                 <Typography fontFamily="icomoon" fontSize="0.7rem">
                   &#xe908;
+                </Typography>
+              ),
+              NoRowsOverlay: () => (
+                <Typography
+                  fontFamily="Montserrat"
+                  fontSize="0.9rem"
+                  fontWeight="600"
+                  color="#488B8F"
+                  height="100%"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                >
+                  No hay datos para mostrar
                 </Typography>
               ),
             }}
