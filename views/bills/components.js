@@ -9,7 +9,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import UploadFileOutlinedIcon from "@mui/icons-material/UploadFileOutlined";
 import Divider from "@mui/material/Divider";
 import { useState, useRef } from "react";
-import { ReadBills } from "./queries";
+import { ReadBills, ReadCreditNotes } from "./queries";
 import { useFetch } from "../../shared/hooks/useFetch";
 import { useEffect } from "react";
 import CustomTooltip from "../../styles/customTooltip";
@@ -18,20 +18,15 @@ import { format } from "date-fns";
 
 export const BillsComponents = () => {
   const [rowsToModify, setRowsToModify] = useState([]);
-
-  const onRowsSelectionHandler = (ids) => {
-    const selectedRowsData = ids.map((id) => bill.find((row) => row.id === id));
-    console.log(selectedRowsData);
-    setRowsToModify(selectedRowsData);
-  };
-
   const fileInput = useRef();
   const [filesBill, setFilesBill] = useState([]);
   const [bill, setBill] = useState([]);
   const [otherRet, setOtherRet] = useState([]);
   const [creditNote, setCreditNote] = useState([]);
-  const [retICA, setRetICA] = useState([]);
-  const [retFTE, setRetFTE] = useState([]);
+  const [retICA, setRetICA] = useState(0);
+  const [retICASet, setRetICASet] = useState(0);
+  const [retFTE, setRetFTE] = useState(0);
+  const [retFTESet, setRetFTESet] = useState(0);
 
   const {
     fetch: fetch,
@@ -39,6 +34,19 @@ export const BillsComponents = () => {
     error: error,
     data: data,
   } = useFetch({ service: ReadBills, init: false });
+
+  const {
+    fetch: fetch2,
+    loading: loading2,
+    error: error2,
+    data: data2,
+  } = useFetch({ service: ReadCreditNotes, init: false });
+
+  const onRowsSelectionHandler = (ids) => {
+    const selectedRowsData = ids.map((id) => bill.find((row) => row.id === id));
+    console.log(selectedRowsData);
+    setRowsToModify(selectedRowsData);
+  };
 
   useEffect(() => {
     if (filesBill !== []) {
@@ -62,6 +70,8 @@ export const BillsComponents = () => {
           BillValue: bill.billValue,
           IVA: bill.iva,
           CreditNote: 0,
+          RetICA: 0,
+          RetFTE: 0,
           /* creditNote !== []
               ? creditNote.find(
                   (creditN) => creditN.associatedInvoice === bill.billId
@@ -294,31 +304,119 @@ export const BillsComponents = () => {
         return <InputTitles>{params.value}</InputTitles>;
       },
     },
-
     {
-      field: "ica",
+      field: "RetICA",
       headerName: "RET. ICA",
-      width: 130,
+      width: 100,
       sortable: false,
+      editable: true,
       renderCell: (params) => (
-        <Typography
-          fontFamily="Montserrat"
-          fontSize="100%"
-          width="100%"
-          fontWeight="bold"
-          color="#488B8F"
-          backgroundColor="#488B8F1A"
-          textTransform="uppercase"
-          border="1px solid #488B8F"
-          textAlign="right"
-          padding="5.5% 8%"
-          borderRadius="4px"
-        >
-          {params.value === 0 ? "%" : `${params.value}%`}
-        </Typography>
+        <TextField
+          id="ICA"
+          placeholder="0,00%"
+          value={rowsToModify.includes(params.row) ? retICASet : params.value}
+          type="number"
+          variant="standard"
+          sx={{
+            backgroundColor: "#488B8F1A",
+            border: "1px solid #488B8F",
+            borderRadius: "4px",
+            padding: "10px",
+            height: "0.8rem",
+            width: "5rem",
+            textAlign: "right",
+            alignContent: "center",
+            "input::-webkit-outer-spin-button": {
+              "-webkit-appearance": "none",
+              margin: 0,
+            },
+            "input::-webkit-inner-spin-button": {
+              "-webkit-appearance": "none",
+              margin: 0,
+            },
+            "& .MuiInputBase-input": {
+              padding: "2px",
+              fontFamily: "Montserrat",
+              color: "#488B8F",
+              fontSize: "0.9rem",
+              fontWeight: "600",
+              textAlign: "right",
+
+              "&::placeholder": {
+                color: "#488B8F",
+                fontSize: "0.9rem",
+                fontWeight: "600",
+                textAlign: "right",
+                opacity: 1,
+              },
+            },
+          }}
+          InputProps={{
+            disableUnderline: true,
+            sx: {
+              marginTop: "-5px",
+            },
+          }}
+        />
       ),
     },
     {
+      field: "RetFTE",
+      headerName: "RET. FTE",
+      width: 100,
+      sortable: false,
+      editable: true,
+      renderCell: (params) => (
+        <TextField
+          id="ICA"
+          placeholder="0,00%"
+          value={rowsToModify.includes(params.row) ? retFTESet : params.value}
+          type="number"
+          variant="standard"
+          sx={{
+            backgroundColor: "#488B8F1A",
+            border: "1px solid #488B8F",
+            borderRadius: "4px",
+            padding: "10px",
+            height: "0.8rem",
+            width: "5rem",
+            textAlign: "right",
+            alignContent: "center",
+            "input::-webkit-outer-spin-button": {
+              "-webkit-appearance": "none",
+              margin: 0,
+            },
+            "input::-webkit-inner-spin-button": {
+              "-webkit-appearance": "none",
+              margin: 0,
+            },
+            "& .MuiInputBase-input": {
+              padding: "2px",
+              fontFamily: "Montserrat",
+              color: "#488B8F",
+              fontSize: "0.9rem",
+              fontWeight: "600",
+              textAlign: "right",
+
+              "&::placeholder": {
+                color: "#488B8F",
+                fontSize: "0.9rem",
+                fontWeight: "600",
+                textAlign: "right",
+                opacity: 1,
+              },
+            },
+          }}
+          InputProps={{
+            disableUnderline: true,
+            sx: {
+              marginTop: "-5px",
+            },
+          }}
+        />
+      ),
+    },
+    /* {
       field: "fte",
       headerName: "RET. FTE",
       width: 90,
@@ -340,7 +438,7 @@ export const BillsComponents = () => {
           {params.value === 0 ? "%" : `${params.row.id}%`}
         </Typography>
       ),
-    },
+    }, */
   ];
 
   return (
@@ -496,6 +594,9 @@ export const BillsComponents = () => {
               <TextField
                 id="ICA"
                 placeholder="0,00%"
+                onChange={(e) => {
+                  setRetICA(e.target.value);
+                }}
                 disabled={rowsToModify.length === 0 ? true : false}
                 type="number"
                 variant="standard"
@@ -565,18 +666,13 @@ export const BillsComponents = () => {
                   "& .MuiButton-startIcon": { margin: 0 },
                 }}
                 onClick={() => {
-                  console.log("clicked");
+                  setRetICASet(retICA);
                 }}
               >
                 <ArrowForward sx={{ color: "white" }} />
               </IconButton>
             </Box>
-            <Box
-              display="flex"
-              flexDirection="row"
-              alignItems="center"
-              marginLeft={2}
-            >
+            <Box display="flex" flexDirection="row" alignItems="center">
               <Typography
                 letterSpacing={0}
                 fontSize="85%"
@@ -584,13 +680,17 @@ export const BillsComponents = () => {
                 fontWeight="bold"
                 color={rowsToModify.length === 0 ? "#488B8F50" : "#488B8F"}
                 textTransform="uppercase"
+                marginLeft="0.7rem"
                 marginRight="0.5rem"
               >
-                Valor Ret. Fte
+                Valor Ret. FTE
               </Typography>
               <TextField
                 id="FTE"
                 placeholder="0,00%"
+                onChange={(e) => {
+                  setRetFTE(e.target.value);
+                }}
                 disabled={rowsToModify.length === 0 ? true : false}
                 type="number"
                 variant="standard"
@@ -660,7 +760,7 @@ export const BillsComponents = () => {
                   "& .MuiButton-startIcon": { margin: 0 },
                 }}
                 onClick={() => {
-                  console.log("clicked");
+                  setRetFTESet(retFTE);
                 }}
               >
                 <ArrowForward sx={{ color: "white" }} />
