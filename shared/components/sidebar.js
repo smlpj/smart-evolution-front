@@ -70,9 +70,11 @@ export default function Navbar() {
                 Corredores
               </NavbarButton>
             </Link>
+            <Link href="/administration" underline="none">
             <NavbarButton sx={{ width: "70%", height: "10%" }}>
               Administración
             </NavbarButton>
+            </Link>
           </Grid>
         </Grid>
         <Grid

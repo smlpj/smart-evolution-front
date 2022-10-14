@@ -4,6 +4,7 @@ import { Grid } from "@mui/material";
 import Layout from "../shared/components/layout";
 import Head from "next/head";
 
+
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
   return (
@@ -15,7 +16,8 @@ function MyApp({ Component, pageProps }) {
       router.pathname !== "/brokers" &&
       router.pathname !== "/customers" &&
       router.pathname !== "/" &&
-      router.pathname !== "/administration/deposit" ? (
+      router.pathname !== "/administration/deposit-investor" && 
+      router.pathname !== "/administration/deposit-emitter" ? (
         <Layout>
           <Component {...pageProps} />
         </Layout>
