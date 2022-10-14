@@ -2,20 +2,20 @@ import { Button } from "@mui/material";
 import { Box } from "@mui/material";
 import { Typography } from "@mui/material";
 import Link from "next/link";
-import InputTitles from "../../../styles/inputTitles";
+import InputTitles from "../../../../styles/inputTitles";
 import {
   GetBrokerList,
   GetBrokerListByQuery,
   DeleteBrokerById,
 } from "./queries";
-import { useFetch } from "../../../shared/hooks/useFetch";
+import { useFetch } from "../../../../shared/hooks/useFetch";
 import { useEffect, useState } from "react";
-import CustomDataGrid from "../../../styles/tables";
+import CustomDataGrid from "../../../../styles/tables";
 import { format } from "date-fns";
 import Image from "next/image";
-import CustomTooltip from "../../../styles/customTooltip";
+import CustomTooltip from "../../../../styles/customTooltip";
 import { Fade } from "@mui/material";
-import MuiTextField from "../../../styles/fields";
+import MuiTextField from "../../../../styles/fields";
 import { SearchOutlined } from "@mui/icons-material";
 
 let dataCount;
@@ -231,6 +231,8 @@ export const BrokerListComponent = () => {
         });
       });
       setBroker(Brokers);
+
+      console.log(data);
     }
 
     if (error) console.log(error);

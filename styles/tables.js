@@ -1,6 +1,5 @@
 import { DataGrid } from "@mui/x-data-grid";
 import { styled } from "@mui/material/styles";
-import { Typography } from "@mui/material";
 
 const CustomDataGrid = styled(DataGrid)({
   border: "none",
@@ -30,8 +29,9 @@ const CustomDataGrid = styled(DataGrid)({
   },
 
   "& .MuiDataGrid-cellCheckbox": {
-    color: "#488B8F",
-    border: "none",
+    "& .MuiCheckbox-root": {
+      color: "#488B8F",
+    },
   },
 
   "& .MuiDataGrid-row": {
@@ -49,6 +49,31 @@ const CustomDataGrid = styled(DataGrid)({
     border: "0px solid transparent",
     "&:focus": {
       outline: "none",
+    },
+    "&:focus-within": {
+      outline: "none",
+    },
+
+    "&.MuiDataGrid-cell--editing": {
+      backgroundColor: "transparent",
+      "&:focus": {
+        outline: "none",
+      },
+      "&:focus-within": {
+        outline: "none",
+      },
+      "& .css-1b74o31-MuiInputBase-root-MuiDataGrid-editInputCell": {
+        width: "100%",
+        color: "#488B8F",
+        border: "1px solid #488B8F",
+        padding: "7px 0px",
+        borderRadius: "4px",
+        backgroundColor: "#488B8F1A",
+        fontFamily: "Montserrat",
+        fontSize: "0.9rem",
+        fontWeight: "600",
+        textAlign: "right",
+      },
     },
   },
   "& .MuiDataGrid-columnsContainer": {
@@ -91,6 +116,9 @@ const CustomDataGrid = styled(DataGrid)({
   "& .MuiDataGrid-columnHeaderTitleContainer": {
     justifyContent: "left",
     hover: "none",
+    "& .MuiCheckbox-root": {
+      color: "#488B8F",
+    },
   },
   "& .MuiDataGrid-columnHeaderCheckbox": {
     justifyContent: "center",
