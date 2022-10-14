@@ -100,7 +100,44 @@ export const Clients = async (data) => {
 
 export const AccountsFromClient = async (data) => {
   const res = await Axios.get(
-    "https://smart-evolution-api2.herokuapp.com/api/account/client/" + data.client,
+    "https://smart-evolution-api2.herokuapp.com/api/account/client/" +
+      data.client,
+    {
+      headers: {
+        authorization: "Bearer " + token,
+      },
+    }
+  );
+  return res.data;
+};
+export const AccountTypes = async (data) => {
+  const res = await Axios.get(
+    "https://smart-evolution-api2.herokuapp.com/api/account_type/",
+    {
+      headers: {
+        authorization: "Bearer " + token,
+      },
+    }
+  );
+  return res.data;
+};
+
+export const Banks = async (data) => {
+  const res = await Axios.get(
+    "https://smart-evolution-api2.herokuapp.com/api/bank/",
+    {
+      headers: {
+        authorization: "Bearer " + token,
+      },
+    }
+  );
+  return res.data;
+}
+;
+
+export const Egresses = async (data) => {
+  const res = await Axios.get(
+    "https://smart-evolution-api2.herokuapp.com/api/bank/",
     {
       headers: {
         authorization: "Bearer " + token,
