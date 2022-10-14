@@ -1,4 +1,4 @@
-import { IconButton, TextField, Typography } from "@mui/material";
+import { Checkbox, IconButton, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import InputTitles from "../../styles/inputTitles";
 import MuiTextField from "../../styles/fields";
@@ -24,9 +24,8 @@ export const BillsComponents = () => {
   const [otherRet, setOtherRet] = useState([]);
   const [creditNote, setCreditNote] = useState([]);
   const [retICA, setRetICA] = useState(0);
-  const [retICASet, setRetICASet] = useState(0);
   const [retFTE, setRetFTE] = useState(0);
-  const [retFTESet, setRetFTESet] = useState(0);
+  const [retIVA, setRetIVA] = useState(false);
 
   const {
     fetch: fetch,
@@ -44,7 +43,6 @@ export const BillsComponents = () => {
 
   const onRowsSelectionHandler = (ids) => {
     const selectedRowsData = ids.map((id) => bill.find((row) => row.id === id));
-    console.log(selectedRowsData);
     setRowsToModify(selectedRowsData);
   };
 
@@ -69,6 +67,7 @@ export const BillsComponents = () => {
           datePayment: format(new Date(bill.datePayment), "dd / MM / yyyy"),
           BillValue: bill.billValue,
           IVA: bill.iva,
+          RetIVA: bill.iva * 0.15,
           CreditNote: 0,
           RetICA: 0,
           RetFTE: 0,
@@ -87,6 +86,34 @@ export const BillsComponents = () => {
   }, [data]);
 
   const columns = [
+    {
+      field: "Status",
+      headerName: "TIPO DE FACTURA",
+      width: 130,
+      renderCell: (params) => {
+        return (
+          <Typography
+            fontFamily="Montserrat"
+            fontSize="80%"
+            width="100%"
+            fontWeight="bold"
+            color="white"
+            backgroundColor="#488B8F"
+            textTransform="uppercase"
+            textAlign="center"
+            padding="5.5% 8%"
+            border="1.4px solid #B5D1C9"
+            borderRadius="4px"
+          >
+            {params.value !== null
+              ? params.value === "a7c70741-8c1a-4485-8ed4-5297e54a978a"
+                ? "FV-TV"
+                : "FV"
+              : null}
+          </Typography>
+        );
+      },
+    },
     {
       field: "id",
       headerName: "ID",
@@ -113,32 +140,161 @@ export const BillsComponents = () => {
       ),
     },
     {
-      field: "Status",
-      headerName: "ESTADO",
+      field: "RetICA",
+      headerName: "RET. ICA",
+      width: 100,
+      sortable: false,
+      editable: true,
+      renderCell: (params) => (
+        <TextField
+          id="ICA"
+          placeholder="0,00%"
+          value={params.value}
+          type="number"
+          variant="standard"
+          sx={{
+            backgroundColor: "#488B8F1A",
+            border: "1px solid #488B8F",
+            borderRadius: "4px",
+            padding: "10px",
+            height: "0.8rem",
+            width: "5rem",
+            textAlign: "right",
+            alignContent: "center",
+            "input::-webkit-outer-spin-button": {
+              "-webkit-appearance": "none",
+              margin: 0,
+            },
+            "input::-webkit-inner-spin-button": {
+              "-webkit-appearance": "none",
+              margin: 0,
+            },
+            "& .MuiInputBase-input": {
+              padding: "2px",
+              fontFamily: "Montserrat",
+              color: "#488B8F",
+              fontSize: "0.9rem",
+              fontWeight: "600",
+              textAlign: "right",
+
+              "&::placeholder": {
+                color: "#488B8F",
+                fontSize: "0.9rem",
+                fontWeight: "600",
+                textAlign: "right",
+                opacity: 1,
+              },
+            },
+          }}
+          InputProps={{
+            disableUnderline: true,
+            sx: {
+              marginTop: "-5px",
+            },
+          }}
+        />
+      ),
+    },
+    {
+      field: "RetFTE",
+      headerName: "RET. FTE",
+      width: 100,
+      sortable: false,
+      editable: true,
+      renderCell: (params) => (
+        <TextField
+          id="FTE"
+          placeholder="0,00%"
+          value={params.value}
+          type="number"
+          variant="standard"
+          sx={{
+            backgroundColor: "#488B8F1A",
+            border: "1px solid #488B8F",
+            borderRadius: "4px",
+            padding: "10px",
+            height: "0.8rem",
+            width: "5rem",
+            textAlign: "right",
+            alignContent: "center",
+            "input::-webkit-outer-spin-button": {
+              "-webkit-appearance": "none",
+              margin: 0,
+            },
+            "input::-webkit-inner-spin-button": {
+              "-webkit-appearance": "none",
+              margin: 0,
+            },
+            "& .MuiInputBase-input": {
+              padding: "2px",
+              fontFamily: "Montserrat",
+              color: "#488B8F",
+              fontSize: "0.9rem",
+              fontWeight: "600",
+              textAlign: "right",
+
+              "&::placeholder": {
+                color: "#488B8F",
+                fontSize: "0.9rem",
+                fontWeight: "600",
+                textAlign: "right",
+                opacity: 1,
+              },
+            },
+          }}
+          InputProps={{
+            disableUnderline: true,
+            sx: {
+              marginTop: "-5px",
+            },
+          }}
+        />
+      ),
+    },
+    {
+      headerName: "Aplicar RET. IVA",
       width: 120,
-      renderCell: (params) => {
-        return (
-          <Typography
-            fontFamily="Montserrat"
-            fontSize="80%"
-            width="100%"
-            fontWeight="bold"
-            color="white"
-            backgroundColor="#488B8F"
-            textTransform="uppercase"
-            textAlign="center"
-            padding="5.5% 8%"
-            border="1.4px solid #B5D1C9"
-            borderRadius="4px"
-          >
-            {params.value !== null
-              ? params.value === "a7c70741-8c1a-4485-8ed4-5297e54a978a"
-                ? "FV-TV"
-                : "FV"
-              : null}
-          </Typography>
-        );
-      },
+      sortable: false,
+      renderCell: (params) => (
+        <Box display="flex" width="100%" justifyContent="center">
+          <Checkbox
+            sx={{
+              color: "#488B8F",
+              "&.Mui-checked": {
+                color: "#488B8F",
+              },
+            }}
+            onChange={(e) => {
+              e.target.checked
+                ? (params.row.RetIVA = params.row.IVA * 0.15)
+                : (params.row.RetIVA = 0);
+            }}
+          />
+        </Box>
+      ),
+    },
+    {
+      field: "RetIVA",
+      headerName: "RET. IVA",
+      width: 100,
+      sortable: false,
+      renderCell: (params) => (
+        <Typography
+          fontFamily="Montserrat"
+          fontSize="100%"
+          width="100%"
+          fontWeight="bold"
+          color="#488B8F"
+          backgroundColor="#488B8F1A"
+          textTransform="uppercase"
+          border="1px solid #488B8F"
+          textAlign="right"
+          padding="5.5% 8%"
+          borderRadius="4px"
+        >
+          {params.value}
+        </Typography>
+      ),
     },
     {
       field: "EmitterName",
@@ -304,118 +460,6 @@ export const BillsComponents = () => {
         return <InputTitles>{params.value}</InputTitles>;
       },
     },
-    {
-      field: "RetICA",
-      headerName: "RET. ICA",
-      width: 100,
-      sortable: false,
-      editable: true,
-      renderCell: (params) => (
-        <TextField
-          id="ICA"
-          placeholder="0,00%"
-          value={rowsToModify.includes(params.row) ? retICASet : params.value}
-          type="number"
-          variant="standard"
-          sx={{
-            backgroundColor: "#488B8F1A",
-            border: "1px solid #488B8F",
-            borderRadius: "4px",
-            padding: "10px",
-            height: "0.8rem",
-            width: "5rem",
-            textAlign: "right",
-            alignContent: "center",
-            "input::-webkit-outer-spin-button": {
-              "-webkit-appearance": "none",
-              margin: 0,
-            },
-            "input::-webkit-inner-spin-button": {
-              "-webkit-appearance": "none",
-              margin: 0,
-            },
-            "& .MuiInputBase-input": {
-              padding: "2px",
-              fontFamily: "Montserrat",
-              color: "#488B8F",
-              fontSize: "0.9rem",
-              fontWeight: "600",
-              textAlign: "right",
-
-              "&::placeholder": {
-                color: "#488B8F",
-                fontSize: "0.9rem",
-                fontWeight: "600",
-                textAlign: "right",
-                opacity: 1,
-              },
-            },
-          }}
-          InputProps={{
-            disableUnderline: true,
-            sx: {
-              marginTop: "-5px",
-            },
-          }}
-        />
-      ),
-    },
-    {
-      field: "RetFTE",
-      headerName: "RET. FTE",
-      width: 100,
-      sortable: false,
-      editable: true,
-      renderCell: (params) => (
-        <TextField
-          id="ICA"
-          placeholder="0,00%"
-          value={rowsToModify.includes(params.row) ? retFTESet : params.value}
-          type="number"
-          variant="standard"
-          sx={{
-            backgroundColor: "#488B8F1A",
-            border: "1px solid #488B8F",
-            borderRadius: "4px",
-            padding: "10px",
-            height: "0.8rem",
-            width: "5rem",
-            textAlign: "right",
-            alignContent: "center",
-            "input::-webkit-outer-spin-button": {
-              "-webkit-appearance": "none",
-              margin: 0,
-            },
-            "input::-webkit-inner-spin-button": {
-              "-webkit-appearance": "none",
-              margin: 0,
-            },
-            "& .MuiInputBase-input": {
-              padding: "2px",
-              fontFamily: "Montserrat",
-              color: "#488B8F",
-              fontSize: "0.9rem",
-              fontWeight: "600",
-              textAlign: "right",
-
-              "&::placeholder": {
-                color: "#488B8F",
-                fontSize: "0.9rem",
-                fontWeight: "600",
-                textAlign: "right",
-                opacity: 1,
-              },
-            },
-          }}
-          InputProps={{
-            disableUnderline: true,
-            sx: {
-              marginTop: "-5px",
-            },
-          }}
-        />
-      ),
-    },
     /* {
       field: "fte",
       headerName: "RET. FTE",
@@ -494,7 +538,7 @@ export const BillsComponents = () => {
               "&:hover": {
                 backgroundColor: "#B5D1C9",
               },
-              height: "100%",
+              height: "3rem",
             }}
             onClick={() => {
               fileInput.current.click();
@@ -534,7 +578,7 @@ export const BillsComponents = () => {
               "&:hover": {
                 backgroundColor: "#B5D1C9",
               },
-              height: "100%",
+              height: "3rem",
               marginLeft: "0.6rem",
             }}
           >
@@ -666,7 +710,13 @@ export const BillsComponents = () => {
                   "& .MuiButton-startIcon": { margin: 0 },
                 }}
                 onClick={() => {
-                  setRetICASet(retICA);
+                  const Bills = [...bill];
+                  Bills.map((row) => {
+                    if (rowsToModify.includes(row)) {
+                      row.RetICA = parseFloat(retICA);
+                    }
+                  });
+                  setBill(Bills);
                 }}
               >
                 <ArrowForward sx={{ color: "white" }} />
@@ -760,7 +810,13 @@ export const BillsComponents = () => {
                   "& .MuiButton-startIcon": { margin: 0 },
                 }}
                 onClick={() => {
-                  setRetFTESet(retFTE);
+                  const Bills = [...bill];
+                  Bills.map((row) => {
+                    if (rowsToModify.includes(row)) {
+                      row.RetFTE = parseFloat(retFTE);
+                    }
+                  });
+                  setBill(Bills);
                 }}
               >
                 <ArrowForward sx={{ color: "white" }} />
