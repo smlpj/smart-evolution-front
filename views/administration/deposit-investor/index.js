@@ -101,12 +101,12 @@ export default function RegisterDeposit() {
         console.log("Registrado el giro-inversionista");
         alert("Registrado el giro-inversionista");
         fetch(values);
-        router.push("/administration/deposit/depositList");
+        router.push("/administration/deposit-investor/depositList");
       } else {
         console.log("Actualizado el giro-inversionista");
         alert("Actualizado el giro-inversionista");
         fetch3(values);
-        router.push("/administration/deposit/depositList");
+        router.push("/administration/deposit-investor/depositList");
       }
     },
   });

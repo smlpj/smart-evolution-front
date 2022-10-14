@@ -16,7 +16,8 @@ function MyApp({ Component, pageProps }) {
       router.pathname !== "/brokers" &&
       router.pathname !== "/customers" &&
       router.pathname !== "/" &&
-      router.pathname !== "/administration/deposit" ? (
+      router.pathname !== "/administration/deposit-investor" && 
+      router.pathname !== "/administration/deposit-emitter" ? (
         <Layout>
           <Component {...pageProps} />
         </Layout>

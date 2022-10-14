@@ -99,7 +99,9 @@ export const DepositListComponent = () => {
       filterable: false,
       renderCell: (params) => {
         return (
-          <Link href={`/administration/deposit/?modify=${params.row.id}`}>
+          <Link
+            href={`/administration/deposit-investor/?modify=${params.row.id}`}
+          >
             <CustomTooltip
               title="Editar giro"
               arrow
@@ -271,7 +273,10 @@ export const DepositListComponent = () => {
           >
             Consulta de giro-inversionista
           </Typography>
-          <Link href="/administration/deposit?=register" underline="none">
+          <Link
+            href="/administration/deposit-investor?=register"
+            underline="none"
+          >
             <Button
               variant="standard"
               color="primary"
@@ -424,6 +429,24 @@ export const DepositListComponent = () => {
               ColumnSortedDescendingIcon: () => (
                 <Typography fontFamily="icomoon" fontSize="0.7rem">
                   &#xe908;
+                </Typography>
+              ),
+
+              NoRowsOverlay: () => (
+                <Typography
+                  letterSpacing={0}
+                  fontSize="1.2rem"
+                  fontFamily="Montserrat"
+                  fontWeight="regular"
+                  color="#5EA3A3"
+                  height="100%"
+                  width="100%"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                  backgroundColor="#F5F5F5"
+                >
+                  No hay giros-inversionistas registrados
                 </Typography>
               ),
 
