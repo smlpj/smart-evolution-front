@@ -18,6 +18,7 @@ import { format } from "date-fns";
 
 export const BillsComponents = () => {
   const [rowsToModify, setRowsToModify] = useState([]);
+  const [rowsToApplyRETIVA, setRowsToApplyRETIVA] = useState([]);
   const fileInput = useRef();
   const [filesBill, setFilesBill] = useState([]);
   const [bill, setBill] = useState([]);
@@ -25,7 +26,6 @@ export const BillsComponents = () => {
   const [creditNote, setCreditNote] = useState([]);
   const [retICA, setRetICA] = useState(0);
   const [retFTE, setRetFTE] = useState(0);
-  const [retIVA, setRetIVA] = useState(false);
 
   const {
     fetch: fetch,
@@ -71,11 +71,6 @@ export const BillsComponents = () => {
           CreditNote: 0,
           RetICA: 0,
           RetFTE: 0,
-          /* creditNote !== []
-              ? creditNote.find(
-                  (creditN) => creditN.associatedInvoice === bill.billId
-                ).total
-              : 0, */
           SubTotal: bill.subTotal,
           Total: bill.total,
         });
@@ -264,10 +259,13 @@ export const BillsComponents = () => {
                 color: "#488B8F",
               },
             }}
+            value={0.15}
             onChange={(e) => {
               e.target.checked
-                ? (params.row.RetIVA = params.row.IVA * 0.15)
-                : (params.row.RetIVA = 0);
+                ? setRowsToApplyRETIVA([...rowsToApplyRETIVA, params.row])
+                : setRowsToApplyRETIVA(
+                    rowsToApplyRETIVA.filter((row) => row.id !== params.row.id)
+                  );
             }}
           />
         </Box>
@@ -276,7 +274,7 @@ export const BillsComponents = () => {
     {
       field: "RetIVA",
       headerName: "RET. IVA",
-      width: 100,
+      width: 130,
       sortable: false,
       renderCell: (params) => (
         <Typography
@@ -292,7 +290,9 @@ export const BillsComponents = () => {
           padding="5.5% 8%"
           borderRadius="4px"
         >
-          {params.value}
+          {rowsToApplyRETIVA.includes(params.row)
+            ? Math.round(params.value)
+            : 0}
         </Typography>
       ),
     },
@@ -460,29 +460,6 @@ export const BillsComponents = () => {
         return <InputTitles>{params.value}</InputTitles>;
       },
     },
-    /* {
-      field: "fte",
-      headerName: "RET. FTE",
-      width: 90,
-      sortable: false,
-      renderCell: (params) => (
-        <Typography
-          fontFamily="Montserrat"
-          fontSize="100%"
-          width="100%"
-          fontWeight="bold"
-          color="#488B8F"
-          backgroundColor="#488B8F1A"
-          textTransform="uppercase"
-          border="1px solid #488B8F"
-          textAlign="right"
-          padding="5.5% 8%"
-          borderRadius="4px"
-        >
-          {params.value === 0 ? "%" : `${params.row.id}%`}
-        </Typography>
-      ),
-    }, */
   ];
 
   return (
