@@ -19,15 +19,15 @@ export const InputV = () => {
 
   React.useEffect(() => {
     if (loginError) {
-      alert();
+      alert("Usuario o contraseña incorrectos");
     }
 
     if (dataLogin !== undefined) {
-      console.log(dataLogin);
+      localStorage.setItem("access-token", dataLogin.access);
+      localStorage.setItem("refresh-token", dataLogin.refresh);
     }
 
     if (loginLoading) {
-      console.log("loading");
     }
   }, [dataLogin, loginError, loginLoading]);
 
@@ -70,6 +70,8 @@ export const InputV = () => {
       showPassword: !values.showPassword,
     });
   };
+
+
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();

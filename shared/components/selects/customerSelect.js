@@ -25,7 +25,9 @@ export default function ClientSelect({ formik }) {
       var Clients = [];
       data.data.map((client) => {
         Clients.push({
-          label: `${client.first_name} ${client.last_name}`,
+          label: client.first_name
+            ? client.first_name + " " + client.last_name
+            : client.social_reason,
           value: client.id,
         });
       });
@@ -68,7 +70,7 @@ export default function ClientSelect({ formik }) {
               variant="standard"
               {...params}
               name="client"
-              placeholder="Corredor"
+              placeholder="Inversionista"
               value={formik.values.client}
               error={formik.touched.client && Boolean(formik.errors.client)}
               sx={

@@ -4,6 +4,7 @@ import { Grid } from "@mui/material";
 import Layout from "../shared/components/layout";
 import Head from "next/head";
 
+
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
   return (
