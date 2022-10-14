@@ -7,7 +7,7 @@ export const GetBrokerList = async (data) => {
     "https://smart-evolution-api2.herokuapp.com/api/broker/",
     {
       headers: {
-        authorization: "Bearer " + token,
+        authorization: "Bearer " + localStorage.getItem("access-token"),
       },
     }
   );
@@ -19,7 +19,7 @@ export const GetBrokerListByQuery = async (page) => {
     `https://smart-evolution-api2.herokuapp.com/api/broker/?page=${page}`,
     {
       headers: {
-        authorization: "Bearer " + token,
+        authorization: "Bearer " + localStorage.getItem("access-token"),
       },
     }
   );
@@ -31,7 +31,7 @@ export const DeleteBrokerById = async (id) => {
     `https://smart-evolution-api2.herokuapp.com/api/broker/${id}`,
     {
       headers: {
-        authorization: "Bearer " + token,
+        authorization: "Bearer " + localStorage.getItem("access-token"),
       },
     }
   );
@@ -43,7 +43,7 @@ export const GetFinancialProfileById = async (id) => {
     `https://smart-evolution-api2.herokuapp.com/api/financial_profile/${id}`,
     {
       headers: {
-        authorization: "Bearer " + token,
+        authorization: "Bearer " + localStorage.getItem("access-token"),
       },
     }
   );

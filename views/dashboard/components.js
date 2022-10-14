@@ -20,7 +20,7 @@ export const DashboardContent = () => {
           </b>
           <br></br> - Bill Cosby
         </Typography>
-        <Image src="/assets/Ilustración - Home.svg" height={500} width={500} />
+        <Image src="/assets/Ilustración - Home.svg" height={500} width={500} priority={true} />
       </Box>
       <Box
         height="26.1vh"

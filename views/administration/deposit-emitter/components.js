@@ -73,6 +73,7 @@ export const Deposit = ({ formik, option }) => {
                 alt="clients"
                 width={500}
                 height={500}
+                priority={true}
               />
             </Grid>
             <Grid

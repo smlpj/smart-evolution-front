@@ -8,7 +8,7 @@ export const Departments = async (data) => {
     "https://smart-evolution-api2.herokuapp.com/api/department",
     {
       headers: {
-        authorization: "Bearer " + token,
+        authorization: "Bearer " + localStorage.getItem("access-token"),
       },
     }
   );
@@ -20,7 +20,7 @@ export const Cities = async (data) => {
     `https://smart-evolution-api2.herokuapp.com/api/city/${data.department}`,
     {
       headers: {
-        authorization: "Bearer " + token,
+        authorization: "Bearer " + localStorage.getItem("access-token"),
       },
     }
   );
@@ -32,7 +32,7 @@ export const IdentityType = async (data) => {
     "https://smart-evolution-api2.herokuapp.com/api/type_identity/",
     {
       headers: {
-        authorization: "Bearer " + token,
+        authorization: "Bearer " + localStorage.getItem("access-token"),
       },
     }
   );
@@ -44,7 +44,7 @@ export const Broker = async (data) => {
     "https://smart-evolution-api2.herokuapp.com/api/broker/",
     {
       headers: {
-        authorization: "Bearer " + token,
+        authorization: "Bearer " + localStorage.getItem("access-token"),
       },
     }
   );
@@ -56,7 +56,7 @@ export const ClientType = async (data) => {
     "https://smart-evolution-api2.herokuapp.com/api/type_client/",
     {
       headers: {
-        authorization: "Bearer " + token,
+        authorization: "Bearer " + localStorage.getItem("access-token"),
       },
     }
   );
@@ -67,7 +67,7 @@ export const CIIU = async (data) => {
     "https://smart-evolution-api2.herokuapp.com/api/ciiu/",
     {
       headers: {
-        authorization: "Bearer " + token,
+        authorization: "Bearer " + localStorage.getItem("access-token"),
       },
     }
   );
@@ -79,7 +79,7 @@ export const Citizenship = async (data) => {
     "https://smart-evolution-api2.herokuapp.com/api/country/",
     {
       headers: {
-        authorization: "Bearer " + token,
+        authorization: "Bearer " + localStorage.getItem("access-token"),
       },
     }
   );
@@ -91,7 +91,7 @@ export const Clients = async (data) => {
     "https://smart-evolution-api2.herokuapp.com/api/client/all",
     {
       headers: {
-        authorization: "Bearer " + token,
+        authorization: "Bearer " + localStorage.getItem("access-token"),
       },
     }
   );
@@ -103,7 +103,7 @@ export const AccountsFromClient = async (data) => {
     "https://smart-evolution-api2.herokuapp.com/api/account/client/" + data.client,
     {
       headers: {
-        authorization: "Bearer " + token,
+        authorization: "Bearer " + localStorage.getItem("access-token"),
       },
     }
   );

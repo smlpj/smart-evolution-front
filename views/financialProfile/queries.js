@@ -8,7 +8,7 @@ export const GetFinancialProfileById = async (id) => {
     `https://smart-evolution-api2.herokuapp.com/api/financial_profile/${id}`,
     {
       headers: {
-        authorization: "Bearer " + token,
+        authorization: "Bearer " + localStorage.getItem("access-token"),
       },
     }
   );
@@ -21,7 +21,7 @@ export const GetCustomerById = async (id) => {
     `https://smart-evolution-api2.herokuapp.com/api/client/${id}`,
     {
       headers: {
-        authorization: "Bearer " + token,
+        authorization: "Bearer " + localStorage.getItem("access-token"),
       },
     }
   );

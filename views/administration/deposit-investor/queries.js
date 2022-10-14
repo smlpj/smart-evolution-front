@@ -8,7 +8,7 @@ export const RegisterDepositQuery = async (data) => {
     data,
     {
       headers: {
-        authorization: "Bearer " + token,
+        authorization: "Bearer " + localStorage.getItem("access-token"),
       },
     }
   );
@@ -20,7 +20,7 @@ export const GetDepositByID = async (id) => {
     `https://smart-evolution-api2.herokuapp.com/api/deposit/${id}`,
     {
       headers: {
-        authorization: "Bearer " + token,
+        authorization: "Bearer " + localStorage.getItem("access-token"),
       },
     }
   );
@@ -34,7 +34,7 @@ export const ModifyDepositQuery = async (data) => {
     data,
     {
       headers: {
-        authorization: "Bearer " + token,
+        authorization: "Bearer " + localStorage.getItem("access-token"),
       },
     }
   );

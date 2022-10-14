@@ -8,7 +8,7 @@ export const RegisterClientQuery = async (data) => {
     data,
     {
       headers: {
-        authorization: "Bearer " + token,
+        authorization: "Bearer " + localStorage.getItem("access-token"),
       },
     }
   );
@@ -20,7 +20,7 @@ export const GetClientByID = async (id) => {
     `https://smart-evolution-api2.herokuapp.com/api/client/${id}`,
     {
       headers: {
-        authorization: "Bearer " + token,
+        authorization: "Bearer " + localStorage.getItem("access-token"),
       },
     }
   );
@@ -34,7 +34,7 @@ export const ModifyClientQuery = async (data) => {
     data,
     {
       headers: {
-        authorization: "Bearer " + token,
+        authorization: "Bearer " + localStorage.getItem("access-token"),
       },
     }
   );

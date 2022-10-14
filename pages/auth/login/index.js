@@ -45,6 +45,7 @@ export default function Home() {
               src="/assets/Ilustración - Inicio de sesión.svg"
               height='400%'
               width='400%'
+              priority={true}
             />
           </div>
         </Grid>
