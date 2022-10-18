@@ -115,7 +115,7 @@ export const AccountTypes = async (data) => {
     "https://smart-evolution-api2.herokuapp.com/api/account_type/",
     {
       headers: {
-        authorization: "Bearer " + token,
+        authorization: "Bearer " + localStorage.getItem("access-token"),
       },
     }
   );
@@ -127,20 +127,19 @@ export const Banks = async (data) => {
     "https://smart-evolution-api2.herokuapp.com/api/bank/",
     {
       headers: {
-        authorization: "Bearer " + token,
+        authorization: "Bearer " + localStorage.getItem("access-token"),
       },
     }
   );
   return res.data;
-}
-;
+};
 
 export const Egresses = async (data) => {
   const res = await Axios.get(
-    "https://smart-evolution-api2.herokuapp.com/api/bank/",
+    "https://smart-evolution-api2.herokuapp.com/api/type_expenditure/",
     {
       headers: {
-        authorization: "Bearer " + token,
+        authorization: "Bearer " + localStorage.getItem("access-token"),
       },
     }
   );
