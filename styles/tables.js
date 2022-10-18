@@ -50,6 +50,31 @@ const CustomDataGrid = styled(DataGrid)({
     "&:focus": {
       outline: "none",
     },
+    "&:focus-within": {
+      outline: "none",
+    },
+
+    "&.MuiDataGrid-cell--editing": {
+      backgroundColor: "transparent",
+      "&:focus": {
+        outline: "none",
+      },
+      "&:focus-within": {
+        outline: "none",
+      },
+      "& .css-1b74o31-MuiInputBase-root-MuiDataGrid-editInputCell": {
+        width: "100%",
+        color: "#488B8F",
+        border: "1px solid #488B8F",
+        padding: "7px 0px",
+        borderRadius: "4px",
+        backgroundColor: "#488B8F1A",
+        fontFamily: "Montserrat",
+        fontSize: "0.9rem",
+        fontWeight: "600",
+        textAlign: "right",
+      },
+    },
   },
   "& .MuiDataGrid-columnsContainer": {
     backgroundColor: "#F5F5F5",
