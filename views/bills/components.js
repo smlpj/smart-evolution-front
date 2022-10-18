@@ -97,7 +97,7 @@ export const BillsComponents = () => {
           RetICA: 0,
           RetFTE: 0,
           SubTotal: bill.subTotal,
-          Total: bill.total,
+          Total: 0,
         });
       });
 
@@ -318,7 +318,7 @@ export const BillsComponents = () => {
           placeholder="0"
           value={
             rowsToApplyRETIVA.includes(params.row)
-              ? Math.round(params.value)
+              ? Math.round(params.row.IVA * 0.15)
               : 0
           }
           type="number"
@@ -533,12 +533,18 @@ export const BillsComponents = () => {
       renderCell: (params) => {
         return (
           <InputTitles>
-            {params.row.BillValue +
-              params.row.IVA -
-              (params.row.RetIVA +
-                (params.row.RetICA / 100) * params.row.SubTotal +
-                (params.row.RetFTE / 100) * params.row.SubTotal +
-                params.row.CreditNote)}
+            {rowsToApplyRETIVA.includes(params.row)
+              ? params.row.BillValue +
+                params.row.IVA -
+                params.row.IVA * 0.15 -
+                (params.row.RetICA / 100) * params.row.SubTotal -
+                (params.row.RetFTE / 100) * params.row.SubTotal -
+                params.row.CreditNote
+              : params.row.BillValue +
+                params.row.IVA -
+                (params.row.RetICA / 100) * params.row.SubTotal -
+                (params.row.RetFTE / 100) * params.row.SubTotal -
+                params.row.CreditNote}
           </InputTitles>
         );
       },
