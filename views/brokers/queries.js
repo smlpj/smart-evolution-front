@@ -8,7 +8,7 @@ export const RegisterBrokerQuery = async (data) => {
     data,
     {
       headers: {
-        authorization: "Bearer " + token,
+        authorization: "Bearer " + localStorage.getItem("access-token"),
       },
     }
   );
@@ -20,7 +20,7 @@ export const GetBrokerByID = async (id) => {
     `https://smart-evolution-api2.herokuapp.com/api/broker/${id}`,
     {
       headers: {
-        authorization: "Bearer " + token,
+        authorization: "Bearer " + localStorage.getItem("access-token"),
       },
     }
   );
@@ -34,7 +34,7 @@ export const ModifyBrokerQuery = async (data) => {
     data,
     {
       headers: {
-        authorization: "Bearer " + token,
+        authorization: "Bearer " + localStorage.getItem("access-token"),
       },
     }
   );
