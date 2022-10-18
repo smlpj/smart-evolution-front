@@ -65,10 +65,10 @@ export const BillsComponents = () => {
     }
   }, [creditNote]);
 
-  const sumOfAllCreditNotes = (data) => {
+  const sumOfAllCreditNotes = (array, id) => {
     let sum = 0;
-    data.forEach((element) => {
-      sum += element.value;
+    array.map((creditNote) => {
+      creditNote.associatedInvoice === id ? (sum += creditNote.total) : 0;
     });
     return sum;
   };
@@ -76,7 +76,7 @@ export const BillsComponents = () => {
   useEffect(() => {
     if (data) {
       let Bills = [];
-      data.data.map((bill) => {
+      data.bills.map((bill) => {
         Bills.push({
           id: bill.billId,
           Status: bill.typeBill,
@@ -88,24 +88,22 @@ export const BillsComponents = () => {
           datePayment: format(new Date(bill.datePayment), "dd / MM / yyyy"),
           BillValue: bill.billValue,
           IVA: bill.iva,
-          RetIVA: bill.iva * 0.15,
-          CreditNote: data2
-            ? data2.data.map((creditNote) =>
-                creditNote.associatedInvoice === bill.billId
-                  ? creditNote.creditNoteValue
-                  : 0
-              )
-            : 0,
+          RetIVA: 0,
+          CreditNote:
+            data2 !== null || data2 !== undefined || data2 !== []
+              ? sumOfAllCreditNotes(data2.data, bill.billId)
+              : 0,
+
           RetICA: 0,
           RetFTE: 0,
           SubTotal: bill.subTotal,
           Total: bill.total,
         });
       });
-      console.log(data);
+
       setBill(Bills);
     }
-  }, [data]);
+  }, [data, data2]);
 
   const columns = [
     {
@@ -313,24 +311,59 @@ export const BillsComponents = () => {
       headerName: "RET. IVA",
       width: 130,
       sortable: false,
+      editable: false,
       renderCell: (params) => (
-        <Typography
-          fontFamily="Montserrat"
-          fontSize="100%"
-          width="100%"
-          fontWeight="bold"
-          color="#488B8F"
-          backgroundColor="#488B8F1A"
-          textTransform="uppercase"
-          border="1px solid #488B8F"
-          textAlign="right"
-          padding="5.5% 8%"
-          borderRadius="4px"
-        >
-          {rowsToApplyRETIVA.includes(params.row)
-            ? Math.round(params.value)
-            : 0}
-        </Typography>
+        <TextField
+          id="IVA"
+          placeholder="0"
+          value={
+            rowsToApplyRETIVA.includes(params.row)
+              ? Math.round(params.value)
+              : 0
+          }
+          type="number"
+          variant="standard"
+          sx={{
+            backgroundColor: "#488B8F1A",
+            border: "1px solid #488B8F",
+            borderRadius: "4px",
+            padding: "10px",
+            height: "0.8rem",
+            width: "5rem",
+            textAlign: "right",
+            alignContent: "center",
+            "input::-webkit-outer-spin-button": {
+              "-webkit-appearance": "none",
+              margin: 0,
+            },
+            "input::-webkit-inner-spin-button": {
+              "-webkit-appearance": "none",
+              margin: 0,
+            },
+            "& .MuiInputBase-input": {
+              padding: "2px",
+              fontFamily: "Montserrat",
+              color: "#488B8F",
+              fontSize: "0.9rem",
+              fontWeight: "600",
+              textAlign: "right",
+
+              "&::placeholder": {
+                color: "#488B8F",
+                fontSize: "0.9rem",
+                fontWeight: "600",
+                textAlign: "right",
+                opacity: 1,
+              },
+            },
+          }}
+          InputProps={{
+            disableUnderline: true,
+            sx: {
+              marginTop: "-5px",
+            },
+          }}
+        />
       ),
     },
     {
@@ -486,7 +519,11 @@ export const BillsComponents = () => {
       headerName: "SUBTOTAL",
       width: 100,
       renderCell: (params) => {
-        return <InputTitles>{params.value}</InputTitles>;
+        return (
+          <InputTitles>
+            {params.row.BillValue + params.row.IVA - params.row.CreditNote}
+          </InputTitles>
+        );
       },
     },
     {
@@ -494,7 +531,16 @@ export const BillsComponents = () => {
       headerName: "TOTAL",
       width: 100,
       renderCell: (params) => {
-        return <InputTitles>{params.value}</InputTitles>;
+        return (
+          <InputTitles>
+            {params.row.BillValue +
+              params.row.IVA -
+              (params.row.RetIVA +
+                (params.row.RetICA / 100) * params.row.SubTotal +
+                (params.row.RetFTE / 100) * params.row.SubTotal +
+                params.row.CreditNote)}
+          </InputTitles>
+        );
       },
     },
   ];
@@ -593,6 +639,7 @@ export const BillsComponents = () => {
                 backgroundColor: "#B5D1C9",
               },
               height: "3rem",
+              marginLeft: "0.8rem",
             }}
             onClick={() => {
               creditNoteFile.current.click();
@@ -670,7 +717,12 @@ export const BillsComponents = () => {
                 id="ICA"
                 placeholder="0,00%"
                 onChange={(e) => {
-                  setRetICA(e.target.value);
+                  const value = e.target.value;
+                  if (value > 100 || value < 0) {
+                    alert("El valor debe estar entre 0 y 100");
+                  } else {
+                    setRetICA(value);
+                  }
                 }}
                 disabled={rowsToModify.length === 0 ? true : false}
                 type="number"
@@ -770,7 +822,12 @@ export const BillsComponents = () => {
                 id="FTE"
                 placeholder="0,00%"
                 onChange={(e) => {
-                  setRetFTE(e.target.value);
+                  const value = e.target.value;
+                  if (value > 100 || value < 0) {
+                    alert("El valor debe estar entre 0 y 100");
+                  } else {
+                    setRetFTE(value);
+                  }
                 }}
                 disabled={rowsToModify.length === 0 ? true : false}
                 type="number"

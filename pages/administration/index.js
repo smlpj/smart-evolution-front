@@ -1,4 +1,4 @@
-import Operations from "../../views/operations";
+import Administration from "../../views/administration";
 export default function index() {
-  return <Operations />;
+  return <Administration />;
 }
