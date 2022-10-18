@@ -1,4 +1,4 @@
-import { Clients } from "./queries";
+import { Egresses } from "./queries";
 import { useFetch } from "../../hooks/useFetch";
 import { useEffect, useState } from "react";
 import { Box } from "@mui/system";
@@ -9,59 +9,60 @@ import Clear from "@mui/icons-material/Clear";
 import MuiTextField from "../../../styles/fields";
 import HelperText from "../../../styles/helperText";
 
-export default function ClientSelect({ formik , customer}) {
+export default function EgressSelect({ formik }) {
   // Hooks
   const {
     fetch: fetch,
     loading: loading,
     error: error,
     data: data,
-  } = useFetch({ service: Clients, init: true });
+  } = useFetch({ service: Egresses, init: true });
 
-  const [client, setClient] = useState([]);
+  const [egress, setEgress] = useState([]);
 
   useEffect(() => {
     if (data) {
-      var Clients = [];
-      data.data.map((client) => {
-        Clients.push({
-          label: client.first_name
-            ? client.first_name + " " + client.last_name
-            : client.social_reason,
-          value: client.id,
+      var egresss = [];
+      data.data.map((egress) => {
+        egresss.push({
+          label: `${egress.description}`,
+          value: egress.id,
         });
       });
-      setClient(Clients);
+      setEgress(egresss);
     }
 
     if (error) console.log(error);
   }, [data, loading, error]);
 
+  useEffect(() => {
+    fetch();
+  }, [formik.values.client]);
+
   return (
     <Box width="17vw">
       <Box>
-        <InputTitles marginBottom={2}>Nombre {customer? customer : "Inversionista"}</InputTitles>
+        <InputTitles marginBottom={2}>Tipo de Egreso</InputTitles>
         <Autocomplete
-          id="client"
+          id="egress"
           disablePortal
-          options={client}
+          options={egress}
           getOptionLabel={(option) => option.label}
           onChange={(e, value) => {
             if (value !== null) {
-              formik.setFieldValue("client", value.value);
+              formik.setFieldValue("egress", value.value);
             } else {
-              formik.setFieldValue("client", null);
+              formik.setFieldValue("egress", null);
             }
           }}
           color="#5EA3A3"
           inputValue={
-            client.filter((option) => option.value === formik.values.client)[0]
+            egress.filter((option) => option.value === formik.values.egress)[0]
               ?.label
           }
           value={
-            client.filter(
-              (option) => option.value === formik.values.client
-            )[0] || null
+            egress.filter((option) => option.value === formik.values.egress)[0] ||
+            null
           }
           popupIcon={<KeyboardArrowDownIcon sx={{ color: "#5EA3A3" }} />}
           clearIcon={<Clear sx={{ color: "#5EA3A3" }} />}
@@ -69,12 +70,12 @@ export default function ClientSelect({ formik , customer}) {
             <MuiTextField
               variant="standard"
               {...params}
-              name="client"
-              placeholder={customer? customer : "Inversionista"}
-              value={formik.values.client}
-              error={formik.touched.client && Boolean(formik.errors.client)}
+              name="egress"
+              placeholder="Tipo de Egreso"
+              value={formik.values.egress}
+              error={formik.touched.egress && Boolean(formik.errors.egress)}
               sx={
-                formik.touched.client && Boolean(formik.errors.client)
+                formik.touched.egress && Boolean(formik.errors.egress)
                   ? { border: "1.4px solid #E6643180" }
                   : null
               }
@@ -89,7 +90,7 @@ export default function ClientSelect({ formik , customer}) {
           )}
         />
         <HelperText position="fixed">
-          {formik.touched.client && formik.errors.client}
+          {formik.touched.egress && formik.errors.egress}
         </HelperText>
       </Box>
     </Box>
