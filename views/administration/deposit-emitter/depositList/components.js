@@ -99,7 +99,9 @@ export const DepositListComponent = () => {
       filterable: false,
       renderCell: (params) => {
         return (
-          <Link href={`/administration/deposit-emitter/?modify=${params.row.id}`}>
+          <Link
+            href={`/administration/deposit-emitter/?modify=${params.row.id}`}
+          >
             <CustomTooltip
               title="Editar giro"
               arrow
@@ -271,7 +273,10 @@ export const DepositListComponent = () => {
           >
             Consulta de giro-emisor
           </Typography>
-          <Link href="/administration/deposit-emitter?=register" underline="none">
+          <Link
+            href="/administration/deposit-emitter?=register"
+            underline="none"
+          >
             <Button
               variant="standard"
               color="primary"
@@ -440,12 +445,10 @@ export const DepositListComponent = () => {
                   alignItems="center"
                   justifyContent="center"
                   backgroundColor="#F5F5F5"
-
                 >
                   No hay giros-emisores registrados
                 </Typography>
               ),
-          
 
               Pagination: () => (
                 <Box

@@ -231,8 +231,6 @@ export const BrokerListComponent = () => {
         });
       });
       setBroker(Brokers);
-
-      console.log(data);
     }
 
     if (error) console.log(error);
