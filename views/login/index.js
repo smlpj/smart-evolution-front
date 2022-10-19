@@ -1,48 +1,55 @@
-import * as React from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+// hooks
+import { useEffect, useState } from "react";
 import { useFormik } from "formik";
-import * as yup from "yup";
-import { InputAdornments } from "./components";
 import { useFetch } from "../../shared/hooks/useFetch";
-
+//queries
 import { login } from "./queries";
+// validations
+import { string, object } from "yup";
+// views
+import { InputAdornments } from "./components";
+// alerts and notifications
+import { Toast } from '../../shared/components/toast'
+import { ToastContainer } from "react-toastify";
+// router
+import { useRouter } from 'next/router'
 
 export const InputV = () => {
   // Hooks
   const {
-    fetch: loginAux,
-    loading: loginLoading,
-    error: loginError,
-    data: dataLogin,
+    fetch: loginFetch,
+    loading: Loading,
+    error  : Error,
+    data   : data,
   } = useFetch({ service: login, init: false });
 
+  const router = useRouter()
+
   // Effects
-
-  React.useEffect(() => {
-    if (loginError) {
-      alert();
+  useEffect(() => {
+    if (Error) {
+      Toast("Usuario y/o Contraseña incorrectos", "error");
     }
 
-    if (dataLogin !== undefined) {
-      console.log(dataLogin);
+    if (data !== undefined) {
+      localStorage.setItem("access-token", data.access);
+      localStorage.setItem("refresh-token", data.refresh);
+      Toast("bienvenido", "success");
+      router.push('/dashboard')
     }
+  }, [data, Error]);
 
-    if (loginLoading) {
-      console.log("loading");
-    }
-  }, [dataLogin, loginError, loginLoading]);
+  const validationSchema = object({
+    email:  string("Ingresa un email")
+            .matches(
+            /^[a-zA-Z]+[a-zA-Z0-9_.]+@[a-zA-Z.]+[a-zA-Z]$/,
+            "Ingresa un email válido")
+            .required("El email es requerido"),
 
-  const validationSchema = yup.object({
-    email: yup
-      .string("Ingresa un email")
-      .matches(
-        /^[a-zA-Z]+[a-zA-Z0-9_.]+@[a-zA-Z.]+[a-zA-Z]$/,
-        "Ingresa un email válido"
-      )
-      .required("El email es requerido"),
-    password: yup
-      .string("Ingresa una contraseña")
-      .min(8, "La contraseña debe tener al menos 8 caracteres")
-      .required("La contraseña es requerida"),
+    password: string("Ingresa una contraseña")
+              .min(8, "La contraseña debe tener al menos 8 caracteres")
+              .required("La contraseña es requerida"),
   });
 
   const formik = useFormik({
@@ -52,11 +59,11 @@ export const InputV = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      loginAux(values);
+      loginFetch(values);
     },
   });
 
-  const [values, setValues] = React.useState({
+  const [values, setValues] = useState({
     amount: "",
     password: "",
     weight: "",
@@ -71,6 +78,8 @@ export const InputV = () => {
     });
   };
 
+
+
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
@@ -83,6 +92,7 @@ export const InputV = () => {
         setValues={setValues}
         handleClickShowPassword={handleClickShowPassword}
         handleMouseDownPassword={handleMouseDownPassword}
+        ToastContainer={ToastContainer}
       />
     </>
   );

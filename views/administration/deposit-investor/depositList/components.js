@@ -4,9 +4,9 @@ import { Typography } from "@mui/material";
 import Link from "next/link";
 import InputTitles from "../../../../styles/inputTitles";
 import {
-  GetBrokerList,
-  GetBrokerListByQuery,
-  DeleteBrokerById,
+  GetDepositList,
+  GetDepositListByQuery,
+  DeleteDepositById,
 } from "./queries";
 import { useFetch } from "../../../../shared/hooks/useFetch";
 import { useEffect, useState } from "react";
@@ -20,12 +20,36 @@ import { SearchOutlined } from "@mui/icons-material";
 
 let dataCount;
 
-export const BrokerListComponent = () => {
+export const DepositListComponent = () => {
   const columns = [
     {
-      field: "DocumentNumber",
-      headerName: "# ID",
-      width: 110,
+      field: "id",
+      headerName: "ID",
+      width: 200,
+      renderCell: (params) => (
+        <CustomTooltip
+          title={params.value}
+          placement="bottom-start"
+          TransitionComponent={Fade}
+          PopperProps={{
+            modifiers: [
+              {
+                name: "offset",
+                options: {
+                  offset: [0, 0],
+                },
+              },
+            ],
+          }}
+        >
+          <InputTitles>{params.value}</InputTitles>
+        </CustomTooltip>
+      ),
+    },
+    {
+      field: "broker",
+      headerName: "INVERSIONISTA",
+      width: 200,
       renderCell: (params) => {
         return (
           <CustomTooltip
@@ -50,59 +74,17 @@ export const BrokerListComponent = () => {
       },
     },
     {
-      field: "Broker",
-      headerName: "CORREDOR",
-      width: 160,
-      renderCell: (params) => {
-        return (
-          <CustomTooltip
-            title={params.value}
-            arrow
-            placement="bottom-start"
-            TransitionComponent={Fade}
-            PopperProps={{
-              modifiers: [
-                {
-                  name: "offset",
-                  options: {
-                    offset: [0, 0],
-                  },
-                },
-              ],
-            }}
-          >
-            <InputTitles>{params.value}</InputTitles>
-          </CustomTooltip>
-        );
-      },
-    },
-    {
-      field: "Status",
-      headerName: "ESTATUS",
-      width: 120,
-      renderCell: (params) => {
-        return (
-          <Typography
-            fontFamily="Montserrat"
-            fontSize="80%"
-            width="100%"
-            fontWeight="bold"
-            color="#488B8F"
-            backgroundColor="#B5D1C9"
-            textTransform="uppercase"
-            textAlign="center"
-            padding="5.5% 8%"
-            borderRadius="4px"
-          >
-            {params.value === true ? "Validado" : "En proceso"}
-          </Typography>
-        );
-      },
-    },
-    {
-      field: "DateCreated",
+      field: "date",
       headerName: "FECHA",
-      width: 100,
+      width: 200,
+      renderCell: (params) => {
+        return <InputTitles>{params.value}</InputTitles>;
+      },
+    },
+    {
+      field: "amount",
+      headerName: "MONTO",
+      width: 200,
       renderCell: (params) => {
         return <InputTitles>{params.value}</InputTitles>;
       },
@@ -110,16 +92,18 @@ export const BrokerListComponent = () => {
 
     //Iconos de acciones
     {
-      field: "Editar corredor",
+      field: "Editar giro",
       headerName: "",
       width: 50,
       sortable: false,
       filterable: false,
       renderCell: (params) => {
         return (
-          <Link href={`/brokers?modify=${params.row.id}`}>
+          <Link
+            href={`/administration/deposit-investor/?modify=${params.row.id}`}
+          >
             <CustomTooltip
-              title="Editar corredor"
+              title="Editar giro"
               arrow
               placement="bottom-start"
               TransitionComponent={Fade}
@@ -190,11 +174,11 @@ export const BrokerListComponent = () => {
                 },
                 cursor: "pointer",
               }}
-              //Delete broker by id
+              //Delete deposit by id
 
               onClick={() => {
-                setBroker(broker.filter((item) => item.id !== params.row.id));
-                DeleteBrokerById(params.row.id);
+                setDeposit(deposit.filter((item) => item.id !== params.row.id));
+                DeleteDepositById(params.row.id);
               }}
             >
               &#xe901;
@@ -210,29 +194,26 @@ export const BrokerListComponent = () => {
     loading: loading,
     error: error,
     data: data,
-  } = useFetch({ service: GetBrokerList, init: true });
+  } = useFetch({ service: GetDepositList, init: true });
 
-  const [broker, setBroker] = useState([]);
+  const [deposit, setDeposit] = useState([]);
   const [page, setPage] = useState(1);
 
   useEffect(() => {
     if (data) {
-      let Brokers = [];
+      let Deposits = [];
       dataCount = data.count;
-      data.results.map((broker) => {
-        Brokers.push({
-          id: broker.id,
-          DocumentNumber: broker.document_number,
-          Broker: `${broker.first_name ?? ""} ${broker.last_name ?? ""} ${
-            broker.social_reason ?? ""
-          }`,
-          Status: broker.state,
-          DateCreated: format(new Date(broker.created_at), "dd / MM / yyyy"),
+      data.results.map((deposit) => {
+        Deposits.push({
+          id: deposit.id,
+          broker: deposit.client.first_name
+            ? deposit.client.first_name + " " + deposit.client.last_name
+            : deposit.client.social_reason,
+          amount: deposit.amount,
+          date: format(new Date(deposit.date), "dd / MM / yyyy"),
         });
       });
-      setBroker(Brokers);
-
-      console.log(data);
+      setDeposit(Deposits);
     }
 
     if (error) console.log(error);
@@ -244,29 +225,25 @@ export const BrokerListComponent = () => {
     error: error2,
     data: data2,
   } = useFetch({
-    service: GetBrokerListByQuery,
+    service: GetDepositListByQuery,
     init: false,
   });
 
   useEffect(() => {
     if (data2) {
-      let Brokers = [];
+      let Deposits = [];
       let pageSizeForPagination = data2.count;
-      data2.results.map((broker) => {
-        Brokers.push({
-          id: broker.id,
-          DocumentNumber: broker.document_number,
-          Broker: `${broker.first_name ?? ""} ${broker.last_name ?? ""} ${
-            broker.social_reason ?? ""
-          }`,
-          Status: broker.status,
-          EnteredBy: `${broker.entered_by.first_name} ${broker.entered_by.last_name}`,
-          DateCreated: format(new Date(broker.created_at), "dd / MM / yyyy"),
-          FinancialProfile: broker.financial_profile,
-          RiskProfile: broker.risk_profile,
+      data2.results.map((deposit) => {
+        Deposits.push({
+          id: deposit.id,
+          broker: deposit.client.first_name
+            ? deposit.client.first_name + " " + deposit.client.last_name
+            : deposit.client.social_reason,
+          amount: deposit.amount,
+          date: format(new Date(deposit.date), "dd / MM / yyyy"),
         });
       });
-      setBroker(Brokers);
+      setDeposit(Deposits);
     }
   }, [data2, loading2, error2]);
 
@@ -294,9 +271,12 @@ export const BrokerListComponent = () => {
             marginBottom="0.7rem"
             color="#5EA3A3"
           >
-            Consulta de Corredores
+            Consulta de giro-inversionista
           </Typography>
-          <Link href="/brokers?=register" underline="none">
+          <Link
+            href="/administration/deposit-investor?=register"
+            underline="none"
+          >
             <Button
               variant="standard"
               color="primary"
@@ -315,7 +295,7 @@ export const BrokerListComponent = () => {
                 fontWeight="bold"
                 color="#63595C"
               >
-                Registrar nuevo corredor
+                Registrar nuevo giro-inversionista
               </Typography>
 
               <Typography
@@ -330,7 +310,7 @@ export const BrokerListComponent = () => {
           </Link>
         </Box>
         <Box container display="flex" flexDirection="column" mt={3}>
-          <InputTitles>Buscar corredor</InputTitles>
+          <InputTitles>Buscar por</InputTitles>
           <Box
             container
             display="flex"
@@ -357,7 +337,7 @@ export const BrokerListComponent = () => {
                 color="#5EA3A3"
                 textTransform="none"
               >
-                Corredor
+                Inversionista
               </Typography>
             </Button>
             <Button
@@ -379,7 +359,7 @@ export const BrokerListComponent = () => {
                 color="#5EA3A3"
                 textTransform="none"
               >
-                Nº ID Corredor
+                Nº ID
               </Typography>
             </Button>
             <Button
@@ -401,12 +381,12 @@ export const BrokerListComponent = () => {
                 color="#5EA3A3"
                 textTransform="none"
               >
-                Estatus
+                Fecha
               </Typography>
             </Button>
             <MuiTextField
-              id="searchBroker"
-              placeholder="Nombre de corredor"
+              id="searchDeposit"
+              placeholder="Buscar"
               type="text"
               variant="standard"
               margin="normal"
@@ -433,7 +413,7 @@ export const BrokerListComponent = () => {
           height="100%"
         >
           <CustomDataGrid
-            rows={broker}
+            rows={deposit}
             columns={columns}
             pageSize={15}
             rowsPerPageOptions={[5]}
@@ -449,6 +429,24 @@ export const BrokerListComponent = () => {
               ColumnSortedDescendingIcon: () => (
                 <Typography fontFamily="icomoon" fontSize="0.7rem">
                   &#xe908;
+                </Typography>
+              ),
+
+              NoRowsOverlay: () => (
+                <Typography
+                  letterSpacing={0}
+                  fontSize="1.2rem"
+                  fontFamily="Montserrat"
+                  fontWeight="regular"
+                  color="#5EA3A3"
+                  height="100%"
+                  width="100%"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                  backgroundColor="#F5F5F5"
+                >
+                  No hay giros-inversionistas registrados
                 </Typography>
               ),
 

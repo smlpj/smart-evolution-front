@@ -1,4 +1,10 @@
-import { Checkbox, IconButton, TextField, Typography } from "@mui/material";
+import {
+  Checkbox,
+  IconButton,
+  Switch,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import InputTitles from "../../styles/inputTitles";
 import MuiTextField from "../../styles/fields";
@@ -19,11 +25,12 @@ import { format } from "date-fns";
 export const BillsComponents = () => {
   const [rowsToModify, setRowsToModify] = useState([]);
   const [rowsToApplyRETIVA, setRowsToApplyRETIVA] = useState([]);
-  const fileInput = useRef();
+  const billFile = useRef();
+  const creditNoteFile = useRef();
+  const [creditNote, setCreditNote] = useState([]);
   const [filesBill, setFilesBill] = useState([]);
   const [bill, setBill] = useState([]);
   const [otherRet, setOtherRet] = useState([]);
-  const [creditNote, setCreditNote] = useState([]);
   const [retICA, setRetICA] = useState(0);
   const [retFTE, setRetFTE] = useState(0);
 
@@ -53,6 +60,20 @@ export const BillsComponents = () => {
   }, [filesBill]);
 
   useEffect(() => {
+    if (creditNote !== []) {
+      fetch2(creditNote);
+    }
+  }, [creditNote]);
+
+  const sumOfAllCreditNotes = (data) => {
+    let sum = 0;
+    data.forEach((element) => {
+      sum += element.value;
+    });
+    return sum;
+  };
+
+  useEffect(() => {
     if (data) {
       let Bills = [];
       data.data.map((bill) => {
@@ -68,7 +89,13 @@ export const BillsComponents = () => {
           BillValue: bill.billValue,
           IVA: bill.iva,
           RetIVA: bill.iva * 0.15,
-          CreditNote: 0,
+          CreditNote: data2
+            ? data2.data.map((creditNote) =>
+                creditNote.associatedInvoice === bill.billId
+                  ? creditNote.creditNoteValue
+                  : 0
+              )
+            : 0,
           RetICA: 0,
           RetFTE: 0,
           SubTotal: bill.subTotal,
@@ -81,59 +108,6 @@ export const BillsComponents = () => {
   }, [data]);
 
   const columns = [
-    {
-      field: "Status",
-      headerName: "TIPO DE FACTURA",
-      width: 130,
-      renderCell: (params) => {
-        return (
-          <Typography
-            fontFamily="Montserrat"
-            fontSize="80%"
-            width="100%"
-            fontWeight="bold"
-            color="white"
-            backgroundColor="#488B8F"
-            textTransform="uppercase"
-            textAlign="center"
-            padding="5.5% 8%"
-            border="1.4px solid #B5D1C9"
-            borderRadius="4px"
-          >
-            {params.value !== null
-              ? params.value === "a7c70741-8c1a-4485-8ed4-5297e54a978a"
-                ? "FV-TV"
-                : "FV"
-              : null}
-          </Typography>
-        );
-      },
-    },
-    {
-      field: "id",
-      headerName: "ID",
-      width: 70,
-      renderCell: (params) => (
-        <CustomTooltip
-          title={params.value}
-          arrow
-          placement="bottom-start"
-          TransitionComponent={Fade}
-          PopperProps={{
-            modifiers: [
-              {
-                name: "offset",
-                options: {
-                  offset: [0, 0],
-                },
-              },
-            ],
-          }}
-        >
-          <InputTitles>{params.value}</InputTitles>
-        </CustomTooltip>
-      ),
-    },
     {
       field: "RetICA",
       headerName: "RET. ICA",
@@ -247,19 +221,82 @@ export const BillsComponents = () => {
       ),
     },
     {
+      field: "Status",
+      headerName: "TIPO DE FACTURA",
+      width: 130,
+      renderCell: (params) => {
+        return (
+          <Typography
+            fontFamily="Montserrat"
+            fontSize="80%"
+            width="100%"
+            fontWeight="bold"
+            color="white"
+            backgroundColor="#488B8F"
+            textTransform="uppercase"
+            textAlign="center"
+            padding="5.5% 8%"
+            border="1.4px solid #B5D1C9"
+            borderRadius="4px"
+          >
+            {params.value !== null
+              ? params.value === "a7c70741-8c1a-4485-8ed4-5297e54a978a"
+                ? "FV-TV"
+                : "FV"
+              : null}
+          </Typography>
+        );
+      },
+    },
+    {
+      field: "id",
+      headerName: "ID",
+      width: 70,
+      renderCell: (params) => (
+        <CustomTooltip
+          title={params.value}
+          arrow
+          placement="bottom-start"
+          TransitionComponent={Fade}
+          PopperProps={{
+            modifiers: [
+              {
+                name: "offset",
+                options: {
+                  offset: [0, 0],
+                },
+              },
+            ],
+          }}
+        >
+          <InputTitles>{params.value}</InputTitles>
+        </CustomTooltip>
+      ),
+    },
+    {
       headerName: "Aplicar RET. IVA",
       width: 120,
       sortable: false,
       renderCell: (params) => (
         <Box display="flex" width="100%" justifyContent="center">
-          <Checkbox
+          <Switch
             sx={{
-              color: "#488B8F",
-              "&.Mui-checked": {
-                color: "#488B8F",
+              "& .MuiSwitch-switchBase": {
+                "&.Mui-checked": {
+                  color: "#FFFFFF",
+                },
+                "&.Mui-checked + .MuiSwitch-track": {
+                  backgroundColor: "#488B8F",
+                },
+
+                "&.Mui-disabled": {
+                  color: "#488B8F",
+                },
+                "&.Mui-disabled + .MuiSwitch-track": {
+                  backgroundColor: "#B5D1C9",
+                },
               },
             }}
-            value={0.15}
             onChange={(e) => {
               e.target.checked
                 ? setRowsToApplyRETIVA([...rowsToApplyRETIVA, params.row])
@@ -518,7 +555,7 @@ export const BillsComponents = () => {
               height: "3rem",
             }}
             onClick={() => {
-              fileInput.current.click();
+              billFile.current.click();
             }}
           >
             <Typography
@@ -532,7 +569,7 @@ export const BillsComponents = () => {
             </Typography>
           </Button>
           <input
-            ref={fileInput}
+            ref={billFile}
             id="extractBill"
             type="file"
             multiple="multiple"
@@ -556,7 +593,9 @@ export const BillsComponents = () => {
                 backgroundColor: "#B5D1C9",
               },
               height: "3rem",
-              marginLeft: "0.6rem",
+            }}
+            onClick={() => {
+              creditNoteFile.current.click();
             }}
           >
             <Typography
@@ -569,6 +608,21 @@ export const BillsComponents = () => {
               Extraer Notas de Crédito
             </Typography>
           </Button>
+          <input
+            ref={creditNoteFile}
+            id="extractCreditNotes"
+            type="file"
+            multiple="multiple"
+            style={{ display: "none" }}
+            onChange={(e) => {
+              const formData = new FormData();
+              const files = Array.from(e.target.files);
+              files.forEach((file) => {
+                formData.append("creditNotes", file);
+              });
+              setCreditNote(formData);
+            }}
+          />
         </Box>
 
         <Box display="flex" flexDirection="column" marginTop="1.5rem">

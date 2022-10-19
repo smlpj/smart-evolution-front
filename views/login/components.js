@@ -15,8 +15,10 @@ export const InputAdornments = ({
   values,
   handleClickShowPassword,
   handleMouseDownPassword,
+  ToastContainer
 }) => {
   return (
+    <>      
     <form onSubmit={formik.handleSubmit}>
       <Box display="flex" flexDirection="column" sx={{ marginTop: "50px" }}>
         <Box display="flex" flexDirection="column">
@@ -110,5 +112,17 @@ export const InputAdornments = ({
         </Box>
       </Box>
     </form>
+      <ToastContainer
+      position="top-right"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      />
+    </>
   );
 };
