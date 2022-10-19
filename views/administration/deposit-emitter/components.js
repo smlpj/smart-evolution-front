@@ -22,7 +22,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 const steps = ["Primer paso", "Segundo paso", "Tercer paso"];
 
-export const Deposit = ({ formik, option }) => {
+export const Deposit = ({ formik, option, ToastContainer }) => {
   const [valueD, setValue] = useState(dayjs("2014-08-18T21:11:54"));
 
   const [activeStep, setActiveStep] = React.useState(0);
@@ -565,6 +565,17 @@ export const Deposit = ({ formik, option }) => {
           </Grid>
         </Grid>
       </Grid>
+      <ToastContainer
+      position="top-right"
+      autoClose={50000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      />
     </>
   );
 };

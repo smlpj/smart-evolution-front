@@ -20,7 +20,7 @@ import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
-export const Deposit = ({ formik, option }) => {
+export const Deposit = ({ formik, option, ToastContainer }) => {
   const [valueD, setValue] = useState(dayjs("2014-08-18T21:11:54"));
   const handleChange = (newValue) => {
     setValue(newValue);
@@ -279,6 +279,17 @@ export const Deposit = ({ formik, option }) => {
           </Grid>
         </Grid>
       </Grid>
+      <ToastContainer
+      position="top-right"
+      autoClose={50000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      />
     </>
   );
 };

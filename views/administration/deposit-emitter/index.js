@@ -1,16 +1,21 @@
-import Head from "next/head";
-import * as React from "react";
-import { useFormik } from "formik";
-import * as yup from "yup";
-import { Deposit } from "./components";
-import { useFetch } from "../../../shared/hooks/useFetch";
-import {
-  RegisterDepositQuery,
-  ModifyDepositQuery,
-  GetDepositByID,
-} from "./queries";
-import { useRouter } from "next/router";
+/* eslint-disable react-hooks/exhaustive-deps */
+// Hooks
 import { useState, useEffect } from "react";
+import { useFormik } from "formik";
+import { useRouter } from "next/router";
+import { useFetch } from "../../../shared/hooks/useFetch";
+// Next imports
+import Head from "next/head";
+// Components
+import { Deposit } from "./components";
+// Queries
+import { RegisterDepositQuery, ModifyDepositQuery, GetDepositByID} from "./queries";
+// Validations
+import { object, string } from "yup";
+// Alerts and notifications
+import { Toast } from "../../../shared/components/toast";
+import { ToastContainer } from "react-toastify";
+
 
 export default function RegisterDeposit() {
   const [option, setOption] = useState("");
@@ -21,7 +26,6 @@ export default function RegisterDeposit() {
     if (router && router.query) {
       setOption(Object.values(router.query)[0]);
       if (router.query.id) {
-        console.log(router.query.id);
         setId(router.query.id);
       }
     }
@@ -63,48 +67,48 @@ export default function RegisterDeposit() {
     }
   }, [option]);
 
-  const validationSchema = yup.object({
-    client: yup
-      .string("Selecciona el emisor")
+  const validationSchema = object({
+    client: 
+      string("Selecciona el emisor")
       .nullable(true)
       .required("El emisor es requerido"),
 
-    account: yup
-      .string("Selecciona la cuenta")
+    account: 
+      string("Selecciona la cuenta")
       .nullable(true)
       .required("La cuenta es requerida"),
 
-    date: yup
-      .string("Ingresa la fecha de giro")
+    date:
+      string("Ingresa la fecha de giro")
       .required("La fecha es requerida"),
 
-    amount: yup
-      .string("Ingresa el monto de operación")
+    amount:
+      string("Ingresa el monto de operación")
       .required("El monto es requerido"),
 
-    observations: yup.string("Ingresa una observación").nullable(true),
+    observations:string("Ingresa una observación").nullable(true),
     
-    beneficiary: yup
-      .string("Ingresa el beneficiario")
+    beneficiary:
+      string("Ingresa el beneficiario")
       .required("El beneficiario es requerido"),
     
-    bank: yup
-      .string("Ingresa el banco")
+    bank:
+      string("Ingresa el banco")
       .nullable(true)
       .required("El banco es requerido"),
     
-    accountNumber: yup
-      .string("Ingresa el número de cuenta")
+    accountNumber:
+      string("Ingresa el número de cuenta")
       .nullable(true)
       .required("El número de cuenta es requerido"),
     
-    accountType: yup
-      .string("Selecciona el tipo de cuenta")
+    accountType:
+      string("Selecciona el tipo de cuenta")
       .nullable(true)
       .required("El tipo de cuenta es requerido"),
 
-    egressType: yup
-      .string("Selecciona el tipo de egreso")
+    egressType:
+      string("Selecciona el tipo de egreso")
       .nullable(true)
       .required("El tipo de egreso es requerido"),
     
@@ -122,7 +126,6 @@ export default function RegisterDeposit() {
     accountNumber: null,
     accountType: null,
     egressType: null,
-    
   };
 
   const formik = useFormik({
@@ -130,18 +133,42 @@ export default function RegisterDeposit() {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       if (option === "register") {
-        console.log("Registrado el giro-emisor");
-        alert("Registrado el giro-emisor");
         fetch(values);
-        router.push("/administration/deposit-emitter/depositList");
       } else {
-        console.log("Actualizado el giro-emisor");
-        alert("Actualizado el giro-emisor");
         fetch3(values);
-        router.push("/administration/deposit-emitter/depositList");
       }
     },
   });
+
+    useEffect(() => {
+    if (loading3) Toast('Cargando...', 'loading')
+
+    if (error3) Toast('Error al actualizar el corredor', 'error')
+
+    if (data3)  {
+      Toast('Giro actualizado correctamente', 'success')
+      setTimeout(() => {
+        router.push("/administration/deposit-emitter/depositList");
+      }, 2000);
+    }
+  }, [loading3, data3, error3]);
+
+    useEffect(() => {
+    if (loading == true) { 
+      Toast('Cargando..', 'loading')
+    }
+
+    if (error) {
+      Toast(`${error.message}`, 'error')
+    }
+
+    if (data) { 
+      Toast('Giro creado correctamente', 'success') 
+      setTimeout(() => {
+        router.push("/administration/deposit-emitter/depositList");
+      }, 2000);
+    }
+  }, [loading, data, error]);
 
   return (
     <>
@@ -154,7 +181,7 @@ export default function RegisterDeposit() {
         <meta name="description" content="Generated by create next app" />
         <link rel="icon" href="/assets/Icono Smart.svg" />
       </Head>
-      <Deposit formik={formik} option={option} />
+      <Deposit formik={formik} option={option} ToastContainer={ToastContainer}/>
     </>
   );
 }
