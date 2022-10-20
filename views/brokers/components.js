@@ -14,7 +14,7 @@ import CitySelect from "../../shared/components/selects/citySelect";
 import TypeIDSelect from "../../shared/components/selects/typeIdentitySelect";
 import DepartmentSelect from "../../shared/components/selects/departmentSelect";
 
-export const SignUpBroker = ({ formik, option }) => {
+export const SignUpBroker = ({ formik, option, ToastContainer }) => {
   return (
     <>
       <Grid
@@ -323,6 +323,17 @@ export const SignUpBroker = ({ formik, option }) => {
           </Grid>
         </Grid>
       </Grid>
+      <ToastContainer
+      position="top-right"
+      autoClose={50000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      />
     </>
   );
 };

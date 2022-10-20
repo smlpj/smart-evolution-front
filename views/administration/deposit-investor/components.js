@@ -282,6 +282,17 @@ export const Deposit = ({ formik, option, ToastContainer }) => {
           pauseOnHover
         />
       </Grid>
+      <ToastContainer
+      position="top-right"
+      autoClose={50000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      />
     </>
   );
 };

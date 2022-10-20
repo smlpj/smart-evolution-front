@@ -1,16 +1,21 @@
-import Head from "next/head";
-import * as React from "react";
-import { useFormik } from "formik";
-import * as yup from "yup";
-import { SignUpClient } from "./components";
-import { useFetch } from "../../shared/hooks/useFetch";
-import {
-  RegisterClientQuery,
-  ModifyClientQuery,
-  GetClientByID,
-} from "./queries";
-import { useRouter } from "next/router";
+/* eslint-disable react-hooks/exhaustive-deps */
+// Queries
+import { RegisterClientQuery, ModifyClientQuery, GetClientByID } from "./queries";
+// Hooks
 import { useState, useEffect } from "react";
+import { useFetch } from "../../shared/hooks/useFetch";
+import { useFormik } from "formik";
+// Alerts and notifications
+import { Toast } from '../../shared/components/toast'
+import { ToastContainer } from "react-toastify";
+// Router
+import { useRouter } from 'next/router'
+// Next imports
+import Head from "next/head";
+// Validations
+import { string, object } from "yup";
+// Components
+import { SignUpClient } from "./components";
 
 export default function RegisterClient() {
   const [option, setOption] = useState("");
@@ -64,79 +69,72 @@ export default function RegisterClient() {
           citizenship: data?.data?.citizenship,
           social_reason: data?.data?.social_reason,
         });
-        console.log(data);
       });
     }
   }, [option]);
 
-  const validationSchema = yup.object({
-    type_identity: yup
-      .string("Ingresa el tipo de identificación del corredor")
+  const validationSchema = object({
+    type_identity: 
+      string("Ingresa el tipo de identificación del corredor")
       .nullable(true)
       .required("El tipo de identificación es requerido"),
 
-    document_number: yup
-      .string("Ingresa un número de documento")
+    document_number: 
+      string("Ingresa un número de documento")
       .matches(/^[0-9]+$/, "Ingresa un número de documento válido")
       .required("El número de documento es requerido"),
 
-    first_name: yup
-      .string("Ingresa un nombre")
+    first_name: 
+      string("Ingresa un nombre")
       .matches(/[a-zA-Z]+/, "Ingresa un nombre válido")
       .nullable(true),
-    /* .required("El nombre es requerido") */
-    last_name: yup
-      .string("Ingresa un apellido")
+    last_name: 
+      string("Ingresa un apellido")
       .matches(/^[a-zA-Z]+$/, "Ingresa un apellido válido")
       .nullable(true),
-    /* .required("El apellido es requerido") */
-    email: yup
-      .string("Ingresa un email")
-      .matches(
-        /^[a-zA-Z]+[a-zA-Z0-9_.]+@[a-zA-Z.]+[a-zA-Z]$/,
-        "Ingresa un email válido"
-      )
+    email: 
+      string("Ingresa un email")
+      .matches(/^[a-zA-Z]+[a-zA-Z0-9_.]+@[a-zA-Z.]+[a-zA-Z]$/,"Ingresa un email válido")
       .required("El email es requerido"),
 
-    address: yup
-      .string("Ingresa una dirección")
+    address:
+      string("Ingresa una dirección")
       .required("La dirección es requerida"),
 
-    phone_number: yup
-      .string("Ingresa un número de teléfono")
+    phone_number:
+      string("Ingresa un número de teléfono")
       .matches(/^[0-9]+$/, "Ingresa un número de teléfono válido")
       .required("El número de teléfono es requerido"),
 
-    city: yup
-      .string("Selecciona una ciudad")
+    city: 
+      string("Selecciona una ciudad")
       .nullable(true)
       .required("La ciudad es requerida"),
 
-    type_client: yup
-      .string("Selecciona un tipo de cliente")
+    type_client: 
+      string("Selecciona un tipo de cliente")
       .nullable(true)
       .required("El tipo de cliente es requerido"),
 
-    broker: yup
-      .string("Selecciona un corredor")
+    broker:
+      string("Selecciona un corredor")
       .nullable(true)
       .required("El corredor es requerido"),
 
-    ciiu: yup
-      .string("Selecciona un CIIU")
+    ciiu:
+      string("Selecciona un CIIU")
       .nullable(true)
       .required("El CIIU es requerido"),
 
-    citizenship: yup
-      .string("Selecciona una nacionalidad")
+    citizenship:
+      string("Selecciona una nacionalidad")
       .nullable(true)
       .required("La nacionalidad es requerida"),
 
-    social_reason: yup.string("Ingresa una razón social").nullable(true),
-    /* .required("La razón social es requerida") */
+    social_reason: string("Ingresa una razón social").nullable(true),
   });
 
-  const initualValues = {
+  const initialValues = {
     type_identity: null,
     document_number: "",
     first_name: null,
@@ -154,7 +152,7 @@ export default function RegisterClient() {
   };
 
   const formik = useFormik({
-    initialValues: initualValues,
+    initialValues: initialValues,
     validationSchema: validationSchema,
     onSubmit: (values) => {
       if (option === "register") {
@@ -169,6 +167,36 @@ export default function RegisterClient() {
     },
   });
 
+  useEffect(() => {
+    if (loading3) Toast('Cargando...', 'loading')
+
+    if (error3) Toast('Error al actualizar el cliente', 'error')
+
+    if (data3)  {
+      Toast('Cliente actualizado correctamente', 'success')
+      setTimeout(() => {
+        router.push('customers/customerList')
+      }, 2000);
+    }
+  }, [loading3, data3, error3]);
+
+    useEffect(() => {
+    if (loading == true) { 
+      Toast('Cargando..', 'loading')
+    }
+
+    if (error) {
+      Toast(`${error.message}`, 'error')
+    }
+
+    if (data) { 
+      Toast('Cliente creado correctamente', 'success') 
+      setTimeout(() => {
+        router.push('customers/customerList')
+      }, 2000);
+    }
+  }, [loading, data, error]);
+
   return (
     <>
       <Head>
@@ -180,7 +208,7 @@ export default function RegisterClient() {
         <meta name="description" content="Generated by create next app" />
         <link rel="icon" href="/assets/Icono Smart.svg" />
       </Head>
-      <SignUpClient formik={formik} option={option} />
+      <SignUpClient formik={formik} option={option} ToastContainer={ToastContainer} />
     </>
   );
 }

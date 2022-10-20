@@ -18,7 +18,7 @@ import CitizenshipSelect from "../../shared/components/selects/citizenshipSelect
 
 const steps = ["Primer paso", "Segundo paso"];
 
-export const SignUpClient = ({ formik, option }) => {
+export const SignUpClient = ({ formik, option, ToastContainer }) => {
   const [activeStep, setActiveStep] = React.useState(0);
 
   const handleNext = () => {
@@ -534,6 +534,17 @@ export const SignUpClient = ({ formik, option }) => {
           </Grid>
         </Grid>
       </Grid>
+      <ToastContainer
+      position="top-right"
+      autoClose={50000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      />
     </>
   );
 };
