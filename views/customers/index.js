@@ -159,12 +159,12 @@ export default function RegisterClient() {
     onSubmit: (values) => {
       if (option === "register") {
         console.log("Registrado el cliente");
-        alert(JSON.stringify(values, null, 2));
         fetch(values);
+        router.push("/customers/customerList");
       } else {
         console.log("Actualizado el cliente");
-        alert(JSON.stringify(values, null, 2));
         fetch3(values);
+        router.push("/customers/customerList");
       }
     },
   });

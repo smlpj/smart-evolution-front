@@ -126,12 +126,12 @@ export default function RegisterBroker() {
     onSubmit: (values) => {
       if (option === "register") {
         console.log("Registrado el corredor");
-        alert(JSON.stringify(values, null, 2));
         fetch(values);
+        router.push("/brokers/brokerList");
       } else {
         console.log("Actualizado el corredor");
-        alert(JSON.stringify(values, null, 2));
         fetch3(values);
+        router.push("/brokers/brokerList");
       }
     },
   });

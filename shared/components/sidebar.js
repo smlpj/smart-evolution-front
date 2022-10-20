@@ -71,9 +71,9 @@ export default function Navbar() {
               </NavbarButton>
             </Link>
             <Link href="/administration" underline="none">
-            <NavbarButton sx={{ width: "70%", height: "10%" }}>
-              Administración
-            </NavbarButton>
+              <NavbarButton sx={{ width: "70%", height: "10%" }}>
+                Administración
+              </NavbarButton>
             </Link>
           </Grid>
         </Grid>
@@ -88,7 +88,7 @@ export default function Navbar() {
           <NavbarButton
             sx={{ backgroundColor: "#FFFFFF", width: "70%", height: "25%" }}
           >
-            Inversores disponibles
+            Autogestión del cliente
           </NavbarButton>
         </Grid>
       </Grid>

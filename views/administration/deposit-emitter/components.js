@@ -71,13 +71,7 @@ export const Deposit = ({ formik, option }) => {
               alignItems="center"
               justifyContent="center"
             >
-              <Image
-                src="/assets/Ilustración - Creación de Usuario 1.svg"
-                alt="clients"
-                width={500}
-                height={500}
-                priority={true}
-              />
+              <></>
             </Grid>
             <Grid
               item
@@ -295,8 +289,7 @@ export const Deposit = ({ formik, option }) => {
                               <InputTitles>Banco</InputTitles>
                               <BankSelect formik={formik} />
                               <HelperText position="fixed">
-                                {formik.touched.bank &&
-                                  formik.errors.bank}
+                                {formik.touched.bank && formik.errors.bank}
                               </HelperText>
                             </Box>
                           </Box>
