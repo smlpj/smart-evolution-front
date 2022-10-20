@@ -10,13 +10,16 @@ import Head from "next/head";
 // Validations
 import { object, string } from "yup";
 // Queries
-import { RegisterDepositQuery, ModifyDepositQuery, GetDepositByID } from "./queries";
+import {
+  RegisterDepositQuery,
+  ModifyDepositQuery,
+  GetDepositByID,
+} from "./queries";
 // Components
 import { Deposit } from "./components";
 // Alerts and notifications
 import { Toast } from "../../../shared/components/toast";
 import { ToastContainer } from "react-toastify";
-
 
 export default function RegisterDeposit() {
   const [option, setOption] = useState("");
@@ -77,23 +80,19 @@ export default function RegisterDeposit() {
   }, [option]);
 
   const validationSchema = object({
-    client: 
-      string("Selecciona el inversionista")
+    client: string("Selecciona el inversionista")
       .nullable(true)
       .required("El inversionista es requerido"),
 
-    account: 
-      string("Selecciona la cuenta")
+    account: string("Selecciona la cuenta")
       .nullable(true)
       .required("La cuenta es requerida"),
 
-    date: 
-      string("Ingresa la fecha de giro")
-      .required("La fecha es requerida"),
+    date: string("Ingresa la fecha de giro").required("La fecha es requerida"),
 
-    amount: 
-      string("Ingresa el monto de operación")
-      .required("El monto es requerido"),
+    amount: string("Ingresa el monto de operación").required(
+      "El monto es requerido"
+    ),
 
     observations: string("Ingresa una observación").nullable(true),
   });
@@ -111,44 +110,37 @@ export default function RegisterDeposit() {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       if (option === "register") {
-        console.log("Registrado el giro-inversionista");
-        Toast("Registrado el giro-inversionista", "success");
         fetch(values);
       } else {
-        console.log("Actualizado el giro-inversionista");
-        Toast("Actualizado el giro-inversionista", "success");
         fetch3(values);
-        alert("Actualizado el giro-inversionista");
-        router.push("/administration/deposit-investor/depositList");
       }
     },
   });
 
+  useEffect(() => {
+    if (loading3) Toast("Cargando...", "loading");
 
-    useEffect(() => {
-    if (loading3) Toast('Cargando...', 'loading')
+    if (error3) Toast("Error al actualizar el corredor", "error");
 
-    if (error3) Toast('Error al actualizar el corredor', 'error')
-
-    if (data3)  {
-      Toast('Giro actualizado correctamente', 'success')
+    if (data3) {
+      Toast("Giro actualizado correctamente", "success");
       setTimeout(() => {
         router.push("/administration/deposit-investor/depositList");
       }, 2000);
     }
   }, [loading3, data3, error3]);
 
-    useEffect(() => {
-    if (loading == true) { 
-      Toast('Cargando..', 'loading')
+  useEffect(() => {
+    if (loading == true) {
+      Toast("Cargando..", "loading");
     }
 
     if (error) {
-      Toast(`${error.message}`, 'error')
+      Toast(`${error.message}`, "error");
     }
 
-    if (data) { 
-      Toast('Giro creado correctamente', 'success') 
+    if (data) {
+      Toast("Giro creado correctamente", "success");
       setTimeout(() => {
         router.push("/administration/deposit-investor/depositList");
       }, 2000);
