@@ -156,10 +156,13 @@ export default function RegisterClient() {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       if (option === "register") {
+        console.log("Registrado el cliente");
         fetch(values);
+        router.push("/customers/customerList");
       } else {
+        console.log("Actualizado el cliente");
         fetch3(values);
-
+        router.push("/customers/customerList");
       }
     },
   });

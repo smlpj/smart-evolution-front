@@ -38,15 +38,7 @@ export const SignUpBroker = ({ formik, option, ToastContainer }) => {
             display="flex"
             alignItems="center"
             justifyContent="center"
-          >
-            <Image
-              src="/assets/Ilustración - Creación de Usuario 1.svg"
-              alt="clients"
-              width={500}
-              height={500}
-              priority={true}
-            />
-          </Grid>
+          ></Grid>
           <Grid
             item
             xs={12}

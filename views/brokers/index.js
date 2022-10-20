@@ -127,9 +127,13 @@ export default function RegisterBroker() {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       if (option === "register") {
+        console.log("Registrado el corredor");
         fetch(values);
+        router.push("/brokers/brokerList");
       } else {
+        console.log("Actualizado el corredor");
         fetch3(values);
+        router.push("/brokers/brokerList");
       }
     },
   });

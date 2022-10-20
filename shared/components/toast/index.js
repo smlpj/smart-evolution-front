@@ -1,9 +1,8 @@
-import Image from 'next/image'
-import { toast } from 'react-toastify'
-
+import Image from "next/image";
+import { toast } from "react-toastify";
 
 export const Toast = (message, type) => {
-    
+   
     if (type == 'success') {
         return toast.success(<div className='div-test'>
             <Image src="/assets/success-svgrepo-com.svg" alt="gif" width={'20px'} height={'20px'} />

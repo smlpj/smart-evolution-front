@@ -12,7 +12,6 @@ import { useFetch } from "../../../../shared/hooks/useFetch";
 import { useEffect, useState } from "react";
 import CustomDataGrid from "../../../../styles/tables";
 import { format } from "date-fns";
-import Image from "next/image";
 import CustomTooltip from "../../../../styles/customTooltip";
 import { Fade } from "@mui/material";
 import MuiTextField from "../../../../styles/fields";
@@ -434,19 +433,16 @@ export const DepositListComponent = () => {
 
               NoRowsOverlay: () => (
                 <Typography
-                  letterSpacing={0}
-                  fontSize="1.2rem"
                   fontFamily="Montserrat"
-                  fontWeight="regular"
-                  color="#5EA3A3"
+                  fontSize="0.9rem"
+                  fontWeight="600"
+                  color="#488B8F"
                   height="100%"
-                  width="100%"
                   display="flex"
                   alignItems="center"
                   justifyContent="center"
-                  backgroundColor="#F5F5F5"
                 >
-                  No hay giros-inversionistas registrados
+                  No hay giros de inversionistas registrados
                 </Typography>
               ),
 

@@ -4,7 +4,7 @@ const token =
 
 export const GetDepositList = async (data) => {
   const res = await Axios.get(
-    "https://smart-evolution-api2.herokuapp.com/api/deposit-emitter/",
+    "https://smart-evolution-api2.herokuapp.com/api/emitter-deposit/",
     {
       headers: {
         authorization: "Bearer " + localStorage.getItem("access-token"),
@@ -16,7 +16,7 @@ export const GetDepositList = async (data) => {
 
 export const GetDepositListByQuery = async (page) => {
   const res = await Axios.get(
-    `https://smart-evolution-api2.herokuapp.com/api/deposit-emitter/?page=${page}`,
+    `https://smart-evolution-api2.herokuapp.com/api/emitter-deposit/?page=${page}`,
     {
       headers: {
         authorization: "Bearer " + localStorage.getItem("access-token"),
@@ -28,7 +28,7 @@ export const GetDepositListByQuery = async (page) => {
 
 export const DeleteDepositById = async (id) => {
   const res = await Axios.delete(
-    `https://smart-evolution-api2.herokuapp.com/api/deposit-emitter/${id}`,
+    `https://smart-evolution-api2.herokuapp.com/api/emitter-deposit/${id}`,
     {
       headers: {
         authorization: "Bearer " + localStorage.getItem("access-token"),

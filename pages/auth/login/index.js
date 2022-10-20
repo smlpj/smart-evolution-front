@@ -40,14 +40,7 @@ export default function Home() {
           alignItems="center"
           justifyContent="center"
         >
-          <div>
-            <Image
-              src="/assets/Ilustración - Inicio de sesión.svg"
-              height='400%'
-              width='400%'
-              priority={true}
-            />
-          </div>
+          <div></div>
         </Grid>
       </Grid>
     </div>

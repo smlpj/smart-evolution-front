@@ -18,7 +18,7 @@ import AccountSelect from "../../../shared/components/selects/accountSelect";
 import dayjs from "dayjs";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 export const Deposit = ({ formik, option, ToastContainer }) => {
   const [valueD, setValue] = useState(dayjs("2014-08-18T21:11:54"));
@@ -56,15 +56,7 @@ export const Deposit = ({ formik, option, ToastContainer }) => {
               display="flex"
               alignItems="center"
               justifyContent="center"
-            >
-              <Image
-                src="/assets/Ilustración - Creación de Usuario 1.svg"
-                alt="clients"
-                width={500}
-                height={500}
-                priority={true}
-              />
-            </Grid>
+            ></Grid>
             <Grid
               item
               xs={12}
@@ -278,6 +270,17 @@ export const Deposit = ({ formik, option, ToastContainer }) => {
             </Grid>
           </Grid>
         </Grid>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
       </Grid>
       <ToastContainer
       position="top-right"

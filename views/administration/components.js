@@ -38,7 +38,7 @@ export const AdministrationComponents = () => {
           </Link>
           <Typography
             letterSpacing={0}
-            fontSize="170%"
+            fontSize="1.5vw"
             fontFamily="Montserrat"
             fontWeight="medium"
             marginBottom="0.7rem"
@@ -48,7 +48,7 @@ export const AdministrationComponents = () => {
           </Typography>
           <Typography
             letterSpacing={0}
-            fontSize="150%"
+            fontSize="1.2vw"
             fontFamily="Montserrat"
             fontWeight="medium"
             marginBottom="0.7rem"
@@ -61,8 +61,8 @@ export const AdministrationComponents = () => {
         <Box
           display="flex"
           flexDirection="row"
-          justifyContent="space-between"
           alignItems="center"
+          justifyContent="space-between"
           width="95%"
           height="100%"
         >
@@ -72,31 +72,298 @@ export const AdministrationComponents = () => {
           >
             <Box
               height="100%"
-              width="25%"
+              width="24%"
               display="flex"
+              justifyContent="space-between"
               flexDirection="column"
               sx={{
                 borderRadius: "4px",
-                border: "1px solid #488B8F",
+                border: "2px solid #488B8F",
                 backgroundColor: "transparent",
                 "&:hover": {
                   backgroundColor: "#CFDDDD",
                 },
                 cursor: "pointer",
-                justifyContent: "center",
+                justifyContent: "space-between",
                 alignItems: "center",
               }}
             >
-              <Typography
-                letterSpacing={0}
-                fontSize="80%"
-                fontFamily="Montserrat"
-                fontWeight="bold"
-                color="#488B8F"
-                textTransform="uppercase"
+              <Box flexGrow={0} />
+              <Box textAlign="center">
+                <i
+                  className="fa-regular fa-paper-plane"
+                  style={{
+                    fontSize: "3rem",
+                    color: "#488B8F",
+                    marginBottom: "1.5rem",
+                  }}
+                ></i>
+                <Typography
+                  letterSpacing={0}
+                  fontSize="80%"
+                  fontFamily="Montserrat"
+                  fontWeight="bold"
+                  color="#488B8F"
+                  textTransform="uppercase"
+                >
+                  Giros Emisor
+                </Typography>
+              </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: "4px",
+                  border: "2px solid #488B8F",
+                  padding: "0.5rem 0.7rem",
+                  marginBottom: "3rem",
+                }}
               >
-                Giros Emisor
-              </Typography>
+                <Typography
+                  letterSpacing={0}
+                  fontSize="80%"
+                  fontFamily="Montserrat"
+                  fontWeight="bold"
+                  color="#488B8F"
+                  textTransform="uppercase"
+                >
+                  Acceder a esta sección
+                </Typography>
+                <ArrowBackIcon
+                  sx={{
+                    color: "#488B8F",
+                    transform: "rotate(180deg)",
+                    marginLeft: "0.5rem",
+                  }}
+                />
+              </Box>
+            </Box>
+          </Link>
+          <Link
+            href="/administration/deposit-investor/depositList"
+            underline="none"
+          >
+            <Box
+              height="100%"
+              width="24%"
+              display="flex"
+              justifyContent="space-between"
+              flexDirection="column"
+              sx={{
+                borderRadius: "4px",
+                border: "2px solid #488B8F",
+                backgroundColor: "transparent",
+                "&:hover": {
+                  backgroundColor: "#CFDDDD",
+                },
+                cursor: "pointer",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <Box flexGrow={0} />
+              <Box textAlign="center">
+                <i
+                  className="fa-regular fa-paper-plane"
+                  style={{
+                    fontSize: "3rem",
+                    color: "#488B8F",
+                    marginBottom: "1.5rem",
+                  }}
+                ></i>
+                <Typography
+                  letterSpacing={0}
+                  fontSize="80%"
+                  fontFamily="Montserrat"
+                  fontWeight="bold"
+                  color="#488B8F"
+                  textTransform="uppercase"
+                >
+                  Giros Inversionista
+                </Typography>
+              </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: "4px",
+                  border: "2px solid #488B8F",
+                  padding: "0.5rem 0.7rem",
+                  marginBottom: "3rem",
+                }}
+              >
+                <Typography
+                  letterSpacing={0}
+                  fontSize="80%"
+                  fontFamily="Montserrat"
+                  fontWeight="bold"
+                  color="#488B8F"
+                  textTransform="uppercase"
+                >
+                  Acceder a esta sección
+                </Typography>
+                <ArrowBackIcon
+                  sx={{
+                    color: "#488B8F",
+                    transform: "rotate(180deg)",
+                    marginLeft: "0.5rem",
+                  }}
+                />
+              </Box>
+            </Box>
+          </Link>
+          <Link
+            href="/administration/deposit-emitter/depositList"
+            underline="none"
+          >
+            <Box
+              height="100%"
+              width="24%"
+              display="flex"
+              justifyContent="space-between"
+              flexDirection="column"
+              sx={{
+                borderRadius: "4px",
+                border: "2px solid #488B8F",
+                backgroundColor: "transparent",
+                "&:hover": {
+                  backgroundColor: "#CFDDDD",
+                },
+                cursor: "pointer",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <Box flexGrow={0} />
+              <Box textAlign="center">
+                <i
+                  class="fa-regular fa-handshake"
+                  style={{
+                    fontSize: "3rem",
+                    color: "#488B8F",
+                    marginBottom: "1.5rem",
+                  }}
+                ></i>
+                <Typography
+                  letterSpacing={0}
+                  fontSize="80%"
+                  fontFamily="Montserrat"
+                  fontWeight="bold"
+                  color="#488B8F"
+                  textTransform="uppercase"
+                >
+                  Negociaciones
+                </Typography>
+              </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: "4px",
+                  border: "2px solid #488B8F",
+                  padding: "0.5rem 0.7rem",
+                  marginBottom: "3rem",
+                }}
+              >
+                <Typography
+                  letterSpacing={0}
+                  fontSize="80%"
+                  fontFamily="Montserrat"
+                  fontWeight="bold"
+                  color="#488B8F"
+                  textTransform="uppercase"
+                >
+                  Acceder a esta sección
+                </Typography>
+                <ArrowBackIcon
+                  sx={{
+                    color: "#488B8F",
+                    transform: "rotate(180deg)",
+                    marginLeft: "0.5rem",
+                  }}
+                />
+              </Box>
+            </Box>
+          </Link>
+          <Link
+            href="/administration/deposit-emitter/depositList"
+            underline="none"
+          >
+            <Box
+              height="100%"
+              width="24%"
+              display="flex"
+              justifyContent="space-between"
+              flexDirection="column"
+              sx={{
+                borderRadius: "4px",
+                border: "2px solid #488B8F",
+                backgroundColor: "transparent",
+                "&:hover": {
+                  backgroundColor: "#CFDDDD",
+                },
+                cursor: "pointer",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <Box flexGrow={0} />
+              <Box textAlign="center">
+                <i
+                  className="fa-solid fa-person-walking-arrow-loop-left"
+                  style={{
+                    fontSize: "3rem",
+                    color: "#488B8F",
+                    marginBottom: "1.5rem",
+                  }}
+                ></i>
+                <Typography
+                  letterSpacing={0}
+                  fontSize="80%"
+                  fontFamily="Montserrat"
+                  fontWeight="bold"
+                  color="#488B8F"
+                  textTransform="uppercase"
+                >
+                  Giros Emisor
+                </Typography>
+              </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: "4px",
+                  border: "2px solid #488B8F",
+                  padding: "0.5rem 0.7rem",
+                  marginBottom: "3rem",
+                }}
+              >
+                <Typography
+                  letterSpacing={0}
+                  fontSize="80%"
+                  fontFamily="Montserrat"
+                  fontWeight="bold"
+                  color="#488B8F"
+                  textTransform="uppercase"
+                >
+                  Acceder a esta sección
+                </Typography>
+                <ArrowBackIcon
+                  sx={{
+                    color: "#488B8F",
+                    transform: "rotate(180deg)",
+                    marginLeft: "0.5rem",
+                  }}
+                />
+              </Box>
             </Box>
           </Link>
         </Box>
