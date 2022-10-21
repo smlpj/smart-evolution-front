@@ -1,9 +1,15 @@
 {
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": ".",
     "paths": {
-        "@components": ["shared/components/*"],
-        "@hooks": ["shared/hooks/*"],
+      "@components/*": ["./shared/components/*"],
+      "@context/*": ["./shared/context/*"],
+      "@formats/*": ["./shared/formats/*"],
+      "@hooks/*": ["./shared/hooks/*"],
+      "@lib/*": ["./shared/lib/*"],
+      "@styles/*": ["./styles/*"],
+      "@views/*": ["./views/*"]
     }
-  }
+  },
+  "exclude": ["node_modules", "public/fontawesome"]
 }
