@@ -331,7 +331,7 @@ export const AdministrationComponents = () => {
                   color="#488B8F"
                   textTransform="uppercase"
                 >
-                  Giros Emisor
+                  Reintegros
                 </Typography>
               </Box>
               <Box

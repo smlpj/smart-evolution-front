@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
 import { Box } from "@mui/material";
 import { Typography } from "@mui/material";
 import Link from "next/link";
@@ -14,13 +14,25 @@ import CustomDataGrid from "../../../styles/tables";
 import { format } from "date-fns";
 import Image from "next/image";
 import CustomTooltip from "../../../styles/customTooltip";
-import { Fade } from "@mui/material";
+import { Fade, Modal, Backdrop } from "@mui/material";
 import MuiTextField from "../../../styles/fields";
 import { SearchOutlined } from "@mui/icons-material";
+import GreenButtonModal from "../../../styles/yesButtonModal";
+import RedButtonModal from "../../../styles/noButtonModal";
 
 let dataCount;
 
 export const BrokerListComponent = () => {
+  const [open, setOpen] = useState([false, "", null]);
+  const handleOpen = (broker, id) => setOpen([true, broker, id]);
+  const handleClose = () => setOpen([false, "", null]);
+
+  const handleDelete = (id) => {
+    setBroker(broker.filter((item) => item.id !== id));
+    DeleteBrokerById(id);
+    setOpen([false, "", null]);
+  };
+
   const columns = [
     {
       field: "DocumentNumber",
@@ -162,44 +174,161 @@ export const BrokerListComponent = () => {
       filterable: false,
       renderCell: (params) => {
         return (
-          <CustomTooltip
-            title="Eliminar"
-            arrow
-            placement="bottom-start"
-            TransitionComponent={Fade}
-            PopperProps={{
-              modifiers: [
-                {
-                  name: "offset",
-                  options: {
-                    offset: [0, -15],
+          <>
+            <CustomTooltip
+              title="Eliminar"
+              arrow
+              placement="bottom-start"
+              TransitionComponent={Fade}
+              PopperProps={{
+                modifiers: [
+                  {
+                    name: "offset",
+                    options: {
+                      offset: [0, -15],
+                    },
                   },
-                },
-              ],
-            }}
-          >
-            <Typography
-              fontFamily="icomoon"
-              fontSize="1.9rem"
-              color="#999999"
-              borderRadius="5px"
-              sx={{
-                "&:hover": {
-                  backgroundColor: "#B5D1C980",
-                  color: "#488B8F",
-                },
-                cursor: "pointer",
-              }}
-              //Delete broker by id
-
-              onClick={() => {
-                setBroker(broker.filter((item) => item.id !== params.row.id));
-                DeleteBrokerById(params.row.id);
+                ],
               }}
             >
-              &#xe901;
-            </Typography>
-          </CustomTooltip>
+              <Typography
+                fontFamily="icomoon"
+                fontSize="1.9rem"
+                color="#999999"
+                borderRadius="5px"
+                sx={{
+                  "&:hover": {
+                    backgroundColor: "#B5D1C980",
+                    color: "#488B8F",
+                  },
+                  cursor: "pointer",
+                }}
+                //Delete broker by id
+                onClick={() => handleOpen(params.row.Broker, params.row.id)}
+              >
+                &#xe901;
+              </Typography>
+            </CustomTooltip>
+            <Modal
+              aria-labelledby="transition-modal-title"
+              aria-describedby="transition-modal-description"
+              open={open[0]}
+              onClose={handleClose}
+              closeAfterTransition
+              BackdropComponent={Backdrop}
+              BackdropProps={{
+                sx: {
+                  background: "#B5D1C915",
+                  backdropFilter: "blur(0.5px)",
+                },
+                timeout: 500,
+              }}
+            >
+              <Fade in={open[0]}>
+                <Box
+                  sx={{
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                    width: "30vw",
+                    height: "35vh",
+                    bgcolor: "white",
+                    borderRadius: "4px",
+                    boxShadow: "0px 10px 10px #5EA3A320",
+                    p: 4,
+                  }}
+                >
+                  <Box position="absolute" right="0" mr={4}>
+                    <IconButton
+                      aria-label="close"
+                      onClick={handleClose}
+                      sx={{
+                        width: "2rem",
+                        height: "2rem",
+                        "&:hover": {
+                          backgroundColor: "#B5D1C940",
+                          color: "#488B8F",
+                        },
+                      }}
+                    >
+                      <i
+                        style={{
+                          fontSize: "1.2vw",
+                        }}
+                        class="fa-regular fa-xmark"
+                      ></i>
+                    </IconButton>
+                  </Box>
+                  <Box
+                    display="flex"
+                    flexDirection="column"
+                    alignItems="center"
+                    justifyContent="center"
+                    height="100%"
+                    width="100%"
+                  >
+                    <Typography
+                      letterSpacing={0}
+                      fontSize="1vw"
+                      fontFamily="Montserrat"
+                      fontWeight="medium"
+                      color="#63595C"
+                    >
+                      ¿Estás seguro que deseas eliminar a
+                    </Typography>
+                    <InputTitles
+                      mt={2}
+                      sx={{
+                        fontSize: "1.1vw",
+                      }}
+                    >
+                      {open[1]}
+                    </InputTitles>
+                    <Typography
+                      letterSpacing={0}
+                      fontSize="1vw"
+                      fontFamily="Montserrat"
+                      fontWeight="medium"
+                      color="#63595C"
+                      mt={2}
+                    >
+                      de los corredores?
+                    </Typography>
+                    <Typography
+                      letterSpacing={0}
+                      fontSize="0.8vw"
+                      fontFamily="Montserrat"
+                      fontWeight="medium"
+                      color="#333333"
+                      mt={3.5}
+                    >
+                      Si eliminas a este corredor, no podrás recuperarlo.
+                    </Typography>
+                    <Box
+                      display="flex"
+                      flexDirection="row"
+                      alignItems="center"
+                      justifyContent="center"
+                      mt={4}
+                    >
+                      <GreenButtonModal onClick={handleClose}>
+                        Volver
+                      </GreenButtonModal>
+                      <RedButtonModal
+                        sx={{
+                          ml: 2,
+                        }}
+                        onClick={() => handleDelete(open[2])}
+                      >
+                        Eliminar
+                      </RedButtonModal>
+                    </Box>
+                  </Box>
+                </Box>
+              </Fade>
+            </Modal>
+          </>
         );
       },
     },
