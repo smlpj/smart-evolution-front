@@ -136,7 +136,7 @@ export default function RegisterDeposit() {
     }
 
     if (error) {
-      Toast(`${error.message}`, "error");
+      Toast(`${Object.values(error.message)[0]}`, "error");
     }
 
     if (data) {

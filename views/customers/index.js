@@ -1,15 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 // Queries
-import { RegisterClientQuery, ModifyClientQuery, GetClientByID } from "./queries";
+import {
+  RegisterClientQuery,
+  ModifyClientQuery,
+  GetClientByID,
+} from "./queries";
 // Hooks
 import { useState, useEffect } from "react";
 import { useFetch } from "../../shared/hooks/useFetch";
 import { useFormik } from "formik";
 // Alerts and notifications
-import { Toast } from '../../shared/components/toast'
+import { Toast } from "../../shared/components/toast";
 import { ToastContainer } from "react-toastify";
 // Router
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
 // Next imports
 import Head from "next/head";
 // Validations
@@ -74,60 +78,52 @@ export default function RegisterClient() {
   }, [option]);
 
   const validationSchema = object({
-    type_identity: 
-      string("Ingresa el tipo de identificación del corredor")
+    type_identity: string("Ingresa el tipo de identificación del corredor")
       .nullable(true)
       .required("El tipo de identificación es requerido"),
 
-    document_number: 
-      string("Ingresa un número de documento")
+    document_number: string("Ingresa un número de documento")
       .matches(/^[0-9]+$/, "Ingresa un número de documento válido")
       .required("El número de documento es requerido"),
 
-    first_name: 
-      string("Ingresa un nombre")
+    first_name: string("Ingresa un nombre")
       .matches(/[a-zA-Z]+/, "Ingresa un nombre válido")
       .nullable(true),
-    last_name: 
-      string("Ingresa un apellido")
+    last_name: string("Ingresa un apellido")
       .matches(/^[a-zA-Z]+$/, "Ingresa un apellido válido")
       .nullable(true),
-    email: 
-      string("Ingresa un email")
-      .matches(/^[a-zA-Z]+[a-zA-Z0-9_.]+@[a-zA-Z.]+[a-zA-Z]$/,"Ingresa un email válido")
+    email: string("Ingresa un email")
+      .matches(
+        /^[a-zA-Z]+[a-zA-Z0-9_.]+@[a-zA-Z.]+[a-zA-Z]$/,
+        "Ingresa un email válido"
+      )
       .required("El email es requerido"),
 
-    address:
-      string("Ingresa una dirección")
-      .required("La dirección es requerida"),
+    address: string("Ingresa una dirección").required(
+      "La dirección es requerida"
+    ),
 
-    phone_number:
-      string("Ingresa un número de teléfono")
+    phone_number: string("Ingresa un número de teléfono")
       .matches(/^[0-9]+$/, "Ingresa un número de teléfono válido")
       .required("El número de teléfono es requerido"),
 
-    city: 
-      string("Selecciona una ciudad")
+    city: string("Selecciona una ciudad")
       .nullable(true)
       .required("La ciudad es requerida"),
 
-    type_client: 
-      string("Selecciona un tipo de cliente")
+    type_client: string("Selecciona un tipo de cliente")
       .nullable(true)
       .required("El tipo de cliente es requerido"),
 
-    broker:
-      string("Selecciona un corredor")
+    broker: string("Selecciona un corredor")
       .nullable(true)
       .required("El corredor es requerido"),
 
-    ciiu:
-      string("Selecciona un CIIU")
+    ciiu: string("Selecciona un CIIU")
       .nullable(true)
       .required("El CIIU es requerido"),
 
-    citizenship:
-      string("Selecciona una nacionalidad")
+    citizenship: string("Selecciona una nacionalidad")
       .nullable(true)
       .required("La nacionalidad es requerida"),
 
@@ -156,43 +152,39 @@ export default function RegisterClient() {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       if (option === "register") {
-        console.log("Registrado el cliente");
         fetch(values);
-        router.push("/customers/customerList");
       } else {
-        console.log("Actualizado el cliente");
         fetch3(values);
-        router.push("/customers/customerList");
       }
     },
   });
 
   useEffect(() => {
-    if (loading3) Toast('Cargando...', 'loading')
+    if (loading3) Toast("Cargando...", "loading");
 
-    if (error3) Toast('Error al actualizar el cliente', 'error')
+    if (error3) Toast("Error al actualizar el cliente", "error");
 
-    if (data3)  {
-      Toast('Cliente actualizado correctamente', 'success')
+    if (data3) {
+      Toast("Cliente actualizado correctamente", "success");
       setTimeout(() => {
-        router.push('customers/customerList')
+        router.push("customers/customerList");
       }, 2000);
     }
   }, [loading3, data3, error3]);
 
-    useEffect(() => {
-    if (loading == true) { 
-      Toast('Cargando..', 'loading')
+  useEffect(() => {
+    if (loading == true) {
+      Toast("Cargando..", "loading");
     }
 
     if (error) {
-      Toast(`${error.message}`, 'error')
+      Toast(`${Object.values(error.message)[0]}`, "error");
     }
 
-    if (data) { 
-      Toast('Cliente creado correctamente', 'success') 
+    if (data) {
+      Toast("Cliente creado correctamente", "success");
       setTimeout(() => {
-        router.push('customers/customerList')
+        router.push("customers/customerList");
       }, 2000);
     }
   }, [loading, data, error]);
@@ -208,7 +200,12 @@ export default function RegisterClient() {
         <meta name="description" content="Generated by create next app" />
         <link rel="icon" href="/assets/Icono Smart.svg" />
       </Head>
-      <SignUpClient formik={formik} option={option} ToastContainer={ToastContainer} />
+      <SignUpClient
+        formik={formik}
+        option={option}
+        ToastContainer={ToastContainer}
+        loading={loading2}
+      />
     </>
   );
 }
