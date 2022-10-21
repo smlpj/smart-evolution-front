@@ -21,6 +21,7 @@ import { useEffect } from "react";
 import CustomTooltip from "../../styles/customTooltip";
 import { Fade } from "@material-ui/core";
 import { format } from "date-fns";
+import ValueFormat from "@formats/ValueFormat";
 
 export const BillsComponents = () => {
   const [rowsToModify, setRowsToModify] = useState([]);
@@ -495,15 +496,23 @@ export const BillsComponents = () => {
       headerName: "VALOR FACTURA",
       width: 120,
       renderCell: (params) => {
-        return <InputTitles>{params.value}</InputTitles>;
+        return (
+          <InputTitles>
+            <ValueFormat prefix="$ " value={params.value} />
+          </InputTitles>
+        );
       },
     },
     {
       field: "IVA",
       headerName: "IVA",
-      width: 60,
+      width: 100,
       renderCell: (params) => {
-        return <InputTitles>{params.value}</InputTitles>;
+        return (
+          <InputTitles>
+            <ValueFormat prefix="$ " value={params.value} />
+          </InputTitles>
+        );
       },
     },
     {
@@ -511,7 +520,11 @@ export const BillsComponents = () => {
       headerName: "NOTA CRÉDITO",
       width: 110,
       renderCell: (params) => {
-        return <InputTitles>{params.value}</InputTitles>;
+        return (
+          <InputTitles>
+            <ValueFormat prefix="$ " value={params.value} />
+          </InputTitles>
+        );
       },
     },
     {
@@ -521,7 +534,12 @@ export const BillsComponents = () => {
       renderCell: (params) => {
         return (
           <InputTitles>
-            {params.row.BillValue + params.row.IVA - params.row.CreditNote}
+            <ValueFormat
+              prefix="$ "
+              value={
+                params.row.BillValue + params.row.IVA - params.row.CreditNote
+              }
+            />
           </InputTitles>
         );
       },
@@ -533,18 +551,23 @@ export const BillsComponents = () => {
       renderCell: (params) => {
         return (
           <InputTitles>
-            {rowsToApplyRETIVA.includes(params.row)
-              ? params.row.BillValue +
-                params.row.IVA -
-                params.row.IVA * 0.15 -
-                (params.row.RetICA / 100) * params.row.SubTotal -
-                (params.row.RetFTE / 100) * params.row.SubTotal -
-                params.row.CreditNote
-              : params.row.BillValue +
-                params.row.IVA -
-                (params.row.RetICA / 100) * params.row.SubTotal -
-                (params.row.RetFTE / 100) * params.row.SubTotal -
-                params.row.CreditNote}
+            <ValueFormat
+              prefix="$ "
+              value={
+                rowsToApplyRETIVA.includes(params.row)
+                  ? params.row.BillValue +
+                    params.row.IVA -
+                    params.row.IVA * 0.15 -
+                    (params.row.RetICA / 100) * params.row.SubTotal -
+                    (params.row.RetFTE / 100) * params.row.SubTotal -
+                    params.row.CreditNote
+                  : params.row.BillValue +
+                    params.row.IVA -
+                    (params.row.RetICA / 100) * params.row.SubTotal -
+                    (params.row.RetFTE / 100) * params.row.SubTotal -
+                    params.row.CreditNote
+              }
+            />
           </InputTitles>
         );
       },
