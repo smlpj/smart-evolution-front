@@ -142,7 +142,6 @@ export const BillsComponents = () => {
             },
             "& .MuiInputBase-input": {
               padding: "2px",
-              fontFamily: "Montserrat",
               color: "#488B8F",
               fontSize: "0.9rem",
               fontWeight: "600",
@@ -198,7 +197,6 @@ export const BillsComponents = () => {
             },
             "& .MuiInputBase-input": {
               padding: "2px",
-              fontFamily: "Montserrat",
               color: "#488B8F",
               fontSize: "0.9rem",
               fontWeight: "600",
@@ -229,7 +227,6 @@ export const BillsComponents = () => {
       renderCell: (params) => {
         return (
           <Typography
-            fontFamily="Montserrat"
             fontSize="80%"
             width="100%"
             fontWeight="bold"
@@ -346,7 +343,6 @@ export const BillsComponents = () => {
             },
             "& .MuiInputBase-input": {
               padding: "2px",
-              fontFamily: "Montserrat",
               color: "#488B8F",
               fontSize: "0.9rem",
               fontWeight: "600",
@@ -598,7 +594,6 @@ export const BillsComponents = () => {
               sx={{
                 width: "6%",
                 height: "10%",
-                fontFamily: "Montserrat",
                 fontWeight: "bold",
                 letterSpacing: "0",
                 textTransform: "uppercase",
@@ -613,7 +608,6 @@ export const BillsComponents = () => {
           <Typography
             letterSpacing={0}
             fontSize="1.6rem"
-            fontFamily="Montserrat"
             fontWeight="medium"
             marginBottom="0.7rem"
             color="#5EA3A3"
@@ -639,7 +633,6 @@ export const BillsComponents = () => {
             <Typography
               letterSpacing={0}
               fontSize="90%"
-              fontFamily="Montserrat"
               fontWeight="bold"
               color="#488B8F"
             >
@@ -680,7 +673,6 @@ export const BillsComponents = () => {
             <Typography
               letterSpacing={0}
               fontSize="90%"
-              fontFamily="Montserrat"
               fontWeight="bold"
               color="#488B8F"
             >
@@ -708,7 +700,6 @@ export const BillsComponents = () => {
           <Typography
             letterSpacing={0}
             fontSize="95%"
-            fontFamily="Montserrat"
             fontWeight="bold"
             color="#488B8F"
             textTransform="uppercase"
@@ -724,7 +715,6 @@ export const BillsComponents = () => {
             <Typography
               letterSpacing={0}
               fontSize="95%"
-              fontFamily="Montserrat"
               fontWeight="bold"
               color="#B5D1C9"
               textTransform="uppercase"
@@ -737,7 +727,6 @@ export const BillsComponents = () => {
               <Typography
                 letterSpacing={0}
                 fontSize="85%"
-                fontFamily="Montserrat"
                 fontWeight="bold"
                 color={rowsToModify.length === 0 ? "#488B8F50" : "#488B8F"}
                 textTransform="uppercase"
@@ -779,7 +768,6 @@ export const BillsComponents = () => {
                   },
                   "& .MuiInputBase-input": {
                     padding: "2px",
-                    fontFamily: "Montserrat",
                     color: "#488B8F",
                     fontSize: "0.9rem",
                     fontWeight: "600",
@@ -841,7 +829,6 @@ export const BillsComponents = () => {
               <Typography
                 letterSpacing={0}
                 fontSize="85%"
-                fontFamily="Montserrat"
                 fontWeight="bold"
                 color={rowsToModify.length === 0 ? "#488B8F50" : "#488B8F"}
                 textTransform="uppercase"
@@ -884,7 +871,6 @@ export const BillsComponents = () => {
                   },
                   "& .MuiInputBase-input": {
                     padding: "2px",
-                    fontFamily: "Montserrat",
                     color: "#488B8F",
                     fontSize: "0.9rem",
                     fontWeight: "600",
@@ -976,7 +962,6 @@ export const BillsComponents = () => {
               ),
               NoRowsOverlay: () => (
                 <Typography
-                  fontFamily="Montserrat"
                   fontSize="0.9rem"
                   fontWeight="600"
                   color="#488B8F"

@@ -9,8 +9,8 @@ import {
 
 import MuiButton from "@styles/button";
 import MuiTextField from "@styles/fields";
-import globalStyles from "@styles/global.module.css";
 import HelperText from "@styles/helperText";
+import InputTitles from "@styles/inputTitles";
 
 export const InputAdornments = ({
   formik,
@@ -24,7 +24,7 @@ export const InputAdornments = ({
       <form onSubmit={formik.handleSubmit}>
         <Box display="flex" flexDirection="column" sx={{ marginTop: "50px" }}>
           <Box display="flex" flexDirection="column">
-            <h1 className={globalStyles.subtitulo}>Email</h1>
+            <InputTitles>Email</InputTitles>
             <FormControl fullWidth sx={{ marginBottom: "20px" }}>
               <MuiTextField
                 id="email"
@@ -53,7 +53,7 @@ export const InputAdornments = ({
                 {formik.touched.email && formik.errors.email}
               </HelperText>
             </FormControl>
-            <h1 className={globalStyles.subtitulo}>Contraseña</h1>
+            <InputTitles>Contraseña</InputTitles>
             <FormControl fullWidth>
               <MuiTextField
                 id="password"
@@ -104,7 +104,6 @@ export const InputAdornments = ({
             >
               <Typography
                 sx={{
-                  fontFamily: "Montserrat",
                   fontStyle: "normal",
                   fontWeight: "bold",
                   fontSize: "0.8rem",

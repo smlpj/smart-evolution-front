@@ -7,7 +7,6 @@ const RedButtonModal = styled(Button)({
   backgroundColor: "#CB313133",
   color: "#C16060",
   fontSize: "0.7vw",
-  fontFamily: "Montserrat",
   fontWeight: "600",
   padding: "0.5vw 3vw",
   textTransform: "uppercase",

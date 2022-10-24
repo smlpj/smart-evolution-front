@@ -8,8 +8,7 @@ const FileUploadButton = styled(Button)({
   padding: "10px",
   height: "2.5rem",
   "&.MuiButton-root": {
-    padding: "2px",
-    fontFamily: "Montserrat",
+    padding: "2px",  
     color: "#57575780",
   },
   "&:hover": {

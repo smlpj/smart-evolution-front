@@ -24,7 +24,6 @@ export const AdministrationComponents = () => {
               sx={{
                 width: "6%",
                 height: "10%",
-                fontFamily: "Montserrat",
                 fontWeight: "bold",
                 letterSpacing: "0",
                 textTransform: "uppercase",
@@ -40,7 +39,6 @@ export const AdministrationComponents = () => {
           <Typography
             letterSpacing={0}
             fontSize="1.5vw"
-            fontFamily="Montserrat"
             fontWeight="medium"
             marginBottom="0.7rem"
             color="#5EA3A3"
@@ -50,7 +48,6 @@ export const AdministrationComponents = () => {
           <Typography
             letterSpacing={0}
             fontSize="1.2vw"
-            fontFamily="Montserrat"
             fontWeight="medium"
             marginBottom="0.7rem"
             color="#333333"
@@ -102,7 +99,6 @@ export const AdministrationComponents = () => {
                 <Typography
                   letterSpacing={0}
                   fontSize="80%"
-                  fontFamily="Montserrat"
                   fontWeight="bold"
                   color="#488B8F"
                   textTransform="uppercase"
@@ -125,7 +121,6 @@ export const AdministrationComponents = () => {
                 <Typography
                   letterSpacing={0}
                   fontSize="80%"
-                  fontFamily="Montserrat"
                   fontWeight="bold"
                   color="#488B8F"
                   textTransform="uppercase"
@@ -177,7 +172,6 @@ export const AdministrationComponents = () => {
                 <Typography
                   letterSpacing={0}
                   fontSize="80%"
-                  fontFamily="Montserrat"
                   fontWeight="bold"
                   color="#488B8F"
                   textTransform="uppercase"
@@ -200,7 +194,6 @@ export const AdministrationComponents = () => {
                 <Typography
                   letterSpacing={0}
                   fontSize="80%"
-                  fontFamily="Montserrat"
                   fontWeight="bold"
                   color="#488B8F"
                   textTransform="uppercase"
@@ -252,7 +245,6 @@ export const AdministrationComponents = () => {
                 <Typography
                   letterSpacing={0}
                   fontSize="80%"
-                  fontFamily="Montserrat"
                   fontWeight="bold"
                   color="#488B8F"
                   textTransform="uppercase"
@@ -275,7 +267,6 @@ export const AdministrationComponents = () => {
                 <Typography
                   letterSpacing={0}
                   fontSize="80%"
-                  fontFamily="Montserrat"
                   fontWeight="bold"
                   color="#488B8F"
                   textTransform="uppercase"
@@ -327,7 +318,6 @@ export const AdministrationComponents = () => {
                 <Typography
                   letterSpacing={0}
                   fontSize="80%"
-                  fontFamily="Montserrat"
                   fontWeight="bold"
                   color="#488B8F"
                   textTransform="uppercase"
@@ -350,7 +340,6 @@ export const AdministrationComponents = () => {
                 <Typography
                   letterSpacing={0}
                   fontSize="80%"
-                  fontFamily="Montserrat"
                   fontWeight="bold"
                   color="#488B8F"
                   textTransform="uppercase"

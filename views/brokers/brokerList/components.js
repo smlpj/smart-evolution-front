@@ -99,7 +99,6 @@ export const BrokerListComponent = () => {
       renderCell: (params) => {
         return (
           <Typography
-            fontFamily="Montserrat"
             fontSize="80%"
             width="100%"
             fontWeight="bold"
@@ -225,7 +224,6 @@ export const BrokerListComponent = () => {
                 <Typography
                   letterSpacing={0}
                   fontSize="1vw"
-                  fontFamily="Montserrat"
                   fontWeight="medium"
                   color="#63595C"
                 >
@@ -237,7 +235,6 @@ export const BrokerListComponent = () => {
                 <Typography
                   letterSpacing={0}
                   fontSize="1vw"
-                  fontFamily="Montserrat"
                   fontWeight="medium"
                   color="#63595C"
                   mt={2}
@@ -247,7 +244,6 @@ export const BrokerListComponent = () => {
                 <Typography
                   letterSpacing={0}
                   fontSize="0.8vw"
-                  fontFamily="Montserrat"
                   fontWeight="medium"
                   color="#333333"
                   mt={3.5}
@@ -363,7 +359,6 @@ export const BrokerListComponent = () => {
           <Typography
             letterSpacing={0}
             fontSize="1.7rem"
-            fontFamily="Montserrat"
             fontWeight="regular"
             marginBottom="0.7rem"
             color="#5EA3A3"
@@ -385,7 +380,6 @@ export const BrokerListComponent = () => {
               <Typography
                 letterSpacing={0}
                 fontSize="80%"
-                fontFamily="Montserrat"
                 fontWeight="bold"
                 color="#63595C"
               >
@@ -426,7 +420,6 @@ export const BrokerListComponent = () => {
               <Typography
                 letterSpacing={0}
                 fontSize="85%"
-                fontFamily="Montserrat"
                 fontWeight="600"
                 color="#5EA3A3"
                 textTransform="none"
@@ -448,7 +441,6 @@ export const BrokerListComponent = () => {
               <Typography
                 letterSpacing={0}
                 fontSize="85%"
-                fontFamily="Montserrat"
                 fontWeight="600"
                 color="#5EA3A3"
                 textTransform="none"
@@ -470,7 +462,6 @@ export const BrokerListComponent = () => {
               <Typography
                 letterSpacing={0}
                 fontSize="85%"
-                fontFamily="Montserrat"
                 fontWeight="600"
                 color="#5EA3A3"
                 textTransform="none"
@@ -535,7 +526,6 @@ export const BrokerListComponent = () => {
                   alignItems="center"
                 >
                   <Typography
-                    fontFamily="Montserrat"
                     fontSize="0.8rem"
                     fontWeight="600"
                     color="#5EA3A3"

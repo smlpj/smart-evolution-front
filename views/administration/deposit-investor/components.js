@@ -69,7 +69,6 @@ export const Deposit = ({ formik, option, ToastContainer }) => {
                   <Typography
                     letterSpacing={0}
                     fontSize="1.7rem"
-                    fontFamily="Montserrat"
                     fontWeight="regular"
                     marginBottom="4rem"
                     color="#5EA3A3"
@@ -251,11 +250,7 @@ export const Deposit = ({ formik, option, ToastContainer }) => {
                       borderRadius: "4px",
                     }}
                   >
-                    <Typography
-                      fontSize="90%"
-                      fontFamily="Montserrat"
-                      fontWeight="bold"
-                    >
+                    <Typography fontSize="90%" fontWeight="bold">
                       {option === "register" ? "Registrar" : "Modificar"}
                     </Typography>
                     <ArrowForwardIcon

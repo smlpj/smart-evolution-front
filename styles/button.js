@@ -11,7 +11,6 @@ const RoundButton = styled(Button)({
     backgroundColor: "#5EA3A3C8",
   },
   marginTop: "40px",
-  fontFamily: "Montserrat",
   fontWeight: "bold",
 });
 

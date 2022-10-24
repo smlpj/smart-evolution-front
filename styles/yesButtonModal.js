@@ -7,7 +7,6 @@ const GreenButtonModal = styled(Button)({
   backgroundColor: "transparent",
   color: "#488B8F",
   fontSize: "0.7vw",
-  fontFamily: "Montserrat",
   fontWeight: "600",
   padding: "0.5vw 3vw",
   textTransform: "uppercase",
