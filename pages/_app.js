@@ -1,5 +1,6 @@
 import "react-toastify/dist/ReactToastify.css";
 
+import Head from "next/head";
 import { useRouter } from "next/router";
 
 import Layout from "@components/layout";
@@ -15,18 +16,24 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <AuthProvider>
-        {router.pathname !== "/auth/login" &&
-        router.pathname !== "/brokers" &&
-        router.pathname !== "/customers" &&
-        router.pathname !== "/" &&
-        router.pathname !== "/administration/deposit-investor" &&
-        router.pathname !== "/administration/deposit-emitter" ? (
-          <Layout>
+        <>
+          <Head>
+            <title>Smart Evolution</title>
+          </Head>
+
+          {router.pathname !== "/auth/login" &&
+          router.pathname !== "/brokers" &&
+          router.pathname !== "/customers" &&
+          router.pathname !== "/" &&
+          router.pathname !== "/administration/deposit-investor" &&
+          router.pathname !== "/administration/deposit-emitter" ? (
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          ) : (
             <Component {...pageProps} />
-          </Layout>
-        ) : (
-          <Component {...pageProps} />
-        )}
+          )}
+        </>
       </AuthProvider>
     </>
   );

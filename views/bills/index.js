@@ -8,7 +8,6 @@ export default function Bills() {
       <Head>
         <title>Control de Factura Electrónica</title>
         <meta name="description" content="Control de Factura Electrónica" />
-        <link rel="icon" href="/assets/Icono Smart.svg" />
       </Head>
       <BillsComponents />
     </>
