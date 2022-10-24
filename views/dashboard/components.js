@@ -1,7 +1,7 @@
 import EastIcon from "@mui/icons-material/East";
 import { Box, CircularProgress, Typography } from "@mui/material";
 
-import DashboardButton from "@styles/button_3";
+import DashboardButton from "@styles/buttons/button_3";
 
 export const DashboardContent = () => {
   return (

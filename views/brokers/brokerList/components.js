@@ -14,9 +14,9 @@ import { useFetch } from "@hooks/useFetch";
 import CustomTooltip from "@styles/customTooltip";
 import MuiTextField from "@styles/fields";
 import InputTitles from "@styles/inputTitles";
-import RedButtonModal from "@styles/noButtonModal";
+import RedButtonModal from "@styles/buttons/noButtonModal";
 import CustomDataGrid from "@styles/tables";
-import GreenButtonModal from "@styles/yesButtonModal";
+import GreenButtonModal from "@styles/buttons/yesButtonModal";
 
 import {
   DeleteBrokerById,

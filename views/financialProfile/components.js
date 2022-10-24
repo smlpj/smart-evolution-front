@@ -10,9 +10,10 @@ import { Box, Button, Tab, Tabs, Typography } from "@mui/material";
 
 import { useFetch } from "@hooks/useFetch";
 
+import BackButton from "@styles/buttons/BackButton";
+import FileUploadButton from "@styles/buttons/uploadFileButton";
 import InputTitles from "@styles/inputTitles";
 import scrollSx from "@styles/scroll";
-import FileUploadButton from "@styles/uploadFileButton";
 
 import { GetCustomerById } from "./queries";
 
@@ -90,27 +91,7 @@ export const FinancialProfile = ({ formik }) => {
           sx={{ ...scrollSx }}
         >
           <Box display="flex" flexDirection="column">
-            <Link href="/dashboard" underline="none">
-              <Button
-                variant="standard"
-                color="transparent"
-                justifyContent="flex-start"
-                alignItems="center"
-                startIcon={<ArrowBackIcon sx={{ color: "#5EA3A3" }} />}
-                sx={{
-                  width: "6%",
-                  height: "10%",
-                  fontWeight: "bold",
-                  letterSpacing: "0",
-                  textTransform: "uppercase",
-                  color: "#5EA3A3",
-                  fontSize: "70%",
-                  borderRadius: "4px",
-                }}
-              >
-                Atrás
-              </Button>
-            </Link>
+            <BackButton path="/dashboard" />
             <Box marginBottom={3}>
               <Typography
                 letterSpacing={0}

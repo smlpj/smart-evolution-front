@@ -4,7 +4,7 @@ import ValueFormat from "@formats/ValueFormat";
 
 import responsiveFontSize from "@lib/responsiveFontSize";
 
-import DashboardButton from "@styles/button_3";
+import DashboardButton from "@styles/buttons/button_3";
 import InputTitles from "@styles/inputTitles";
 import scrollSx from "@styles/scroll";
 

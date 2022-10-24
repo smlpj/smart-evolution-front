@@ -10,7 +10,7 @@ import Header from "@components/header";
 import AccountSelect from "@components/selects/accountSelect";
 import ClientSelect from "@components/selects/customerSelect";
 
-import MuiButton from "@styles/button";
+import MuiButton from "@styles/buttons/button";
 import MuiTextField from "@styles/fields";
 import HelperText from "@styles/helperText";
 import InputTitles from "@styles/inputTitles";

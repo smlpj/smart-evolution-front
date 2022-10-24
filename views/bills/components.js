@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
 import { ArrowForward } from "@mui/icons-material";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import UploadFileOutlinedIcon from "@mui/icons-material/UploadFileOutlined";
 import {
   Box,
@@ -9,7 +8,6 @@ import {
   Divider,
   Fade,
   IconButton,
-  Link,
   Switch,
   TextField,
   Typography,
@@ -20,6 +18,7 @@ import ValueFormat from "@formats/ValueFormat";
 
 import { useFetch } from "@hooks/useFetch";
 
+import BackButton from "@styles/buttons/BackButton";
 import CustomTooltip from "@styles/customTooltip";
 import InputTitles from "@styles/inputTitles";
 import CustomDataGrid from "@styles/tables";
@@ -584,33 +583,16 @@ export const BillsComponents = () => {
         position="fixed"
       >
         <Box display="flex" flexDirection="row" alignItems="center">
-          <Link href="/dashboard" underline="none">
-            <Button
-              variant="standard"
-              color="transparent"
-              justifyContent="flex-start"
-              alignItems="center"
-              startIcon={<ArrowBackIcon sx={{ color: "#5EA3A3" }} />}
-              sx={{
-                width: "6%",
-                height: "10%",
-                fontWeight: "bold",
-                letterSpacing: "0",
-                textTransform: "uppercase",
-                color: "#5EA3A3",
-                fontSize: "70%",
-                borderRadius: "4px",
-              }}
-            >
-              Atrás
-            </Button>
-          </Link>
+          <BackButton path="/dashboard" buttonSx={{}} />
+
           <Typography
             letterSpacing={0}
             fontSize="1.6rem"
             fontWeight="medium"
             marginBottom="0.7rem"
             color="#5EA3A3"
+            margin={0}
+            marginLeft={1}
           >
             Control de Factura Electrónica
           </Typography>

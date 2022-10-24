@@ -13,7 +13,7 @@ import ClientTypeSelect from "@components/selects/clientTypeSelect";
 import DepartmentSelect from "@components/selects/departmentSelect";
 import TypeIDSelect from "@components/selects/typeIdentitySelect";
 
-import MuiButton from "@styles/button";
+import MuiButton from "@styles/buttons/button";
 import MuiTextField from "@styles/fields";
 import HelperText from "@styles/helperText";
 import InputTitles from "@styles/inputTitles";

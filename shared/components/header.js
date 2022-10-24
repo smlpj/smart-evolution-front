@@ -3,7 +3,7 @@ import Link from "next/link";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import { AppBar, Box, IconButton, Toolbar } from "@mui/material";
 
-import HeaderButton from "@styles/button_2";
+import HeaderButton from "@styles/buttons/button_2";
 
 export default function Header() {
   return (
