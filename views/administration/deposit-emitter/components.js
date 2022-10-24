@@ -11,7 +11,7 @@ import Header from "../../../shared/components/header";
 import HelperText from "../../../styles/helperText";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ClientSelect from "../../../shared/components/selects/customerSelect";
-import AccountSelect from "../../../shared/components/selects/accountSelect";
+import AccountingAccountSelect from "../../../shared/components/selects/accountingAccountSelect";
 import AccountTypeSelect from "../../../shared/components/selects/accountTypeSelect";
 import EgressSelect from "../../../shared/components/selects/egressSelect";
 import BankSelect from "../../../shared/components/selects/bankSelect";
@@ -385,7 +385,7 @@ export const Deposit = ({ formik, option, ToastContainer }) => {
                           <Box ml={5} position="relative">
                             <Box width="17vw">
                               <InputTitles>Cuenta</InputTitles>
-                              <AccountSelect formik={formik} />
+                              <AccountingAccountSelect formik={formik} />
                               <HelperText position="fixed">
                                 {formik.touched.account &&
                                   formik.errors.account}

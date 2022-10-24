@@ -21,6 +21,7 @@ import { Toast } from "../../../shared/components/toast";
 import { ToastContainer } from "react-toastify";
 
 export default function RegisterDeposit() {
+
   const [option, setOption] = useState("");
   const [id, setId] = useState("");
   const router = useRouter();
@@ -81,9 +82,7 @@ export default function RegisterDeposit() {
 
     date: string("Ingresa la fecha de giro").required("La fecha es requerida"),
 
-    amount: string("Ingresa el monto de operación").required(
-      "El monto es requerido"
-    ),
+    amount: string("Ingresa el monto de operación").required("El monto es requerido"),
 
     observations: string("Ingresa una observación").nullable(true),
 
@@ -119,6 +118,7 @@ export default function RegisterDeposit() {
     accountNumber: null,
     accountType: null,
     egressType: null,
+    operation: null
   };
 
   const formik = useFormik({
@@ -152,7 +152,7 @@ export default function RegisterDeposit() {
     }
 
     if (error) {
-      Toast(`${Object.values(error.message)[0]}`, "error");
+      Toast(`${Object.values(error.message)}`, "error");
     }
 
     if (data) {
