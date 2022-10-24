@@ -11,6 +11,7 @@ import { Box, Button, Tab, Tabs, Typography } from "@mui/material";
 import { useFetch } from "@hooks/useFetch";
 
 import InputTitles from "@styles/inputTitles";
+import scrollSx from "@styles/scroll";
 import FileUploadButton from "@styles/uploadFileButton";
 
 import { GetCustomerById } from "./queries";
@@ -86,27 +87,7 @@ export const FinancialProfile = ({ formik }) => {
           display="flex"
           flexDirection="column"
           height="27vh"
-          sx={{
-            scrollBehavior: "smooth",
-            overflowY: "auto",
-            "&::-webkit-scrollbar": {
-              position: "absolute",
-              width: "9px",
-              webkitAppearance: "none",
-            },
-            "&::-webkit-scrollbar-track": {
-              backgroundColor: "#CFDDDD",
-              borderRadius: "10px",
-            },
-            "&::-webkit-scrollbar-thumb": {
-              backgroundColor: "#5EA3A3",
-              backgroundClip: "content-box",
-              borderColor: "transparent",
-              borderStyle: "solid",
-              borderWidth: "1px 2px",
-              borderRadius: "10px",
-            },
-          }}
+          sx={{ ...scrollSx }}
         >
           <Box display="flex" flexDirection="column">
             <Link href="/dashboard" underline="none">
@@ -370,27 +351,7 @@ export const FinancialProfile = ({ formik }) => {
           display="flex"
           flexDirection="column"
           height="46vh"
-          sx={{
-            scrollBehavior: "smooth",
-            overflowY: "auto",
-            "&::-webkit-scrollbar": {
-              position: "absolute",
-              width: "9px",
-              webkitAppearance: "none",
-            },
-            "&::-webkit-scrollbar-track": {
-              backgroundColor: "#CFDDDD",
-              borderRadius: "10px",
-            },
-            "&::-webkit-scrollbar-thumb": {
-              backgroundColor: "#5EA3A3",
-              backgroundClip: "content-box",
-              borderColor: "transparent",
-              borderStyle: "solid",
-              borderWidth: "1px 2px",
-              borderRadius: "10px",
-            },
-          }}
+          sx={{ ...scrollSx }}
         >
           {/* <Box display="flex" flexDirection="row">
             <Box position="relative" height="auto">

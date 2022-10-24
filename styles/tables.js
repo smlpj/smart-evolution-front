@@ -1,31 +1,14 @@
 import { styled } from "@mui/material/styles";
 import { DataGrid } from "@mui/x-data-grid";
 
+import scrollSx from "@styles/scroll";
+
 const CustomDataGrid = styled(DataGrid)({
   border: "none",
 
   "& .MuiDataGrid-virtualScroller": {
-    scrollBehavior: "smooth",
-    overflowY: "auto",
+    ...scrollSx,
     overflowX: "auto",
-    "&::-webkit-scrollbar": {
-      position: "absolute",
-      width: "9px",
-      height: "9px",
-      webkitAppearance: "none",
-    },
-    "&::-webkit-scrollbar-track": {
-      backgroundColor: "#CFDDDD",
-      borderRadius: "10px",
-    },
-    "&::-webkit-scrollbar-thumb": {
-      backgroundColor: "#5EA3A3",
-      backgroundClip: "content-box",
-      borderColor: "transparent",
-      borderStyle: "solid",
-      borderWidth: "1px 2px",
-      borderRadius: "10px",
-    },
   },
 
   "& .MuiDataGrid-cellCheckbox": {

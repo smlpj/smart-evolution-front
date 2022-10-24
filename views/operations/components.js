@@ -3,6 +3,7 @@ import { Box, Typography } from "@mui/material";
 
 import MuiTextField from "@styles/fields";
 import InputTitles from "@styles/inputTitles";
+import scrollSx from "@styles/scroll";
 import CustomDataGrid from "@styles/tables";
 
 const columns = [
@@ -148,27 +149,7 @@ export const OperationsComponents = () => {
             justifyContent="center"
             width="55%"
             height="100%"
-            sx={{
-              scrollBehavior: "smooth",
-              overflowY: "auto",
-              "&::-webkit-scrollbar": {
-                position: "absolute",
-                width: "9px",
-                webkitAppearance: "none",
-              },
-              "&::-webkit-scrollbar-track": {
-                backgroundColor: "#CFDDDD",
-                borderRadius: "10px",
-              },
-              "&::-webkit-scrollbar-thumb": {
-                backgroundColor: "#5EA3A3",
-                backgroundClip: "content-box",
-                borderColor: "transparent",
-                borderStyle: "solid",
-                borderWidth: "1px 2px",
-                borderRadius: "10px",
-              },
-            }}
+            sx={{ ...scrollSx }}
           >
             <Box
               display="grid"
