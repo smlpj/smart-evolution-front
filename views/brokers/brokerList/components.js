@@ -299,7 +299,7 @@ export const BrokerListComponent = () => {
             broker.social_reason ?? ""
           }`,
           Status: broker.state,
-          DateCreated: format(new Date(broker.created_at), "dd / MM / yyyy"),
+          DateCreated: <DateFormat date={broker.created_at} />,
         });
       });
       setBroker(Brokers);
@@ -331,7 +331,7 @@ export const BrokerListComponent = () => {
           }`,
           Status: broker.status,
           EnteredBy: `${broker.entered_by.first_name} ${broker.entered_by.last_name}`,
-          DateCreated: format(new Date(broker.created_at), "dd / MM / yyyy"),
+          DateCreated: <DateFormat date={broker.created_at} />,
           FinancialProfile: broker.financial_profile,
           RiskProfile: broker.risk_profile,
         });

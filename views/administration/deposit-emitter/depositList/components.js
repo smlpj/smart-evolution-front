@@ -209,7 +209,7 @@ export const DepositListComponent = () => {
             ? deposit.client.first_name + " " + deposit.client.last_name
             : deposit.client.social_reason,
           amount: deposit.amount,
-          date: format(new Date(deposit.date), "dd / MM / yyyy"),
+          date: <DateFormat date={deposit.date} />,
         });
       });
       setDeposit(Deposits);
@@ -239,7 +239,7 @@ export const DepositListComponent = () => {
             ? deposit.client.first_name + " " + deposit.client.last_name
             : deposit.client.social_reason,
           amount: deposit.amount,
-          date: format(new Date(deposit.date), "dd / MM / yyyy"),
+          date: <DateFormat date={deposit.date} />,
         });
       });
       setDeposit(Deposits);

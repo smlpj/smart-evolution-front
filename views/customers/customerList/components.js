@@ -544,7 +544,7 @@ export const ClientListComponent = () => {
           }`,
           Status: customer.status,
           EnteredBy: `${customer.entered_by.first_name} ${customer.entered_by.last_name}`,
-          DateCreated: format(new Date(customer.created_at), "dd / MM / yyyy"),
+          DateCreated: <DateFormat date={customer.created_at} />,
           FinancialProfile: customer.financial_profile,
           RiskProfile: customer.risk_profile,
         });
@@ -580,7 +580,7 @@ export const ClientListComponent = () => {
           }`,
           Status: customer.status,
           EnteredBy: `${customer.entered_by.first_name} ${customer.entered_by.last_name}`,
-          DateCreated: format(new Date(customer.created_at), "dd / MM / yyyy"),
+          DateCreated: <DateFormat date={customer.created_at} />,
           FinancialProfile: customer.financial_profile,
           RiskProfile: customer.risk_profile,
         });
