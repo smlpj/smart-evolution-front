@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { ToastContainer } from "react-toastify";
 
 import { ArrowForward } from "@mui/icons-material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -14,6 +15,9 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { GridToolbarContainer, GridToolbarExport } from "@mui/x-data-grid";
+
+import { Toast } from "@components/toast";
 
 import DateFormat from "@formats/DateFormat";
 import ValueFormat from "@formats/ValueFormat";
@@ -26,6 +30,14 @@ import CustomDataGrid from "@styles/tables";
 
 import { ReadBills, ReadCreditNotes } from "./queries";
 
+function CustomToolbar() {
+  return (
+    <GridToolbarContainer>
+      <GridToolbarExport />
+    </GridToolbarContainer>
+  );
+}
+
 export const BillsComponents = () => {
   const [rowsToModify, setRowsToModify] = useState([]);
   const [rowsToApplyRETIVA, setRowsToApplyRETIVA] = useState([]);
@@ -34,7 +46,7 @@ export const BillsComponents = () => {
   const [creditNote, setCreditNote] = useState([]);
   const [filesBill, setFilesBill] = useState([]);
   const [bill, setBill] = useState([]);
-  const [otherRet, setOtherRet] = useState([]);
+  const [otherRet, setOtherRet] = useState(0);
   const [retICA, setRetICA] = useState(0);
   const [retFTE, setRetFTE] = useState(0);
 
@@ -51,6 +63,40 @@ export const BillsComponents = () => {
     error: error2,
     data: data2,
   } = useFetch({ service: ReadCreditNotes, init: false });
+
+  useEffect(() => {
+    if (loading == true) {
+      Toast("Cargando..", "loading");
+    }
+
+    if (error) {
+      Toast(`${Object.values(error.message)}`, "error");
+    }
+
+    if (data != undefined) {
+      if (data?.bills?.length != 0) {
+        Toast("Facturas cargadas correctamente", "success");
+        console.log(data);
+      }
+    }
+  }, [loading, data, error]);
+
+  useEffect(() => {
+    if (loading2 == true) {
+      Toast("Cargando..", "loading");
+    }
+
+    if (error2) {
+      Toast(`${Object.values(error.message)[0]}`, "error");
+    }
+
+    if (data2 != undefined) {
+      if (data2?.data?.length != 0) {
+        Toast("Notas de crédito cargadas", "success");
+        console.log(data);
+      }
+    }
+  }, [loading, data, error]);
 
   const onRowsSelectionHandler = (ids) => {
     const selectedRowsData = ids.map((id) => bill.find((row) => row.id === id));
@@ -88,20 +134,20 @@ export const BillsComponents = () => {
           EmmitterId: bill.emitterId,
           PayerID: bill.payerId,
           PayerName: bill.payerName,
-          dateBill: <DateFormat date={bill.dateBill} />,
-          datePayment: <DateFormat date={bill.datePayment} />,
+          dateBill: bill.dateBill,
+          datePayment: bill.datePayment,
           BillValue: bill.billValue,
           IVA: bill.iva,
-          RetIVA: 0,
+          RetIVA: rowsToApplyRETIVA.includes(bill) ? bill.iva * 0.15 : 0,
           CreditNote:
             data2 !== null || data2 !== undefined || data2 !== []
               ? sumOfAllCreditNotes(data2.data, bill.billId)
               : 0,
-
-          RetICA: 0,
-          RetFTE: 0,
+          OtherRET: otherRet,
+          RetICA: retICA,
+          RetFTE: retICA,
           SubTotal: bill.subTotal,
-          Total: 0,
+          Total: bill.total,
         });
       });
 
@@ -113,114 +159,34 @@ export const BillsComponents = () => {
     {
       field: "RetICA",
       headerName: "RET. ICA",
-      width: 100,
+      width: 120,
       sortable: false,
-      editable: true,
-      renderCell: (params) => (
-        <TextField
-          id="ICA"
-          placeholder="0,00%"
-          value={params.value}
-          type="number"
-          variant="standard"
-          sx={{
-            backgroundColor: "#488B8F1A",
-            border: "1px solid #488B8F",
-            borderRadius: "4px",
-            padding: "10px",
-            height: "0.8rem",
-            width: "5rem",
-            textAlign: "right",
-            alignContent: "center",
-            "input::-webkit-outer-spin-button": {
-              "-webkit-appearance": "none",
-              margin: 0,
-            },
-            "input::-webkit-inner-spin-button": {
-              "-webkit-appearance": "none",
-              margin: 0,
-            },
-            "& .MuiInputBase-input": {
-              padding: "2px",
-              fontFamily: "Montserrat",
-              color: "#488B8F",
-              fontSize: "0.9rem",
-              fontWeight: "600",
-              textAlign: "right",
-
-              "&::placeholder": {
-                color: "#488B8F",
-                fontSize: "0.9rem",
-                fontWeight: "600",
-                textAlign: "right",
-                opacity: 1,
-              },
-            },
-          }}
-          InputProps={{
-            disableUnderline: true,
-            sx: {
-              marginTop: "-5px",
-            },
-          }}
-        />
-      ),
+      renderCell: (params) => {
+        return (
+          <InputTitles>
+            <ValueFormat
+              prefix="$ "
+              value={(params.value / 100) * params.row.SubTotal}
+            />
+          </InputTitles>
+        );
+      },
     },
     {
       field: "RetFTE",
       headerName: "RET. FTE",
-      width: 100,
+      width: 120,
       sortable: false,
-      editable: true,
-      renderCell: (params) => (
-        <TextField
-          id="FTE"
-          placeholder="0,00%"
-          value={params.value}
-          type="number"
-          variant="standard"
-          sx={{
-            backgroundColor: "#488B8F1A",
-            border: "1px solid #488B8F",
-            borderRadius: "4px",
-            padding: "10px",
-            height: "0.8rem",
-            width: "5rem",
-            textAlign: "right",
-            alignContent: "center",
-            "input::-webkit-outer-spin-button": {
-              "-webkit-appearance": "none",
-              margin: 0,
-            },
-            "input::-webkit-inner-spin-button": {
-              "-webkit-appearance": "none",
-              margin: 0,
-            },
-            "& .MuiInputBase-input": {
-              padding: "2px",
-              fontFamily: "Montserrat",
-              color: "#488B8F",
-              fontSize: "0.9rem",
-              fontWeight: "600",
-              textAlign: "right",
-
-              "&::placeholder": {
-                color: "#488B8F",
-                fontSize: "0.9rem",
-                fontWeight: "600",
-                textAlign: "right",
-                opacity: 1,
-              },
-            },
-          }}
-          InputProps={{
-            disableUnderline: true,
-            sx: {
-              marginTop: "-5px",
-            },
-          }}
-        />
-      ),
+      renderCell: (params) => {
+        return (
+          <InputTitles>
+            <ValueFormat
+              prefix="$ "
+              value={(params.value / 100) * params.row.SubTotal}
+            />
+          </InputTitles>
+        );
+      },
     },
     {
       field: "Status",
@@ -313,62 +279,22 @@ export const BillsComponents = () => {
     {
       field: "RetIVA",
       headerName: "RET. IVA",
-      width: 130,
+      width: 120,
       sortable: false,
-      editable: false,
-      renderCell: (params) => (
-        <TextField
-          id="IVA"
-          placeholder="0"
-          value={
-            rowsToApplyRETIVA.includes(params.row)
-              ? Math.round(params.row.IVA * 0.15)
-              : 0
-          }
-          type="number"
-          variant="standard"
-          sx={{
-            backgroundColor: "#488B8F1A",
-            border: "1px solid #488B8F",
-            borderRadius: "4px",
-            padding: "10px",
-            height: "0.8rem",
-            width: "5rem",
-            textAlign: "right",
-            alignContent: "center",
-            "input::-webkit-outer-spin-button": {
-              "-webkit-appearance": "none",
-              margin: 0,
-            },
-            "input::-webkit-inner-spin-button": {
-              "-webkit-appearance": "none",
-              margin: 0,
-            },
-            "& .MuiInputBase-input": {
-              padding: "2px",
-              fontFamily: "Montserrat",
-              color: "#488B8F",
-              fontSize: "0.9rem",
-              fontWeight: "600",
-              textAlign: "right",
-
-              "&::placeholder": {
-                color: "#488B8F",
-                fontSize: "0.9rem",
-                fontWeight: "600",
-                textAlign: "right",
-                opacity: 1,
-              },
-            },
-          }}
-          InputProps={{
-            disableUnderline: true,
-            sx: {
-              marginTop: "-5px",
-            },
-          }}
-        />
-      ),
+      renderCell: (params) => {
+        return (
+          <InputTitles>
+            <ValueFormat
+              prefix="$ "
+              value={
+                rowsToApplyRETIVA.includes(params.row)
+                  ? Math.round(params.row.IVA * 0.15)
+                  : 0
+              }
+            />
+          </InputTitles>
+        );
+      },
     },
     {
       field: "EmitterName",
@@ -483,7 +409,11 @@ export const BillsComponents = () => {
       headerName: "FECHA EMISIÓN",
       width: 120,
       renderCell: (params) => {
-        return <InputTitles>{params.value}</InputTitles>;
+        return (
+          <InputTitles>
+            <DateFormat date={params.value} />
+          </InputTitles>
+        );
       },
     },
     {
@@ -491,7 +421,11 @@ export const BillsComponents = () => {
       headerName: "FECHA VENCIMIENTO",
       width: 150,
       renderCell: (params) => {
-        return <InputTitles>{params.value}</InputTitles>;
+        return (
+          <InputTitles>
+            <DateFormat date={params.value} />
+          </InputTitles>
+        );
       },
     },
     {
@@ -522,6 +456,19 @@ export const BillsComponents = () => {
       field: "CreditNote",
       headerName: "NOTA CRÉDITO",
       width: 110,
+      renderCell: (params) => {
+        return (
+          <InputTitles>
+            <ValueFormat prefix="$ " value={params.value} />
+          </InputTitles>
+        );
+      },
+    },
+    {
+      field: "OtherRET",
+      headerName: "OTRAS RET.",
+      width: 110,
+      editable: true,
       renderCell: (params) => {
         return (
           <InputTitles>
@@ -563,11 +510,13 @@ export const BillsComponents = () => {
                     params.row.IVA * 0.15 -
                     (params.row.RetICA / 100) * params.row.SubTotal -
                     (params.row.RetFTE / 100) * params.row.SubTotal -
+                    params.row.OtherRET -
                     params.row.CreditNote
                   : params.row.BillValue +
                     params.row.IVA -
                     (params.row.RetICA / 100) * params.row.SubTotal -
                     (params.row.RetFTE / 100) * params.row.SubTotal -
+                    params.row.OtherRET -
                     params.row.CreditNote
               }
             />
@@ -747,7 +696,7 @@ export const BillsComponents = () => {
               </Typography>
               <TextField
                 id="ICA"
-                placeholder="0,00%"
+                placeholder="0,00"
                 onChange={(e) => {
                   const value = e.target.value;
                   if (value > 100 || value < 0) {
@@ -799,6 +748,14 @@ export const BillsComponents = () => {
                   sx: {
                     marginTop: "-5px",
                   },
+                  endAdornment: (
+                    <i
+                      style={{
+                        color: "#5EA3A3",
+                      }}
+                      class="fa-light fa-percent"
+                    ></i>
+                  ),
                 }}
               />
               <IconButton
@@ -852,11 +809,11 @@ export const BillsComponents = () => {
               </Typography>
               <TextField
                 id="FTE"
-                placeholder="0,00%"
+                placeholder="0,00"
                 onChange={(e) => {
                   const value = e.target.value;
                   if (value > 100 || value < 0) {
-                    alert("El valor debe estar entre 0 y 100");
+                    Toast("El valor debe estar entre 0 y 100", "error");
                   } else {
                     setRetFTE(value);
                   }
@@ -904,6 +861,14 @@ export const BillsComponents = () => {
                   sx: {
                     marginTop: "-5px",
                   },
+                  endAdornment: (
+                    <i
+                      style={{
+                        color: "#5EA3A3",
+                      }}
+                      class="fa-light fa-percent"
+                    ></i>
+                  ),
                 }}
               />
               <IconButton
@@ -988,10 +953,22 @@ export const BillsComponents = () => {
                   No hay datos para mostrar
                 </Typography>
               ),
+              Toolbar: CustomToolbar,
             }}
           />
         </Box>
       </Box>
+      <ToastContainer
+        position="top-right"
+        autoClose={50000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </>
   );
 };
