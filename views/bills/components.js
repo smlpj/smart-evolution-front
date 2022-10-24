@@ -1,27 +1,30 @@
+import { useEffect, useRef, useState } from "react";
+
+import { ArrowForward } from "@mui/icons-material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import UploadFileOutlinedIcon from "@mui/icons-material/UploadFileOutlined";
 import {
-  Checkbox,
+  Box,
+  Button,
+  Divider,
+  Fade,
   IconButton,
+  Link,
   Switch,
   TextField,
   Typography,
 } from "@mui/material";
-import { Box } from "@mui/system";
-import InputTitles from "../../styles/inputTitles";
-import MuiTextField from "../../styles/fields";
-import { ArrowForward, SearchOutlined } from "@mui/icons-material";
-import CustomDataGrid from "../../styles/tables";
-import { Link, Button } from "@mui/material";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import UploadFileOutlinedIcon from "@mui/icons-material/UploadFileOutlined";
-import Divider from "@mui/material/Divider";
-import { useState, useRef } from "react";
-import { ReadBills, ReadCreditNotes } from "./queries";
-import { useFetch } from "../../shared/hooks/useFetch";
-import { useEffect } from "react";
-import CustomTooltip from "../../styles/customTooltip";
-import { Fade } from "@material-ui/core";
-import { format } from "date-fns";
+
+import DateFormat from "@formats/DateFormat";
 import ValueFormat from "@formats/ValueFormat";
+
+import { useFetch } from "@hooks/useFetch";
+
+import CustomTooltip from "@styles/customTooltip";
+import InputTitles from "@styles/inputTitles";
+import CustomDataGrid from "@styles/tables";
+
+import { ReadBills, ReadCreditNotes } from "./queries";
 
 export const BillsComponents = () => {
   const [rowsToModify, setRowsToModify] = useState([]);

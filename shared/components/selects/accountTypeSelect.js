@@ -1,13 +1,16 @@
-import { AccountTypes } from "./queries";
-import { useFetch } from "../../hooks/useFetch";
 import { useEffect, useState } from "react";
-import { Box } from "@mui/system";
-import InputTitles from "../../../styles/inputTitles";
-import { Autocomplete } from "@mui/material";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+
 import Clear from "@mui/icons-material/Clear";
-import MuiTextField from "../../../styles/fields";
-import HelperText from "../../../styles/helperText";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { Autocomplete, Box } from "@mui/material";
+
+import { useFetch } from "@hooks/useFetch";
+
+import MuiTextField from "@styles/fields";
+import HelperText from "@styles/helperText";
+import InputTitles from "@styles/inputTitles";
+
+import { AccountTypes } from "./queries";
 
 export default function AccountTypeSelect({ formik }) {
   // Hooks
@@ -32,11 +35,9 @@ export default function AccountTypeSelect({ formik }) {
       });
       setAccountType(accountTypes);
     }
-
   }, [data, loading, error]);
 
   useEffect(() => {
-
     fetch({ client: formik.values.client });
   }, [formik.values.client]);
 
@@ -76,7 +77,9 @@ export default function AccountTypeSelect({ formik }) {
               name="accountType"
               placeholder="Tipo de cuenta"
               value={formik.values.accountType}
-              error={formik.touched.accountType && Boolean(formik.errors.accountType)}
+              error={
+                formik.touched.accountType && Boolean(formik.errors.accountType)
+              }
               sx={
                 formik.touched.accountType && Boolean(formik.errors.accountType)
                   ? { border: "1.4px solid #E6643180" }

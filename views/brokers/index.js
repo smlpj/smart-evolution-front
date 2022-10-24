@@ -1,24 +1,21 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-// Hooks
-import { useState, useEffect } from "react";
-import { useFetch } from "../../shared/hooks/useFetch";
-import { useFormik } from "formik";
-// Alerts and notifications
-import { Toast } from "../../shared/components/toast";
+import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
-// Router
-import { useRouter } from "next/router";
-// Next imports
+
 import Head from "next/head";
-// queries
-import {
-  RegisterBrokerQuery,
-  ModifyBrokerQuery,
-  GetBrokerByID,
-} from "./queries";
-// components
+import { useRouter } from "next/router";
+
+import { Toast } from "@components/toast";
+
+import { useFetch } from "@hooks/useFetch";
+
 import { SignUpBroker } from "./components";
-// validations
+import {
+  GetBrokerByID,
+  ModifyBrokerQuery,
+  RegisterBrokerQuery,
+} from "./queries";
+
+import { useFormik } from "formik";
 import { object, string } from "yup";
 
 export default function RegisterBroker() {

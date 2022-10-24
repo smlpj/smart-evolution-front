@@ -1,4 +1,5 @@
 import Axios from "axios";
+
 export const RegisterDepositQuery = async (data) => {
   const res = await Axios.post(
     "https://smart-evolution-api2.herokuapp.com/api/emitter-deposit/",

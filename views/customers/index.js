@@ -1,25 +1,22 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-// Queries
-import {
-  RegisterClientQuery,
-  ModifyClientQuery,
-  GetClientByID,
-} from "./queries";
-// Hooks
-import { useState, useEffect } from "react";
-import { useFetch } from "../../shared/hooks/useFetch";
-import { useFormik } from "formik";
-// Alerts and notifications
-import { Toast } from "../../shared/components/toast";
+import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
-// Router
-import { useRouter } from "next/router";
-// Next imports
+
 import Head from "next/head";
-// Validations
-import { string, object } from "yup";
-// Components
+import { useRouter } from "next/router";
+
+import { Toast } from "@components/toast";
+
+import { useFetch } from "@hooks/useFetch";
+
 import { SignUpClient } from "./components";
+import {
+  GetClientByID,
+  ModifyClientQuery,
+  RegisterClientQuery,
+} from "./queries";
+
+import { useFormik } from "formik";
+import { object, string } from "yup";
 
 export default function RegisterClient() {
   const [option, setOption] = useState("");

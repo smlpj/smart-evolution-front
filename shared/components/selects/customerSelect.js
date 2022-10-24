@@ -1,15 +1,18 @@
-import { Clients } from "./queries";
-import { useFetch } from "../../hooks/useFetch";
 import { useEffect, useState } from "react";
-import { Box } from "@mui/system";
-import InputTitles from "../../../styles/inputTitles";
-import { Autocomplete } from "@mui/material";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import Clear from "@mui/icons-material/Clear";
-import MuiTextField from "../../../styles/fields";
-import HelperText from "../../../styles/helperText";
 
-export default function ClientSelect({ formik , customer}) {
+import Clear from "@mui/icons-material/Clear";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { Autocomplete, Box } from "@mui/material";
+
+import { useFetch } from "@hooks/useFetch";
+
+import MuiTextField from "@styles/fields";
+import HelperText from "@styles/helperText";
+import InputTitles from "@styles/inputTitles";
+
+import { Clients } from "./queries";
+
+export default function ClientSelect({ formik, customer }) {
   // Hooks
   const {
     fetch: fetch,
@@ -40,7 +43,9 @@ export default function ClientSelect({ formik , customer}) {
   return (
     <Box width="17vw">
       <Box>
-        <InputTitles marginBottom={2}>Nombre {customer? customer : "Inversionista"}</InputTitles>
+        <InputTitles marginBottom={2}>
+          Nombre {customer ? customer : "Inversionista"}
+        </InputTitles>
         <Autocomplete
           id="client"
           disablePortal
@@ -70,7 +75,7 @@ export default function ClientSelect({ formik , customer}) {
               variant="standard"
               {...params}
               name="client"
-              placeholder={customer? customer : "Inversionista"}
+              placeholder={customer ? customer : "Inversionista"}
               value={formik.values.client}
               error={formik.touched.client && Boolean(formik.errors.client)}
               sx={

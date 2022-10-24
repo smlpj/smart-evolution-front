@@ -3,7 +3,6 @@
   color: white;
 }
 
-
 .left,
 .right {
   height: 100%;
@@ -33,6 +32,6 @@
   text-align: center;
 }
 
-.logo{
+.logo {
   margin-bottom: 100px;
 }

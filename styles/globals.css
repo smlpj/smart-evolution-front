@@ -11,9 +11,9 @@ body {
 }
 
 .Toastify__toast--error {
-  border: 1px solid #EB5757;
+  border: 1px solid #eb5757;
   border-radius: 50px !important;
-  background: #FAE1E2 !important;
+  background: #fae1e2 !important;
 }
 
 .Toastify__toast--error::after {
@@ -21,58 +21,58 @@ body {
   color: #333333;
   font-size: 15px;
   font-weight: 700;
-  left:265px;
+  left: 265px;
   padding-top: 14px !important;
 }
 
 .Toastify__toast--error::before {
-  position:relative; 
-  z-index:100000;
-  left:12px;
-  top:6px;
+  position: relative;
+  z-index: 100000;
+  left: 12px;
+  top: 6px;
 }
 .Toastify__toast--success {
-  border: 1px solid #3A9EA5 !important;
+  border: 1px solid #3a9ea5 !important;
   border-radius: 50px !important;
-  background: #F0F9FA !important;
+  background: #f0f9fa !important;
   padding-left: 10px;
 }
 .Toastify__toast--success::before {
-  position:relative; 
-  z-index:100000;
-  left:12px;
-  top:6px;
+  position: relative;
+  z-index: 100000;
+  left: 12px;
+  top: 6px;
 }
 .Toastify__toast--success::after {
   position: absolute;
   color: #333333;
   font-size: 15px;
   font-weight: 700;
-  left:265px;
+  left: 265px;
   padding-top: 14px !important;
 }
 .Toastify__toast--warning {
-  border: 1px solid #E78326  !important;
+  border: 1px solid #e78326 !important;
   border-radius: 50px !important;
-  background: #FADFC5 !important;
+  background: #fadfc5 !important;
 }
 .Toastify__toast--warning::before {
-  position:relative; 
-  z-index:100000;
-  left:12px;
-  top:6px;
-}  
+  position: relative;
+  z-index: 100000;
+  left: 12px;
+  top: 6px;
+}
 .Toastify__toast--warning::after {
   position: absolute;
-  color: #E78326;
+  color: #e78326;
   font-size: 15px;
   font-weight: 700;
-  left:265px;
+  left: 265px;
   padding-top: 14px !important;
 }
 
 .Toastify__toast--info {
-  border: 1px solid #63B0CD !important;
+  border: 1px solid #63b0cd !important;
   border-radius: 50px !important;
   background: white !important;
 }
@@ -86,25 +86,23 @@ body {
 
 .Toastify__toast--info::after {
   position: absolute;
-  color: #63B0CD;
+  color: #63b0cd;
   font-size: 15px;
   font-weight: 700;
   left: 265px;
   padding-top: 14px !important;
 }
 
-
 .Toastify__toast-body {
-  color: #444C63;
+  color: #444c63;
   font-size: 13px;
   padding: 0px;
   width: 100%;
   font-weight: 400;
-} 
+}
 
-
-.Toastify__toast > button>  svg {
-    display: none;
+.Toastify__toast > button > svg {
+  display: none;
 }
 
 .div-test {

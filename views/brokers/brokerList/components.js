@@ -1,32 +1,36 @@
-import { Button, IconButton } from "@mui/material";
-import { Box } from "@mui/material";
-import { Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+
 import Link from "next/link";
-import InputTitles from "../../../styles/inputTitles";
+
+import { SearchOutlined } from "@mui/icons-material";
+import { Box, Button, Fade, Typography } from "@mui/material";
+
+import Modal from "@components/modals/modal";
+
+import DateFormat from "@formats/DateFormat";
+
+import { useFetch } from "@hooks/useFetch";
+
+import CustomTooltip from "@styles/customTooltip";
+import MuiTextField from "@styles/fields";
+import InputTitles from "@styles/inputTitles";
+import RedButtonModal from "@styles/noButtonModal";
+import CustomDataGrid from "@styles/tables";
+import GreenButtonModal from "@styles/yesButtonModal";
+
 import {
+  DeleteBrokerById,
   GetBrokerList,
   GetBrokerListByQuery,
-  DeleteBrokerById,
 } from "./queries";
-import { useFetch } from "../../../shared/hooks/useFetch";
-import { useEffect, useState } from "react";
-import CustomDataGrid from "../../../styles/tables";
-import { format } from "date-fns";
-import Image from "next/image";
-import CustomTooltip from "../../../styles/customTooltip";
-import { Fade, Modal, Backdrop } from "@mui/material";
-import MuiTextField from "../../../styles/fields";
-import { SearchOutlined } from "@mui/icons-material";
-import GreenButtonModal from "../../../styles/yesButtonModal";
-import RedButtonModal from "../../../styles/noButtonModal";
 
 let dataCount;
 
 export const BrokerListComponent = () => {
   const [open, setOpen] = useState([false, "", null]);
+
   const handleOpen = (broker, id) => setOpen([true, broker, id]);
   const handleClose = () => setOpen([false, "", null]);
-
   const handleDelete = (id) => {
     setBroker(broker.filter((item) => item.id !== id));
     DeleteBrokerById(id);

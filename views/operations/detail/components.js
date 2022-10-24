@@ -1,12 +1,12 @@
 import { Box, CircularProgress, Grid, Typography } from "@mui/material";
 
-import InputTitles from "styles/inputTitles";
-import DashboardButton from "styles/button_3";
-import scrollSx from "styles/scroll";
-
 import ValueFormat from "@formats/ValueFormat";
 
 import responsiveFontSize from "@lib/responsiveFontSize";
+
+import DashboardButton from "@styles/button_3";
+import InputTitles from "@styles/inputTitles";
+import scrollSx from "@styles/scroll";
 
 const half = {
   boxSizing: "border-box",

@@ -1,5 +1,6 @@
-import { OperationsComponents } from "./components";
 import Head from "next/head";
+
+import { OperationsComponents } from "./components";
 
 export default function Operations() {
   return (

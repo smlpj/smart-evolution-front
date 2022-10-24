@@ -1,19 +1,17 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-// hooks
 import { useEffect, useState } from "react";
-import { useFormik } from "formik";
-import { useFetch } from "../../shared/hooks/useFetch";
-//queries
-import { login } from "./queries";
-// validations
-import { string, object } from "yup";
-// views
-import { InputAdornments } from "./components";
-// alerts and notifications
-import { Toast } from "../../shared/components/toast";
 import { ToastContainer } from "react-toastify";
-// router
+
 import { useRouter } from "next/router";
+
+import { Toast } from "@components/toast";
+
+import { useFetch } from "@hooks/useFetch";
+
+import { InputAdornments } from "./components";
+import { login } from "./queries";
+
+import { useFormik } from "formik";
+import { object, string } from "yup";
 
 export const InputV = () => {
   // Hooks

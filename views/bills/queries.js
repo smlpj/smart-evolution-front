@@ -1,4 +1,5 @@
 import Axios from "axios";
+
 export const ReadBills = async (data) => {
   const res = await Axios.post(
     "https://smart-evolution-api2.herokuapp.com/api/bill/read",

@@ -1,7 +1,8 @@
-import { FinancialProfile } from "./components";
 import Head from "next/head";
+
+import { FinancialProfile } from "./components";
+
 import { useFormik } from "formik";
-import * as yup from "yup";
 
 export default function RegisterClient() {
   const formik = useFormik({

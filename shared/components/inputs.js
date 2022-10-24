@@ -1,17 +1,16 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import InputAdornment from "@mui/material/InputAdornment";
-import FormControl from "@mui/material/FormControl";
-import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import LoginIcon from "@mui/icons-material/Login";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import { Box, FormControl, IconButton, InputAdornment } from "@mui/material";
+
+import MuiButton from "@styles/button";
+import MuiTextField from "@styles/fields";
+import HelperText from "@styles/helperText";
+
+import globalStyles from "../styles/global.module.css";
+
 import { useFormik } from "formik";
 import * as yup from "yup";
-import globalStyles from "../styles/global.module.css";
-import MuiButton from "../../styles/button";
-import MuiTextField from "../../styles/fields";
-import HelperText from "../../styles/helperText";
-import LoginIcon from "@mui/icons-material/Login";
 
 export default function InputAdornments() {
   const validationSchema = yup.object({

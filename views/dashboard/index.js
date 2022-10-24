@@ -1,4 +1,5 @@
 import Head from "next/head";
+
 import { DashboardContent } from "./components";
 
 export default function Dashboard() {
