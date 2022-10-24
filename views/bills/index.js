@@ -1,5 +1,6 @@
-import { BillsComponents } from "./components";
 import Head from "next/head";
+
+import { BillsComponents } from "./components";
 
 export default function Bills() {
   return (

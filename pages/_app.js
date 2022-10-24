@@ -1,12 +1,14 @@
-import "../styles/globals.css";
-import { useRouter } from "next/router";
-import { Grid } from "@mui/material";
-import Layout from "../shared/components/layout";
-import Head from "next/head";
 import "react-toastify/dist/ReactToastify.css";
-import { AuthProvider } from "../shared/context/authContext";
-import "../public/icomoon/style.css";
+
+import { useRouter } from "next/router";
+
+import Layout from "@components/layout";
+
 import "../public/fontawesome/css/all.min.css";
+import "../public/icomoon/style.css";
+import "../styles/globals.css";
+
+import { AuthProvider } from "@context/authContext";
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();

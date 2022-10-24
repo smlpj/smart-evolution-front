@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+
 /* import CrossfadeImage from "react-crossfade-image"; */
 
 export default function ImageCarousel() {

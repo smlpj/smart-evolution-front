@@ -1,0 +1,18 @@
+{
+  "importOrder": [
+    "^react/?(.*)$",
+    "^next/?(.*)$",
+    "^@mui/?(.*)$",
+    "^@components/(.*)$",
+    "^@contexts/(.*)$",
+    "^@formats/(.*)$",
+    "^@hooks/(.*)$",
+    "^@lib/(.*)$",
+    "^@styles/(.*)$",
+    "^@views/(.*)$",
+    "^[./]",
+    "<THIRD_PARTY_MODULES>"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
+}

@@ -1,9 +1,9 @@
-import { Typography } from "@mui/material";
-import { Box } from "@mui/system";
-import InputTitles from "../../styles/inputTitles";
-import MuiTextField from "../../styles/fields";
 import { SearchOutlined } from "@mui/icons-material";
-import CustomDataGrid from "../../styles/tables";
+import { Box, Typography } from "@mui/material";
+
+import MuiTextField from "@styles/fields";
+import InputTitles from "@styles/inputTitles";
+import CustomDataGrid from "@styles/tables";
 
 const columns = [
   { field: "id", headerName: "ID", width: 90 },

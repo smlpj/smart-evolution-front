@@ -1,22 +1,25 @@
-import { Button } from "@mui/material";
-import { Box } from "@mui/material";
-import { Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+
+import Image from "next/image";
 import Link from "next/link";
-import InputTitles from "../../../styles/inputTitles";
+
+import { SearchOutlined } from "@mui/icons-material";
+import { Box, Button, Fade, Typography } from "@mui/material";
+
+import DateFormat from "@formats/DateFormat";
+
+import { useFetch } from "@hooks/useFetch";
+
+import CustomTooltip from "@styles/customTooltip";
+import MuiTextField from "@styles/fields";
+import InputTitles from "@styles/inputTitles";
+import CustomDataGrid from "@styles/tables";
+
 import {
+  DeleteClientById,
   GetClientList,
   GetClientListByQuery,
-  DeleteClientById,
 } from "./queries";
-import { useFetch } from "../../../shared/hooks/useFetch";
-import { useEffect, useState } from "react";
-import CustomDataGrid from "../../../styles/tables";
-import { format } from "date-fns";
-import Image from "next/image";
-import CustomTooltip from "../../../styles/customTooltip";
-import { Fade } from "@mui/material";
-import MuiTextField from "../../../styles/fields";
-import { SearchOutlined } from "@mui/icons-material";
 
 let dataCount;
 
@@ -544,7 +547,7 @@ export const ClientListComponent = () => {
           }`,
           Status: customer.status,
           EnteredBy: `${customer.entered_by.first_name} ${customer.entered_by.last_name}`,
-          DateCreated: format(new Date(customer.created_at), "dd / MM / yyyy"),
+          DateCreated: <DateFormat date={customer.created_at} />,
           FinancialProfile: customer.financial_profile,
           RiskProfile: customer.risk_profile,
         });
@@ -580,7 +583,7 @@ export const ClientListComponent = () => {
           }`,
           Status: customer.status,
           EnteredBy: `${customer.entered_by.first_name} ${customer.entered_by.last_name}`,
-          DateCreated: format(new Date(customer.created_at), "dd / MM / yyyy"),
+          DateCreated: <DateFormat date={customer.created_at} />,
           FinancialProfile: customer.financial_profile,
           RiskProfile: customer.risk_profile,
         });

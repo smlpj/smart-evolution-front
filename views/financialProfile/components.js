@@ -1,20 +1,18 @@
 import { useEffect, useState } from "react";
-import { Box } from "@mui/system";
-import { Typography, SvgIcon, Button } from "@mui/material";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import InputTitles from "../../styles/inputTitles";
+
 import Image from "next/image";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import FileUploadButton from "../../styles/uploadFileButton";
-import { useFetch } from "../../shared/hooks/useFetch";
 import Link from "next/link";
-import {
-  BookOutlined,
-  PublishRounded,
-  SaveOutlined,
-} from "@mui/icons-material";
 import { useRouter } from "next/router";
+
+import { BookOutlined, SaveOutlined } from "@mui/icons-material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { Box, Button, Tab, Tabs, Typography } from "@mui/material";
+
+import { useFetch } from "@hooks/useFetch";
+
+import InputTitles from "@styles/inputTitles";
+import FileUploadButton from "@styles/uploadFileButton";
+
 import { GetCustomerById } from "./queries";
 
 function getBase64(file) {

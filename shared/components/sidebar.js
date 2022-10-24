@@ -1,6 +1,8 @@
-import { Grid } from "@mui/material";
-import NavbarButton from "../../styles/button_2";
 import Link from "next/link";
+
+import { Grid } from "@mui/material";
+
+import NavbarButton from "@styles/button_2";
 
 export default function Navbar() {
   return (

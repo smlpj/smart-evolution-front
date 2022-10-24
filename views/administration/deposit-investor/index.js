@@ -1,25 +1,22 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-// Hooks
-import { useFormik } from "formik";
-import { useState, useEffect } from "react";
-
-import { useRouter } from "next/router";
-import { useFetch } from "../../../shared/hooks/useFetch";
-// Next imports
-import Head from "next/head";
-// Validations
-import { object, string } from "yup";
-// Queries
-import {
-  RegisterDepositQuery,
-  ModifyDepositQuery,
-  GetDepositByID,
-} from "./queries";
-// Components
-import { Deposit } from "./components";
-// Alerts and notifications
-import { Toast } from "../../../shared/components/toast";
+import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
+
+import Head from "next/head";
+import { useRouter } from "next/router";
+
+import { Toast } from "@components/toast";
+
+import { useFetch } from "@hooks/useFetch";
+
+import { Deposit } from "./components";
+import {
+  GetDepositByID,
+  ModifyDepositQuery,
+  RegisterDepositQuery,
+} from "./queries";
+
+import { useFormik } from "formik";
+import { object, string } from "yup";
 
 export default function RegisterDeposit() {
   const [option, setOption] = useState("");

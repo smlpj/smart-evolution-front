@@ -1,10 +1,8 @@
 import Head from "next/head";
-import Image from "next/image";
-import * as React from "react";
-import { useFormik } from "formik";
-import * as yup from "yup";
+
+import { useFetch } from "@hooks/useFetch";
+
 import { ClientListComponent } from "./components";
-import { useFetch } from "../../../shared/hooks/useFetch";
 import { GetClientList } from "./queries";
 
 export default function ClientList() {

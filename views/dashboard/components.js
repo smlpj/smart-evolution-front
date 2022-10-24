@@ -1,7 +1,7 @@
-import { Grid, Typography, Box, CircularProgress } from "@mui/material";
-import Image from "next/image";
-import DashboardButton from "../../styles/button_3";
 import EastIcon from "@mui/icons-material/East";
+import { Box, CircularProgress, Typography } from "@mui/material";
+
+import DashboardButton from "@styles/button_3";
 
 export const DashboardContent = () => {
   return (

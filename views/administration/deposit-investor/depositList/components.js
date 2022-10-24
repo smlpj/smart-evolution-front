@@ -1,21 +1,22 @@
-import { Button } from "@mui/material";
-import { Box } from "@mui/material";
-import { Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+
 import Link from "next/link";
-import InputTitles from "../../../../styles/inputTitles";
+
+import { SearchOutlined } from "@mui/icons-material";
+import { Box, Button, Fade, Typography } from "@mui/material";
+
+import { useFetch } from "@hooks/useFetch";
+
+import CustomTooltip from "@styles/customTooltip";
+import MuiTextField from "@styles/fields";
+import InputTitles from "@styles/inputTitles";
+import CustomDataGrid from "@styles/tables";
+
 import {
+  DeleteDepositById,
   GetDepositList,
   GetDepositListByQuery,
-  DeleteDepositById,
 } from "./queries";
-import { useFetch } from "../../../../shared/hooks/useFetch";
-import { useEffect, useState } from "react";
-import CustomDataGrid from "../../../../styles/tables";
-import { format } from "date-fns";
-import CustomTooltip from "../../../../styles/customTooltip";
-import { Fade } from "@mui/material";
-import MuiTextField from "../../../../styles/fields";
-import { SearchOutlined } from "@mui/icons-material";
 
 let dataCount;
 
@@ -209,7 +210,7 @@ export const DepositListComponent = () => {
             ? deposit.client.first_name + " " + deposit.client.last_name
             : deposit.client.social_reason,
           amount: deposit.amount,
-          date: format(new Date(deposit.date), "dd / MM / yyyy"),
+          date: <DateFormat date={deposit.date} />,
         });
       });
       setDeposit(Deposits);
@@ -239,7 +240,7 @@ export const DepositListComponent = () => {
             ? deposit.client.first_name + " " + deposit.client.last_name
             : deposit.client.social_reason,
           amount: deposit.amount,
-          date: format(new Date(deposit.date), "dd / MM / yyyy"),
+          date: <DateFormat date={deposit.date} />,
         });
       });
       setDeposit(Deposits);

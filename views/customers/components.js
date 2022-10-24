@@ -1,26 +1,28 @@
-import * as React from "react";
-import Grid from "@mui/material/Grid";
+import { Fragment, useState } from "react";
+
 import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import MuiTextField from "../../styles/fields";
-import Image from "next/image";
-import InputTitles from "../../styles/inputTitles";
-import MuiButton from "../../styles/button";
-import Header from "../../shared/components/header";
-import HelperText from "../../styles/helperText";
-import CitySelect from "../../shared/components/selects/citySelect";
-import TypeIDSelect from "../../shared/components/selects/typeIdentitySelect";
-import DepartmentSelect from "../../shared/components/selects/departmentSelect";
-import BrokerSelect from "../../shared/components/selects/brokerSelect";
-import ClientTypeSelect from "../../shared/components/selects/clientTypeSelect";
-import CIIUSelect from "../../shared/components/selects/CIIUSelect";
-import CitizenshipSelect from "../../shared/components/selects/citizenshipSelect";
-import LoadingCircle from "../../styles/loading";
+
+import Header from "@components/header";
+import CIIUSelect from "@components/selects/CIIUSelect";
+import BrokerSelect from "@components/selects/brokerSelect";
+import CitizenshipSelect from "@components/selects/citizenshipSelect";
+import CitySelect from "@components/selects/citySelect";
+import ClientTypeSelect from "@components/selects/clientTypeSelect";
+import DepartmentSelect from "@components/selects/departmentSelect";
+import TypeIDSelect from "@components/selects/typeIdentitySelect";
+
+import MuiButton from "@styles/button";
+import MuiTextField from "@styles/fields";
+import HelperText from "@styles/helperText";
+import InputTitles from "@styles/inputTitles";
+import LoadingCircle from "@styles/loading";
 
 const steps = ["Primer paso", "Segundo paso"];
 
 export const SignUpClient = ({ formik, option, ToastContainer, loading }) => {
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] = useState(0);
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -64,7 +66,7 @@ export const SignUpClient = ({ formik, option, ToastContainer, loading }) => {
             justifyContent="center"
             direction="column"
           >
-            <React.Fragment>
+            <Fragment>
               <form onSubmit={formik.handleSubmit}>
                 {activeStep === 0 &&
                   (!loading ? (
@@ -537,7 +539,7 @@ export const SignUpClient = ({ formik, option, ToastContainer, loading }) => {
                   </Box>
                 </Box>
               )}
-            </React.Fragment>
+            </Fragment>
           </Grid>
         </Grid>
       </Grid>

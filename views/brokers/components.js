@@ -1,18 +1,17 @@
-import * as React from "react";
-import { useState } from "react";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import MuiTextField from "../../styles/fields";
-import Image from "next/image";
-import InputTitles from "../../styles/inputTitles";
-import MuiButton from "../../styles/button";
-import Header from "../../shared/components/header";
-import HelperText from "../../styles/helperText";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import CitySelect from "../../shared/components/selects/citySelect";
-import TypeIDSelect from "../../shared/components/selects/typeIdentitySelect";
-import DepartmentSelect from "../../shared/components/selects/departmentSelect";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+
+import Header from "@components/header";
+import CitySelect from "@components/selects/citySelect";
+import DepartmentSelect from "@components/selects/departmentSelect";
+import TypeIDSelect from "@components/selects/typeIdentitySelect";
+
+import MuiButton from "@styles/button";
+import MuiTextField from "@styles/fields";
+import HelperText from "@styles/helperText";
+import InputTitles from "@styles/inputTitles";
 
 export const SignUpBroker = ({ formik, option, ToastContainer }) => {
   return (
@@ -324,15 +323,15 @@ export const SignUpBroker = ({ formik, option, ToastContainer }) => {
         </Grid>
       </Grid>
       <ToastContainer
-      position="top-right"
-      autoClose={50000}
-      hideProgressBar={false}
-      newestOnTop={false}
-      closeOnClick
-      rtl={false}
-      pauseOnFocusLoss
-      draggable
-      pauseOnHover
+        position="top-right"
+        autoClose={50000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
       />
     </>
   );

@@ -1,5 +1,6 @@
-import { AdministrationComponents } from "./components";
 import Head from "next/head";
+
+import { AdministrationComponents } from "./components";
 
 export default function Bills() {
   return (
