@@ -23,6 +23,7 @@ import DateFormat from "@formats/DateFormat";
 import ValueFormat from "@formats/ValueFormat";
 
 import { useFetch } from "@hooks/useFetch";
+import useToatsStatus from "@hooks/useToatsStatus";
 
 import CustomTooltip from "@styles/customTooltip";
 import InputTitles from "@styles/inputTitles";
@@ -41,79 +42,82 @@ function CustomToolbar() {
 export const BillsComponents = () => {
   const [rowsToModify, setRowsToModify] = useState([]);
   const [rowsToApplyRETIVA, setRowsToApplyRETIVA] = useState([]);
-  const billFile = useRef();
-  const creditNoteFile = useRef();
-  const [creditNote, setCreditNote] = useState([]);
-  const [filesBill, setFilesBill] = useState([]);
+  const [creditNote, setCreditNote] = useState(null);
+  const [filesBill, setFilesBill] = useState(null);
   const [bill, setBill] = useState([]);
   const [otherRet, setOtherRet] = useState(0);
   const [retICA, setRetICA] = useState(0);
   const [retFTE, setRetFTE] = useState(0);
 
-  const {
-    fetch: fetch,
-    loading: loading,
-    error: error,
-    data: data,
-  } = useFetch({ service: ReadBills, init: false });
+  const billFile = useRef();
+  const creditNoteFile = useRef();
 
   const {
-    fetch: fetch2,
-    loading: loading2,
-    error: error2,
-    data: data2,
+    fetch: fetchReadBills,
+    loading: loadingReadBills,
+    error: errorReadBills,
+    data: dataReadBills,
+  } = useFetch({ service: ReadBills, init: false });
+
+  useEffect(() => {
+    if (filesBill && filesBill.getAll("bills").length > 0) {
+      fetchReadBills(filesBill);
+    }
+  }, [filesBill]);
+
+  useToatsStatus(
+    loadingReadBills,
+    dataReadBills,
+    errorReadBills,
+    (loading, data, error) => data?.bills.length > 0,
+    "Facturas cargadas",
+    errorReadBills?.message
+  );
+
+  const onChangeFilesExtractBill = (e) => {
+    const formData = new FormData();
+    const files = Array.from(e.target.files);
+    files.forEach((file) => {
+      formData.append("bills", file);
+    });
+    setFilesBill(formData);
+  };
+
+  const {
+    fetch: fetchReadCreditNotes,
+    loading: loadingReadCreditNotes,
+    error: errorReadCreditNotes,
+    data: dataReadCreditNotes,
   } = useFetch({ service: ReadCreditNotes, init: false });
 
   useEffect(() => {
-    if (loading == true) {
-      Toast("Cargando..", "loading");
+    if (creditNote && creditNote.getAll("creditNotes").length > 0) {
+      fetchReadCreditNotes(creditNote);
     }
+  }, [creditNote]);
 
-    if (error) {
-      Toast(`${Object.values(error.message)}`, "error");
-    }
+  useToatsStatus(
+    loadingReadCreditNotes,
+    dataReadCreditNotes,
+    errorReadCreditNotes,
+    (loading, data, error) => data?.data.length >= 0,
+    "Notas de crédito cargadas",
+    errorReadCreditNotes?.message
+  );
 
-    if (data != undefined) {
-      if (data?.bills?.length != 0) {
-        Toast("Facturas cargadas correctamente", "success");
-        console.log(data);
-      }
-    }
-  }, [loading, data, error]);
-
-  useEffect(() => {
-    if (loading2 == true) {
-      Toast("Cargando..", "loading");
-    }
-
-    if (error2) {
-      Toast(`${Object.values(error.message)[0]}`, "error");
-    }
-
-    if (data2 != undefined) {
-      if (data2?.data?.length != 0) {
-        Toast("Notas de crédito cargadas", "success");
-        console.log(data);
-      }
-    }
-  }, [loading, data, error]);
+  const onChangeFilesCreditNote = (e) => {
+    const formData = new FormData();
+    const files = Array.from(e.target.files);
+    files.forEach((file) => {
+      formData.append("creditNotes", file);
+    });
+    setCreditNote(formData);
+  };
 
   const onRowsSelectionHandler = (ids) => {
     const selectedRowsData = ids.map((id) => bill.find((row) => row.id === id));
     setRowsToModify(selectedRowsData);
   };
-
-  useEffect(() => {
-    if (filesBill !== []) {
-      fetch(filesBill);
-    }
-  }, [filesBill]);
-
-  useEffect(() => {
-    if (creditNote !== []) {
-      fetch2(creditNote);
-    }
-  }, [creditNote]);
 
   const sumOfAllCreditNotes = (array, id) => {
     let sum = 0;
@@ -124,9 +128,9 @@ export const BillsComponents = () => {
   };
 
   useEffect(() => {
-    if (data) {
+    if (dataReadBills) {
       let Bills = [];
-      data.bills.map((bill) => {
+      dataReadBills.bills.map((bill) => {
         Bills.push({
           id: bill.billId,
           Status: bill.typeBill,
@@ -138,22 +142,45 @@ export const BillsComponents = () => {
           datePayment: bill.datePayment,
           BillValue: bill.billValue,
           IVA: bill.iva,
+          applyRetIVA: false,
           RetIVA: rowsToApplyRETIVA.includes(bill) ? bill.iva * 0.15 : 0,
           CreditNote:
-            data2 !== null || data2 !== undefined || data2 !== []
-              ? sumOfAllCreditNotes(data2.data, bill.billId)
+            dataReadCreditNotes !== null &&
+            dataReadCreditNotes !== undefined &&
+            dataReadCreditNotes !== []
+              ? sumOfAllCreditNotes(dataReadCreditNotes.data, bill.billId)
               : 0,
           OtherRET: otherRet,
           RetICA: retICA,
-          RetFTE: retICA,
-          SubTotal: bill.subTotal,
-          Total: bill.total,
+          RetFTE: retFTE,
+          SubTotal:
+            dataReadCreditNotes !== null &&
+            dataReadCreditNotes !== undefined &&
+            dataReadCreditNotes !== []
+              ? bill.subTotal -
+                sumOfAllCreditNotes(dataReadCreditNotes.data, bill.billId)
+              : bill.subTotal,
+          Total:
+            dataReadCreditNotes !== null &&
+            dataReadCreditNotes !== undefined &&
+            dataReadCreditNotes !== []
+              ? bill.subTotal -
+                (retICA / 100) * bill.subTotal -
+                (retFTE / 100) * bill.subTotal -
+                (otherRet / 100) * bill.subTotal -
+                (rowsToApplyRETIVA.includes(bill) ? bill.iva * 0.15 : 0) -
+                sumOfAllCreditNotes(dataReadCreditNotes.data, bill.billId)
+              : bill.subTotal -
+                (retICA / 100) * bill.subTotal -
+                (retFTE / 100) * bill.subTotal -
+                (otherRet / 100) * bill.subTotal -
+                (rowsToApplyRETIVA.includes(bill) ? bill.iva * 0.15 : 0),
         });
       });
 
       setBill(Bills);
     }
-  }, [data, data2]);
+  }, [dataReadBills, dataReadCreditNotes, retICA, retFTE]);
 
   const columns = [
     {
@@ -248,6 +275,7 @@ export const BillsComponents = () => {
       renderCell: (params) => (
         <Box display="flex" width="100%" justifyContent="center">
           <Switch
+            checked={rowsToApplyRETIVA.includes(params.row)}
             sx={{
               "& .MuiSwitch-switchBase": {
                 "&.Mui-checked": {
@@ -601,14 +629,7 @@ export const BillsComponents = () => {
             type="file"
             multiple="multiple"
             style={{ display: "none" }}
-            onChange={(e) => {
-              const formData = new FormData();
-              const files = Array.from(e.target.files);
-              files.forEach((file) => {
-                formData.append("bills", file);
-              });
-              setFilesBill(formData);
-            }}
+            onChange={onChangeFilesExtractBill}
           />
           <Button
             variant="standard"
@@ -642,14 +663,7 @@ export const BillsComponents = () => {
             type="file"
             multiple="multiple"
             style={{ display: "none" }}
-            onChange={(e) => {
-              const formData = new FormData();
-              const files = Array.from(e.target.files);
-              files.forEach((file) => {
-                formData.append("creditNotes", file);
-              });
-              setCreditNote(formData);
-            }}
+            onChange={onChangeFilesCreditNote}
           />
         </Box>
 
@@ -700,7 +714,9 @@ export const BillsComponents = () => {
                 onChange={(e) => {
                   const value = e.target.value;
                   if (value > 100 || value < 0) {
-                    alert("El valor debe estar entre 0 y 100");
+                    Toast("El valor debe estar entre 0 y 100", "error");
+                    e.target.value = "";
+                    setRetICA(0);
                   } else {
                     setRetICA(value);
                   }
@@ -814,6 +830,7 @@ export const BillsComponents = () => {
                   const value = e.target.value;
                   if (value > 100 || value < 0) {
                     Toast("El valor debe estar entre 0 y 100", "error");
+                    e.target.value = 0;
                   } else {
                     setRetFTE(value);
                   }
@@ -960,7 +977,7 @@ export const BillsComponents = () => {
       </Box>
       <ToastContainer
         position="top-right"
-        autoClose={50000}
+        autoClose={2000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
