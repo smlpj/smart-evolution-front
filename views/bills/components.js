@@ -149,10 +149,13 @@ export const BillsComponents = () => {
             dataReadCreditNotes !== undefined &&
             dataReadCreditNotes !== []
               ? /* sumOfAllCreditNotes(dataReadCreditNotes.data, bill.billId) */
-                dataReadCreditNotes.data /* .data.filter((creditNote) => {
+                dataReadCreditNotes.data?.filter(
+                  (creditNote) => creditNote.associatedInvoice === bill.billId
+                )
+              : /* .data.filter((creditNote) => {
                   creditNote.associatedInvoice === bill.billId;
                 }) */
-              : 0,
+                0,
           OtherRET: otherRet,
           RetICA: retICA,
           RetFTE: retFTE,
@@ -492,9 +495,20 @@ export const BillsComponents = () => {
       renderCell: (params) => {
         return (
           <InputTitles>
-            {/* <ValueFormat prefix="$ " value={params.value} /> */}a
+            <ValueFormat prefix="$ " value={params.value} />
           </InputTitles>
         );
+      },
+      valueGetter: (params) => {
+        if (params.value.length === 0) {
+          return 0;
+        } else {
+          let sum = 0;
+          params.value.map((creditNote) => {
+            sum += creditNote.total;
+          });
+          return sum;
+        }
       },
     },
     {
