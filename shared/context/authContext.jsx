@@ -49,9 +49,14 @@ export const AuthProvider = (child) => {
     }
   }, [router.pathname]);
 
+  const logout = () => {
+    localStorage.removeItem("access-token");
+    router.replace("/auth/login");
+  };
+
   return (
     <authContext.Provider
-      value={{ authToken, refreshToken, user, admin, roles }}
+      value={{ authToken, refreshToken, user, admin, roles, logout }}
     >
       {child.children}
     </authContext.Provider>
