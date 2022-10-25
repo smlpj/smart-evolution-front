@@ -143,12 +143,15 @@ export const BillsComponents = () => {
           BillValue: bill.billValue,
           IVA: bill.iva,
           applyRetIVA: false,
-          RetIVA: rowsToApplyRETIVA.includes(bill) ? bill.iva * 0.15 : 0,
+          RetIVA: 0,
           CreditNote:
             dataReadCreditNotes !== null &&
             dataReadCreditNotes !== undefined &&
             dataReadCreditNotes !== []
-              ? sumOfAllCreditNotes(dataReadCreditNotes.data, bill.billId)
+              ? /* sumOfAllCreditNotes(dataReadCreditNotes.data, bill.billId) */
+                dataReadCreditNotes.data /* .data.filter((creditNote) => {
+                  creditNote.associatedInvoice === bill.billId;
+                }) */
               : 0,
           OtherRET: otherRet,
           RetICA: retICA,
@@ -191,12 +194,13 @@ export const BillsComponents = () => {
       renderCell: (params) => {
         return (
           <InputTitles>
-            <ValueFormat
-              prefix="$ "
-              value={(params.value / 100) * params.row.SubTotal}
-            />
+            <ValueFormat prefix="$ " value={params.value} />
           </InputTitles>
         );
+      },
+
+      valueGetter: (params) => {
+        return Math.round((params.value / 100) * params.row.SubTotal);
       },
     },
     {
@@ -207,12 +211,12 @@ export const BillsComponents = () => {
       renderCell: (params) => {
         return (
           <InputTitles>
-            <ValueFormat
-              prefix="$ "
-              value={(params.value / 100) * params.row.SubTotal}
-            />
+            <ValueFormat prefix="$ " value={params.value} />
           </InputTitles>
         );
+      },
+      valueGetter: (params) => {
+        return Math.round((params.value / 100) * params.row.SubTotal);
       },
     },
     {
@@ -234,13 +238,16 @@ export const BillsComponents = () => {
             border="1.4px solid #B5D1C9"
             borderRadius="4px"
           >
-            {params.value !== null
-              ? params.value === "a7c70741-8c1a-4485-8ed4-5297e54a978a"
-                ? "FV-TV"
-                : "FV"
-              : null}
+            {params.value}
           </Typography>
         );
+      },
+      valueGetter: (params) => {
+        return params.value !== null
+          ? params.value === "a7c70741-8c1a-4485-8ed4-5297e54a978a"
+            ? "FV-TV"
+            : "FV"
+          : null;
       },
     },
     {
@@ -312,16 +319,14 @@ export const BillsComponents = () => {
       renderCell: (params) => {
         return (
           <InputTitles>
-            <ValueFormat
-              prefix="$ "
-              value={
-                rowsToApplyRETIVA.includes(params.row)
-                  ? Math.round(params.row.IVA * 0.15)
-                  : 0
-              }
-            />
+            <ValueFormat prefix="$ " value={params.value} />
           </InputTitles>
         );
+      },
+      valueGetter: (params) => {
+        return rowsToApplyRETIVA.includes(params.row)
+          ? Math.round(params.row.IVA * 0.15)
+          : 0;
       },
     },
     {
@@ -487,7 +492,7 @@ export const BillsComponents = () => {
       renderCell: (params) => {
         return (
           <InputTitles>
-            <ValueFormat prefix="$ " value={params.value} />
+            {/* <ValueFormat prefix="$ " value={params.value} /> */}a
           </InputTitles>
         );
       },
@@ -512,15 +517,13 @@ export const BillsComponents = () => {
       renderCell: (params) => {
         return (
           <InputTitles>
-            <ValueFormat
-              prefix="$ "
-              value={
-                params.row.BillValue + params.row.IVA - params.row.CreditNote
-              }
-            />
+            <ValueFormat prefix="$ " value={params.value} />
           </InputTitles>
         );
       },
+      /* valueGetter: (params) => {
+        return params.row.BillValue + params.row.IVA - params.row.CreditNote;
+      }, */
     },
     {
       field: "Total",
@@ -529,28 +532,26 @@ export const BillsComponents = () => {
       renderCell: (params) => {
         return (
           <InputTitles>
-            <ValueFormat
-              prefix="$ "
-              value={
-                rowsToApplyRETIVA.includes(params.row)
-                  ? params.row.BillValue +
-                    params.row.IVA -
-                    params.row.IVA * 0.15 -
-                    (params.row.RetICA / 100) * params.row.SubTotal -
-                    (params.row.RetFTE / 100) * params.row.SubTotal -
-                    params.row.OtherRET -
-                    params.row.CreditNote
-                  : params.row.BillValue +
-                    params.row.IVA -
-                    (params.row.RetICA / 100) * params.row.SubTotal -
-                    (params.row.RetFTE / 100) * params.row.SubTotal -
-                    params.row.OtherRET -
-                    params.row.CreditNote
-              }
-            />
+            <ValueFormat prefix="$ " value={params.value} />
           </InputTitles>
         );
       },
+      /* valueGetter: (params) => {
+        return rowsToApplyRETIVA.includes(params.row)
+          ? params.row.BillValue +
+              params.row.IVA -
+              params.row.IVA * 0.15 -
+              (params.row.RetICA / 100) * params.row.SubTotal -
+              (params.row.RetFTE / 100) * params.row.SubTotal -
+              params.row.OtherRET -
+              params.row.CreditNote
+          : params.row.BillValue +
+              params.row.IVA -
+              (params.row.RetICA / 100) * params.row.SubTotal -
+              (params.row.RetFTE / 100) * params.row.SubTotal -
+              params.row.OtherRET -
+              params.row.CreditNote;
+      }, */
     },
   ];
 
@@ -798,13 +799,7 @@ export const BillsComponents = () => {
                   "& .MuiButton-startIcon": { margin: 0 },
                 }}
                 onClick={() => {
-                  const Bills = [...bill];
-                  Bills.map((row) => {
-                    if (rowsToModify.includes(row)) {
-                      row.RetICA = parseFloat(retICA);
-                    }
-                  });
-                  setBill(Bills);
+                  console.log(bill);
                 }}
               >
                 <ArrowForward sx={{ color: "white" }} />
@@ -830,7 +825,8 @@ export const BillsComponents = () => {
                   const value = e.target.value;
                   if (value > 100 || value < 0) {
                     Toast("El valor debe estar entre 0 y 100", "error");
-                    e.target.value = 0;
+                    e.target.value = "";
+                    setRetFTE(0);
                   } else {
                     setRetFTE(value);
                   }
