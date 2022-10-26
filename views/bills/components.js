@@ -46,6 +46,7 @@ export const BillsComponents = () => {
   const [filesBill, setFilesBill] = useState(null);
   const [bill, setBill] = useState([]);
   const [otherRet, setOtherRet] = useState(0);
+  const [retIVA, setRetIVA] = useState({});
   const [retICA, setRetICA] = useState(0);
   const [retFTE, setRetFTE] = useState(0);
 
@@ -142,8 +143,8 @@ export const BillsComponents = () => {
           datePayment: bill.datePayment,
           BillValue: bill.billValue,
           IVA: bill.iva,
-          applyRetIVA: false,
-          RetIVA: 0,
+          applyRetIVA: rowsToApplyRETIVA.includes(bill),
+          RetIVA: retIVA[bill.billId] ? retIVA[bill.billId] : 0,
           CreditNote:
             dataReadCreditNotes !== null &&
             dataReadCreditNotes !== undefined &&
@@ -155,10 +156,10 @@ export const BillsComponents = () => {
               : /* .data.filter((creditNote) => {
                   creditNote.associatedInvoice === bill.billId;
                 }) */
-                0,
-          OtherRET: otherRet,
-          RetICA: retICA,
-          RetFTE: retFTE,
+                [],
+          OtherRET: parseFloat(otherRet),
+          RetICA: (retICA / 100) * bill.subTotal,
+          RetFTE: (retFTE / 100) * bill.subTotal,
           SubTotal:
             dataReadCreditNotes !== null &&
             dataReadCreditNotes !== undefined &&
@@ -173,20 +174,20 @@ export const BillsComponents = () => {
               ? bill.subTotal -
                 (retICA / 100) * bill.subTotal -
                 (retFTE / 100) * bill.subTotal -
-                (otherRet / 100) * bill.subTotal -
+                otherRet -
                 (rowsToApplyRETIVA.includes(bill) ? bill.iva * 0.15 : 0) -
                 sumOfAllCreditNotes(dataReadCreditNotes.data, bill.billId)
               : bill.subTotal -
                 (retICA / 100) * bill.subTotal -
                 (retFTE / 100) * bill.subTotal -
-                (otherRet / 100) * bill.subTotal -
+                otherRet -
                 (rowsToApplyRETIVA.includes(bill) ? bill.iva * 0.15 : 0),
         });
       });
 
       setBill(Bills);
     }
-  }, [dataReadBills, dataReadCreditNotes, retICA, retFTE]);
+  }, [dataReadBills, dataReadCreditNotes, retIVA, retICA, retFTE, otherRet]);
 
   const columns = [
     {
@@ -203,7 +204,7 @@ export const BillsComponents = () => {
       },
 
       valueGetter: (params) => {
-        return Math.round((params.value / 100) * params.row.SubTotal);
+        return Math.round(params.value);
       },
     },
     {
@@ -219,7 +220,7 @@ export const BillsComponents = () => {
         );
       },
       valueGetter: (params) => {
-        return Math.round((params.value / 100) * params.row.SubTotal);
+        return Math.round(params.value);
       },
     },
     {
@@ -285,7 +286,6 @@ export const BillsComponents = () => {
       renderCell: (params) => (
         <Box display="flex" width="100%" justifyContent="center">
           <Switch
-            checked={rowsToApplyRETIVA.includes(params.row)}
             sx={{
               "& .MuiSwitch-switchBase": {
                 "&.Mui-checked": {
@@ -304,11 +304,26 @@ export const BillsComponents = () => {
               },
             }}
             onChange={(e) => {
-              e.target.checked
+              /* e.target.checked
                 ? setRowsToApplyRETIVA([...rowsToApplyRETIVA, params.row])
                 : setRowsToApplyRETIVA(
                     rowsToApplyRETIVA.filter((row) => row.id !== params.row.id)
-                  );
+                  ); */
+              if (e.target.checked) {
+                setRowsToApplyRETIVA([...rowsToApplyRETIVA, params.row]);
+                setRetIVA({
+                  ...retIVA,
+                  [params.row.id]: params.row.IVA * 0.15,
+                });
+              } else {
+                setRowsToApplyRETIVA(
+                  rowsToApplyRETIVA.filter((row) => row.id !== params.row.id)
+                );
+                setRetIVA({
+                  ...retIVA,
+                  [params.row.id]: 0,
+                });
+              }
             }}
           />
         </Box>
@@ -326,10 +341,9 @@ export const BillsComponents = () => {
           </InputTitles>
         );
       },
+
       valueGetter: (params) => {
-        return rowsToApplyRETIVA.includes(params.row)
-          ? Math.round(params.row.IVA * 0.15)
-          : 0;
+        return Math.round(params.value);
       },
     },
     {
@@ -500,14 +514,33 @@ export const BillsComponents = () => {
         );
       },
       valueGetter: (params) => {
-        if (params.value.length === 0) {
-          return 0;
+        if (params.value) {
+          if (params.value.length === 0) {
+            return 0;
+          } else {
+            let sum = 0;
+            params?.value?.map((creditNote) => {
+              sum += creditNote.total;
+            });
+            return sum;
+          }
         } else {
-          let sum = 0;
-          params.value.map((creditNote) => {
-            sum += creditNote.total;
-          });
-          return sum;
+          return 0;
+        }
+      },
+      valueSetter: (params) => {
+        if (params.value) {
+          if (params.value.length === 0) {
+            return 0;
+          } else {
+            let sum = 0;
+            params?.value?.map((creditNote) => {
+              sum += creditNote.total;
+            });
+            return sum;
+          }
+        } else {
+          return 0;
         }
       },
     },
@@ -522,6 +555,10 @@ export const BillsComponents = () => {
             <ValueFormat prefix="$ " value={params.value} />
           </InputTitles>
         );
+      },
+      valueGetter: (params) => {
+        setOtherRet(params.value);
+        return params.value;
       },
     },
     {
@@ -558,7 +595,7 @@ export const BillsComponents = () => {
               (params.row.RetICA / 100) * params.row.SubTotal -
               (params.row.RetFTE / 100) * params.row.SubTotal -
               params.row.OtherRET -
-              params.row.CreditNote
+              sumOfAllCreditNotes(params.row.CreditNote, params.row.id)
           : params.row.BillValue +
               params.row.IVA -
               (params.row.RetICA / 100) * params.row.SubTotal -
@@ -922,13 +959,7 @@ export const BillsComponents = () => {
                   "& .MuiButton-startIcon": { margin: 0 },
                 }}
                 onClick={() => {
-                  const Bills = [...bill];
-                  Bills.map((row) => {
-                    if (rowsToModify.includes(row)) {
-                      row.RetFTE = parseFloat(retFTE);
-                    }
-                  });
-                  setBill(Bills);
+                  console.log(rowsToApplyRETIVA);
                 }}
               >
                 <ArrowForward sx={{ color: "white" }} />
