@@ -143,7 +143,6 @@ export const BillsComponents = () => {
           datePayment: bill.datePayment,
           BillValue: bill.billValue,
           IVA: bill.iva,
-          applyRetIVA: rowsToApplyRETIVA.includes(bill),
           RetIVA: retIVA[bill.billId] ? retIVA[bill.billId] : 0,
           CreditNote:
             dataReadCreditNotes !== null &&
