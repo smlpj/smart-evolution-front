@@ -14,8 +14,21 @@ import theme from "../styles/themes";
 
 import { AuthProvider } from "@context/authContext";
 
+const pathsWithoutDefaultLayout = [
+  "/",
+  "/brokers",
+  "/customers",
+  "/self-management",
+  "/auth/login",
+  "/administration/deposit-investor",
+  "/administration/deposit-emitter",
+];
+
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
+
+  const isErrorPage = pageProps?.statusCode === 404;
+
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -25,12 +38,8 @@ function MyApp({ Component, pageProps }) {
               <title>Smart Evolution</title>
             </Head>
 
-            {router.pathname !== "/auth/login" &&
-            router.pathname !== "/brokers" &&
-            router.pathname !== "/customers" &&
-            router.pathname !== "/" &&
-            router.pathname !== "/administration/deposit-investor" &&
-            router.pathname !== "/administration/deposit-emitter" ? (
+            {!pathsWithoutDefaultLayout.includes(router.pathname) &&
+            !isErrorPage ? (
               <Layout>
                 <Component {...pageProps} />
               </Layout>
