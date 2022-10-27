@@ -47,8 +47,8 @@ export const BillsComponents = () => {
   const [bill, setBill] = useState([]);
   const [otherRet, setOtherRet] = useState(0);
   const [retIVA, setRetIVA] = useState({});
-  const [retICA, setRetICA] = useState(0);
-  const [retFTE, setRetFTE] = useState(0);
+  const [retICA, setRetICA] = useState({});
+  const [retFTE, setRetFTE] = useState({});
 
   const billFile = useRef();
   const creditNoteFile = useRef();
@@ -148,17 +148,19 @@ export const BillsComponents = () => {
             dataReadCreditNotes !== null &&
             dataReadCreditNotes !== undefined &&
             dataReadCreditNotes !== []
-              ? /* sumOfAllCreditNotes(dataReadCreditNotes.data, bill.billId) */
-                dataReadCreditNotes.data?.filter(
+              ? dataReadCreditNotes.data?.filter(
                   (creditNote) => creditNote.associatedInvoice === bill.billId
                 )
-              : /* .data.filter((creditNote) => {
-                  creditNote.associatedInvoice === bill.billId;
-                }) */
-                [],
-          OtherRET: parseFloat(otherRet),
-          RetICA: (retICA / 100) * bill.subTotal,
-          RetFTE: (retFTE / 100) * bill.subTotal,
+              : [],
+          OtherRET: /* parseFloat(otherRet) */ 0,
+          RetICA:
+            retICA[bill.billId] && retICA[bill.billId] !== ""
+              ? (retICA[bill.billId] / 100) * bill.subTotal
+              : 0,
+          RetFTE:
+            retFTE[bill.billId] && retFTE[bill.billId] !== ""
+              ? (retFTE[bill.billId] / 100) * bill.subTotal
+              : 0,
           SubTotal:
             dataReadCreditNotes !== null &&
             dataReadCreditNotes !== undefined &&
@@ -171,16 +173,24 @@ export const BillsComponents = () => {
             dataReadCreditNotes !== undefined &&
             dataReadCreditNotes !== []
               ? bill.subTotal -
-                (retICA / 100) * bill.subTotal -
-                (retFTE / 100) * bill.subTotal -
-                otherRet -
-                (rowsToApplyRETIVA.includes(bill) ? bill.iva * 0.15 : 0) -
+                (retICA[bill.billId] && retICA[bill.billId] !== ""
+                  ? (retICA[bill.billId] / 100) * bill.subTotal
+                  : 0) -
+                (retFTE[bill.billId] && retFTE[bill.billId] !== ""
+                  ? (retFTE[bill.billId] / 100) * bill.subTotal
+                  : 0) -
+                /* otherRet - */
+                (retIVA[bill.billId] ? retIVA[bill.billId] : 0) -
                 sumOfAllCreditNotes(dataReadCreditNotes.data, bill.billId)
               : bill.subTotal -
-                (retICA / 100) * bill.subTotal -
-                (retFTE / 100) * bill.subTotal -
-                otherRet -
-                (rowsToApplyRETIVA.includes(bill) ? bill.iva * 0.15 : 0),
+                (retICA[bill.billId] && retICA[bill.billId] !== ""
+                  ? (retICA[bill.billId] / 100) * bill.subTotal
+                  : 0) -
+                (retFTE[bill.billId] && retFTE[bill.billId] !== ""
+                  ? (retFTE[bill.billId] / 100) * bill.subTotal
+                  : 0) -
+                /* otherRet - */
+                (retIVA[bill.billId] ? retIVA[bill.billId] : 0),
         });
       });
 
@@ -303,11 +313,6 @@ export const BillsComponents = () => {
               },
             }}
             onChange={(e) => {
-              /* e.target.checked
-                ? setRowsToApplyRETIVA([...rowsToApplyRETIVA, params.row])
-                : setRowsToApplyRETIVA(
-                    rowsToApplyRETIVA.filter((row) => row.id !== params.row.id)
-                  ); */
               if (e.target.checked) {
                 setRowsToApplyRETIVA([...rowsToApplyRETIVA, params.row]);
                 setRetIVA({
@@ -527,21 +532,6 @@ export const BillsComponents = () => {
           return 0;
         }
       },
-      valueSetter: (params) => {
-        if (params.value) {
-          if (params.value.length === 0) {
-            return 0;
-          } else {
-            let sum = 0;
-            params?.value?.map((creditNote) => {
-              sum += creditNote.total;
-            });
-            return sum;
-          }
-        } else {
-          return 0;
-        }
-      },
     },
     {
       field: "OtherRET",
@@ -555,10 +545,20 @@ export const BillsComponents = () => {
           </InputTitles>
         );
       },
-      valueGetter: (params) => {
-        setOtherRet(params.value);
-        return params.value;
-      },
+      /* valueSetter: (params) => {
+         
+        params.value === "" ? 
+        setOtherRet({
+          ...otherRet,
+          [params.id]: 0,
+        })
+        :
+        setOtherRet({
+          ...otherRet,
+          [params.id]: params.value,
+        });
+        
+      }, */
     },
     {
       field: "SubTotal",
@@ -767,9 +767,17 @@ export const BillsComponents = () => {
                   if (value > 100 || value < 0) {
                     Toast("El valor debe estar entre 0 y 100", "error");
                     e.target.value = "";
-                    setRetICA(0);
+                    const billsWithRetICA = rowsToModify.reduce(
+                      (acc, curr) => ((acc[curr.id] = 0), acc),
+                      {}
+                    );
+                    setRetICA(billsWithRetICA);
                   } else {
-                    setRetICA(value);
+                    const billsWithRetICA = rowsToModify.reduce(
+                      (acc, curr) => ((acc[curr.id] = value), acc),
+                      {}
+                    );
+                    setRetICA(billsWithRetICA);
                   }
                 }}
                 disabled={rowsToModify.length === 0 ? true : false}
@@ -876,9 +884,17 @@ export const BillsComponents = () => {
                   if (value > 100 || value < 0) {
                     Toast("El valor debe estar entre 0 y 100", "error");
                     e.target.value = "";
-                    setRetFTE(0);
+                    const billsWithRetFTE = rowsToModify.reduce(
+                      (acc, curr) => ((acc[curr.id] = 0), acc),
+                      {}
+                    );
+                    setRetFTE(billsWithRetFTE);
                   } else {
-                    setRetFTE(value);
+                    const billsWithRetFTE = rowsToModify.reduce(
+                      (acc, curr) => ((acc[curr.id] = value), acc),
+                      {}
+                    );
+                    setRetFTE(billsWithRetFTE);
                   }
                 }}
                 disabled={rowsToModify.length === 0 ? true : false}
