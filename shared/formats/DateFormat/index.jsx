@@ -5,6 +5,7 @@ const DateFormat = (props) => {
   const { date, variant, ...rest } = props;
 
   const valueDate = new Date(date);
+  valueDate.setDate(valueDate.getDate() + 1);
 
   switch (variant) {
     case "LONG":

@@ -31,6 +31,8 @@ import CustomDataGrid from "@styles/tables";
 
 import { ReadBills, ReadCreditNotes } from "./queries";
 
+import { isAfter } from "date-fns";
+
 function CustomToolbar() {
   return (
     <GridToolbarContainer>
@@ -45,7 +47,7 @@ export const BillsComponents = () => {
   const [creditNote, setCreditNote] = useState(null);
   const [filesBill, setFilesBill] = useState(null);
   const [bill, setBill] = useState([]);
-  const [otherRet, setOtherRet] = useState(0);
+  const [otherRet, setOtherRet] = useState({});
   const [retIVA, setRetIVA] = useState({});
   const [retICA, setRetICA] = useState({});
   const [retFTE, setRetFTE] = useState({});
@@ -128,23 +130,41 @@ export const BillsComponents = () => {
     return sum;
   };
 
+  const getLastEvent = (array) => {
+    let lastEvent = null;
+    array.map((event) => {
+      if (lastEvent === null) {
+        lastEvent = event;
+      } else {
+        if (new Date(event.date) > new Date(lastEvent.date)) {
+          lastEvent = event;
+        }
+      }
+    });
+    return lastEvent;
+  };
+
   useEffect(() => {
     if (dataReadBills) {
       let Bills = [];
       dataReadBills.bills.map((bill) => {
         Bills.push({
           id: bill.billId,
-          Status: bill.typeBill,
-          EmitterName: bill.emitterName,
-          EmmitterId: bill.emitterId,
-          PayerID: bill.payerId,
-          PayerName: bill.payerName,
+          billId: bill.billId,
+          typeBill: bill.typeBill,
+          emitterName: bill.emitterName,
+          emitterId: bill.emitterId,
+          payerId: bill.payerId,
+          payerName: bill.payerName,
           dateBill: bill.dateBill,
           datePayment: bill.datePayment,
-          BillValue: bill.billValue,
-          IVA: bill.iva,
-          RetIVA: retIVA[bill.billId] ? retIVA[bill.billId] : 0,
-          CreditNote:
+          expirationDate: bill.datePayment,
+          billValue: bill.billValue,
+          iva: bill.iva,
+          cufe: bill.cufe,
+          events: bill.events ? bill.events : [],
+          ret_iva: retIVA[bill.billId] ? retIVA[bill.billId] : 0,
+          creditNotes:
             dataReadCreditNotes !== null &&
             dataReadCreditNotes !== undefined &&
             dataReadCreditNotes !== []
@@ -152,23 +172,33 @@ export const BillsComponents = () => {
                   (creditNote) => creditNote.associatedInvoice === bill.billId
                 )
               : [],
-          OtherRET: /* parseFloat(otherRet) */ 0,
-          RetICA:
+          creditNotesValue:
+            dataReadCreditNotes !== null &&
+            dataReadCreditNotes !== undefined &&
+            dataReadCreditNotes !== []
+              ? sumOfAllCreditNotes(dataReadCreditNotes.data, bill.billId)
+              : 0,
+
+          other_retentions:
+            retICA[bill.billId] && retICA[bill.billId] !== ""
+              ? parseFloat(otherRet)
+              : 0,
+          ret_ica:
             retICA[bill.billId] && retICA[bill.billId] !== ""
               ? (retICA[bill.billId] / 100) * bill.subTotal
               : 0,
-          RetFTE:
+          ret_fte:
             retFTE[bill.billId] && retFTE[bill.billId] !== ""
               ? (retFTE[bill.billId] / 100) * bill.subTotal
               : 0,
-          SubTotal:
+          subTotal:
             dataReadCreditNotes !== null &&
             dataReadCreditNotes !== undefined &&
             dataReadCreditNotes !== []
               ? bill.subTotal -
                 sumOfAllCreditNotes(dataReadCreditNotes.data, bill.billId)
               : bill.subTotal,
-          Total:
+          total:
             dataReadCreditNotes !== null &&
             dataReadCreditNotes !== undefined &&
             dataReadCreditNotes !== []
@@ -200,7 +230,7 @@ export const BillsComponents = () => {
 
   const columns = [
     {
-      field: "RetICA",
+      field: "ret_ica",
       headerName: "RET. ICA",
       width: 120,
       sortable: false,
@@ -217,7 +247,7 @@ export const BillsComponents = () => {
       },
     },
     {
-      field: "RetFTE",
+      field: "ret_fte",
       headerName: "RET. FTE",
       width: 120,
       sortable: false,
@@ -233,7 +263,7 @@ export const BillsComponents = () => {
       },
     },
     {
-      field: "Status",
+      field: "typeBill",
       headerName: "TIPO DE FACTURA",
       width: 130,
       renderCell: (params) => {
@@ -264,7 +294,7 @@ export const BillsComponents = () => {
       },
     },
     {
-      field: "id",
+      field: "billId",
       headerName: "ID",
       width: 70,
       renderCell: (params) => (
@@ -317,15 +347,17 @@ export const BillsComponents = () => {
                 setRowsToApplyRETIVA([...rowsToApplyRETIVA, params.row]);
                 setRetIVA({
                   ...retIVA,
-                  [params.row.id]: params.row.IVA * 0.15,
+                  [params.row.billId]: params.row.iva * 0.15,
                 });
               } else {
                 setRowsToApplyRETIVA(
-                  rowsToApplyRETIVA.filter((row) => row.id !== params.row.id)
+                  rowsToApplyRETIVA.filter(
+                    (row) => row.billId !== params.row.billId
+                  )
                 );
                 setRetIVA({
                   ...retIVA,
-                  [params.row.id]: 0,
+                  [params.row.billId]: 0,
                 });
               }
             }}
@@ -334,7 +366,7 @@ export const BillsComponents = () => {
       ),
     },
     {
-      field: "RetIVA",
+      field: "ret_iva",
       headerName: "RET. IVA",
       width: 120,
       sortable: false,
@@ -349,9 +381,13 @@ export const BillsComponents = () => {
       valueGetter: (params) => {
         return Math.round(params.value);
       },
+      valueSetter: (params) => {
+        console.log(params.value);
+        return Math.round(params.value);
+      },
     },
     {
-      field: "EmitterName",
+      field: "emitterName",
       headerName: "NOMBRE EMISOR",
       width: 160,
       renderCell: (params) => (
@@ -380,7 +416,7 @@ export const BillsComponents = () => {
       ),
     },
     {
-      field: "EmmitterId",
+      field: "emitterId",
       headerName: "NIT EMISOR",
       width: 100,
       renderCell: (params) => (
@@ -405,7 +441,7 @@ export const BillsComponents = () => {
       ),
     },
     {
-      field: "PayerName",
+      field: "payerName",
       headerName: "NOMBRE PAGADOR",
       width: 160,
       renderCell: (params) => (
@@ -434,7 +470,7 @@ export const BillsComponents = () => {
       ),
     },
     {
-      field: "PayerID",
+      field: "payerId",
       headerName: "NIT PAGADOR",
       width: 110,
       renderCell: (params) => (
@@ -483,7 +519,96 @@ export const BillsComponents = () => {
       },
     },
     {
-      field: "BillValue",
+      field: "cufe",
+      headerName: "CUFE",
+      width: 120,
+      renderCell: (params) => (
+        <CustomTooltip
+          title={params.value}
+          arrow
+          placement="bottom-start"
+          TransitionComponent={Fade}
+          PopperProps={{
+            modifiers: [
+              {
+                name: "offset",
+                options: {
+                  offset: [0, 0],
+                },
+              },
+            ],
+          }}
+        >
+          <InputTitles>
+            {params.value.length > 10
+              ? params.value.substring(0, 10) + "..."
+              : params.value}
+          </InputTitles>
+        </CustomTooltip>
+      ),
+    },
+    {
+      field: "Cantidad Eventos",
+      headerName: "CANT. EVENTOS",
+      width: 90,
+      renderCell: (params) => {
+        return params.row.events.length > 0 ? (
+          <InputTitles>{params.row.events.length}</InputTitles>
+        ) : (
+          <InputTitles>0</InputTitles>
+        );
+      },
+    },
+    {
+      field: "Fecha Ult Eventos",
+      headerName: "FECHA ULT. EVENTO",
+      width: 150,
+      renderCell: (params) => {
+        return params.row.events.length > 0 ? (
+          <InputTitles>
+            <DateFormat date={getLastEvent(params.row.events).date} />
+          </InputTitles>
+        ) : (
+          <InputTitles>Sin eventos</InputTitles>
+        );
+      },
+    },
+    {
+      field: "Desc Ult Eventos",
+      headerName: "DESC ULT. EVENTO",
+      width: 150,
+      renderCell: (params) => {
+        return params.row.events.length > 0 ? (
+          <CustomTooltip
+            title={getLastEvent(params.row.events).description}
+            arrow
+            placement="bottom-start"
+            TransitionComponent={Fade}
+            PopperProps={{
+              modifiers: [
+                {
+                  name: "offset",
+                  options: {
+                    offset: [0, 0],
+                  },
+                },
+              ],
+            }}
+          >
+            <InputTitles>
+              {getLastEvent(params.row.events).description.length > 10
+                ? getLastEvent(params.row.events).description.substring(0, 10) +
+                  "..."
+                : getLastEvent(params.row.events).description}
+            </InputTitles>
+          </CustomTooltip>
+        ) : (
+          <InputTitles>Sin eventos</InputTitles>
+        );
+      },
+    },
+    {
+      field: "billValue",
       headerName: "VALOR FACTURA",
       width: 120,
       renderCell: (params) => {
@@ -495,7 +620,7 @@ export const BillsComponents = () => {
       },
     },
     {
-      field: "IVA",
+      field: "iva",
       headerName: "IVA",
       width: 100,
       renderCell: (params) => {
@@ -507,7 +632,7 @@ export const BillsComponents = () => {
       },
     },
     {
-      field: "CreditNote",
+      field: "creditNotes",
       headerName: "NOTA CRÉDITO",
       width: 110,
       renderCell: (params) => {
@@ -534,34 +659,54 @@ export const BillsComponents = () => {
       },
     },
     {
-      field: "OtherRET",
+      field: "other_retentions",
       headerName: "OTRAS RET.",
       width: 110,
       editable: true,
       renderCell: (params) => {
         return (
           <InputTitles>
-            <ValueFormat prefix="$ " value={params.value} />
+            {/* <ValueFormat prefix="$ " value={params.value} /> */}
+            {otherRet[params.row.id] ? (
+              <ValueFormat
+                prefix="$ "
+                value={otherRet[params.row.id]}
+                onChange={(e) => {
+                  console.log(e.target.value);
+                  setOtherRet({
+                    ...otherRet,
+                    [params.row.id]: e.target.value,
+                  });
+                }}
+              />
+            ) : (
+              <ValueFormat
+                prefix="$ "
+                value={params.value}
+                onChange={(e) => {
+                  setOtherRet({
+                    ...otherRet,
+                    [params.row.id]: e.target.value,
+                  });
+                }}
+              />
+            )}
           </InputTitles>
         );
       },
+      // Save the value to the database
       /* valueSetter: (params) => {
-         
-        params.value === "" ? 
+        console.log(params.row.billId);
         setOtherRet({
           ...otherRet,
-          [params.id]: 0,
-        })
-        :
-        setOtherRet({
-          ...otherRet,
-          [params.id]: params.value,
+          [params.row.billId]: params.value,
         });
-        
+        console.log(otherRet);
+        return { ...params.row, other_retentions: params.value };
       }, */
     },
     {
-      field: "SubTotal",
+      field: "subTotal",
       headerName: "SUBTOTAL",
       width: 100,
       renderCell: (params) => {
@@ -571,12 +716,9 @@ export const BillsComponents = () => {
           </InputTitles>
         );
       },
-      /* valueGetter: (params) => {
-        return params.row.BillValue + params.row.IVA - params.row.CreditNote;
-      }, */
     },
     {
-      field: "Total",
+      field: "total",
       headerName: "TOTAL",
       width: 100,
       renderCell: (params) => {
@@ -586,22 +728,6 @@ export const BillsComponents = () => {
           </InputTitles>
         );
       },
-      /* valueGetter: (params) => {
-        return rowsToApplyRETIVA.includes(params.row)
-          ? params.row.BillValue +
-              params.row.IVA -
-              params.row.IVA * 0.15 -
-              (params.row.RetICA / 100) * params.row.SubTotal -
-              (params.row.RetFTE / 100) * params.row.SubTotal -
-              params.row.OtherRET -
-              sumOfAllCreditNotes(params.row.CreditNote, params.row.id)
-          : params.row.BillValue +
-              params.row.IVA -
-              (params.row.RetICA / 100) * params.row.SubTotal -
-              (params.row.RetFTE / 100) * params.row.SubTotal -
-              params.row.OtherRET -
-              params.row.CreditNote;
-      }, */
     },
   ];
 
@@ -768,13 +894,13 @@ export const BillsComponents = () => {
                     Toast("El valor debe estar entre 0 y 100", "error");
                     e.target.value = "";
                     const billsWithRetICA = rowsToModify.reduce(
-                      (acc, curr) => ((acc[curr.id] = 0), acc),
+                      (acc, curr) => ((acc[curr.billId] = 0), acc),
                       {}
                     );
                     setRetICA(billsWithRetICA);
                   } else {
                     const billsWithRetICA = rowsToModify.reduce(
-                      (acc, curr) => ((acc[curr.id] = value), acc),
+                      (acc, curr) => ((acc[curr.billId] = value), acc),
                       {}
                     );
                     setRetICA(billsWithRetICA);
@@ -885,13 +1011,13 @@ export const BillsComponents = () => {
                     Toast("El valor debe estar entre 0 y 100", "error");
                     e.target.value = "";
                     const billsWithRetFTE = rowsToModify.reduce(
-                      (acc, curr) => ((acc[curr.id] = 0), acc),
+                      (acc, curr) => ((acc[curr.billId] = 0), acc),
                       {}
                     );
                     setRetFTE(billsWithRetFTE);
                   } else {
                     const billsWithRetFTE = rowsToModify.reduce(
-                      (acc, curr) => ((acc[curr.id] = value), acc),
+                      (acc, curr) => ((acc[curr.billId] = value), acc),
                       {}
                     );
                     setRetFTE(billsWithRetFTE);
