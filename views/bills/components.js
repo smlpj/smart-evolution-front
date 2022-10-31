@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ToastContainer } from "react-toastify";
 
-import { ArrowForward } from "@mui/icons-material";
+import { ArrowForward, SaveOutlined } from "@mui/icons-material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import UploadFileOutlinedIcon from "@mui/icons-material/UploadFileOutlined";
 import {
@@ -15,7 +15,12 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { GridToolbarContainer, GridToolbarExport } from "@mui/x-data-grid";
+import {
+  GridToolbarContainer,
+  GridToolbarExport,
+  gridRowIdsSelector,
+  useGridApiContext,
+} from "@mui/x-data-grid";
 
 import { Toast } from "@components/toast";
 
@@ -30,16 +35,6 @@ import InputTitles from "@styles/inputTitles";
 import CustomDataGrid from "@styles/tables";
 
 import { ReadBills, ReadCreditNotes } from "./queries";
-
-import { isAfter } from "date-fns";
-
-function CustomToolbar() {
-  return (
-    <GridToolbarContainer>
-      <GridToolbarExport />
-    </GridToolbarContainer>
-  );
-}
 
 export const BillsComponents = () => {
   const [rowsToModify, setRowsToModify] = useState([]);
@@ -144,6 +139,67 @@ export const BillsComponents = () => {
     return lastEvent;
   };
 
+  const getAllRows = ({ apiRef }) => gridRowIdsSelector(apiRef);
+
+  function CustomToolbar() {
+    const apiRef = useGridApiContext();
+    const handleExport = (options) => apiRef.current.exportDataAsCsv(options);
+
+    return (
+      <GridToolbarContainer
+        sx={{
+          justifyContent: "left",
+        }}
+      >
+        <Button
+          variant="standard"
+          disabled={bill.length === 0}
+          onClick={() => handleExport({ getRowsToExport: getAllRows })}
+          sx={{
+            backgroundColor: bill.length === 0 ? "#CECECE" : "#488B8F",
+            borderRadius: "4px",
+            color: "#FFFFFF",
+            height: "3rem",
+            fontSize: "0.7rem",
+            fontFamily: "Montserrat",
+            fontWeight: "bold",
+            "&:hover": {
+              backgroundColor: "#5EA3A3",
+            },
+            marginRight: "1rem",
+          }}
+          aria-label="add"
+        >
+          EXPORTAR CSV
+          <i
+            class="fa-regular fa-download"
+            style={{ marginLeft: 4, fontSize: "medium" }}
+          ></i>
+        </Button>
+        <Button
+          variant="standard"
+          onClick={() => console.log("oli")}
+          sx={{
+            backgroundColor: "#488B8F",
+            borderRadius: "4px",
+            color: "#FFFFFF",
+            height: "3rem",
+            fontSize: "0.7rem",
+            fontFamily: "Montserrat",
+            fontWeight: "bold",
+            "&:hover": {
+              backgroundColor: "#5EA3A3",
+            },
+          }}
+          aria-label="add"
+        >
+          GUARDAR MODIFICACIONES
+          <SaveOutlined sx={{ ml: 1, fontSize: "medium" }} />
+        </Button>
+      </GridToolbarContainer>
+    );
+  }
+
   useEffect(() => {
     if (dataReadBills) {
       let Bills = [];
@@ -180,8 +236,8 @@ export const BillsComponents = () => {
               : 0,
 
           other_retentions:
-            retICA[bill.billId] && retICA[bill.billId] !== ""
-              ? parseFloat(otherRet)
+            otherRet[bill.billId] && otherRet[bill.billId] !== ""
+              ? parseFloat(otherRet[bill.billId])
               : 0,
           ret_ica:
             retICA[bill.billId] && retICA[bill.billId] !== ""
@@ -209,7 +265,9 @@ export const BillsComponents = () => {
                 (retFTE[bill.billId] && retFTE[bill.billId] !== ""
                   ? (retFTE[bill.billId] / 100) * bill.subTotal
                   : 0) -
-                /* otherRet - */
+                (otherRet[bill.billId] && otherRet[bill.billId] !== ""
+                  ? parseFloat(otherRet[bill.billId])
+                  : 0) -
                 (retIVA[bill.billId] ? retIVA[bill.billId] : 0) -
                 sumOfAllCreditNotes(dataReadCreditNotes.data, bill.billId)
               : bill.subTotal -
@@ -219,7 +277,9 @@ export const BillsComponents = () => {
                 (retFTE[bill.billId] && retFTE[bill.billId] !== ""
                   ? (retFTE[bill.billId] / 100) * bill.subTotal
                   : 0) -
-                /* otherRet - */
+                (otherRet[bill.billId] && otherRet[bill.billId] !== ""
+                  ? parseFloat(otherRet[bill.billId])
+                  : 0) -
                 (retIVA[bill.billId] ? retIVA[bill.billId] : 0),
         });
       });
@@ -322,6 +382,7 @@ export const BillsComponents = () => {
       headerName: "Aplicar RET. IVA",
       width: 120,
       sortable: false,
+      disableExport: true,
       renderCell: (params) => (
         <Box display="flex" width="100%" justifyContent="center">
           <Switch
@@ -666,44 +727,22 @@ export const BillsComponents = () => {
       renderCell: (params) => {
         return (
           <InputTitles>
-            {/* <ValueFormat prefix="$ " value={params.value} /> */}
             {otherRet[params.row.id] ? (
-              <ValueFormat
-                prefix="$ "
-                value={otherRet[params.row.id]}
-                onChange={(e) => {
-                  console.log(e.target.value);
-                  setOtherRet({
-                    ...otherRet,
-                    [params.row.id]: e.target.value,
-                  });
-                }}
-              />
+              <ValueFormat prefix="$ " value={otherRet[params.row.id]} />
             ) : (
-              <ValueFormat
-                prefix="$ "
-                value={params.value}
-                onChange={(e) => {
-                  setOtherRet({
-                    ...otherRet,
-                    [params.row.id]: e.target.value,
-                  });
-                }}
-              />
+              <ValueFormat prefix="$ " value={0} />
             )}
           </InputTitles>
         );
       },
-      // Save the value to the database
-      /* valueSetter: (params) => {
+      valueSetter: (params) => {
         console.log(params.row.billId);
         setOtherRet({
           ...otherRet,
           [params.row.billId]: params.value,
         });
-        console.log(otherRet);
         return { ...params.row, other_retentions: params.value };
-      }, */
+      },
     },
     {
       field: "subTotal",
@@ -1100,7 +1139,7 @@ export const BillsComponents = () => {
                   "& .MuiButton-startIcon": { margin: 0 },
                 }}
                 onClick={() => {
-                  console.log(rowsToApplyRETIVA);
+                  console.log(otherRet);
                 }}
               >
                 <ArrowForward sx={{ color: "white" }} />
