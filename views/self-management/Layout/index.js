@@ -1,5 +1,7 @@
 import { Box, Grid, useMediaQuery, useTheme } from "@mui/material";
 
+import scrollSx from "@styles/scroll";
+
 import Pagination from "../deleteThis";
 import {
   footerGridSx,
@@ -30,7 +32,7 @@ const FormLayout = (props) => {
             <LayoutHeader showTitle={showHeaderTitle} />
           </Grid>
 
-          <Grid item xs>
+          <Grid item xs sx={{ ...scrollSx }}>
             {children}
           </Grid>
 

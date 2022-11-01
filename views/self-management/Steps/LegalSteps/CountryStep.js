@@ -2,25 +2,33 @@ import { useContext, useEffect } from "react";
 
 import { Box, Typography } from "@mui/material";
 
+import CountriesSelect from "@components/selects/CountriesSelect";
+
 import useKeyPress from "@hooks/useKeyPress";
 
-import emailSchema from "@schemas/emailSchema";
+import selectObjectSchema from "@schemas/selectObjectSchema";
 
 import EnterButton from "@styles/buttons/EnterButton";
-import BaseField from "@styles/fields/BaseField";
 
-import { FormContext } from "../Context";
-import SelfManagementBackButton from "../SelfManagementBackButton";
-import { defaultStepContainerSx, questionParagraphSx } from "../styles";
+import { FormContext } from "@views/self-management/Context";
+import SelfManagementBackButton from "@views/self-management/SelfManagementBackButton";
+import {
+  defaultStepContainerSx,
+  questionParagraphSx,
+} from "@views/self-management/styles";
 
 import { useFormik } from "formik";
 
-const schema = emailSchema();
+const schema = selectObjectSchema("country");
 
-const EmailStep = () => {
+const CountryStep = () => {
   const { pagination, data } = useContext(FormContext);
 
   const enterPressed = useKeyPress("Enter");
+
+  const handleCountryChange = (evt, value) => {
+    formik.setFieldValue("country", value);
+  };
 
   const handleNextStep = (values) => {
     data.body.set({ ...data.body.value, ...values });
@@ -34,7 +42,7 @@ const EmailStep = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      email: data.body.value?.email || "",
+      country: data.body.value?.country || "",
     },
     validationSchema: schema,
     onSubmit: handleNextStep,
@@ -46,18 +54,18 @@ const EmailStep = () => {
         <SelfManagementBackButton />
 
         <Typography sx={{ ...questionParagraphSx, mt: 5, mb: 4.5 }}>
-          Escriba su correo electrónico
+          País de origen de la empresa
         </Typography>
 
-        <BaseField
+        <CountriesSelect
           fullWidth
-          id="email"
-          name="email"
+          id="country"
+          name="country"
           placeholder="Escriba su respuesta aquí"
-          error={Boolean(formik.errors.email)}
-          value={formik.values.email}
-          onChange={formik.handleChange}
-          helperText={formik.errors.email}
+          error={Boolean(formik.errors.country)}
+          value={formik.values.country}
+          onChange={handleCountryChange}
+          helperText={formik.errors.country}
         />
 
         <EnterButton
@@ -72,4 +80,4 @@ const EmailStep = () => {
   );
 };
 
-export default EmailStep;
+export default CountryStep;

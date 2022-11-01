@@ -2,25 +2,33 @@ import { useContext, useEffect } from "react";
 
 import { Box, Typography } from "@mui/material";
 
+import CIIUsSelect from "@components/selects/CIIUsSelect";
+
 import useKeyPress from "@hooks/useKeyPress";
 
-import emailSchema from "@schemas/emailSchema";
+import selectObjectSchema from "@schemas/selectObjectSchema";
 
 import EnterButton from "@styles/buttons/EnterButton";
-import BaseField from "@styles/fields/BaseField";
 
-import { FormContext } from "../Context";
-import SelfManagementBackButton from "../SelfManagementBackButton";
-import { defaultStepContainerSx, questionParagraphSx } from "../styles";
+import { FormContext } from "@views/self-management/Context";
+import SelfManagementBackButton from "@views/self-management/SelfManagementBackButton";
+import {
+  defaultStepContainerSx,
+  questionParagraphSx,
+} from "@views/self-management/styles";
 
 import { useFormik } from "formik";
 
-const schema = emailSchema();
+const schema = selectObjectSchema("ciiu");
 
-const EmailStep = () => {
+const CIIUStep = () => {
   const { pagination, data } = useContext(FormContext);
 
   const enterPressed = useKeyPress("Enter");
+
+  const handleCiiuChange = (evt, value) => {
+    formik.setFieldValue("ciiu", value);
+  };
 
   const handleNextStep = (values) => {
     data.body.set({ ...data.body.value, ...values });
@@ -34,7 +42,7 @@ const EmailStep = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      email: data.body.value?.email || "",
+      ciiu: data.body.value?.ciiu || "",
     },
     validationSchema: schema,
     onSubmit: handleNextStep,
@@ -46,18 +54,18 @@ const EmailStep = () => {
         <SelfManagementBackButton />
 
         <Typography sx={{ ...questionParagraphSx, mt: 5, mb: 4.5 }}>
-          Escriba su correo electrónico
+          CIIU
         </Typography>
 
-        <BaseField
+        <CIIUsSelect
           fullWidth
-          id="email"
-          name="email"
+          id="ciiu"
+          name="ciiu"
           placeholder="Escriba su respuesta aquí"
-          error={Boolean(formik.errors.email)}
-          value={formik.values.email}
-          onChange={formik.handleChange}
-          helperText={formik.errors.email}
+          error={Boolean(formik.errors.ciiu)}
+          value={formik.values.ciiu}
+          onChange={handleCiiuChange}
+          helperText={formik.errors.ciiu}
         />
 
         <EnterButton
@@ -72,4 +80,4 @@ const EmailStep = () => {
   );
 };
 
-export default EmailStep;
+export default CIIUStep;

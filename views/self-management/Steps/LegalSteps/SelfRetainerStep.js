@@ -2,25 +2,33 @@ import { useContext, useEffect } from "react";
 
 import { Box, Typography } from "@mui/material";
 
+import RadioGroup, { Element } from "@components/RadioGroup";
+
 import useKeyPress from "@hooks/useKeyPress";
 
-import emailSchema from "@schemas/emailSchema";
+import radioGroupSchema from "@schemas/radioGroupSchema";
 
 import EnterButton from "@styles/buttons/EnterButton";
-import BaseField from "@styles/fields/BaseField";
 
-import { FormContext } from "../Context";
-import SelfManagementBackButton from "../SelfManagementBackButton";
-import { defaultStepContainerSx, questionParagraphSx } from "../styles";
+import { FormContext } from "@views/self-management/Context";
+import SelfManagementBackButton from "@views/self-management/SelfManagementBackButton";
+import {
+  defaultStepContainerSx,
+  questionParagraphSx,
+} from "@views/self-management/styles";
 
 import { useFormik } from "formik";
 
-const schema = emailSchema();
+const schema = radioGroupSchema("selfRetainer", "bool");
 
-const EmailStep = () => {
+const SelfRetainerStep = () => {
   const { pagination, data } = useContext(FormContext);
 
   const enterPressed = useKeyPress("Enter");
+
+  const handleGroupSelect = (evt, value) => {
+    formik.setFieldValue("selfRetainer", value === "true");
+  };
 
   const handleNextStep = (values) => {
     data.body.set({ ...data.body.value, ...values });
@@ -34,7 +42,7 @@ const EmailStep = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      email: data.body.value?.email || "",
+      selfRetainer: data.body.value?.selfRetainer,
     },
     validationSchema: schema,
     onSubmit: handleNextStep,
@@ -46,19 +54,18 @@ const EmailStep = () => {
         <SelfManagementBackButton />
 
         <Typography sx={{ ...questionParagraphSx, mt: 5, mb: 4.5 }}>
-          Escriba su correo electrónico
+          Autorretenedor
         </Typography>
 
-        <BaseField
-          fullWidth
-          id="email"
-          name="email"
-          placeholder="Escriba su respuesta aquí"
-          error={Boolean(formik.errors.email)}
-          value={formik.values.email}
-          onChange={formik.handleChange}
-          helperText={formik.errors.email}
-        />
+        <RadioGroup
+          value={formik.values.selfRetainer}
+          error={Boolean(formik.errors.selfRetainer)}
+          helperText={formik.errors.selfRetainer}
+          handleChange={handleGroupSelect}
+        >
+          <Element label="Sí" value={true} />
+          <Element label="No" value={false} />
+        </RadioGroup>
 
         <EnterButton
           onClick={formik.handleSubmit}
@@ -72,4 +79,4 @@ const EmailStep = () => {
   );
 };
 
-export default EmailStep;
+export default SelfRetainerStep;

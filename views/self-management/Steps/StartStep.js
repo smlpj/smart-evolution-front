@@ -5,20 +5,17 @@ import { Box, Typography } from "@mui/material";
 import DashboardButton from "@styles/buttons/button_3";
 
 import { FormContext } from "../Context";
-import { questionParagraphSx, titleStartSx } from "../styles";
-
-const containerSx = {
-  height: "100%",
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-};
+import {
+  defaultStepContainerSx,
+  questionParagraphSx,
+  titleStartSx,
+} from "../styles";
 
 const StartStep = () => {
   const { pagination } = useContext(FormContext);
 
   return (
-    <Box sx={containerSx}>
+    <Box sx={defaultStepContainerSx}>
       <Box>
         <Typography variant="h1" sx={{ ...titleStartSx, mb: 3.75 }}>
           Formato de vinculación online

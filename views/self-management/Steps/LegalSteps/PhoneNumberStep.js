@@ -4,23 +4,30 @@ import { Box, Typography } from "@mui/material";
 
 import useKeyPress from "@hooks/useKeyPress";
 
-import emailSchema from "@schemas/emailSchema";
+import phoneNumberSchema from "@schemas/phoneNumberSchema";
 
 import EnterButton from "@styles/buttons/EnterButton";
 import BaseField from "@styles/fields/BaseField";
 
-import { FormContext } from "../Context";
-import SelfManagementBackButton from "../SelfManagementBackButton";
-import { defaultStepContainerSx, questionParagraphSx } from "../styles";
+import { FormContext } from "@views/self-management/Context";
+import SelfManagementBackButton from "@views/self-management/SelfManagementBackButton";
+import {
+  defaultStepContainerSx,
+  questionParagraphSx,
+} from "@views/self-management/styles";
 
 import { useFormik } from "formik";
 
-const schema = emailSchema();
+const schema = phoneNumberSchema("phone_number");
 
-const EmailStep = () => {
+const PhoneNumberStep = () => {
   const { pagination, data } = useContext(FormContext);
 
   const enterPressed = useKeyPress("Enter");
+
+  const handleMaskedChange = (values) => {
+    formik.setFieldValue("phone_number", values.floatValue);
+  };
 
   const handleNextStep = (values) => {
     data.body.set({ ...data.body.value, ...values });
@@ -34,7 +41,7 @@ const EmailStep = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      email: data.body.value?.email || "",
+      phone_number: data.body.value?.phone_number || "",
     },
     validationSchema: schema,
     onSubmit: handleNextStep,
@@ -46,18 +53,21 @@ const EmailStep = () => {
         <SelfManagementBackButton />
 
         <Typography sx={{ ...questionParagraphSx, mt: 5, mb: 4.5 }}>
-          Escriba su correo electrónico
+          Número celular de la empresa
         </Typography>
 
         <BaseField
           fullWidth
-          id="email"
-          name="email"
+          id="phone_number"
+          name="phone_number"
+          isPatterned
+          format="### ### ####"
+          mask="X"
           placeholder="Escriba su respuesta aquí"
-          error={Boolean(formik.errors.email)}
-          value={formik.values.email}
-          onChange={formik.handleChange}
-          helperText={formik.errors.email}
+          error={Boolean(formik.errors.phone_number)}
+          value={formik.values.phone_number}
+          onChangeMasked={handleMaskedChange}
+          helperText={formik.errors.phone_number}
         />
 
         <EnterButton
@@ -72,4 +82,4 @@ const EmailStep = () => {
   );
 };
 
-export default EmailStep;
+export default PhoneNumberStep;

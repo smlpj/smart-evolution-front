@@ -2,25 +2,33 @@ import { useContext, useEffect } from "react";
 
 import { Box, Typography } from "@mui/material";
 
+import CitiesSelect from "@components/selects/CitiesSelect";
+
 import useKeyPress from "@hooks/useKeyPress";
 
-import emailSchema from "@schemas/emailSchema";
+import selectObjectSchema from "@schemas/selectObjectSchema";
 
 import EnterButton from "@styles/buttons/EnterButton";
-import BaseField from "@styles/fields/BaseField";
 
-import { FormContext } from "../Context";
-import SelfManagementBackButton from "../SelfManagementBackButton";
-import { defaultStepContainerSx, questionParagraphSx } from "../styles";
+import { FormContext } from "@views/self-management/Context";
+import SelfManagementBackButton from "@views/self-management/SelfManagementBackButton";
+import {
+  defaultStepContainerSx,
+  questionParagraphSx,
+} from "@views/self-management/styles";
 
 import { useFormik } from "formik";
 
-const schema = emailSchema();
+const schema = selectObjectSchema("cityLC");
 
-const EmailStep = () => {
+const CityStep = () => {
   const { pagination, data } = useContext(FormContext);
 
   const enterPressed = useKeyPress("Enter");
+
+  const handleCityChange = (evt, value) => {
+    formik.setFieldValue("cityLC", value);
+  };
 
   const handleNextStep = (values) => {
     data.body.set({ ...data.body.value, ...values });
@@ -34,7 +42,7 @@ const EmailStep = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      email: data.body.value?.email || "",
+      cityLC: data.body.value?.cityLC || "",
     },
     validationSchema: schema,
     onSubmit: handleNextStep,
@@ -46,18 +54,19 @@ const EmailStep = () => {
         <SelfManagementBackButton />
 
         <Typography sx={{ ...questionParagraphSx, mt: 5, mb: 4.5 }}>
-          Escriba su correo electrónico
+          Ciudad de establecimiento
         </Typography>
 
-        <BaseField
+        <CitiesSelect
           fullWidth
-          id="email"
-          name="email"
+          id="cityLC"
+          name="cityLC"
           placeholder="Escriba su respuesta aquí"
-          error={Boolean(formik.errors.email)}
-          value={formik.values.email}
-          onChange={formik.handleChange}
-          helperText={formik.errors.email}
+          departmentdId={data.body.value.departmentLC.value}
+          error={Boolean(formik.errors.cityLC)}
+          value={formik.values.cityLC}
+          onChange={handleCityChange}
+          helperText={formik.errors.cityLC}
         />
 
         <EnterButton
@@ -72,4 +81,4 @@ const EmailStep = () => {
   );
 };
 
-export default EmailStep;
+export default CityStep;

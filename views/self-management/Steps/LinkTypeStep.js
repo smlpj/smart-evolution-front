@@ -2,12 +2,13 @@ import { useContext, useEffect } from "react";
 
 import { Box, Typography } from "@mui/material";
 
+import RadioGroup, { Element } from "@components/RadioGroup";
+
 import useKeyPress from "@hooks/useKeyPress";
 
-import emailSchema from "@schemas/emailSchema";
+import radioGroupSchema from "@schemas/radioGroupSchema";
 
 import EnterButton from "@styles/buttons/EnterButton";
-import BaseField from "@styles/fields/BaseField";
 
 import { FormContext } from "../Context";
 import SelfManagementBackButton from "../SelfManagementBackButton";
@@ -15,12 +16,16 @@ import { defaultStepContainerSx, questionParagraphSx } from "../styles";
 
 import { useFormik } from "formik";
 
-const schema = emailSchema();
+const schema = radioGroupSchema("typeVinculation");
 
-const EmailStep = () => {
+const LinkTypeStep = () => {
   const { pagination, data } = useContext(FormContext);
 
   const enterPressed = useKeyPress("Enter");
+
+  const handleGroupSelect = (evt, value) => {
+    formik.setFieldValue("typeVinculation", value);
+  };
 
   const handleNextStep = (values) => {
     data.body.set({ ...data.body.value, ...values });
@@ -34,7 +39,7 @@ const EmailStep = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      email: data.body.value?.email || "",
+      typeVinculation: data.body.value?.typeVinculation,
     },
     validationSchema: schema,
     onSubmit: handleNextStep,
@@ -46,19 +51,19 @@ const EmailStep = () => {
         <SelfManagementBackButton />
 
         <Typography sx={{ ...questionParagraphSx, mt: 5, mb: 4.5 }}>
-          Escriba su correo electrónico
+          Escoja su tipo de vinculación
         </Typography>
 
-        <BaseField
-          fullWidth
-          id="email"
-          name="email"
-          placeholder="Escriba su respuesta aquí"
-          error={Boolean(formik.errors.email)}
-          value={formik.values.email}
-          onChange={formik.handleChange}
-          helperText={formik.errors.email}
-        />
+        <RadioGroup
+          value={formik.values.typeVinculation}
+          error={Boolean(formik.errors.typeVinculation)}
+          helperText={formik.errors.typeVinculation}
+          handleChange={handleGroupSelect}
+        >
+          <Element label="Emisor" value={0} />
+          <Element label="Comprador" value={1} />
+          <Element label="Pagador" value={2} />
+        </RadioGroup>
 
         <EnterButton
           onClick={formik.handleSubmit}
@@ -72,4 +77,4 @@ const EmailStep = () => {
   );
 };
 
-export default EmailStep;
+export default LinkTypeStep;

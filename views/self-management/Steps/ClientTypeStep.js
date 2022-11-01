@@ -2,12 +2,15 @@ import { useContext, useEffect } from "react";
 
 import { Box, Typography } from "@mui/material";
 
+import RadioGroup, { Element } from "@components/RadioGroup";
+import { ClientType } from "@components/selects/queries";
+
+import { useFetch } from "@hooks/useFetch";
 import useKeyPress from "@hooks/useKeyPress";
 
-import emailSchema from "@schemas/emailSchema";
+import radioGroupSchema from "@schemas/radioGroupSchema";
 
 import EnterButton from "@styles/buttons/EnterButton";
-import BaseField from "@styles/fields/BaseField";
 
 import { FormContext } from "../Context";
 import SelfManagementBackButton from "../SelfManagementBackButton";
@@ -15,12 +18,22 @@ import { defaultStepContainerSx, questionParagraphSx } from "../styles";
 
 import { useFormik } from "formik";
 
-const schema = emailSchema();
+const schema = radioGroupSchema("typeClient", "string");
 
-const EmailStep = () => {
+const ClientTypeStep = () => {
   const { pagination, data } = useContext(FormContext);
 
+  const { loading: loading, data: requestData } = useFetch({
+    service: ClientType,
+    init: true,
+  });
+  const clientTypes = requestData?.data || [];
+
   const enterPressed = useKeyPress("Enter");
+
+  const handleGroupSelect = (evt, value) => {
+    formik.setFieldValue("typeClient", value);
+  };
 
   const handleNextStep = (values) => {
     data.body.set({ ...data.body.value, ...values });
@@ -34,7 +47,7 @@ const EmailStep = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      email: data.body.value?.email || "",
+      typeClient: data.body.value?.typeClient,
     },
     validationSchema: schema,
     onSubmit: handleNextStep,
@@ -46,19 +59,25 @@ const EmailStep = () => {
         <SelfManagementBackButton />
 
         <Typography sx={{ ...questionParagraphSx, mt: 5, mb: 4.5 }}>
-          Escriba su correo electrónico
+          Escoja su tipo de vinculación
         </Typography>
 
-        <BaseField
-          fullWidth
-          id="email"
-          name="email"
-          placeholder="Escriba su respuesta aquí"
-          error={Boolean(formik.errors.email)}
-          value={formik.values.email}
-          onChange={formik.handleChange}
-          helperText={formik.errors.email}
-        />
+        <RadioGroup
+          value={formik.values.typeClient}
+          error={Boolean(formik.errors.typeClient)}
+          helperText={formik.errors.typeClient}
+          handleChange={handleGroupSelect}
+        >
+          {loading
+            ? "Cargando..."
+            : clientTypes.map((type, i) => (
+                <Element
+                  key={`type-${type.id}`}
+                  label={type.description}
+                  value={type.id}
+                />
+              ))}
+        </RadioGroup>
 
         <EnterButton
           onClick={formik.handleSubmit}
@@ -72,4 +91,4 @@ const EmailStep = () => {
   );
 };
 
-export default EmailStep;
+export default ClientTypeStep;

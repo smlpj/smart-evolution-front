@@ -4,23 +4,30 @@ import { Box, Typography } from "@mui/material";
 
 import useKeyPress from "@hooks/useKeyPress";
 
-import emailSchema from "@schemas/emailSchema";
+import stringSchema from "@schemas/stringSchema";
 
 import EnterButton from "@styles/buttons/EnterButton";
-import BaseField from "@styles/fields/BaseField";
+import DatePicker from "@styles/fields/DatePicker";
 
-import { FormContext } from "../Context";
-import SelfManagementBackButton from "../SelfManagementBackButton";
-import { defaultStepContainerSx, questionParagraphSx } from "../styles";
+import { FormContext } from "@views/self-management/Context";
+import SelfManagementBackButton from "@views/self-management/SelfManagementBackButton";
+import {
+  defaultStepContainerSx,
+  questionParagraphSx,
+} from "@views/self-management/styles";
 
 import { useFormik } from "formik";
 
-const schema = emailSchema();
+const schema = stringSchema("creationDate");
 
-const EmailStep = () => {
+const ConstitutionDateStep = () => {
   const { pagination, data } = useContext(FormContext);
 
   const enterPressed = useKeyPress("Enter");
+
+  const handleDateSelect = (date) => {
+    formik.setFieldValue("creationDate", date?.format("YYYY-MM-DD"));
+  };
 
   const handleNextStep = (values) => {
     data.body.set({ ...data.body.value, ...values });
@@ -28,13 +35,13 @@ const EmailStep = () => {
   };
 
   useEffect(() => {
-    if (enterPressed) formik.handleSubmit();
+    if (enterPressed) handleNextStep();
   }, [enterPressed]);
 
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      email: data.body.value?.email || "",
+      creationDate: data.body.value?.creationDate || null,
     },
     validationSchema: schema,
     onSubmit: handleNextStep,
@@ -46,18 +53,15 @@ const EmailStep = () => {
         <SelfManagementBackButton />
 
         <Typography sx={{ ...questionParagraphSx, mt: 5, mb: 4.5 }}>
-          Escriba su correo electrónico
+          Seleccione fecha de constitución de la empresa
         </Typography>
 
-        <BaseField
+        <DatePicker
+          value={formik.values.creationDate}
+          onChange={handleDateSelect}
+          error={Boolean(formik.errors.creationDate)}
+          helperText={formik.errors.creationDate}
           fullWidth
-          id="email"
-          name="email"
-          placeholder="Escriba su respuesta aquí"
-          error={Boolean(formik.errors.email)}
-          value={formik.values.email}
-          onChange={formik.handleChange}
-          helperText={formik.errors.email}
         />
 
         <EnterButton
@@ -72,4 +76,4 @@ const EmailStep = () => {
   );
 };
 
-export default EmailStep;
+export default ConstitutionDateStep;

@@ -4,20 +4,23 @@ import { Box, Typography } from "@mui/material";
 
 import useKeyPress from "@hooks/useKeyPress";
 
-import emailSchema from "@schemas/emailSchema";
+import stringSchema from "@schemas/stringSchema";
 
 import EnterButton from "@styles/buttons/EnterButton";
 import BaseField from "@styles/fields/BaseField";
 
-import { FormContext } from "../Context";
-import SelfManagementBackButton from "../SelfManagementBackButton";
-import { defaultStepContainerSx, questionParagraphSx } from "../styles";
+import { FormContext } from "@views/self-management/Context";
+import SelfManagementBackButton from "@views/self-management/SelfManagementBackButton";
+import {
+  defaultStepContainerSx,
+  questionParagraphSx,
+} from "@views/self-management/styles";
 
 import { useFormik } from "formik";
 
-const schema = emailSchema();
+const schema = stringSchema("address");
 
-const EmailStep = () => {
+const AddressStep = () => {
   const { pagination, data } = useContext(FormContext);
 
   const enterPressed = useKeyPress("Enter");
@@ -34,7 +37,7 @@ const EmailStep = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      email: data.body.value?.email || "",
+      address: data.body.value?.address || "",
     },
     validationSchema: schema,
     onSubmit: handleNextStep,
@@ -46,18 +49,18 @@ const EmailStep = () => {
         <SelfManagementBackButton />
 
         <Typography sx={{ ...questionParagraphSx, mt: 5, mb: 4.5 }}>
-          Escriba su correo electrónico
+          Dirección de la empresa
         </Typography>
 
         <BaseField
           fullWidth
-          id="email"
-          name="email"
+          id="address"
+          name="address"
           placeholder="Escriba su respuesta aquí"
-          error={Boolean(formik.errors.email)}
-          value={formik.values.email}
+          error={Boolean(formik.errors.address)}
+          value={formik.values.address}
           onChange={formik.handleChange}
-          helperText={formik.errors.email}
+          helperText={formik.errors.address}
         />
 
         <EnterButton
@@ -72,4 +75,4 @@ const EmailStep = () => {
   );
 };
 
-export default EmailStep;
+export default AddressStep;

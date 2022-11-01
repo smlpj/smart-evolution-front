@@ -33,6 +33,13 @@ export const footFerGridSx = {
   backgroundColor: "blue",
 };
 
+export const defaultStepContainerSx = {
+  height: "100%",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+};
+
 /* Text styles */
 export const headerTitleSx = {
   color: "#488B8F",
@@ -47,7 +54,14 @@ export const titleStartSx = {
 };
 
 export const questionParagraphSx = {
+  color: "#333333",
   fontSize: responsiveFontSize(25, 1.28, 8),
+  fontWeight: 500,
+};
+
+export const questionDescriptionSx = {
+  color: "#333333",
+  fontSize: responsiveFontSize(16, 0.9, 3),
   fontWeight: 500,
 };
 
