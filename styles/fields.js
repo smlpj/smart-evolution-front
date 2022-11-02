@@ -9,8 +9,6 @@ const smartField = styled(TextField)({
   height: "1rem",
   "& .MuiInputBase-input": {
     padding: "2px",
-    fontFamily: "Montserrat",
-
     "&::placeholder": {
       color: "#57575780",
       fontSize: "0.9rem",

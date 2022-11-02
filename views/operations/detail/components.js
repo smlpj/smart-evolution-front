@@ -1,12 +1,12 @@
 import { Box, CircularProgress, Grid, Typography } from "@mui/material";
 
-import InputTitles from "styles/inputTitles";
-import DashboardButton from "styles/button_3";
-import scrollSx from "styles/scroll";
-
 import ValueFormat from "@formats/ValueFormat";
 
 import responsiveFontSize from "@lib/responsiveFontSize";
+
+import DashboardButton from "@styles/buttons/button_3";
+import InputTitles from "@styles/inputTitles";
+import scrollSx from "@styles/scroll";
 
 const half = {
   boxSizing: "border-box",
@@ -103,13 +103,11 @@ const conventionDot = {
 
 const title = {
   color: "#488B8F",
-  fontFamily: "Montserrat",
   fontSize: responsiveFontSize(31.25, 2, 4),
 };
 
 const subtitle = {
   color: "#333333",
-  fontFamily: "Montserrat",
   fontSize: responsiveFontSize(25, 1.2, 5),
   fontWeight: 500,
 };
@@ -154,7 +152,6 @@ const DetailEntry = (props) => {
       <Typography
         sx={{
           color: "#333333",
-          fontFamily: "Montserrat",
           fontSize: responsiveFontSize(16, 0.9, 5),
           fontWeight: 500,
           ...valueSx,
@@ -176,7 +173,6 @@ const LabelStats = (props) => {
           color: "#EBEBEB",
           fontSize: responsiveFontSize(16, 0.9, 5),
           fontWeight: 400,
-          fontFamily: "Montserrat",
           ...valueSx,
         }}
       >
@@ -195,7 +191,6 @@ const ValueStats = (props) => {
         sx={{
           color: "#EBEBEB",
           fontSize: responsiveFontSize(31.25, 1.4, 10),
-          fontFamily: "Montserrat",
           ...valueSx,
         }}
       >

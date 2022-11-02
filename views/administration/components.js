@@ -1,6 +1,9 @@
-import { Button, Grid, Typography, Box } from "@mui/material";
 import Link from "next/link";
+
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { Box, Typography } from "@mui/material";
+
+import BackButton from "@styles/buttons/BackButton";
 
 export const AdministrationComponents = () => {
   return (
@@ -13,33 +16,11 @@ export const AdministrationComponents = () => {
         flexDirection="column"
       >
         <Box display="flex" flexDirection="column">
-          <Link href="/dashboard" underline="none">
-            <Button
-              variant="standard"
-              color="transparent"
-              justifyContent="flex-start"
-              alignItems="center"
-              startIcon={<ArrowBackIcon sx={{ color: "#5EA3A3" }} />}
-              sx={{
-                width: "6%",
-                height: "10%",
-                fontFamily: "Montserrat",
-                fontWeight: "bold",
-                letterSpacing: "0",
-                textTransform: "uppercase",
-                color: "#5EA3A3",
-                fontSize: "70%",
-                borderRadius: "4px",
-                padding: "15px",
-              }}
-            >
-              Atrás
-            </Button>
-          </Link>
+          <BackButton path="/dashboard" />
+
           <Typography
             letterSpacing={0}
             fontSize="1.5vw"
-            fontFamily="Montserrat"
             fontWeight="medium"
             marginBottom="0.7rem"
             color="#5EA3A3"
@@ -49,7 +30,6 @@ export const AdministrationComponents = () => {
           <Typography
             letterSpacing={0}
             fontSize="1.2vw"
-            fontFamily="Montserrat"
             fontWeight="medium"
             marginBottom="0.7rem"
             color="#333333"
@@ -101,7 +81,6 @@ export const AdministrationComponents = () => {
                 <Typography
                   letterSpacing={0}
                   fontSize="80%"
-                  fontFamily="Montserrat"
                   fontWeight="bold"
                   color="#488B8F"
                   textTransform="uppercase"
@@ -124,7 +103,6 @@ export const AdministrationComponents = () => {
                 <Typography
                   letterSpacing={0}
                   fontSize="80%"
-                  fontFamily="Montserrat"
                   fontWeight="bold"
                   color="#488B8F"
                   textTransform="uppercase"
@@ -176,7 +154,6 @@ export const AdministrationComponents = () => {
                 <Typography
                   letterSpacing={0}
                   fontSize="80%"
-                  fontFamily="Montserrat"
                   fontWeight="bold"
                   color="#488B8F"
                   textTransform="uppercase"
@@ -199,7 +176,6 @@ export const AdministrationComponents = () => {
                 <Typography
                   letterSpacing={0}
                   fontSize="80%"
-                  fontFamily="Montserrat"
                   fontWeight="bold"
                   color="#488B8F"
                   textTransform="uppercase"
@@ -241,7 +217,7 @@ export const AdministrationComponents = () => {
               <Box flexGrow={0} />
               <Box textAlign="center">
                 <i
-                  class="fa-regular fa-handshake"
+                  className="fa-regular fa-handshake"
                   style={{
                     fontSize: "3rem",
                     color: "#488B8F",
@@ -251,7 +227,6 @@ export const AdministrationComponents = () => {
                 <Typography
                   letterSpacing={0}
                   fontSize="80%"
-                  fontFamily="Montserrat"
                   fontWeight="bold"
                   color="#488B8F"
                   textTransform="uppercase"
@@ -274,7 +249,6 @@ export const AdministrationComponents = () => {
                 <Typography
                   letterSpacing={0}
                   fontSize="80%"
-                  fontFamily="Montserrat"
                   fontWeight="bold"
                   color="#488B8F"
                   textTransform="uppercase"
@@ -326,7 +300,6 @@ export const AdministrationComponents = () => {
                 <Typography
                   letterSpacing={0}
                   fontSize="80%"
-                  fontFamily="Montserrat"
                   fontWeight="bold"
                   color="#488B8F"
                   textTransform="uppercase"
@@ -349,7 +322,6 @@ export const AdministrationComponents = () => {
                 <Typography
                   letterSpacing={0}
                   fontSize="80%"
-                  fontFamily="Montserrat"
                   fontWeight="bold"
                   color="#488B8F"
                   textTransform="uppercase"

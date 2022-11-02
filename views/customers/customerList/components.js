@@ -1,22 +1,25 @@
-import { Button } from "@mui/material";
-import { Box } from "@mui/material";
-import { Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+
+import Image from "next/image";
 import Link from "next/link";
-import InputTitles from "../../../styles/inputTitles";
+
+import { SearchOutlined } from "@mui/icons-material";
+import { Box, Button, Fade, Typography } from "@mui/material";
+
+import DateFormat from "@formats/DateFormat";
+
+import { useFetch } from "@hooks/useFetch";
+
+import CustomTooltip from "@styles/customTooltip";
+import MuiTextField from "@styles/fields";
+import InputTitles from "@styles/inputTitles";
+import CustomDataGrid from "@styles/tables";
+
 import {
+  DeleteClientById,
   GetClientList,
   GetClientListByQuery,
-  DeleteClientById,
 } from "./queries";
-import { useFetch } from "../../../shared/hooks/useFetch";
-import { useEffect, useState } from "react";
-import CustomDataGrid from "../../../styles/tables";
-import { format } from "date-fns";
-import Image from "next/image";
-import CustomTooltip from "../../../styles/customTooltip";
-import { Fade } from "@mui/material";
-import MuiTextField from "../../../styles/fields";
-import { SearchOutlined } from "@mui/icons-material";
 
 let dataCount;
 
@@ -83,7 +86,6 @@ export const ClientListComponent = () => {
       renderCell: (params) => {
         return (
           <Typography
-            fontFamily="Montserrat"
             fontSize="80%"
             width="100%"
             fontWeight="bold"
@@ -106,7 +108,6 @@ export const ClientListComponent = () => {
       renderCell: (params) => {
         return (
           <Typography
-            fontFamily="Montserrat"
             fontSize="80%"
             width="100%"
             fontWeight="bold"
@@ -139,7 +140,6 @@ export const ClientListComponent = () => {
         return params.value === true ? (
           <>
             <Typography
-              fontFamily="Montserrat"
               fontSize="80%"
               width="80%"
               fontWeight="bold"
@@ -160,7 +160,6 @@ export const ClientListComponent = () => {
         ) : (
           <>
             <Typography
-              fontFamily="Montserrat"
               fontSize="80%"
               width="80%"
               fontWeight="bold"
@@ -191,7 +190,6 @@ export const ClientListComponent = () => {
         return params.value === true ? (
           <>
             <Typography
-              fontFamily="Montserrat"
               fontSize="80%"
               width="100%"
               fontWeight="bold"
@@ -229,7 +227,6 @@ export const ClientListComponent = () => {
               height={30}
             />
             <Typography
-              fontFamily="Montserrat"
               fontSize="80%"
               width="100%"
               fontWeight="bold"
@@ -544,7 +541,7 @@ export const ClientListComponent = () => {
           }`,
           Status: customer.status,
           EnteredBy: `${customer.entered_by.first_name} ${customer.entered_by.last_name}`,
-          DateCreated: format(new Date(customer.created_at), "dd / MM / yyyy"),
+          DateCreated: <DateFormat date={customer.created_at} />,
           FinancialProfile: customer.financial_profile,
           RiskProfile: customer.risk_profile,
         });
@@ -580,7 +577,7 @@ export const ClientListComponent = () => {
           }`,
           Status: customer.status,
           EnteredBy: `${customer.entered_by.first_name} ${customer.entered_by.last_name}`,
-          DateCreated: format(new Date(customer.created_at), "dd / MM / yyyy"),
+          DateCreated: <DateFormat date={customer.created_at} />,
           FinancialProfile: customer.financial_profile,
           RiskProfile: customer.risk_profile,
         });
@@ -608,7 +605,6 @@ export const ClientListComponent = () => {
           <Typography
             letterSpacing={0}
             fontSize="1.7rem"
-            fontFamily="Montserrat"
             fontWeight="regular"
             marginBottom="0.7rem"
             color="#5EA3A3"
@@ -630,7 +626,6 @@ export const ClientListComponent = () => {
               <Typography
                 letterSpacing={0}
                 fontSize="80%"
-                fontFamily="Montserrat"
                 fontWeight="bold"
                 color="#63595C"
               >
@@ -671,7 +666,6 @@ export const ClientListComponent = () => {
               <Typography
                 letterSpacing={0}
                 fontSize="85%"
-                fontFamily="Montserrat"
                 fontWeight="600"
                 color="#5EA3A3"
                 textTransform="none"
@@ -693,7 +687,6 @@ export const ClientListComponent = () => {
               <Typography
                 letterSpacing={0}
                 fontSize="85%"
-                fontFamily="Montserrat"
                 fontWeight="600"
                 color="#5EA3A3"
                 textTransform="none"
@@ -715,7 +708,6 @@ export const ClientListComponent = () => {
               <Typography
                 letterSpacing={0}
                 fontSize="85%"
-                fontFamily="Montserrat"
                 fontWeight="600"
                 color="#5EA3A3"
                 textTransform="none"
@@ -780,7 +772,6 @@ export const ClientListComponent = () => {
                   alignItems="center"
                 >
                   <Typography
-                    fontFamily="Montserrat"
                     fontSize="0.8rem"
                     fontWeight="600"
                     color="#5EA3A3"

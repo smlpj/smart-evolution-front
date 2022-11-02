@@ -1,24 +1,21 @@
-import * as React from "react";
 import { useState } from "react";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import MuiTextField from "../../../styles/fields";
-import Image from "next/image";
-import InputTitles from "../../../styles/inputTitles";
-import MuiButton from "../../../styles/button";
-import Header from "../../../shared/components/header";
-import HelperText from "../../../styles/helperText";
+
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import CitySelect from "../../../shared/components/selects/citySelect";
-import TypeIDSelect from "../../../shared/components/selects/typeIdentitySelect";
-import DepartmentSelect from "../../../shared/components/selects/departmentSelect";
-import ClientSelect from "../../../shared/components/selects/customerSelect";
-import AccountSelect from "../../../shared/components/selects/accountSelect";
-import dayjs from "dayjs";
+import { Box, Grid, Typography } from "@mui/material/";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+
+import Header from "@components/header";
+import AccountSelect from "@components/selects/accountSelect";
+import ClientSelect from "@components/selects/customerSelect";
+
+import MuiButton from "@styles/buttons/button";
+import MuiTextField from "@styles/fields";
+import HelperText from "@styles/helperText";
+import InputTitles from "@styles/inputTitles";
+
+import dayjs from "dayjs";
 
 export const Deposit = ({ formik, option, ToastContainer }) => {
   const [valueD, setValue] = useState(dayjs("2014-08-18T21:11:54"));
@@ -72,7 +69,6 @@ export const Deposit = ({ formik, option, ToastContainer }) => {
                   <Typography
                     letterSpacing={0}
                     fontSize="1.7rem"
-                    fontFamily="Montserrat"
                     fontWeight="regular"
                     marginBottom="4rem"
                     color="#5EA3A3"
@@ -254,11 +250,7 @@ export const Deposit = ({ formik, option, ToastContainer }) => {
                       borderRadius: "4px",
                     }}
                   >
-                    <Typography
-                      fontSize="90%"
-                      fontFamily="Montserrat"
-                      fontWeight="bold"
-                    >
+                    <Typography fontSize="90%" fontWeight="bold">
                       {option === "register" ? "Registrar" : "Modificar"}
                     </Typography>
                     <ArrowForwardIcon
@@ -283,15 +275,15 @@ export const Deposit = ({ formik, option, ToastContainer }) => {
         />
       </Grid>
       <ToastContainer
-      position="top-right"
-      autoClose={50000}
-      hideProgressBar={false}
-      newestOnTop={false}
-      closeOnClick
-      rtl={false}
-      pauseOnFocusLoss
-      draggable
-      pauseOnHover
+        position="top-right"
+        autoClose={50000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
       />
     </>
   );

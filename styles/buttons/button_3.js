@@ -9,8 +9,6 @@ const DashboardButton = styled(Button)({
   "&:hover": {
     backgroundColor: "#CDCDCD",
   },
-
-  fontFamily: "Montserrat",
   fontWeight: "bold",
 });
 

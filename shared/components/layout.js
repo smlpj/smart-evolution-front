@@ -1,8 +1,9 @@
 import { Grid } from "@mui/material";
+import Box from "@mui/material/Box";
+
+import Footer from "./footer";
 import Header from "./header";
 import Sidebar from "./sidebar";
-import Footer from "./footer";
-import Box from "@mui/material/Box";
 
 export default function Layout({ children }) {
   return (

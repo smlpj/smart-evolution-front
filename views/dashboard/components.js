@@ -1,7 +1,7 @@
-import { Grid, Typography, Box, CircularProgress } from "@mui/material";
-import Image from "next/image";
-import DashboardButton from "../../styles/button_3";
 import EastIcon from "@mui/icons-material/East";
+import { Box, CircularProgress, Typography } from "@mui/material";
+
+import DashboardButton from "@styles/buttons/button_3";
 
 export const DashboardContent = () => {
   return (
@@ -10,7 +10,6 @@ export const DashboardContent = () => {
         <Typography
           variant="h5"
           color="#5B898E"
-          fontFamily="Montserrat"
           alignSelf="center"
           marginLeft="5rem"
         >
@@ -49,7 +48,6 @@ export const DashboardContent = () => {
             <Typography
               letterSpacing={0}
               fontSize="1rem"
-              fontFamily="Montserrat"
               fontWeight="bold"
               marginBottom="1rem"
             >
@@ -58,7 +56,6 @@ export const DashboardContent = () => {
             <Typography
               letterSpacing={0}
               fontSize="0.8rem"
-              fontFamily="Montserrat"
               marginBottom="0.7rem"
             >
               Detalle de <br />
@@ -97,7 +94,6 @@ export const DashboardContent = () => {
                 color="#5EA3A3"
                 marginTop={-2}
                 fontSize="1.8rem"
-                fontFamily="Montserrat"
                 fontWeight="light"
               >
                 {82}%
@@ -107,7 +103,6 @@ export const DashboardContent = () => {
                 color="#333333"
                 marginTop={4}
                 fontSize="0.6rem"
-                fontFamily="Montserrat"
                 fontWeight="bold"
               >
                 junio 2022
@@ -131,7 +126,6 @@ export const DashboardContent = () => {
             <Typography
               letterSpacing={0}
               fontSize="1rem"
-              fontFamily="Montserrat"
               fontWeight="bold"
               marginBottom="1rem"
             >
@@ -140,7 +134,6 @@ export const DashboardContent = () => {
             <Typography
               letterSpacing={0}
               fontSize="0.8rem"
-              fontFamily="Montserrat"
               marginBottom="0.7rem"
             >
               Detalle de <br />
@@ -179,7 +172,6 @@ export const DashboardContent = () => {
                 color="#5EA3A3"
                 marginTop={-2}
                 fontSize="1.8rem"
-                fontFamily="Montserrat"
                 fontWeight="light"
               >
                 {82}%
@@ -189,7 +181,6 @@ export const DashboardContent = () => {
                 color="#333333"
                 marginTop={4}
                 fontSize="0.6rem"
-                fontFamily="Montserrat"
                 fontWeight="bold"
               >
                 junio 2022

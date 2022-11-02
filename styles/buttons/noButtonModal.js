@@ -1,16 +1,15 @@
 import { Button } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
-const GreenButtonModal = styled(Button)({
+const RedButtonModal = styled(Button)({
   borderRadius: "4px",
-  border: "1.4px solid #488B8F",
-  backgroundColor: "transparent",
-  color: "#488B8F",
+  border: "1.4px solid #C16060",
+  backgroundColor: "#CB313133",
+  color: "#C16060",
   fontSize: "0.7vw",
-  fontFamily: "Montserrat",
   fontWeight: "600",
   padding: "0.5vw 3vw",
   textTransform: "uppercase",
 });
 
-export default GreenButtonModal;
+export default RedButtonModal;

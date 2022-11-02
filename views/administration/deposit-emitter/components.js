@@ -1,31 +1,30 @@
-import * as React from "react";
 import { useState } from "react";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import MuiTextField from "../../../styles/fields";
-import Image from "next/image";
-import InputTitles from "../../../styles/inputTitles";
-import MuiButton from "../../../styles/button";
-import Header from "../../../shared/components/header";
-import HelperText from "../../../styles/helperText";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import ClientSelect from "../../../shared/components/selects/customerSelect";
-import AccountingAccountSelect from "../../../shared/components/selects/accountingAccountSelect";
-import AccountTypeSelect from "../../../shared/components/selects/accountTypeSelect";
-import EgressSelect from "../../../shared/components/selects/egressSelect";
-import BankSelect from "../../../shared/components/selects/bankSelect";
-import dayjs from "dayjs";
+
+import { Box, Grid, Typography } from "@mui/material";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+
+import Header from "@components/header";
+import AccountSelect from "@components/selects/accountSelect";
+import AccountTypeSelect from "@components/selects/accountTypeSelect";
+import BankSelect from "@components/selects/bankSelect";
+import ClientSelect from "@components/selects/customerSelect";
+import EgressSelect from "@components/selects/egressSelect";
+
+import MuiButton from "@styles/buttons/button";
+import MuiTextField from "@styles/fields";
+import HelperText from "@styles/helperText";
+import InputTitles from "@styles/inputTitles";
+
+import dayjs from "dayjs";
 
 const steps = ["Primer paso", "Segundo paso", "Tercer paso"];
 
 export const Deposit = ({ formik, option, ToastContainer }) => {
   const [valueD, setValue] = useState(dayjs("2014-08-18T21:11:54"));
 
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] = useState(0);
 
   const handleChange = (newValue) => {
     setValue(newValue);
@@ -103,7 +102,6 @@ export const Deposit = ({ formik, option, ToastContainer }) => {
                         <Typography
                           letterSpacing={0}
                           fontSize="1.7rem"
-                          fontFamily="Montserrat"
                           fontWeight="regular"
                           marginBottom="4rem"
                           color="#5EA3A3"
@@ -234,7 +232,6 @@ export const Deposit = ({ formik, option, ToastContainer }) => {
                         <Typography
                           letterSpacing={0}
                           fontSize="1.7rem"
-                          fontFamily="Montserrat"
                           fontWeight="regular"
                           marginBottom="4rem"
                           color="#5EA3A3"
@@ -356,7 +353,6 @@ export const Deposit = ({ formik, option, ToastContainer }) => {
                         <Typography
                           letterSpacing={0}
                           fontSize="1.7rem"
-                          fontFamily="Montserrat"
                           fontWeight="regular"
                           marginBottom="4rem"
                           color="#5EA3A3"
@@ -476,11 +472,7 @@ export const Deposit = ({ formik, option, ToastContainer }) => {
                         >
                           &#xe91f;
                         </Typography>
-                        <Typography
-                          fontSize="90%"
-                          fontFamily="Montserrat"
-                          fontWeight="bold"
-                        >
+                        <Typography fontSize="90%" fontWeight="bold">
                           Atrás
                         </Typography>
                       </MuiButton>
@@ -502,11 +494,7 @@ export const Deposit = ({ formik, option, ToastContainer }) => {
                             borderRadius: "4px",
                           }}
                         >
-                          <Typography
-                            fontSize="90%"
-                            fontFamily="Montserrat"
-                            fontWeight="bold"
-                          >
+                          <Typography fontSize="90%" fontWeight="bold">
                             {option === "register" ? "Registrar" : "Modificar"}
                           </Typography>
                           <Typography
@@ -531,7 +519,6 @@ export const Deposit = ({ formik, option, ToastContainer }) => {
                         >
                           <Typography
                             fontSize="90%"
-                            fontFamily="Montserrat"
                             fontWeight="bold"
                             color="#fff"
                           >
@@ -559,15 +546,15 @@ export const Deposit = ({ formik, option, ToastContainer }) => {
         </Grid>
       </Grid>
       <ToastContainer
-      position="top-right"
-      autoClose={50000}
-      hideProgressBar={false}
-      newestOnTop={false}
-      closeOnClick
-      rtl={false}
-      pauseOnFocusLoss
-      draggable
-      pauseOnHover
+        position="top-right"
+        autoClose={50000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
       />
     </>
   );

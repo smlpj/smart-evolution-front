@@ -1,31 +1,45 @@
-import "../styles/globals.css";
-import { useRouter } from "next/router";
-import { Grid } from "@mui/material";
-import Layout from "../shared/components/layout";
-import Head from "next/head";
 import "react-toastify/dist/ReactToastify.css";
-import { AuthProvider } from "../shared/context/authContext";
-import "../public/icomoon/style.css";
+
+import Head from "next/head";
+import { useRouter } from "next/router";
+
+import { ThemeProvider } from "@mui/material/styles";
+
+import Layout from "@components/layout";
+
 import "../public/fontawesome/css/all.min.css";
+import "../public/icomoon/style.css";
+import "../styles/globals.css";
+import theme from "../styles/themes";
+
+import { AuthProvider } from "@context/authContext";
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
   return (
     <>
-      <AuthProvider>
-        {router.pathname !== "/auth/login" &&
-        router.pathname !== "/brokers" &&
-        router.pathname !== "/customers" &&
-        router.pathname !== "/" &&
-        router.pathname !== "/administration/deposit-investor" &&
-        router.pathname !== "/administration/deposit-emitter" ? (
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        ) : (
-          <Component {...pageProps} />
-        )}
-      </AuthProvider>
+      <ThemeProvider theme={theme}>
+        <AuthProvider>
+          <>
+            <Head>
+              <title>Smart Evolution</title>
+            </Head>
+
+            {router.pathname !== "/auth/login" &&
+            router.pathname !== "/brokers" &&
+            router.pathname !== "/customers" &&
+            router.pathname !== "/" &&
+            router.pathname !== "/administration/deposit-investor" &&
+            router.pathname !== "/administration/deposit-emitter" ? (
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            ) : (
+              <Component {...pageProps} />
+            )}
+          </>
+        </AuthProvider>
+      </ThemeProvider>
     </>
   );
 }

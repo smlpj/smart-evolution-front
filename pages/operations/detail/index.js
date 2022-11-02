@@ -1,4 +1,4 @@
-import OperationDetail from "views/operations/detail";
+import OperationDetail from "@views/operations/detail";
 
 const Detail = () => {
   return <OperationDetail />;

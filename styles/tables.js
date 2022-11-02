@@ -1,31 +1,14 @@
-import { DataGrid } from "@mui/x-data-grid";
 import { styled } from "@mui/material/styles";
+import { DataGrid } from "@mui/x-data-grid";
+
+import scrollSx from "@styles/scroll";
 
 const CustomDataGrid = styled(DataGrid)({
   border: "none",
 
   "& .MuiDataGrid-virtualScroller": {
-    scrollBehavior: "smooth",
-    overflowY: "auto",
+    ...scrollSx,
     overflowX: "auto",
-    "&::-webkit-scrollbar": {
-      position: "absolute",
-      width: "9px",
-      height: "9px",
-      webkitAppearance: "none",
-    },
-    "&::-webkit-scrollbar-track": {
-      backgroundColor: "#CFDDDD",
-      borderRadius: "10px",
-    },
-    "&::-webkit-scrollbar-thumb": {
-      backgroundColor: "#5EA3A3",
-      backgroundClip: "content-box",
-      borderColor: "transparent",
-      borderStyle: "solid",
-      borderWidth: "1px 2px",
-      borderRadius: "10px",
-    },
   },
 
   "& .MuiDataGrid-cellCheckbox": {
@@ -37,7 +20,6 @@ const CustomDataGrid = styled(DataGrid)({
   "& .MuiDataGrid-row": {
     backgroundColor: "transparent",
     color: "#000000",
-    fontFamily: "Montserrat",
     fontSize: "0.8rem",
     fontWeight: "bold",
     "&:hover": {
@@ -69,7 +51,7 @@ const CustomDataGrid = styled(DataGrid)({
         padding: "7px 0px",
         borderRadius: "4px",
         backgroundColor: "#488B8F1A",
-        fontFamily: "Montserrat",
+
         fontSize: "0.9rem",
         fontWeight: "600",
         textAlign: "right",
@@ -79,7 +61,7 @@ const CustomDataGrid = styled(DataGrid)({
   "& .MuiDataGrid-columnsContainer": {
     backgroundColor: "#F5F5F5",
     color: "#000000",
-    fontFamily: "Montserrat",
+
     fontSize: "0.8rem",
     fontWeight: "bold",
   },
@@ -88,7 +70,6 @@ const CustomDataGrid = styled(DataGrid)({
   },
 
   "& .MuiDataGrid-columnHeaderTitle": {
-    fontFamily: "Montserrat",
     fontWeight: "bold",
     fontSize: "0.7rem",
     color: "#8C7E82",

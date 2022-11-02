@@ -8,7 +8,6 @@ const SelectField = styled(Autocomplete)({
   padding: "10px",
   "& .MuiInputBase-input": {
     padding: "2px",
-    fontFamily: "Montserrat",
   },
 });
 

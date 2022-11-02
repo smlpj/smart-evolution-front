@@ -1,4 +1,4 @@
-import ConfirmationModal from "../../styles/confirmationPopups";
+import ConfirmationModal from "@styles/confirmationPopups";
 
 const ConfirmationComponent = (props) => {
   return (
