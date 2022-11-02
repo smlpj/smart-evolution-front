@@ -35,7 +35,6 @@ export default function Navbar() {
             <Link href="/customers/customerList" underline="none">
               <NavbarButton
                 sx={{
-                  border: "0.5px solid #488B8F",
                   marginBottom: "8%",
                   width: "70%",
                   height: "10%",
@@ -48,7 +47,6 @@ export default function Navbar() {
             <Link href="/bills" underline="none">
               <NavbarButton
                 sx={{
-                  border: "0.5px solid #488B8F",
                   marginBottom: "8%",
                   width: "70%",
                   height: "10%",
