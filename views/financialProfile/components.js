@@ -87,7 +87,6 @@ export const FinancialProfile = ({ formik }) => {
           marginBottom={4}
           display="flex"
           flexDirection="column"
-          height="27vh"
           sx={{ ...scrollSx }}
         >
           <Box display="flex" flexDirection="column">
@@ -95,10 +94,9 @@ export const FinancialProfile = ({ formik }) => {
             <Box marginBottom={3}>
               <Typography
                 letterSpacing={0}
-                fontSize="170%"
+                fontSize="1.8vw"
                 fontWeight="regular"
-                marginBottom="0.7rem"
-                color="#5EA3A3"
+                color="#488B8F"
               >
                 Perfil Financiero
               </Typography>
@@ -112,10 +110,10 @@ export const FinancialProfile = ({ formik }) => {
                 width="80%"
               >
                 <Box display="flex" flexDirection="column">
-                  <InputTitles marginBottom={2}>N° Identificación</InputTitles>
+                  <InputTitles marginBottom={1}>N° Identificación</InputTitles>
                   <Typography
                     letterSpacing={0}
-                    fontSize="120%"
+                    fontSize="1.042vw"
                     fontWeight="medium"
                     color="#333333"
                   >
@@ -123,10 +121,10 @@ export const FinancialProfile = ({ formik }) => {
                   </Typography>
                 </Box>
                 <Box display="flex" flexDirection="column">
-                  <InputTitles marginBottom={2}>Cliente</InputTitles>
+                  <InputTitles marginBottom={1}>Cliente</InputTitles>
                   <Typography
                     letterSpacing={0}
-                    fontSize="120%"
+                    fontSize="1.042vw"
                     fontWeight="medium"
                     color="#333333"
                   >
@@ -136,7 +134,7 @@ export const FinancialProfile = ({ formik }) => {
                   </Typography>
                 </Box>
                 <Box display="flex" flexDirection="column">
-                  <InputTitles marginBottom={2}>PERFIL DE RIESGO</InputTitles>
+                  <InputTitles marginBottom={1}>PERFIL DE RIESGO</InputTitles>
 
                   {data?.data?.riskProfile === null && (
                     <Link href={`/riskProfile?id=${id}`} underline="none">
@@ -274,7 +272,7 @@ export const FinancialProfile = ({ formik }) => {
                   )}
                 </Box>
                 <Box display="flex" flexDirection="column">
-                  <InputTitles marginBottom={2}>INGRESADO POR</InputTitles>
+                  <InputTitles marginBottom={1}>INGRESADO POR</InputTitles>
                   <Box borderRadius="4px">
                     <Typography
                       fontSize="80%"
@@ -295,12 +293,12 @@ export const FinancialProfile = ({ formik }) => {
                 </Box>
 
                 <Box display="flex" flexDirection="column">
-                  <InputTitles marginBottom={2}>
+                  <InputTitles marginBottom={1}>
                     REPRESENTANTE LEGAL
                   </InputTitles>
                   <Typography
                     letterSpacing={0}
-                    fontSize="120%"
+                    fontSize="1.042vw"
                     fontWeight="medium"
                     color="#333333"
                     noWrap
@@ -312,10 +310,10 @@ export const FinancialProfile = ({ formik }) => {
                   </Typography>
                 </Box>
                 <Box display="flex" flexDirection="column">
-                  <InputTitles marginBottom={2}>CORREO ELECTRÓNICO</InputTitles>
+                  <InputTitles marginBottom={1}>CORREO ELECTRÓNICO</InputTitles>
                   <Typography
                     letterSpacing={0}
-                    fontSize="120%"
+                    fontSize="1.042vw"
                     fontWeight="medium"
                     color="#333333"
                   >
@@ -331,7 +329,6 @@ export const FinancialProfile = ({ formik }) => {
           container
           display="flex"
           flexDirection="column"
-          height="46vh"
           sx={{ ...scrollSx }}
         >
           {/* <Box display="flex" flexDirection="row">
@@ -498,7 +495,7 @@ export const FinancialProfile = ({ formik }) => {
                   >
                     <Box display="flex" flexDirection="column" marginTop={3}>
                       <Box>
-                        <InputTitles marginBottom={2}>Balance</InputTitles>
+                        <InputTitles marginBottom={1}>Balance</InputTitles>
                         <>
                           <input
                             style={{ display: "none" }}
@@ -538,7 +535,7 @@ export const FinancialProfile = ({ formik }) => {
                         </>
                       </Box>
                       <Box>
-                        <InputTitles mt={3} marginBottom={2}>
+                        <InputTitles mt={3} marginBottom={1}>
                           Hola2
                         </InputTitles>
                         <>
@@ -580,7 +577,7 @@ export const FinancialProfile = ({ formik }) => {
                         </>
                       </Box>
                       <Box>
-                        <InputTitles mt={3} marginBottom={2}>
+                        <InputTitles mt={3} marginBottom={1}>
                           Hola
                         </InputTitles>
                         <>
@@ -649,7 +646,7 @@ export const FinancialProfile = ({ formik }) => {
                   </Button>
                   <Button
                     variant="standard"
-                    onClick={handleSubmission}
+                    onClick={() => handleSubmission()}
                     sx={{
                       backgroundColor: "#488B8F",
                       borderRadius: "4px",
