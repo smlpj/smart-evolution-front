@@ -13,7 +13,7 @@ import ClientTypeSelect from "@components/selects/clientTypeSelect";
 import DepartmentSelect from "@components/selects/departmentSelect";
 import TypeIDSelect from "@components/selects/typeIdentitySelect";
 
-import MuiButton from "@styles/button";
+import MuiButton from "@styles/buttons/button";
 import MuiTextField from "@styles/fields";
 import HelperText from "@styles/helperText";
 import InputTitles from "@styles/inputTitles";
@@ -78,7 +78,6 @@ export const SignUpClient = ({ formik, option, ToastContainer, loading }) => {
                       <Typography
                         letterSpacing={0}
                         fontSize="1.7rem"
-                        fontFamily="Montserrat"
                         fontWeight="regular"
                         marginBottom="4rem"
                         color="#5EA3A3"
@@ -341,7 +340,6 @@ export const SignUpClient = ({ formik, option, ToastContainer, loading }) => {
                       <Typography
                         letterSpacing={0}
                         fontSize="1.7rem"
-                        fontFamily="Montserrat"
                         fontWeight="regular"
                         marginBottom="4rem"
                         color="#5EA3A3"
@@ -461,11 +459,7 @@ export const SignUpClient = ({ formik, option, ToastContainer, loading }) => {
                       >
                         &#xe91f;
                       </Typography>
-                      <Typography
-                        fontSize="90%"
-                        fontFamily="Montserrat"
-                        fontWeight="bold"
-                      >
+                      <Typography fontSize="90%" fontWeight="bold">
                         Atrás
                       </Typography>
                     </MuiButton>
@@ -488,11 +482,7 @@ export const SignUpClient = ({ formik, option, ToastContainer, loading }) => {
                           borderRadius: "4px",
                         }}
                       >
-                        <Typography
-                          fontSize="90%"
-                          fontFamily="Montserrat"
-                          fontWeight="bold"
-                        >
+                        <Typography fontSize="90%" fontWeight="bold">
                           {option === "register" ? "Registrar" : "Modificar"}
                         </Typography>
                         <Typography
@@ -517,7 +507,6 @@ export const SignUpClient = ({ formik, option, ToastContainer, loading }) => {
                       >
                         <Typography
                           fontSize="90%"
-                          fontFamily="Montserrat"
                           fontWeight="bold"
                           color="#fff"
                         >

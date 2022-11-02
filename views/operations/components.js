@@ -3,6 +3,7 @@ import { Box, Typography } from "@mui/material";
 
 import MuiTextField from "@styles/fields";
 import InputTitles from "@styles/inputTitles";
+import scrollSx from "@styles/scroll";
 import CustomDataGrid from "@styles/tables";
 
 const columns = [
@@ -64,7 +65,6 @@ export const OperationsComponents = () => {
         <Typography
           letterSpacing={0}
           fontSize="1.7rem"
-          fontFamily="Montserrat"
           fontWeight="regular"
           marginBottom="0.7rem"
           color="#5EA3A3"
@@ -149,27 +149,7 @@ export const OperationsComponents = () => {
             justifyContent="center"
             width="55%"
             height="100%"
-            sx={{
-              scrollBehavior: "smooth",
-              overflowY: "auto",
-              "&::-webkit-scrollbar": {
-                position: "absolute",
-                width: "9px",
-                webkitAppearance: "none",
-              },
-              "&::-webkit-scrollbar-track": {
-                backgroundColor: "#CFDDDD",
-                borderRadius: "10px",
-              },
-              "&::-webkit-scrollbar-thumb": {
-                backgroundColor: "#5EA3A3",
-                backgroundClip: "content-box",
-                borderColor: "transparent",
-                borderStyle: "solid",
-                borderWidth: "1px 2px",
-                borderRadius: "10px",
-              },
-            }}
+            sx={{ ...scrollSx }}
           >
             <Box
               display="grid"
@@ -196,7 +176,6 @@ export const OperationsComponents = () => {
                 <Typography
                   letterSpacing={0}
                   fontSize="80%"
-                  fontFamily="Montserrat"
                   fontWeight="bold"
                   color="#EBEBEB"
                   textTransform="uppercase"
@@ -207,7 +186,6 @@ export const OperationsComponents = () => {
                 <Typography
                   letterSpacing={0}
                   fontSize="90%"
-                  fontFamily="Montserrat"
                   fontWeight="500"
                   color="#EBEBEB"
                   border="1px solid #C7C7C780"
@@ -230,7 +208,6 @@ export const OperationsComponents = () => {
                 <Typography
                   letterSpacing={0}
                   fontSize="80%"
-                  fontFamily="Montserrat"
                   fontWeight="bold"
                   color="#EBEBEB"
                   textTransform="uppercase"
@@ -241,7 +218,6 @@ export const OperationsComponents = () => {
                 <Typography
                   letterSpacing={0}
                   fontSize="90%"
-                  fontFamily="Montserrat"
                   fontWeight="500"
                   color="#EBEBEB"
                   border="1px solid #C7C7C780"
@@ -264,7 +240,6 @@ export const OperationsComponents = () => {
                 <Typography
                   letterSpacing={0}
                   fontSize="80%"
-                  fontFamily="Montserrat"
                   fontWeight="bold"
                   color="#EBEBEB"
                   textTransform="uppercase"
@@ -275,7 +250,6 @@ export const OperationsComponents = () => {
                 <Typography
                   letterSpacing={0}
                   fontSize="90%"
-                  fontFamily="Montserrat"
                   fontWeight="500"
                   color="#EBEBEB"
                   border="1px solid #C7C7C780"
@@ -298,7 +272,6 @@ export const OperationsComponents = () => {
                 <Typography
                   letterSpacing={0}
                   fontSize="80%"
-                  fontFamily="Montserrat"
                   fontWeight="bold"
                   color="#EBEBEB"
                   textTransform="uppercase"
@@ -309,7 +282,6 @@ export const OperationsComponents = () => {
                 <Typography
                   letterSpacing={0}
                   fontSize="90%"
-                  fontFamily="Montserrat"
                   fontWeight="500"
                   color="#EBEBEB"
                   border="1px solid #C7C7C780"
@@ -332,7 +304,6 @@ export const OperationsComponents = () => {
                 <Typography
                   letterSpacing={0}
                   fontSize="80%"
-                  fontFamily="Montserrat"
                   fontWeight="bold"
                   color="#EBEBEB"
                   textTransform="uppercase"
@@ -343,7 +314,6 @@ export const OperationsComponents = () => {
                 <Typography
                   letterSpacing={0}
                   fontSize="90%"
-                  fontFamily="Montserrat"
                   fontWeight="500"
                   color="#EBEBEB"
                   border="1px solid #C7C7C780"
@@ -366,7 +336,6 @@ export const OperationsComponents = () => {
                 <Typography
                   letterSpacing={0}
                   fontSize="80%"
-                  fontFamily="Montserrat"
                   fontWeight="bold"
                   color="#EBEBEB"
                   textTransform="uppercase"
@@ -377,7 +346,6 @@ export const OperationsComponents = () => {
                 <Typography
                   letterSpacing={0}
                   fontSize="90%"
-                  fontFamily="Montserrat"
                   fontWeight="500"
                   color="#EBEBEB"
                   border="1px solid #C7C7C780"
@@ -400,7 +368,6 @@ export const OperationsComponents = () => {
                 <Typography
                   letterSpacing={0}
                   fontSize="80%"
-                  fontFamily="Montserrat"
                   fontWeight="bold"
                   color="#EBEBEB"
                   textTransform="uppercase"
@@ -411,7 +378,6 @@ export const OperationsComponents = () => {
                 <Typography
                   letterSpacing={0}
                   fontSize="90%"
-                  fontFamily="Montserrat"
                   fontWeight="500"
                   color="#EBEBEB"
                   border="1px solid #C7C7C780"
@@ -434,7 +400,6 @@ export const OperationsComponents = () => {
                 <Typography
                   letterSpacing={0}
                   fontSize="80%"
-                  fontFamily="Montserrat"
                   fontWeight="bold"
                   color="#EBEBEB"
                   textTransform="uppercase"
@@ -445,7 +410,6 @@ export const OperationsComponents = () => {
                 <Typography
                   letterSpacing={0}
                   fontSize="90%"
-                  fontFamily="Montserrat"
                   fontWeight="500"
                   color="#EBEBEB"
                   border="1px solid #C7C7C780"
@@ -468,7 +432,6 @@ export const OperationsComponents = () => {
                 <Typography
                   letterSpacing={0}
                   fontSize="80%"
-                  fontFamily="Montserrat"
                   fontWeight="bold"
                   color="#EBEBEB"
                   textTransform="uppercase"
@@ -479,7 +442,6 @@ export const OperationsComponents = () => {
                 <Typography
                   letterSpacing={0}
                   fontSize="90%"
-                  fontFamily="Montserrat"
                   fontWeight="500"
                   color="#EBEBEB"
                   border="1px solid #C7C7C780"
@@ -502,7 +464,6 @@ export const OperationsComponents = () => {
                 <Typography
                   letterSpacing={0}
                   fontSize="80%"
-                  fontFamily="Montserrat"
                   fontWeight="bold"
                   color="#EBEBEB"
                   textTransform="uppercase"
@@ -513,7 +474,6 @@ export const OperationsComponents = () => {
                 <Typography
                   letterSpacing={0}
                   fontSize="90%"
-                  fontFamily="Montserrat"
                   fontWeight="500"
                   color="#EBEBEB"
                   border="1px solid #C7C7C780"

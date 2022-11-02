@@ -17,7 +17,6 @@ const NavbarButton = styled(Button)({
     borderColor: "#AAC5C6",
   },
 
-  fontFamily: "Montserrat",
   fontWeight: "bold",
 });
 

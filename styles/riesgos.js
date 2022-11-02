@@ -6,7 +6,6 @@ const RiskButton = styled(Button)({
   backgroundColor: "#488B8F",
   color: "#FFFFFF",
   fontSize: "0.6rem",
-  fontFamily: "Montserrat",
   fontWeight: "bold",
   maxWidth: "10rem",
 });

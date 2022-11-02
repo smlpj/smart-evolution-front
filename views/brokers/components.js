@@ -8,7 +8,7 @@ import CitySelect from "@components/selects/citySelect";
 import DepartmentSelect from "@components/selects/departmentSelect";
 import TypeIDSelect from "@components/selects/typeIdentitySelect";
 
-import MuiButton from "@styles/button";
+import MuiButton from "@styles/buttons/button";
 import MuiTextField from "@styles/fields";
 import HelperText from "@styles/helperText";
 import InputTitles from "@styles/inputTitles";
@@ -52,7 +52,6 @@ export const SignUpBroker = ({ formik, option, ToastContainer }) => {
                 <Typography
                   letterSpacing={0}
                   fontSize="1.7rem"
-                  fontFamily="Montserrat"
                   fontWeight="regular"
                   marginBottom="4rem"
                   color="#5EA3A3"
@@ -306,11 +305,7 @@ export const SignUpBroker = ({ formik, option, ToastContainer }) => {
                   onClick={formik.handleSubmit}
                   sx={{ mt: 3, mb: 2, boxShadow: "none", borderRadius: "4px" }}
                 >
-                  <Typography
-                    fontSize="90%"
-                    fontFamily="Montserrat"
-                    fontWeight="bold"
-                  >
+                  <Typography fontSize="90%" fontWeight="bold">
                     {option === "register" ? "Registrar" : "Modificar"}
                   </Typography>
                   <ArrowForwardIcon

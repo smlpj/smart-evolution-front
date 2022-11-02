@@ -3,7 +3,7 @@ import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import { Box, FormControl, IconButton, InputAdornment } from "@mui/material";
 
-import MuiButton from "@styles/button";
+import MuiButton from "@styles/buttons/button";
 import MuiTextField from "@styles/fields";
 import HelperText from "@styles/helperText";
 

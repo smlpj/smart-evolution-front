@@ -8,7 +8,6 @@ const Detail = () => {
       <Head>
         <title>Detalle de operación</title>
         <meta name="description" content="Página de detalle de operación" />
-        <link rel="icon" href="/assets/Icono Smart.svg" />
       </Head>
       <OperationDetail />
     </>

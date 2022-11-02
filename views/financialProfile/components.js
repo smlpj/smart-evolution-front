@@ -10,8 +10,10 @@ import { Box, Button, Tab, Tabs, Typography } from "@mui/material";
 
 import { useFetch } from "@hooks/useFetch";
 
+import BackButton from "@styles/buttons/BackButton";
+import FileUploadButton from "@styles/buttons/uploadFileButton";
 import InputTitles from "@styles/inputTitles";
-import FileUploadButton from "@styles/uploadFileButton";
+import scrollSx from "@styles/scroll";
 
 import { GetCustomerById } from "./queries";
 
@@ -86,56 +88,14 @@ export const FinancialProfile = ({ formik }) => {
           display="flex"
           flexDirection="column"
           height="27vh"
-          sx={{
-            scrollBehavior: "smooth",
-            overflowY: "auto",
-            "&::-webkit-scrollbar": {
-              position: "absolute",
-              width: "9px",
-              webkitAppearance: "none",
-            },
-            "&::-webkit-scrollbar-track": {
-              backgroundColor: "#CFDDDD",
-              borderRadius: "10px",
-            },
-            "&::-webkit-scrollbar-thumb": {
-              backgroundColor: "#5EA3A3",
-              backgroundClip: "content-box",
-              borderColor: "transparent",
-              borderStyle: "solid",
-              borderWidth: "1px 2px",
-              borderRadius: "10px",
-            },
-          }}
+          sx={{ ...scrollSx }}
         >
           <Box display="flex" flexDirection="column">
-            <Link href="/dashboard" underline="none">
-              <Button
-                variant="standard"
-                color="transparent"
-                justifyContent="flex-start"
-                alignItems="center"
-                startIcon={<ArrowBackIcon sx={{ color: "#5EA3A3" }} />}
-                sx={{
-                  width: "6%",
-                  height: "10%",
-                  fontFamily: "Montserrat",
-                  fontWeight: "bold",
-                  letterSpacing: "0",
-                  textTransform: "uppercase",
-                  color: "#5EA3A3",
-                  fontSize: "70%",
-                  borderRadius: "4px",
-                }}
-              >
-                Atrás
-              </Button>
-            </Link>
+            <BackButton path="/dashboard" />
             <Box marginBottom={3}>
               <Typography
                 letterSpacing={0}
                 fontSize="170%"
-                fontFamily="Montserrat"
                 fontWeight="regular"
                 marginBottom="0.7rem"
                 color="#5EA3A3"
@@ -156,7 +116,6 @@ export const FinancialProfile = ({ formik }) => {
                   <Typography
                     letterSpacing={0}
                     fontSize="120%"
-                    fontFamily="Montserrat"
                     fontWeight="medium"
                     color="#333333"
                   >
@@ -168,7 +127,6 @@ export const FinancialProfile = ({ formik }) => {
                   <Typography
                     letterSpacing={0}
                     fontSize="120%"
-                    fontFamily="Montserrat"
                     fontWeight="medium"
                     color="#333333"
                   >
@@ -195,7 +153,6 @@ export const FinancialProfile = ({ formik }) => {
                         }}
                       >
                         <Typography
-                          fontFamily="Montserrat"
                           fontSize="85.714%"
                           fontWeight="bold"
                           color="#FFFFFF"
@@ -224,7 +181,6 @@ export const FinancialProfile = ({ formik }) => {
                         height={30}
                       />
                       <Typography
-                        fontFamily="Montserrat"
                         fontSize="80%"
                         width="100%"
                         fontWeight="bold"
@@ -252,7 +208,6 @@ export const FinancialProfile = ({ formik }) => {
                         height={30}
                       />
                       <Typography
-                        fontFamily="Montserrat"
                         fontSize="80%"
                         width="100%"
                         fontWeight="bold"
@@ -280,7 +235,6 @@ export const FinancialProfile = ({ formik }) => {
                         height={30}
                       />
                       <Typography
-                        fontFamily="Montserrat"
                         fontSize="80%"
                         width="100%"
                         fontWeight="bold"
@@ -308,7 +262,6 @@ export const FinancialProfile = ({ formik }) => {
                         height={30}
                       />
                       <Typography
-                        fontFamily="Montserrat"
                         fontSize="80%"
                         width="100%"
                         fontWeight="bold"
@@ -324,7 +277,6 @@ export const FinancialProfile = ({ formik }) => {
                   <InputTitles marginBottom={2}>INGRESADO POR</InputTitles>
                   <Box borderRadius="4px">
                     <Typography
-                      fontFamily="Montserrat"
                       fontSize="80%"
                       fontWeight="bold"
                       color="#63595C"
@@ -349,7 +301,6 @@ export const FinancialProfile = ({ formik }) => {
                   <Typography
                     letterSpacing={0}
                     fontSize="120%"
-                    fontFamily="Montserrat"
                     fontWeight="medium"
                     color="#333333"
                     noWrap
@@ -365,7 +316,6 @@ export const FinancialProfile = ({ formik }) => {
                   <Typography
                     letterSpacing={0}
                     fontSize="120%"
-                    fontFamily="Montserrat"
                     fontWeight="medium"
                     color="#333333"
                   >
@@ -382,27 +332,7 @@ export const FinancialProfile = ({ formik }) => {
           display="flex"
           flexDirection="column"
           height="46vh"
-          sx={{
-            scrollBehavior: "smooth",
-            overflowY: "auto",
-            "&::-webkit-scrollbar": {
-              position: "absolute",
-              width: "9px",
-              webkitAppearance: "none",
-            },
-            "&::-webkit-scrollbar-track": {
-              backgroundColor: "#CFDDDD",
-              borderRadius: "10px",
-            },
-            "&::-webkit-scrollbar-thumb": {
-              backgroundColor: "#5EA3A3",
-              backgroundClip: "content-box",
-              borderColor: "transparent",
-              borderStyle: "solid",
-              borderWidth: "1px 2px",
-              borderRadius: "10px",
-            },
-          }}
+          sx={{ ...scrollSx }}
         >
           {/* <Box display="flex" flexDirection="row">
             <Box position="relative" height="auto">
@@ -471,7 +401,7 @@ export const FinancialProfile = ({ formik }) => {
                 alignContent="center"
                 letterSpacing={0}
                 fontSize="0.9rem"
-                fontFamily="Montserrat"
+                
                 fontWeight="regular"
                 color="#333333"
               >
@@ -484,7 +414,7 @@ export const FinancialProfile = ({ formik }) => {
                 alignContent="center"
                 letterSpacing={0}
                 fontSize="0.9rem"
-                fontFamily="Montserrat"
+                
                 fontWeight="regular"
                 color="#333333"
               >
@@ -497,7 +427,7 @@ export const FinancialProfile = ({ formik }) => {
                 alignContent="center"
                 letterSpacing={0}
                 fontSize="0.9rem"
-                fontFamily="Montserrat"
+                
                 fontWeight="regular"
                 color="#333333"
               >
@@ -520,7 +450,6 @@ export const FinancialProfile = ({ formik }) => {
                   border: "1.8px solid #5EA3A3",
                   borderRadius: "8px 8px 0px 0px",
                   marginRight: "0.2rem",
-                  fontFamily: "Montserrat",
                   fontSize: "0.7rem",
                   color: "#5EA3A3",
                   height: "2rem",
@@ -556,7 +485,6 @@ export const FinancialProfile = ({ formik }) => {
                     alignContent="center"
                     letterSpacing={0}
                     fontSize="1.5rem"
-                    fontFamily="Montserrat"
                     fontWeight="medium"
                     color="#333333"
                   >
@@ -590,7 +518,6 @@ export const FinancialProfile = ({ formik }) => {
                                 alignContent="center"
                                 letterSpacing={0}
                                 fontSize="0.9rem"
-                                fontFamily="Montserrat"
                                 fontWeight="regular"
                                 textTransform="none"
                                 padding="0.5rem 2.5rem 0.5rem 1rem"
@@ -633,7 +560,6 @@ export const FinancialProfile = ({ formik }) => {
                                 alignContent="center"
                                 letterSpacing={0}
                                 fontSize="0.9rem"
-                                fontFamily="Montserrat"
                                 fontWeight="regular"
                                 textTransform="none"
                                 padding="0.5rem 2.5rem 0.5rem 1rem"
@@ -676,7 +602,6 @@ export const FinancialProfile = ({ formik }) => {
                                 alignContent="center"
                                 letterSpacing={0}
                                 fontSize="0.9rem"
-                                fontFamily="Montserrat"
                                 fontWeight="regular"
                                 textTransform="none"
                                 padding="0.5rem 2.5rem 0.5rem 1rem"
@@ -712,7 +637,6 @@ export const FinancialProfile = ({ formik }) => {
                       bottom: "3.5rem",
                       right: "2rem",
                       fontSize: "0.7rem",
-                      fontFamily: "Montserrat",
                       fontWeight: "bold",
                       "&:hover": {
                         backgroundColor: "#5EA3A3",
@@ -737,7 +661,6 @@ export const FinancialProfile = ({ formik }) => {
                       bottom: "0rem",
                       right: "2rem",
                       fontSize: "0.7rem",
-                      fontFamily: "Montserrat",
                       fontWeight: "bold",
                       "&:hover": {
                         backgroundColor: "#5EA3A3",
