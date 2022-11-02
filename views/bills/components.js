@@ -34,7 +34,7 @@ import CustomTooltip from "@styles/customTooltip";
 import InputTitles from "@styles/inputTitles";
 import CustomDataGrid from "@styles/tables";
 
-import { ReadBills, ReadCreditNotes } from "./queries";
+import { ReadBills, ReadCreditNotes, SaveBills } from "./queries";
 
 export const BillsComponents = () => {
   const [rowsToModify, setRowsToModify] = useState([]);
@@ -103,6 +103,22 @@ export const BillsComponents = () => {
     errorReadCreditNotes?.message
   );
 
+  const {
+    fetch: fetchSaveBills,
+    loading: loadingSaveBills,
+    error: errorSaveBills,
+    data: dataSaveBills,
+  } = useFetch({ service: SaveBills, init: false });
+
+  useToatsStatus(
+    loadingSaveBills,
+    dataSaveBills,
+    errorSaveBills,
+    (loading, data, error) => error,
+    "Facturas guardadas",
+    errorSaveBills?.message
+  );
+
   const onChangeFilesCreditNote = (e) => {
     const formData = new FormData();
     const files = Array.from(e.target.files);
@@ -148,7 +164,7 @@ export const BillsComponents = () => {
     return (
       <GridToolbarContainer
         sx={{
-          justifyContent: "left",
+          justifyContent: "right",
         }}
       >
         <Button
@@ -178,7 +194,13 @@ export const BillsComponents = () => {
         </Button>
         <Button
           variant="standard"
-          onClick={() => console.log("oli")}
+          onClick={() => {
+            const bills = {
+              bills: bill,
+            };
+            console.log(bills);
+            fetchSaveBills(bills);
+          }}
           sx={{
             backgroundColor: "#488B8F",
             borderRadius: "4px",
@@ -219,6 +241,11 @@ export const BillsComponents = () => {
           iva: bill.iva,
           cufe: bill.cufe,
           events: bill.events ? bill.events : [],
+          n_events: bill.events ? bill.events.length : 0,
+          lastEventDate: bill.events ? getLastEvent(bill.events).date : null,
+          lastEventDescription: bill.events
+            ? getLastEvent(bill.events).description
+            : null,
           ret_iva: retIVA[bill.billId] ? retIVA[bill.billId] : 0,
           creditNotes:
             dataReadCreditNotes !== null &&
@@ -609,39 +636,33 @@ export const BillsComponents = () => {
       ),
     },
     {
-      field: "Cantidad Eventos",
+      field: "n_events",
       headerName: "CANT. EVENTOS",
       width: 90,
       renderCell: (params) => {
-        return params.row.events.length > 0 ? (
-          <InputTitles>{params.row.events.length}</InputTitles>
-        ) : (
-          <InputTitles>0</InputTitles>
-        );
+        return <InputTitles>{params.value}</InputTitles>;
       },
     },
     {
-      field: "Fecha Ult Eventos",
+      field: "lastEventDate",
       headerName: "FECHA ULT. EVENTO",
       width: 150,
       renderCell: (params) => {
-        return params.row.events.length > 0 ? (
+        return (
           <InputTitles>
-            <DateFormat date={getLastEvent(params.row.events).date} />
+            <DateFormat date={params.value} />
           </InputTitles>
-        ) : (
-          <InputTitles>Sin eventos</InputTitles>
         );
       },
     },
     {
-      field: "Desc Ult Eventos",
+      field: "lastEventDescription",
       headerName: "DESC ULT. EVENTO",
       width: 150,
       renderCell: (params) => {
         return params.row.events.length > 0 ? (
           <CustomTooltip
-            title={getLastEvent(params.row.events).description}
+            title={params.value}
             arrow
             placement="bottom-start"
             TransitionComponent={Fade}
@@ -657,10 +678,9 @@ export const BillsComponents = () => {
             }}
           >
             <InputTitles>
-              {getLastEvent(params.row.events).description.length > 10
-                ? getLastEvent(params.row.events).description.substring(0, 10) +
-                  "..."
-                : getLastEvent(params.row.events).description}
+              {params.value.length > 10
+                ? params.value.substring(0, 10) + "..."
+                : params.value}
             </InputTitles>
           </CustomTooltip>
         ) : (

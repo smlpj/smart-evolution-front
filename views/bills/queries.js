@@ -21,7 +21,7 @@ export const ReadCreditNotes = async (data) => {
 };
 
 export const SaveBills = async (data) => {
-  const res = await Axios.post(`${API_URL}/bill/save`, data, {
+  const res = await Axios.post(`${API_URL}/bill/`, data, {
     headers: {
       authorization: "Bearer " + localStorage.getItem("access-token"),
     },

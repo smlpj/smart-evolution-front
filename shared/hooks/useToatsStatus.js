@@ -11,7 +11,7 @@ const useToatsStatus = (
   successCondtion,
   successMessage,
   errorMessage,
-  loadingMessage = "Cargando.."
+  loadingMessage = "Cargando..."
 ) => {
   useEffect(() => {
     if (error) Toast(errorMessage, "error");
