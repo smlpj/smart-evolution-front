@@ -16,8 +16,8 @@ const SelfManagementBackButton = (props) => {
   const { pagination } = useContext(FormContext);
 
   const onClickMiddleware = () => {
-    onClick?.();
-    pagination?.prevStep();
+    if (onClick) onClick();
+    else pagination?.prevStep();
   };
 
   return (

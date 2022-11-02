@@ -7,6 +7,7 @@ import DashboardButton from "@styles/buttons/button_3";
 
 const FileField = (props) => {
   const {
+    hideDownload,
     downloadFileURL,
     downloadFileFileName,
     downloadFileText = "Descargar archivo",
@@ -56,16 +57,22 @@ const FileField = (props) => {
         },
       }}
     >
-      <DashboardButton
-        size="small"
-        onClick={() => {
-          downloadFile(downloadFileURL, downloadFileFileName);
-        }}
-        sx={{ color: "#5EA3A3", borderColor: "#5EA3A3", textTransform: "none" }}
-        endIcon={<i className="far fa-down" />}
-      >
-        {downloadFileText}
-      </DashboardButton>
+      {!hideDownload && (
+        <DashboardButton
+          size="small"
+          onClick={() => {
+            downloadFile(downloadFileURL, downloadFileFileName);
+          }}
+          sx={{
+            color: "#5EA3A3",
+            borderColor: "#5EA3A3",
+            textTransform: "none",
+          }}
+          endIcon={<i className="far fa-down" />}
+        >
+          {downloadFileText}
+        </DashboardButton>
+      )}
 
       <Box
         component="label"

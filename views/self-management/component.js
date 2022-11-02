@@ -10,7 +10,7 @@ export const SelfManagement = (props) => {
 
   useEffect(() => {
     pagination.steps.set(stepsComponents.length);
-  }, []);
+  }, [stepsComponents]);
 
   if (!pagination.steps.value) return <></>;
 
