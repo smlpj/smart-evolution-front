@@ -41,7 +41,6 @@ export const FinancialProfile = ({ formik }) => {
 
   useEffect(() => {
     if (router && router.query) {
-      console.log(router.query);
       setID(router.query.id);
     }
   }, [router.query]);
@@ -62,14 +61,7 @@ export const FinancialProfile = ({ formik }) => {
     console.log(allFiles);
   };
 
-  const [allFiles, setAllFiles] = useState({
-    file1: null,
-    file2: null,
-    file3: null,
-    file4: null,
-    file5: null,
-    file6: null,
-  });
+  const [allFiles, setAllFiles] = useState({});
 
   const changeHandler = (event) => {
     setAllFiles({
@@ -84,10 +76,8 @@ export const FinancialProfile = ({ formik }) => {
         <Box
           container
           borderBottom="2px solid #A1A1A1"
-          marginBottom={4}
           display="flex"
           flexDirection="column"
-          height="27vh"
           sx={{ ...scrollSx }}
         >
           <Box display="flex" flexDirection="column">
@@ -95,10 +85,9 @@ export const FinancialProfile = ({ formik }) => {
             <Box marginBottom={3}>
               <Typography
                 letterSpacing={0}
-                fontSize="170%"
+                fontSize="1.8vw"
                 fontWeight="regular"
-                marginBottom="0.7rem"
-                color="#5EA3A3"
+                color="#488B8F"
               >
                 Perfil Financiero
               </Typography>
@@ -108,14 +97,14 @@ export const FinancialProfile = ({ formik }) => {
                 display="grid"
                 gridTemplateColumns="1fr 1fr 1fr"
                 gridTemplateRows="1fr 1fr"
-                gap={3}
+                gap={2}
                 width="80%"
               >
                 <Box display="flex" flexDirection="column">
-                  <InputTitles marginBottom={2}>N° Identificación</InputTitles>
+                  <InputTitles marginBottom={1}>N° Identificación</InputTitles>
                   <Typography
                     letterSpacing={0}
-                    fontSize="120%"
+                    fontSize="1.042vw"
                     fontWeight="medium"
                     color="#333333"
                   >
@@ -123,10 +112,10 @@ export const FinancialProfile = ({ formik }) => {
                   </Typography>
                 </Box>
                 <Box display="flex" flexDirection="column">
-                  <InputTitles marginBottom={2}>Cliente</InputTitles>
+                  <InputTitles marginBottom={1}>Cliente</InputTitles>
                   <Typography
                     letterSpacing={0}
-                    fontSize="120%"
+                    fontSize="1.042vw"
                     fontWeight="medium"
                     color="#333333"
                   >
@@ -136,7 +125,7 @@ export const FinancialProfile = ({ formik }) => {
                   </Typography>
                 </Box>
                 <Box display="flex" flexDirection="column">
-                  <InputTitles marginBottom={2}>PERFIL DE RIESGO</InputTitles>
+                  <InputTitles marginBottom={1}>PERFIL DE RIESGO</InputTitles>
 
                   {data?.data?.riskProfile === null && (
                     <Link href={`/riskProfile?id=${id}`} underline="none">
@@ -274,7 +263,7 @@ export const FinancialProfile = ({ formik }) => {
                   )}
                 </Box>
                 <Box display="flex" flexDirection="column">
-                  <InputTitles marginBottom={2}>INGRESADO POR</InputTitles>
+                  <InputTitles marginBottom={1}>INGRESADO POR</InputTitles>
                   <Box borderRadius="4px">
                     <Typography
                       fontSize="80%"
@@ -295,12 +284,12 @@ export const FinancialProfile = ({ formik }) => {
                 </Box>
 
                 <Box display="flex" flexDirection="column">
-                  <InputTitles marginBottom={2}>
+                  <InputTitles marginBottom={1}>
                     REPRESENTANTE LEGAL
                   </InputTitles>
                   <Typography
                     letterSpacing={0}
-                    fontSize="120%"
+                    fontSize="1.042vw"
                     fontWeight="medium"
                     color="#333333"
                     noWrap
@@ -312,10 +301,10 @@ export const FinancialProfile = ({ formik }) => {
                   </Typography>
                 </Box>
                 <Box display="flex" flexDirection="column">
-                  <InputTitles marginBottom={2}>CORREO ELECTRÓNICO</InputTitles>
+                  <InputTitles marginBottom={1}>CORREO ELECTRÓNICO</InputTitles>
                   <Typography
                     letterSpacing={0}
-                    fontSize="120%"
+                    fontSize="1.042vw"
                     fontWeight="medium"
                     color="#333333"
                   >
@@ -331,7 +320,6 @@ export const FinancialProfile = ({ formik }) => {
           container
           display="flex"
           flexDirection="column"
-          height="46vh"
           sx={{ ...scrollSx }}
         >
           {/* <Box display="flex" flexDirection="row">
@@ -446,13 +434,15 @@ export const FinancialProfile = ({ formik }) => {
               aria-label="secondary tabs example"
               indicatorColor="transparent"
               sx={{
+                minHeight: "auto",
                 "& button": {
                   border: "1.8px solid #5EA3A3",
                   borderRadius: "8px 8px 0px 0px",
                   marginRight: "0.2rem",
                   fontSize: "0.7rem",
                   color: "#5EA3A3",
-                  height: "2rem",
+                  height: "2.4rem",
+                  minHeight: "2rem",
                 },
                 "& button:hover": {
                   backgroundColor: "#5EA3A320",
@@ -469,213 +459,431 @@ export const FinancialProfile = ({ formik }) => {
               <Tab value="2022-I" label="Periodo I" />
               <Tab value="2022-II" label="Periodo II" />
               <Tab value="2022-III" label="Periodo III" />
-              <Tab value="Historico-de-pedidos" label="Histórico de pedidos" />
+              <Tab
+                value="Historico-de-periodos"
+                label="Histórico de periodos"
+              />
             </Tabs>
           </Box>
           <Box sx={{ width: "100%" }}>
             {tabValue === "2022-I" && (
-              <form onSubmit={formik.handleSubmit}>
-                <Box
-                  display="flex"
-                  flexDirection="column"
-                  position="relative"
-                  marginTop={3}
+              <Box
+                display="flex"
+                flexDirection="column"
+                position="relative"
+                marginTop={3}
+              >
+                <Typography
+                  alignContent="center"
+                  letterSpacing={0}
+                  fontSize="1.5rem"
+                  fontWeight="medium"
+                  color="#333333"
                 >
-                  <Typography
-                    alignContent="center"
-                    letterSpacing={0}
-                    fontSize="1.5rem"
-                    fontWeight="medium"
-                    color="#333333"
-                  >
-                    Periodo: {tabValue}
-                  </Typography>
-                  <Box
-                    display="flex"
-                    position="relative"
-                    flexDirection="row"
-                    marginTop={3}
-                  >
-                    <Box display="flex" flexDirection="column" marginTop={3}>
-                      <Box>
-                        <InputTitles marginBottom={2}>Balance</InputTitles>
-                        <>
-                          <input
-                            style={{ display: "none" }}
-                            id="file1"
-                            name="file1"
-                            type="file"
-                            onChange={(e) => {
-                              formik.setFieldValue(
-                                "file1",
-                                e.currentTarget.files[0]
-                              );
-                            }}
-                          />
-                          <label style={{ height: "3rem" }} htmlFor="file1">
-                            <FileUploadButton component="span">
-                              <Typography
-                                alignContent="center"
-                                letterSpacing={0}
-                                fontSize="0.9rem"
-                                fontWeight="regular"
-                                textTransform="none"
-                                padding="0.5rem 2.5rem 0.5rem 1rem"
-                              >
-                                Seleccione archivo a cargar
-                              </Typography>
-
-                              <Typography
-                                fontFamily="icomoon"
-                                fontSize="1.5rem"
-                                color="#5EA3A3"
-                                margin="0rem 0.7rem"
-                              >
-                                
-                              </Typography>
-                            </FileUploadButton>
-                          </label>
-                        </>
-                      </Box>
-                      <Box>
-                        <InputTitles mt={3} marginBottom={2}>
-                          Hola2
-                        </InputTitles>
-                        <>
-                          <input
-                            style={{ display: "none" }}
-                            id="file2"
-                            name="file2"
-                            type="file"
-                            onChange={(e) => {
-                              formik.setFieldValue(
-                                "file2",
-                                e.currentTarget.files[0]
-                              );
-                            }}
-                          />
-                          <label style={{ height: "3rem" }} htmlFor="file2">
-                            <FileUploadButton component="span">
-                              <Typography
-                                alignContent="center"
-                                letterSpacing={0}
-                                fontSize="0.9rem"
-                                fontWeight="regular"
-                                textTransform="none"
-                                padding="0.5rem 2.5rem 0.5rem 1rem"
-                              >
-                                Seleccione archivo a cargar
-                              </Typography>
-
-                              <Typography
-                                fontFamily="icomoon"
-                                fontSize="1.5rem"
-                                color="#5EA3A3"
-                                margin="0rem 0.7rem"
-                              >
-                                
-                              </Typography>
-                            </FileUploadButton>
-                          </label>
-                        </>
-                      </Box>
-                      <Box>
-                        <InputTitles mt={3} marginBottom={2}>
-                          Hola
-                        </InputTitles>
-                        <>
-                          <input
-                            style={{ display: "none" }}
-                            id="file3"
-                            name="file3"
-                            type="file"
-                            onChange={(e) => {
+                  Periodo: {tabValue}
+                </Typography>
+                <Box display="flex" position="relative" flexDirection="row">
+                  <Box display="flex" flexDirection="column">
+                    <Box>
+                      <InputTitles mt={3} marginBottom={1}>
+                        Balance
+                      </InputTitles>
+                      <>
+                        <input
+                          style={{ display: "none" }}
+                          id="balance"
+                          name="balance"
+                          type="file"
+                          accept="application/pdf"
+                          onChange={(e) => {
+                            if (e.target.files[0]) {
+                              const fileName = e.currentTarget.name;
+                              const fileCompleteName = e.target.files[0].name;
                               getBase64(e.currentTarget.files[0]).then((data) =>
-                                /* formik.setFieldValue("file3", data) */
-                                console.log(data)
+                                setAllFiles({
+                                  ...allFiles,
+                                  [fileName]: {
+                                    data: data,
+                                    name: fileCompleteName,
+                                  },
+                                })
                               );
-                            }}
-                          />
-                          <label style={{ height: "3rem" }} htmlFor="file3">
-                            <FileUploadButton component="span">
-                              <Typography
-                                alignContent="center"
-                                letterSpacing={0}
-                                fontSize="0.9rem"
-                                fontWeight="regular"
-                                textTransform="none"
-                                padding="0.5rem 2.5rem 0.5rem 1rem"
-                              >
-                                Seleccione archivo a cargar
-                              </Typography>
+                            }
+                          }}
+                        />
+                        <label style={{ height: "30%" }} htmlFor="balance">
+                          <FileUploadButton component="span">
+                            {allFiles["balance"]
+                              ? allFiles["balance"].name.length > 30
+                                ? allFiles["balance"].name.substring(0, 30) +
+                                  "..."
+                                : allFiles["balance"].name
+                              : "Seleccione archivo a cargar"}
 
-                              <Typography
-                                fontFamily="icomoon"
-                                fontSize="1.5rem"
-                                color="#5EA3A3"
-                                margin="0rem 0.7rem"
-                              >
-                                
-                              </Typography>
-                            </FileUploadButton>
-                          </label>
-                        </>
-                      </Box>
+                            <Typography
+                              fontFamily="icomoon"
+                              fontSize="1.5rem"
+                              color="#5EA3A3"
+                              margin="0rem 0.7rem"
+                            >
+                              
+                            </Typography>
+                          </FileUploadButton>
+                        </label>
+                      </>
+                    </Box>
+                    <Box>
+                      <InputTitles mt={3} marginBottom={1}>
+                        Balance
+                      </InputTitles>
+                      <>
+                        <input
+                          style={{ display: "none" }}
+                          id="balance"
+                          name="balance"
+                          type="file"
+                          accept="application/pdf"
+                          onChange={(e) => {
+                            if (e.target.files[0]) {
+                              const fileName = e.currentTarget.name;
+                              const fileCompleteName = e.target.files[0].name;
+                              getBase64(e.currentTarget.files[0]).then((data) =>
+                                setAllFiles({
+                                  ...allFiles,
+                                  [fileName]: {
+                                    data: data,
+                                    name: fileCompleteName,
+                                  },
+                                })
+                              );
+                            }
+                          }}
+                        />
+                        <label style={{ height: "30%" }} htmlFor="balance">
+                          <FileUploadButton component="span">
+                            {allFiles["balance"]
+                              ? allFiles["balance"].name.length > 30
+                                ? allFiles["balance"].name.substring(0, 30) +
+                                  "..."
+                                : allFiles["balance"].name
+                              : "Seleccione archivo a cargar"}
+
+                            <Typography
+                              fontFamily="icomoon"
+                              fontSize="1.5rem"
+                              color="#5EA3A3"
+                              margin="0rem 0.7rem"
+                            >
+                              
+                            </Typography>
+                          </FileUploadButton>
+                        </label>
+                      </>
+                    </Box>
+                    <Box>
+                      <InputTitles mt={3} marginBottom={1}>
+                        Balance
+                      </InputTitles>
+                      <>
+                        <input
+                          style={{ display: "none" }}
+                          id="balance"
+                          name="balance"
+                          type="file"
+                          accept="application/pdf"
+                          onChange={(e) => {
+                            if (e.target.files[0]) {
+                              const fileName = e.currentTarget.name;
+                              const fileCompleteName = e.target.files[0].name;
+                              getBase64(e.currentTarget.files[0]).then((data) =>
+                                setAllFiles({
+                                  ...allFiles,
+                                  [fileName]: {
+                                    data: data,
+                                    name: fileCompleteName,
+                                  },
+                                })
+                              );
+                            }
+                          }}
+                        />
+                        <label style={{ height: "30%" }} htmlFor="balance">
+                          <FileUploadButton component="span">
+                            {allFiles["balance"]
+                              ? allFiles["balance"].name.length > 30
+                                ? allFiles["balance"].name.substring(0, 30) +
+                                  "..."
+                                : allFiles["balance"].name
+                              : "Seleccione archivo a cargar"}
+
+                            <Typography
+                              fontFamily="icomoon"
+                              fontSize="1.5rem"
+                              color="#5EA3A3"
+                              margin="0rem 0.7rem"
+                            >
+                              
+                            </Typography>
+                          </FileUploadButton>
+                        </label>
+                      </>
+                    </Box>
+                    <Box>
+                      <InputTitles mt={3} marginBottom={1}>
+                        Balance
+                      </InputTitles>
+                      <>
+                        <input
+                          style={{ display: "none" }}
+                          id="balance"
+                          name="balance"
+                          type="file"
+                          accept="application/pdf"
+                          onChange={(e) => {
+                            if (e.target.files[0]) {
+                              const fileName = e.currentTarget.name;
+                              const fileCompleteName = e.target.files[0].name;
+                              getBase64(e.currentTarget.files[0]).then((data) =>
+                                setAllFiles({
+                                  ...allFiles,
+                                  [fileName]: {
+                                    data: data,
+                                    name: fileCompleteName,
+                                  },
+                                })
+                              );
+                            }
+                          }}
+                        />
+                        <label style={{ height: "30%" }} htmlFor="balance">
+                          <FileUploadButton component="span">
+                            {allFiles["balance"]
+                              ? allFiles["balance"].name.length > 30
+                                ? allFiles["balance"].name.substring(0, 30) +
+                                  "..."
+                                : allFiles["balance"].name
+                              : "Seleccione archivo a cargar"}
+
+                            <Typography
+                              fontFamily="icomoon"
+                              fontSize="1.5rem"
+                              color="#5EA3A3"
+                              margin="0rem 0.7rem"
+                            >
+                              
+                            </Typography>
+                          </FileUploadButton>
+                        </label>
+                      </>
+                    </Box>
+                    <Box>
+                      <InputTitles mt={3} marginBottom={1}>
+                        Balance
+                      </InputTitles>
+                      <>
+                        <input
+                          style={{ display: "none" }}
+                          id="balance"
+                          name="balance"
+                          type="file"
+                          accept="application/pdf"
+                          onChange={(e) => {
+                            if (e.target.files[0]) {
+                              const fileName = e.currentTarget.name;
+                              const fileCompleteName = e.target.files[0].name;
+                              getBase64(e.currentTarget.files[0]).then((data) =>
+                                setAllFiles({
+                                  ...allFiles,
+                                  [fileName]: {
+                                    data: data,
+                                    name: fileCompleteName,
+                                  },
+                                })
+                              );
+                            }
+                          }}
+                        />
+                        <label style={{ height: "30%" }} htmlFor="balance">
+                          <FileUploadButton component="span">
+                            {allFiles["balance"]
+                              ? allFiles["balance"].name.length > 30
+                                ? allFiles["balance"].name.substring(0, 30) +
+                                  "..."
+                                : allFiles["balance"].name
+                              : "Seleccione archivo a cargar"}
+
+                            <Typography
+                              fontFamily="icomoon"
+                              fontSize="1.5rem"
+                              color="#5EA3A3"
+                              margin="0rem 0.7rem"
+                            >
+                              
+                            </Typography>
+                          </FileUploadButton>
+                        </label>
+                      </>
+                    </Box>
+                    <Box>
+                      <InputTitles mt={3} marginBottom={1}>
+                        Balance
+                      </InputTitles>
+                      <>
+                        <input
+                          style={{ display: "none" }}
+                          id="balance"
+                          name="balance"
+                          type="file"
+                          accept="application/pdf"
+                          onChange={(e) => {
+                            if (e.target.files[0]) {
+                              const fileName = e.currentTarget.name;
+                              const fileCompleteName = e.target.files[0].name;
+                              getBase64(e.currentTarget.files[0]).then((data) =>
+                                setAllFiles({
+                                  ...allFiles,
+                                  [fileName]: {
+                                    data: data,
+                                    name: fileCompleteName,
+                                  },
+                                })
+                              );
+                            }
+                          }}
+                        />
+                        <label style={{ height: "30%" }} htmlFor="balance">
+                          <FileUploadButton component="span">
+                            {allFiles["balance"]
+                              ? allFiles["balance"].name.length > 30
+                                ? allFiles["balance"].name.substring(0, 30) +
+                                  "..."
+                                : allFiles["balance"].name
+                              : "Seleccione archivo a cargar"}
+
+                            <Typography
+                              fontFamily="icomoon"
+                              fontSize="1.5rem"
+                              color="#5EA3A3"
+                              margin="0rem 0.7rem"
+                            >
+                              
+                            </Typography>
+                          </FileUploadButton>
+                        </label>
+                      </>
+                    </Box>
+                    <Box>
+                      <InputTitles mt={3} marginBottom={1}>
+                        Balance
+                      </InputTitles>
+                      <>
+                        <input
+                          style={{ display: "none" }}
+                          id="balance"
+                          name="balance"
+                          type="file"
+                          accept="application/pdf"
+                          onChange={(e) => {
+                            if (e.target.files[0]) {
+                              const fileName = e.currentTarget.name;
+                              const fileCompleteName = e.target.files[0].name;
+                              getBase64(e.currentTarget.files[0]).then((data) =>
+                                setAllFiles({
+                                  ...allFiles,
+                                  [fileName]: {
+                                    data: data,
+                                    name: fileCompleteName,
+                                  },
+                                })
+                              );
+                            }
+                          }}
+                        />
+                        <label style={{ height: "30%" }} htmlFor="balance">
+                          <FileUploadButton component="span">
+                            {allFiles["balance"]
+                              ? allFiles["balance"].name.length > 30
+                                ? allFiles["balance"].name.substring(0, 30) +
+                                  "..."
+                                : allFiles["balance"].name
+                              : "Seleccione archivo a cargar"}
+
+                            <Typography
+                              fontFamily="icomoon"
+                              fontSize="1.5rem"
+                              color="#5EA3A3"
+                              margin="0rem 0.7rem"
+                            >
+                              
+                            </Typography>
+                          </FileUploadButton>
+                        </label>
+                      </>
                     </Box>
                   </Box>
-                  <Button
-                    variant="standard"
-                    onClick={formik.handleSubmit}
-                    sx={{
-                      backgroundColor: "#488B8F",
-                      borderRadius: "4px",
-                      color: "#FFFFFF",
-                      height: "3rem",
-                      marginTop: "2rem",
-                      marginBottom: "2rem",
-                      position: "absolute",
-                      bottom: "3.5rem",
-                      right: "2rem",
-                      fontSize: "0.7rem",
-                      fontWeight: "bold",
-                      "&:hover": {
-                        backgroundColor: "#5EA3A3",
-                      },
-                    }}
-                    aria-label="add"
-                  >
-                    GUARDAR BORRADOR
-                    <BookOutlined sx={{ ml: 1, fontSize: "medium" }} />
-                  </Button>
-                  <Button
-                    variant="standard"
-                    onClick={handleSubmission}
-                    sx={{
-                      backgroundColor: "#488B8F",
-                      borderRadius: "4px",
-                      color: "#FFFFFF",
-                      height: "3rem",
-                      marginTop: "2rem",
-                      marginBottom: "2rem",
-                      position: "absolute",
-                      bottom: "0rem",
-                      right: "2rem",
-                      fontSize: "0.7rem",
-                      fontWeight: "bold",
-                      "&:hover": {
-                        backgroundColor: "#5EA3A3",
-                      },
-                    }}
-                    aria-label="add"
-                  >
-                    GUARDAR DATOS ACTUALIZADOS
-                    <SaveOutlined sx={{ ml: 1, fontSize: "medium" }} />
-                  </Button>
                 </Box>
-              </form>
+              </Box>
             )}
             {tabValue === "2022-II" && <p>a</p>}
             {tabValue === "2022-III" && <p>a</p>}
+            <Box
+              display="flex"
+              position="absolute"
+              flexDirection="column"
+              right="3.6%"
+              bottom="3.6%"
+            >
+              <Button
+                variant="standard"
+                onClick={formik.handleSubmit}
+                sx={{
+                  backgroundColor: "#488B8F",
+                  borderRadius: "4px",
+                  color: "#FFFFFF",
+                  height: "3rem",
+                  width: "12vw",
+                  marginTop: "2rem",
+                  marginBottom: "2rem",
+                  position: "absolute",
+                  bottom: "3.5rem",
+                  right: "2rem",
+                  fontSize: "0.7rem",
+                  fontWeight: "bold",
+                  "&:hover": {
+                    backgroundColor: "#5EA3A3",
+                  },
+                }}
+                aria-label="add"
+              >
+                GUARDAR BORRADOR
+                <BookOutlined sx={{ ml: 1, fontSize: "medium" }} />
+              </Button>
+              <Button
+                variant="standard"
+                onClick={() => handleSubmission()}
+                sx={{
+                  backgroundColor: "#488B8F",
+                  borderRadius: "4px",
+                  color: "#FFFFFF",
+                  height: "3rem",
+                  marginTop: "2rem",
+                  marginBottom: "2rem",
+                  width: "12vw",
+                  position: "absolute",
+                  bottom: "0rem",
+                  right: "2rem",
+                  fontSize: "0.7rem",
+                  fontWeight: "bold",
+                  "&:hover": {
+                    backgroundColor: "#5EA3A3",
+                  },
+                }}
+                aria-label="add"
+              >
+                GUARDAR DATOS ACTUALIZADOS
+                <SaveOutlined sx={{ ml: 1, fontSize: "medium" }} />
+              </Button>
+            </Box>
           </Box>
         </Box>
       </Box>
