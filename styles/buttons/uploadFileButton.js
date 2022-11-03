@@ -3,18 +3,22 @@ import { styled } from "@mui/material/styles";
 
 const FileUploadButton = styled(Button)({
   backgroundColor: "white",
-  border: "1px solid #ACCFCF",
-  borderRadius: "5px",
-  padding: "10px",
+  border: "1.4px solid #ACCFCF",
+  borderRadius: "4px",
   height: "2.5rem",
-  "&.MuiButton-root": {
-    padding: "2px",  
-    color: "#57575780",
-  },
+  width: "20vw",
+  textAlign: "left",
+  letterSpacing: "0",
+  fontSize: "calc(0.3rem + 0.5vw)",
+  fontWeight: "regular",
+  textTransform: "none",
+  color: "#57575780",
   "&:hover": {
-    border: "1px solid #ACCFCF",
     backgroundColor: "#EBFAF6",
   },
+  display: "flex",
+  justifyContent: "space-between",
+  paddingLeft: "1rem",
 });
 
 export default FileUploadButton;

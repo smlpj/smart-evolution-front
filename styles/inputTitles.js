@@ -7,7 +7,6 @@ const InputTitles = styled(Typography)({
   fontSize: "12px",
   color: "#63595c",
   letterSpacing: "0px",
-  lineHeight: "0px",
   textTransform: "uppercase",
 });
 
