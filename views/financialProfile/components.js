@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 
 import Image from "next/image";
@@ -40,15 +41,11 @@ export const FinancialProfile = ({ formik }) => {
   const router = useRouter();
 
   useEffect(() => {
-    if (router && router.query) {
-      setID(router.query.id);
-    }
+    if (router && router.query) setID(router.query.id);
   }, [router.query]);
 
   useEffect(() => {
-    if (id) {
-      fetch(id);
-    }
+    if (id) fetch(id);
   }, [id]);
 
   const [tabValue, setTabValue] = useState("2022-I");
@@ -64,10 +61,7 @@ export const FinancialProfile = ({ formik }) => {
   const [allFiles, setAllFiles] = useState({});
 
   const changeHandler = (event) => {
-    setAllFiles({
-      ...allFiles,
-      [event.target.name]: event.target.value,
-    });
+    setAllFiles({ ...allFiles, [event.target.name]: event.target.value, });
   };
 
   return (
@@ -168,6 +162,7 @@ export const FinancialProfile = ({ formik }) => {
                         src="/assets/Icon - Perfil de riesgo - Desconocido.svg"
                         width={30}
                         height={30}
+                        alt="Perfil de riesgo desconocido"
                       />
                       <Typography
                         fontSize="80%"
@@ -195,6 +190,7 @@ export const FinancialProfile = ({ formik }) => {
                         src="/assets/Icon - Perfil de riesgo - Bajo.svg"
                         width={30}
                         height={30}
+                        alt="Bajo"
                       />
                       <Typography
                         fontSize="80%"
@@ -222,6 +218,7 @@ export const FinancialProfile = ({ formik }) => {
                         src="/assets/Icon - Perfil de riesgo - Medio.svg"
                         width={30}
                         height={30}
+                        alt="Icon - Perfil de riesgo - Medio"
                       />
                       <Typography
                         fontSize="80%"
@@ -249,6 +246,7 @@ export const FinancialProfile = ({ formik }) => {
                         src="/assets/Icon - Perfil de riesgo - Alto.svg"
                         width={30}
                         height={30}
+                        alt="Alto"
                       />
                       <Typography
                         fontSize="80%"
