@@ -65,6 +65,8 @@ const ManagementBoardStep = () => {
         <FileField
           error={Boolean(formik.errors.managementBoard)}
           helperText={formik.errors.managementBoard}
+          downloadFileURL="https://smartevolution.s3.amazonaws.com/assets/Composici%C3%B3n+de+la+Junta+Directiva.xlsx"
+          downloadFileName="Composición de la junta directiva"
           downloadFileText="Descargar archivo “Composición de la Junta Directiva”"
           onChange={handleFileFieldChange}
         />

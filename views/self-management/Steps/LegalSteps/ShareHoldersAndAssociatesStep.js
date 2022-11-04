@@ -66,6 +66,8 @@ const ShareHoldersAndAssociatesStep = () => {
         <FileField
           error={Boolean(formik.errors.shareHoldersAndAssociates)}
           helperText={formik.errors.shareHoldersAndAssociates}
+          downloadFileURL="https://smartevolution.s3.amazonaws.com/assets/Accionistas+y_o+Asociados.xlsx"
+          downloadFileName="Accionistas y/o asociados"
           downloadFileText="Descargar archivo “Accionistas y/o Asociados”"
           onChange={handleFileFieldChange}
         />

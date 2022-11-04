@@ -24,7 +24,7 @@ const FormLayout = (props) => {
     <Box component="main" sx={mainSx}>
       <Grid container sx={{ height: "100%" }}>
         <Grid item xs={0} lg={5} sx={leftContainerSx}>
-          {!hideLeftContainer && <Pagination />}
+          {false && !hideLeftContainer && <Pagination />}
         </Grid>
 
         <Grid container direction="column" item xs sx={rightContainerSx}>

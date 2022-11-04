@@ -65,6 +65,8 @@ const PrincipalCustomersStep = () => {
         <FileField
           error={Boolean(formik.errors.principalCustomers)}
           helperText={formik.errors.principalCustomers}
+          downloadFileURL="https://smartevolution.s3.amazonaws.com/assets/Principales+clientes.xlsx"
+          downloadFileName="Principales clientes"
           downloadFileText="Descargar archivo “Principales clientes”"
           onChange={handleFileFieldChange}
         />

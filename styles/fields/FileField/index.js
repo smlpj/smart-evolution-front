@@ -9,7 +9,7 @@ const FileField = (props) => {
   const {
     hideDownload,
     downloadFileURL,
-    downloadFileFileName,
+    downloadFileName,
     downloadFileText = "Descargar archivo",
     uploadFileText = "Adjuntar archivo",
     multiple,
@@ -61,7 +61,7 @@ const FileField = (props) => {
         <DashboardButton
           size="small"
           onClick={() => {
-            downloadFile(downloadFileURL, downloadFileFileName);
+            downloadFile(downloadFileURL, downloadFileName);
           }}
           sx={{
             color: "#5EA3A3",
