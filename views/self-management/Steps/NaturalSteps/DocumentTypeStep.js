@@ -42,7 +42,7 @@ const DocumentTypeStep = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      typeDocument: data.body.value?.typeDocument || "",
+      typeDocument: data.body.value?.typeDocument || null,
     },
     validationSchema: schema,
     onSubmit: handleNextStep,

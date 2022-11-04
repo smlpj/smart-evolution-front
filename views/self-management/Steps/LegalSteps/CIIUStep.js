@@ -42,7 +42,7 @@ const CIIUStep = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      ciiu: data.body.value?.ciiu || "",
+      ciiu: data.body.value?.ciiu || null,
     },
     validationSchema: schema,
     onSubmit: handleNextStep,

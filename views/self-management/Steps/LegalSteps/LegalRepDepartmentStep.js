@@ -43,7 +43,7 @@ const LegalRepDepartmentStep = () => {
     enableReinitialize: true,
     initialValues: {
       legalRepresentativeDepartment:
-        data.body.value?.legalRepresentativeDepartment || "",
+        data.body.value?.legalRepresentativeDepartment || null,
     },
     validationSchema: schema,
     onSubmit: handleNextStep,

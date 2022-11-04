@@ -42,7 +42,7 @@ const CountryStep = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      country: data.body.value?.country || "",
+      country: data.body.value?.country || null,
     },
     validationSchema: schema,
     onSubmit: handleNextStep,

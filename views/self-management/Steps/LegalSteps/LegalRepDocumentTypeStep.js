@@ -43,7 +43,7 @@ const LegalRepDocumentTypeStep = () => {
     enableReinitialize: true,
     initialValues: {
       legalRepresentativeDocumentType:
-        data.body.value?.legalRepresentativeDocumentType || "",
+        data.body.value?.legalRepresentativeDocumentType || null,
     },
     validationSchema: schema,
     onSubmit: handleNextStep,

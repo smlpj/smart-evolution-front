@@ -42,7 +42,7 @@ const DepartmentStep = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      department: data.body.value?.department || "",
+      department: data.body.value?.department || null,
     },
     validationSchema: schema,
     onSubmit: handleNextStep,

@@ -42,7 +42,7 @@ const BankReferenceCityStep = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      bankReferenceCity: data.body.value?.bankReferenceCity || "",
+      bankReferenceCity: data.body.value?.bankReferenceCity || null,
     },
     validationSchema: schema,
     onSubmit: handleNextStep,

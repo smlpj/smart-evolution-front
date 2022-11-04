@@ -44,7 +44,7 @@ const TypeForeignCurrencyAccountStep = () => {
     enableReinitialize: true,
     initialValues: {
       typeForeignCurrencyAccount:
-        data.body.value?.typeForeignCurrencyAccount || "",
+        data.body.value?.typeForeignCurrencyAccount || null,
     },
     validationSchema: schema,
     onSubmit: handleNextStep,

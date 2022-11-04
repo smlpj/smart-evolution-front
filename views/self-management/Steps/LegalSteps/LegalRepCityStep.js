@@ -42,7 +42,7 @@ const LegalRepCityStep = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      legalRepresentativeCity: data.body.value?.legalRepresentativeCity || "",
+      legalRepresentativeCity: data.body.value?.legalRepresentativeCity || null,
     },
     validationSchema: schema,
     onSubmit: handleNextStep,

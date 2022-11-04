@@ -43,7 +43,7 @@ const LegalRepCitizenshipStep = () => {
     enableReinitialize: true,
     initialValues: {
       legalRepresentativeCitizenship:
-        data.body.value?.legalRepresentativeCitizenship || "",
+        data.body.value?.legalRepresentativeCitizenship || null,
     },
     validationSchema: schema,
     onSubmit: handleNextStep,

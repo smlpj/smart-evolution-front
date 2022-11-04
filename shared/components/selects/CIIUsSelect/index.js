@@ -1,13 +1,8 @@
 import { useEffect, useState } from "react";
 
-import { Clear } from "@mui/icons-material";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import { Autocomplete } from "@mui/material";
-
 import { useFetch } from "@hooks/useFetch";
 
-import BaseField from "@styles/fields/BaseField";
-
+import GenericSelect from "../GenericSelect";
 import { CIIU } from "../queries";
 
 const CIIUsSelect = (props) => {
@@ -34,24 +29,13 @@ const CIIUsSelect = (props) => {
   }, [data, loading, fetchError]);
 
   return (
-    <Autocomplete
-      disablePortal
-      getOptionLabel={(option) => option.label}
+    <GenericSelect
+      error={error}
       value={value}
       onChange={onChange}
       options={ciius}
-      noOptionsText="Sin resultados"
-      popupIcon={<KeyboardArrowDownIcon sx={{ color: "#5EA3A3" }} />}
-      clearIcon={<Clear sx={{ color: "#5EA3A3" }} />}
-      renderInput={(params) => (
-        <BaseField
-          {...params}
-          fullWidth={fullWidth}
-          error={error}
-          helperText={helperText}
-        />
-      )}
-      sx={{ ".MuiAutocomplete-popupIndicator": { margin: 0 } }}
+      fullWidth={fullWidth}
+      helperText={helperText}
     />
   );
 };

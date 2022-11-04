@@ -42,7 +42,7 @@ const ReferenceDepartmentStep = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      referenceDepartment: data.body.value?.referenceDepartment || "",
+      referenceDepartment: data.body.value?.referenceDepartment || null,
     },
     validationSchema: schema,
     onSubmit: handleNextStep,
