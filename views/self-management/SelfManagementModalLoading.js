@@ -4,8 +4,6 @@ import { Box, Typography } from "@mui/material";
 
 import Modal from "@components/modals/modal";
 
-import responsiveFontSize from "@lib/responsiveFontSize";
-
 import GreenButtonModal from "@styles/buttons/yesButtonModal";
 
 import { footerTextSx, questionDescriptionSx } from "./styles";
@@ -15,13 +13,16 @@ const SelfManagementModalLoading = (props) => {
 
   const router = useRouter();
 
-  const handleClick = () => {
-    if (!loading && !error) router.replace("/auth/login");
+  const handleModalClose = () => {
+    if (!loading && !error) {
+      localStorage.setItem("sm-form", JSON.stringify({}));
+      router.replace("/auth/login");
+    }
     handleClose?.();
   };
 
   return (
-    <Modal open={open} handleClose={handleClose}>
+    <Modal open={open} handleClose={handleModalClose}>
       <Box
         display="flex"
         flexDirection="column"
@@ -46,6 +47,18 @@ const SelfManagementModalLoading = (props) => {
             <Box sx={{ color: "#b67b7b", fontSize: 64 }}>
               <i className="far fa-xmark" />
             </Box>
+            <Typography sx={{ ...questionDescriptionSx, mt: 2 }}>
+              {Object.entries(error.message).map(([key, value], i) => {
+                return (
+                  <Typography
+                    key={`error-message-${i}`}
+                    sx={{ ...questionDescriptionSx, fontStyle: "italic" }}
+                  >
+                    {value?.join?.(", ")}
+                  </Typography>
+                );
+              })}
+            </Typography>
             <Typography sx={{ ...questionDescriptionSx, my: 2 }}>
               Hubo un error, inténtalo nuevamente.
             </Typography>
@@ -64,7 +77,7 @@ const SelfManagementModalLoading = (props) => {
         )}
 
         <GreenButtonModal
-          onClick={handleClick}
+          onClick={handleModalClose}
           sx={{ fontSize: footerTextSx.fontSize }}
         >
           Aceptar

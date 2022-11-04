@@ -23,6 +23,14 @@ const FormProvider = ({ children }) => {
     [stepsCount]
   );
 
+  useEffect(() => {
+    setBody(JSON.parse(localStorage.getItem("sm-form")));
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("sm-form", JSON.stringify(body));
+  }, [body]);
+
   const nextStep = () => {
     changeStep(step + 1);
   };

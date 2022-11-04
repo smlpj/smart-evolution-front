@@ -50,7 +50,7 @@ const CloseButton = (props) => {
 };
 
 const Modal = (props) => {
-  const { open, handleClose, children, ...rest } = props;
+  const { open, handleClose, children, containerSx, ...rest } = props;
 
   return (
     <MUIModal
@@ -61,7 +61,7 @@ const Modal = (props) => {
       BackdropProps={{ sx: backDropStyles, timeout: 500 }}
     >
       <Fade in={open}>
-        <Box sx={containerStyles}>
+        <Box sx={{ ...containerStyles, ...containerSx }}>
           <CloseButton handleClose={handleClose} />
           {children}
         </Box>

@@ -4,6 +4,7 @@ import { Box, Button, Typography } from "@mui/material";
 
 const EnterButton = (props) => {
   const {
+    disabled,
     path,
     showPressEnter,
     wrapperSx,
@@ -20,6 +21,7 @@ const EnterButton = (props) => {
       sx={{ width: "fit-content", display: "flex", gap: 0.5, ...wrapperSx }}
     >
       <Button
+        disabled={disabled}
         variant="standard"
         onClick={onClick}
         endIcon={<Typography fontFamily="icomoon"></Typography>}

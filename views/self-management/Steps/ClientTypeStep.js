@@ -23,7 +23,11 @@ const schema = radioGroupSchema("typeClient", "string");
 const ClientTypeStep = () => {
   const { pagination, data } = useContext(FormContext);
 
-  const { loading: loading, data: requestData } = useFetch({
+  const {
+    loading: loading,
+    data: requestData,
+    error,
+  } = useFetch({
     service: ClientType,
     init: true,
   });
@@ -36,7 +40,12 @@ const ClientTypeStep = () => {
   };
 
   const handleNextStep = (values) => {
-    data.body.set({ ...data.body.value, ...values });
+    if (values.typeClient !== data.body.value.typeClient)
+      data.body.set({
+        email: data.body.value.email,
+        typeVinculation: data.body.value.typeVinculation,
+        typeClient: values.typeClient,
+      });
     pagination?.nextStep();
   };
 
@@ -78,6 +87,8 @@ const ClientTypeStep = () => {
                 />
               ))}
         </RadioGroup>
+
+        {error && JSON.stringify(error)}
 
         <EnterButton
           onClick={formik.handleSubmit}

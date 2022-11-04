@@ -84,10 +84,110 @@ import UsedCapacityVsInstalledCapacityStep from "./Steps/LegalSteps/UsedCapacity
 import VerificationAuthorizationStep from "./Steps/LegalSteps/VerificationAuthorizationStep";
 import ForeingTaxObligationDescriptionStep from "./Steps/LegalSteps/foreingTaxObligationDescriptionStep";
 import LinkTypeStep from "./Steps/LinkTypeStep";
+import ActivityDescriptionStep from "./Steps/NaturalSteps/ActivityDescriptionStep";
+import NaturalAddressStep from "./Steps/NaturalSteps/AddressStep";
+import AssetsSteps from "./Steps/NaturalSteps/AssetsSteps";
+import BankReferenceCityStep from "./Steps/NaturalSteps/BankReferenceCityStep";
+import BankReferenceDepartmentStep from "./Steps/NaturalSteps/BankReferenceDepartmentStep";
+import BankReferenceNameStep from "./Steps/NaturalSteps/BankReferenceNameStep";
+import BankReferencePhoneStep from "./Steps/NaturalSteps/BankReferencePhoneStep";
+import BankReferenceProductStep from "./Steps/NaturalSteps/BankReferenceProductStep";
+import NaturalCIIUStep from "./Steps/NaturalSteps/CIIUStep";
+import NaturalCityStep from "./Steps/NaturalSteps/CityStep";
+import CompanyActivityStep from "./Steps/NaturalSteps/CompanyActivityStep";
+import CompanyAddressStep from "./Steps/NaturalSteps/CompanyAddressStep";
+import CompanyCityStep from "./Steps/NaturalSteps/CompanyCityStep";
+import CompanyDepartmentStep from "./Steps/NaturalSteps/CompanyDepartmentStep";
+import CompanyNameStep from "./Steps/NaturalSteps/CompanyNameStep";
+import CompanyPhoneStep from "./Steps/NaturalSteps/CompanyPhoneStep";
+import CompanyRoleStep from "./Steps/NaturalSteps/CompanyRoleStep";
+import NaturalCountryStep from "./Steps/NaturalSteps/CountryStep";
+import DateExpeditionStep from "./Steps/NaturalSteps/DateExpeditionStep";
+import NaturalDepartmentStep from "./Steps/NaturalSteps/DepartmentStep";
+import DocumentExpeditionStep from "./Steps/NaturalSteps/DocumentExpeditionStep";
+import DocumentNumberStep from "./Steps/NaturalSteps/DocumentNumberStep";
+import DocumentTypeStep from "./Steps/NaturalSteps/DocumentTypeStep";
+import FirstNameStep from "./Steps/NaturalSteps/FirstNameStep";
+import ForeignTaxObligationDescriptionStep from "./Steps/NaturalSteps/ForeignTaxObligationDescriptionStep";
+import ForeignTaxObligationStep from "./Steps/NaturalSteps/ForeignTaxObligationStep";
+import NaturalHandlePublicResourcesStep from "./Steps/NaturalSteps/HandlePublicResourcesStep";
+import LastNameStep from "./Steps/NaturalSteps/LastNameStep";
+import MensualIncomeStep from "./Steps/NaturalSteps/MensualIncomeStep";
+import MensualPassivesStep from "./Steps/NaturalSteps/MensualPassivesStep";
+import OtherAssetsConceptStep from "./Steps/NaturalSteps/OtherAssetsConceptStep";
+import OtherAssetsStep from "./Steps/NaturalSteps/OtherAssetsStep";
+import PassivesStep from "./Steps/NaturalSteps/PassivesStep";
+import PatrimonyStep from "./Steps/NaturalSteps/PatrimonyStep";
+import NaturalPhoneNumberStep from "./Steps/NaturalSteps/PhoneNumberStep";
+import ProfessionStep from "./Steps/NaturalSteps/ProfessionStep";
+import NaturalPublicPersonRelationDescriptionStep from "./Steps/NaturalSteps/PublicPersonRelationDescriptionStep";
+import NaturalPublicPersonRelationStep from "./Steps/NaturalSteps/PublicPersonRelationStep";
+import NaturalPublicRecongnitionStep from "./Steps/NaturalSteps/PublicRecongnitionStep";
+import ReferenceCityStep from "./Steps/NaturalSteps/ReferenceCityStep";
+import ReferenceCompanyStep from "./Steps/NaturalSteps/ReferenceCompanyStep";
+import ReferenceDepartmentStep from "./Steps/NaturalSteps/ReferenceDepartmentStep";
+import ReferenceFirstNameStep from "./Steps/NaturalSteps/ReferenceFirstNameStep";
+import ReferenceLastNameStep from "./Steps/NaturalSteps/ReferenceLastNameStep";
+import ReferencePhoneStep from "./Steps/NaturalSteps/ReferencePhoneStep";
+import TermsAndConditionsStep from "./Steps/NaturalSteps/TermsAndConditionsStep";
+import TypeActivityStep from "./Steps/NaturalSteps/TypeActivityStep";
+import TypeProductsStep from "./Steps/NaturalSteps/TypeProductsStep";
 import StartStep from "./Steps/StartStep";
 import { SelfManagement as SelfManagementComponents } from "./component";
 
-const naturalSteps = [];
+const naturalSteps = [
+  { sectionId: 1, component: FirstNameStep },
+  { sectionId: 1, component: LastNameStep },
+  { sectionId: 1, component: DocumentTypeStep },
+  { sectionId: 1, component: DocumentNumberStep },
+  { sectionId: 1, component: DocumentExpeditionStep },
+  { sectionId: 1, component: DateExpeditionStep },
+  { sectionId: 1, component: NaturalCountryStep },
+  { sectionId: 1, component: NaturalDepartmentStep },
+  { sectionId: 1, component: NaturalCityStep },
+  { sectionId: 1, component: NaturalAddressStep },
+  { sectionId: 1, component: NaturalPhoneNumberStep },
+  { sectionId: 1, component: ProfessionStep },
+  { sectionId: 1, component: TypeActivityStep },
+
+  { sectionId: 1, component: CompanyNameStep },
+  { sectionId: 1, component: CompanyActivityStep },
+  { sectionId: 1, component: CompanyRoleStep },
+  { sectionId: 1, component: CompanyPhoneStep },
+  { sectionId: 1, component: CompanyDepartmentStep },
+  { sectionId: 1, component: CompanyCityStep },
+  { sectionId: 1, component: CompanyAddressStep },
+
+  { sectionId: 1, component: NaturalCIIUStep },
+  { sectionId: 1, component: TypeProductsStep },
+
+  { sectionId: 1, component: MensualIncomeStep },
+  { sectionId: 1, component: MensualPassivesStep },
+  { sectionId: 1, component: AssetsSteps },
+  { sectionId: 1, component: PassivesStep },
+  { sectionId: 1, component: PatrimonyStep },
+  { sectionId: 1, component: OtherAssetsStep },
+  { sectionId: 1, component: OtherAssetsConceptStep },
+  { sectionId: 1, component: NaturalHandlePublicResourcesStep },
+  { sectionId: 1, component: NaturalPublicRecongnitionStep },
+  { sectionId: 1, component: NaturalPublicPersonRelationStep },
+  { sectionId: 1, component: NaturalPublicPersonRelationDescriptionStep },
+  { sectionId: 1, component: ForeignTaxObligationStep },
+  { sectionId: 1, component: ForeignTaxObligationDescriptionStep },
+  { sectionId: 1, component: ReferenceFirstNameStep },
+  { sectionId: 1, component: ReferenceLastNameStep },
+  { sectionId: 1, component: ReferencePhoneStep },
+  { sectionId: 1, component: ReferenceCompanyStep },
+  { sectionId: 1, component: ReferenceDepartmentStep },
+  { sectionId: 1, component: ReferenceCityStep },
+  { sectionId: 1, component: BankReferenceNameStep },
+  { sectionId: 1, component: BankReferencePhoneStep },
+  { sectionId: 1, component: BankReferenceProductStep },
+  { sectionId: 1, component: BankReferenceDepartmentStep },
+  { sectionId: 1, component: BankReferenceCityStep },
+  { sectionId: 1, component: ActivityDescriptionStep },
+  { sectionId: 1, component: TermsAndConditionsStep },
+];
 const legalSteps = [
   { sectionId: 1, component: SocialReasonStep },
   { sectionId: 1, component: NitStep },

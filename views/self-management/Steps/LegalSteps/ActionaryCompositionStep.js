@@ -47,6 +47,7 @@ const ActionaryCompositionStep = () => {
     clientSelfManagement({
       ...data.body.value,
       typeDocument: "6b1a9326-00c6-4b72-a8b4-4453b889fbb7",
+      actionaryComposition: values.actionaryComposition,
       country: data.body.value.country.value,
       departmentLC: data.body.value.departmentLC.value,
       cityLC: data.body.value.cityLC.value,
@@ -58,6 +59,10 @@ const ActionaryCompositionStep = () => {
       legalRepresentativeDepartment:
         data.body.value.legalRepresentativeDepartment.value,
       legalRepresentativeCity: data.body.value.legalRepresentativeCity.value,
+
+      ...(data.body.value.foreignCurrencyAccounts && {
+        foreignCurrencyCountry: data.body.value.foreignCurrencyCountry.value,
+      }),
     });
   };
 
@@ -104,6 +109,7 @@ const ActionaryCompositionStep = () => {
         />
 
         <EnterButton
+          disabled={loading}
           onClick={formik.handleSubmit}
           wrapperSx={{ mt: 3.75 }}
           showPressEnter
