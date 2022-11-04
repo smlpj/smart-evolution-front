@@ -1,3 +1,4 @@
+import { VisibilityOffOutlined, VisibilityOutlined } from "@mui/icons-material";
 import LoginIcon from "@mui/icons-material/Login";
 import {
   Box,
@@ -84,7 +85,22 @@ export const InputAdornments = ({
                         aria-label="toggle password visibility"
                         onClick={handleClickShowPassword}
                         onMouseDown={handleMouseDownPassword}
-                      ></IconButton>
+                      >
+                        {handleClickShowPassword &&
+                          (values.showPassword ? (
+                            <VisibilityOffOutlined
+                              sx={{
+                                color: "#5EA3A3",
+                              }}
+                            />
+                          ) : (
+                            <VisibilityOutlined
+                              sx={{
+                                color: "#5EA3A3",
+                              }}
+                            />
+                          ))}
+                      </IconButton>
                     </InputAdornment>
                   ),
                 }}

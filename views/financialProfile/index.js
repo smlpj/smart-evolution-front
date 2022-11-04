@@ -4,9 +4,13 @@ import { FinancialProfile } from "./components";
 
 import { useFormik } from "formik";
 
-export default function RegisterClient() {
+export default function FinancialProfile() {
   const formik = useFormik({
-    initialValues: {},
+    initialValues: {
+      first_period: {},
+      second_period: {},
+      third_period: {},
+    },
 
     onSubmit: (values) => {
       console.log(values);
