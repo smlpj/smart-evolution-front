@@ -1,11 +1,51 @@
+import { useContext, useMemo, useState } from "react";
+
 import Link from "next/link";
 
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
-import { AppBar, Box, IconButton, Toolbar } from "@mui/material";
+import {
+  AppBar,
+  Avatar,
+  Box,
+  IconButton,
+  Menu,
+  MenuItem,
+  Toolbar,
+} from "@mui/material";
 
 import HeaderButton from "@styles/buttons/button_2";
 
+import authContext from "@context/authContext";
+
 export default function Header() {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+
+  const { user, logout } = useContext(authContext);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = (evt, any) => {
+    setAnchorEl(null);
+    if (!any) logout();
+  };
+
+  const nameInitials = useMemo(
+    () =>
+      (user &&
+        user.name
+          .split(" ")
+          .map((name, i) => {
+            if (i > 1 || !name) return;
+            return name[0].toUpperCase();
+          })
+          .join("")) ||
+      "LDG",
+    [user.name]
+  );
+
   return (
     <>
       <AppBar
@@ -37,6 +77,7 @@ export default function Header() {
                   <img
                     style={{ marginLeft: "1.5vw" }}
                     src="/assets/Icon Home.svg"
+                    alt=""
                   />
                 }
               >
@@ -63,21 +104,32 @@ export default function Header() {
           >
             <NotificationsNoneOutlinedIcon />
           </IconButton>
-          <IconButton
-            edge="end"
-            sx={{
-              border: "0.5px solid #488B8F",
-              backgroundColor: "#488B8F",
-              color: "#FFFFFF",
-              padding: "0.5%",
-              "&:hover": {
-                backgroundColor: "#5EA3A3",
-              },
-            }}
-            aria-label="avatar"
+
+          <Avatar
+            id="menu-button"
+            aria-controls={open ? "basic-menu" : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? "true" : undefined}
+            onClick={handleClick}
+            sx={{ backgroundColor: "#488B8F", fontSize: 16, cursor: "pointer" }}
           >
-            <NotificationsNoneOutlinedIcon />
-          </IconButton>
+            {nameInitials}
+          </Avatar>
+          <Menu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{
+              "aria-labelledby": "menu-button",
+            }}
+            transformOrigin={{ horizontal: "right", vertical: "top" }}
+            anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+          >
+            <MenuItem dense onClick={handleClose}>
+              Cerrar sesión
+            </MenuItem>
+          </Menu>
         </Toolbar>
       </AppBar>
     </>
