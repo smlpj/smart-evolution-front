@@ -14,6 +14,8 @@ const SelfManagementModalLoading = (props) => {
   const router = useRouter();
 
   const handleModalClose = () => {
+    if (loading) return;
+
     if (!loading && !error) {
       localStorage.setItem("sm-form", JSON.stringify({}));
       router.replace("/auth/login");
@@ -77,6 +79,7 @@ const SelfManagementModalLoading = (props) => {
         )}
 
         <GreenButtonModal
+          disabled={loading}
           onClick={handleModalClose}
           sx={{ fontSize: footerTextSx.fontSize }}
         >

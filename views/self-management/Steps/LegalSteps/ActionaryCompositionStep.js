@@ -62,6 +62,8 @@ const ActionaryCompositionStep = () => {
 
       ...(data.body.value.foreignCurrencyAccounts && {
         foreignCurrencyCountry: data.body.value.foreignCurrencyCountry.value,
+        typeForeignCurrencyAccount:
+          data.body.value.typeForeignCurrencyAccount.value,
       }),
     });
   };
