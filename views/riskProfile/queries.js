@@ -11,3 +11,23 @@ export const GetCustomerById = async (id) => {
     });
     return res.data;
 };
+
+
+export const saveRiskProfile = async (data) => {
+  const res = await Axios.post(`${API_URL}/riskProfile/`, data, {
+    headers: {
+      authorization: "Bearer " + localStorage.getItem("access-token"),
+    },
+  });
+  return res.data;
+};
+
+export const getRiskProfile = async (data) => {
+  console.log(data)
+    const res = await Axios.get(`${API_URL}/riskProfile/client/${data}`, {
+        headers: {
+          authorization: "Bearer " + localStorage.getItem("access-token"),
+        },
+      });
+      return res.data;
+}
