@@ -42,7 +42,7 @@ const PublicRecongnitionStep = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      publicRecongnition: data.body.value?.publicRecongnition,
+      publicRecongnition: data.body.value?.publicRecongnition ?? null,
     },
     validationSchema: schema,
     onSubmit: handleNextStep,

@@ -42,7 +42,8 @@ const AssetLaunderingPreventionStep = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      assetLaunderingPrevention: data.body.value?.assetLaunderingPrevention,
+      assetLaunderingPrevention:
+        data.body.value?.assetLaunderingPrevention ?? null,
     },
     validationSchema: schema,
     onSubmit: handleNextStep,

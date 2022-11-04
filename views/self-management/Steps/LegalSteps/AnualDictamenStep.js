@@ -42,7 +42,7 @@ const AnualDictamenStep = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      anualDictamen: data.body.value?.anualDictamen,
+      anualDictamen: data.body.value?.anualDictamen ?? null,
     },
     validationSchema: schema,
     onSubmit: handleNextStep,

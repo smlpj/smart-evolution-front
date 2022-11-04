@@ -42,7 +42,7 @@ const PoliticsAndRiskPreventionStep = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      politicsAndRiskPrevention: data.body.value?.politicsAndRiskPrevention,
+      politicsAndRiskPrevention: data.body.value?.politicsAndRiskPrevention ?? null,
     },
     validationSchema: schema,
     onSubmit: handleNextStep,

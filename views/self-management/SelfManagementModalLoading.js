@@ -47,18 +47,18 @@ const SelfManagementModalLoading = (props) => {
             <Box sx={{ color: "#b67b7b", fontSize: 64 }}>
               <i className="far fa-xmark" />
             </Box>
-            <Typography sx={{ ...questionDescriptionSx, mt: 2 }}>
-              {Object.entries(error.message).map(([key, value], i) => {
-                return (
-                  <Typography
-                    key={`error-message-${i}`}
-                    sx={{ ...questionDescriptionSx, fontStyle: "italic" }}
-                  >
-                    {value?.join?.(", ")}
-                  </Typography>
-                );
-              })}
-            </Typography>
+
+            {Object.entries(error.message).map(([key, value], i) => {
+              return (
+                <Typography
+                  key={`error-message-${i}`}
+                  sx={{ ...questionDescriptionSx, fontStyle: "italic" }}
+                >
+                  {value?.join?.(", ")}
+                </Typography>
+              );
+            })}
+
             <Typography sx={{ ...questionDescriptionSx, my: 2 }}>
               Hubo un error, inténtalo nuevamente.
             </Typography>

@@ -43,7 +43,8 @@ const VerificationAuthorizationStep = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      verificationAuthorization: data.body.value?.verificationAuthorization,
+      verificationAuthorization:
+        data.body.value?.verificationAuthorization ?? null,
     },
     validationSchema: schema,
     onSubmit: handleNextStep,

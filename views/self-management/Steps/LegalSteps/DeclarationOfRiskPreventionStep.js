@@ -43,7 +43,8 @@ const DeclarationOfRiskPreventionStep = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      declarationOfRiskPrevention: data.body.value?.declarationOfRiskPrevention,
+      declarationOfRiskPrevention:
+        data.body.value?.declarationOfRiskPrevention ?? null,
     },
     validationSchema: schema,
     onSubmit: handleNextStep,

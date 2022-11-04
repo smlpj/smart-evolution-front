@@ -39,7 +39,7 @@ const LinkTypeStep = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      typeVinculation: data.body.value?.typeVinculation,
+      typeVinculation: data.body.value?.typeVinculation ?? null,
     },
     validationSchema: schema,
     onSubmit: handleNextStep,

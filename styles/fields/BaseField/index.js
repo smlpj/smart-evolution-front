@@ -5,9 +5,7 @@ import { styled } from "@mui/material/styles";
 
 import responsiveFontSize from "@lib/responsiveFontSize";
 
-const DefaultTextField = (props) => (
-  <TextField variant="standard" disableUnderline {...props} />
-);
+const DefaultTextField = (props) => <TextField variant="standard" {...props} />;
 
 const StandardTextField = (props) => {
   const { isMasked, isPatterned, onChangeMasked, ...rest } = props;

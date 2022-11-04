@@ -42,7 +42,7 @@ const ExercisePublicPowerStep = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      exercisePublicPower: data.body.value?.exercisePublicPower,
+      exercisePublicPower: data.body.value?.exercisePublicPower ?? null,
     },
     validationSchema: schema,
     onSubmit: handleNextStep,

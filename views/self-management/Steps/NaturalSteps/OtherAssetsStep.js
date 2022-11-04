@@ -41,7 +41,7 @@ const OtherAssetsStep = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      otherAssets: data.body.value?.otherAssets || "",
+      otherAssets: data.body.value?.otherAssets ?? "",
     },
     validationSchema: schema,
     onSubmit: handleNextStep,

@@ -42,7 +42,8 @@ const LAFTRiskPreventionAuditorStep = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      LAFTRiskPreventionAuditor: data.body.value?.LAFTRiskPreventionAuditor,
+      LAFTRiskPreventionAuditor:
+        data.body.value?.LAFTRiskPreventionAuditor ?? null,
     },
     validationSchema: schema,
     onSubmit: handleNextStep,

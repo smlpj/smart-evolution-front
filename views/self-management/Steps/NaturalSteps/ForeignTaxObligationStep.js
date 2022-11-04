@@ -42,7 +42,7 @@ const ForeignTaxObligationStep = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      foreignTaxObligation: data.body.value?.foreignTaxObligation,
+      foreignTaxObligation: data.body.value?.foreignTaxObligation ?? null,
     },
     validationSchema: schema,
     onSubmit: handleNextStep,

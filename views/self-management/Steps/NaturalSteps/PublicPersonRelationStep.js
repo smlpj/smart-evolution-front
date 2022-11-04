@@ -42,7 +42,7 @@ const PublicPersonRelationStep = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      publicPersonRelation: data.body.value?.publicPersonRelation,
+      publicPersonRelation: data.body.value?.publicPersonRelation ?? null,
     },
     validationSchema: schema,
     onSubmit: handleNextStep,

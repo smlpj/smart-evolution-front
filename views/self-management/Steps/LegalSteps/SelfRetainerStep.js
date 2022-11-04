@@ -42,7 +42,7 @@ const SelfRetainerStep = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      selfRetainer: data.body.value?.selfRetainer,
+      selfRetainer: data.body.value?.selfRetainer ?? null,
     },
     validationSchema: schema,
     onSubmit: handleNextStep,

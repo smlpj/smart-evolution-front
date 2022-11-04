@@ -56,7 +56,7 @@ const ClientTypeStep = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      typeClient: data.body.value?.typeClient,
+      typeClient: data.body.value?.typeClient ?? null,
     },
     validationSchema: schema,
     onSubmit: handleNextStep,

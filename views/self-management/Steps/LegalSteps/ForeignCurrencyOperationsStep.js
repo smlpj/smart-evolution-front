@@ -42,7 +42,8 @@ const ForeignCurrencyOperationsStep = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      foreignCurrencyOperations: data.body.value?.foreignCurrencyOperations,
+      foreignCurrencyOperations:
+        data.body.value?.foreignCurrencyOperations ?? null,
     },
     validationSchema: schema,
     onSubmit: handleNextStep,

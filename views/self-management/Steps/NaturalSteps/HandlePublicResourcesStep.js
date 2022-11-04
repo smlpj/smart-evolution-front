@@ -42,7 +42,7 @@ const HandlePublicResourcesStep = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      handlePublicResources: data.body.value?.handlePublicResources,
+      handlePublicResources: data.body.value?.handlePublicResources ?? null,
     },
     validationSchema: schema,
     onSubmit: handleNextStep,

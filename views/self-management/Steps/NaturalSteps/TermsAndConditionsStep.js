@@ -84,7 +84,7 @@ const TermsAndConditionsStep = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      termsAndConditions: data.body.value?.termsAndConditions,
+      termsAndConditions: data.body.value?.termsAndConditions ?? null,
     },
     validationSchema: schema,
     onSubmit: handleNextStep,

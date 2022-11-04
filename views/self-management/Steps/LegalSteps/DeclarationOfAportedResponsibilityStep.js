@@ -47,7 +47,7 @@ const DeclarationOfAportedResponsibilityStep = () => {
     enableReinitialize: true,
     initialValues: {
       declarationOfAportedResponsibility:
-        data.body.value?.declarationOfAportedResponsibility,
+        data.body.value?.declarationOfAportedResponsibility ?? null,
     },
     validationSchema: schema,
     onSubmit: handleNextStep,

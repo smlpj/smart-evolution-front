@@ -49,7 +49,7 @@ const TypeActivityStep = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      typeActivity: data.body.value?.typeActivity,
+      typeActivity: data.body.value?.typeActivity ?? null,
     },
     validationSchema: schema,
     onSubmit: handleNextStep,

@@ -42,7 +42,7 @@ const GreatContributorStep = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      greatContributor: data.body.value?.greatContributor,
+      greatContributor: data.body.value?.greatContributor ?? null,
     },
     validationSchema: schema,
     onSubmit: handleNextStep,

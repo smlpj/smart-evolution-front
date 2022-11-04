@@ -38,7 +38,7 @@ const ActivityDescriptionStep = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      activityDescription: data.body.value?.activityDescription,
+      activityDescription: data.body.value?.activityDescription || "",
     },
     validationSchema: schema,
     onSubmit: handleNextStep,

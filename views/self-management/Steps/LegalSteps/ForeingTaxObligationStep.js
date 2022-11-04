@@ -42,7 +42,7 @@ const ForeingTaxObligationStep = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      foreingTaxObligation: data.body.value?.foreingTaxObligation,
+      foreingTaxObligation: data.body.value?.foreingTaxObligation ?? null,
     },
     validationSchema: schema,
     onSubmit: handleNextStep,
