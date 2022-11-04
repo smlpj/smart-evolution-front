@@ -78,6 +78,7 @@ export const FinancialProfile = ({ formik }) => {
           borderBottom="2px solid #A1A1A1"
           display="flex"
           flexDirection="column"
+          height="80%"
           sx={{ ...scrollSx }}
         >
           <Box display="flex" flexDirection="column">

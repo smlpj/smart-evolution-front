@@ -72,6 +72,16 @@ export const BillsComponents = () => {
     errorReadBills?.message
   );
 
+  useToatsStatus(
+    loadingReadBills,
+    dataReadBills,
+    errorReadBills,
+    (loading, data, error) =>
+      data?.bills.length == 0 && data?.duplicatedBills.length > 0,
+    "Facturas cargadas anteriormente",
+    errorReadBills?.message
+  );
+
   const onChangeFilesExtractBill = (e) => {
     const formData = new FormData();
     const files = Array.from(e.target.files);
@@ -240,12 +250,17 @@ export const BillsComponents = () => {
           billValue: bill.billValue,
           iva: bill.iva,
           cufe: bill.cufe,
-          events: bill.events ? bill.events : [],
-          n_events: bill.events ? bill.events.length : 0,
-          lastEventDate: bill.events ? getLastEvent(bill.events).date : null,
-          lastEventDescription: bill.events
-            ? getLastEvent(bill.events).description
-            : null,
+          events: bill.events && bill.events.length > 0 ? bill.events : [],
+          n_events:
+            bill.events && bill.events.length > 0 ? bill.events.length : 0,
+          lastEventDate:
+            bill.events && bill.events.length > 0
+              ? getLastEvent(bill.events).date
+              : null,
+          lastEventDescription:
+            bill.events && bill.events.length > 0
+              ? getLastEvent(bill.events).description
+              : null,
           ret_iva: retIVA[bill.billId] ? retIVA[bill.billId] : 0,
           creditNotes:
             dataReadCreditNotes !== null &&
@@ -647,10 +662,12 @@ export const BillsComponents = () => {
       headerName: "FECHA ULT. EVENTO",
       width: 150,
       renderCell: (params) => {
-        return (
+        return params.row.events.length > 0 ? (
           <InputTitles>
             <DateFormat date={params.value} />
           </InputTitles>
+        ) : (
+          <InputTitles>Sin eventos</InputTitles>
         );
       },
     },
