@@ -831,7 +831,7 @@ export const FinancialProfile = ({ formik }) => {
               display="flex"
               position="absolute"
               flexDirection="column"
-              right="3.6%"
+              right="5%"
               bottom="3.6%"
             >
               <Button
