@@ -83,7 +83,7 @@ export const FinancialProfile = ({ formik }) => {
               flexDirection="row"
               justifyContent="space-between"
             >
-              <BackButton path="/dashboard" />
+              <BackButton path="/customers/customerList" />
               <Link href={`/financialProfile/financialStatement/?id=${id}`}>
                 <Button
                   variant="standard"

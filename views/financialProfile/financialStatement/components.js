@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 //Material UI imports
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 
 //Custom imports
 import Header from "@components/header";
@@ -14,6 +14,10 @@ import Header from "@components/header";
 import { useFetch } from "@hooks/useFetch";
 
 import BackButton from "@styles/buttons/BackButton";
+import {
+  FinancialStatInputLong,
+  FinancialStatInputShort,
+} from "@styles/financialStatInput";
 import InputTitles from "@styles/inputTitles";
 
 //Queries imports
@@ -304,6 +308,240 @@ export const FinancialStat = () => {
                 class="fa-regular fa-download"
               ></i>
             </Button>
+          </Box>
+          <Box
+            display="flex"
+            flexDirection="row"
+            marginTop="2%"
+            borderTop="2px solid #A1A1A1"
+            paddingTop="2%"
+          >
+            <Box display="flex" flexDirection="column">
+              <Typography
+                letterSpacing={0}
+                fontSize="1.7vw"
+                fontWeight="500"
+                color="#488B8F"
+              >
+                Ene-Dic 2021
+              </Typography>
+              <Box
+                display="flex"
+                flexDirection="row"
+                marginTop="4%"
+                borderTop="2px solid #488B8F"
+                paddingTop="4%"
+              >
+                <Box width="15vw"></Box>
+                <InputTitles marginLeft="3%" sx={{ fontSize: "0.6vw" }}>
+                  Variación<br></br>vertical
+                </InputTitles>
+              </Box>
+              <Box display="flex" flexDirection="row" marginTop="2%">
+                <TextField
+                  id="ICA"
+                  placeholder="Ingrese Monto"
+                  type="number"
+                  variant="standard"
+                  sx={{
+                    ...FinancialStatInputLong,
+                  }}
+                  InputProps={{
+                    disableUnderline: true,
+                    sx: {
+                      marginTop: "-5px",
+                    },
+                    startAdornment: (
+                      <i
+                        style={{
+                          color: "#5EA3A3",
+                          marginRight: "0.7rem",
+                        }}
+                        class="fa-regular fa-dollar-sign"
+                      ></i>
+                    ),
+                  }}
+                />
+                <TextField
+                  id="ICA"
+                  placeholder="--"
+                  type="number"
+                  variant="standard"
+                  value={0}
+                  sx={{
+                    ...FinancialStatInputShort,
+                    marginLeft: "3%",
+                  }}
+                  InputProps={{
+                    disableUnderline: true,
+                    sx: {
+                      marginTop: "-5px",
+                    },
+                    endAdornment: (
+                      <i
+                        style={{
+                          color: "#5EA3A3",
+                        }}
+                        class="fa-regular fa-percent"
+                      ></i>
+                    ),
+                  }}
+                />
+              </Box>
+              <Box display="flex" flexDirection="row" marginTop="6%">
+                <TextField
+                  id="ICA"
+                  placeholder="Ingrese Monto"
+                  type="number"
+                  variant="standard"
+                  sx={{
+                    ...FinancialStatInputLong,
+                  }}
+                  InputProps={{
+                    disableUnderline: true,
+                    sx: {
+                      marginTop: "-5px",
+                    },
+                    startAdornment: (
+                      <i
+                        style={{
+                          color: "#5EA3A3",
+                          marginRight: "0.7rem",
+                        }}
+                        class="fa-regular fa-dollar-sign"
+                      ></i>
+                    ),
+                  }}
+                />
+                <TextField
+                  id="ICA"
+                  placeholder="--"
+                  type="number"
+                  variant="standard"
+                  value={0}
+                  sx={{
+                    ...FinancialStatInputShort,
+                    marginLeft: "3%",
+                  }}
+                  InputProps={{
+                    disableUnderline: true,
+                    sx: {
+                      marginTop: "-5px",
+                    },
+                    endAdornment: (
+                      <i
+                        style={{
+                          color: "#5EA3A3",
+                        }}
+                        class="fa-regular fa-percent"
+                      ></i>
+                    ),
+                  }}
+                />
+              </Box>
+              <Box display="flex" flexDirection="row" marginTop="6%">
+                <TextField
+                  id="ICA"
+                  placeholder="Ingrese Monto"
+                  type="number"
+                  variant="standard"
+                  sx={{
+                    ...FinancialStatInputLong,
+                  }}
+                  InputProps={{
+                    disableUnderline: true,
+                    sx: {
+                      marginTop: "-5px",
+                    },
+                    startAdornment: (
+                      <i
+                        style={{
+                          color: "#5EA3A3",
+                          marginRight: "0.7rem",
+                        }}
+                        class="fa-regular fa-dollar-sign"
+                      ></i>
+                    ),
+                  }}
+                />
+                <TextField
+                  id="ICA"
+                  placeholder="--"
+                  type="number"
+                  variant="standard"
+                  value={0}
+                  sx={{
+                    ...FinancialStatInputShort,
+                    marginLeft: "3%",
+                  }}
+                  InputProps={{
+                    disableUnderline: true,
+                    sx: {
+                      marginTop: "-5px",
+                    },
+                    endAdornment: (
+                      <i
+                        style={{
+                          color: "#5EA3A3",
+                        }}
+                        class="fa-regular fa-percent"
+                      ></i>
+                    ),
+                  }}
+                />
+              </Box>
+              <Box display="flex" flexDirection="row" marginTop="6%">
+                <TextField
+                  id="ICA"
+                  placeholder="Ingrese Monto"
+                  type="number"
+                  variant="standard"
+                  sx={{
+                    ...FinancialStatInputLong,
+                  }}
+                  InputProps={{
+                    disableUnderline: true,
+                    sx: {
+                      marginTop: "-5px",
+                    },
+                    startAdornment: (
+                      <i
+                        style={{
+                          color: "#5EA3A3",
+                          marginRight: "0.7rem",
+                        }}
+                        class="fa-regular fa-dollar-sign"
+                      ></i>
+                    ),
+                  }}
+                />
+                <TextField
+                  id="ICA"
+                  placeholder="--"
+                  type="number"
+                  variant="standard"
+                  value={0}
+                  sx={{
+                    ...FinancialStatInputShort,
+                    marginLeft: "3%",
+                  }}
+                  InputProps={{
+                    disableUnderline: true,
+                    sx: {
+                      marginTop: "-5px",
+                    },
+                    endAdornment: (
+                      <i
+                        style={{
+                          color: "#5EA3A3",
+                        }}
+                        class="fa-regular fa-percent"
+                      ></i>
+                    ),
+                  }}
+                />
+              </Box>
+            </Box>
           </Box>
         </Grid>
       </Grid>
