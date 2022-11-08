@@ -63,7 +63,6 @@ export const FinancialProfile = ({ formik }) => {
 
   const handleSubmission = () => {
     console.log(allFiles);
-    console.log(periodFiles);
   };
 
   const [allFiles, setAllFiles] = useState({});
@@ -79,11 +78,48 @@ export const FinancialProfile = ({ formik }) => {
           sx={{ ...scrollSx }}
         >
           <Box display="flex" flexDirection="column">
-            <BackButton path="/dashboard" />
+            <Box
+              display="flex"
+              flexDirection="row"
+              justifyContent="space-between"
+            >
+              <BackButton path="/dashboard" />
+              <Link href={`/financialProfile/financialStatement/?id=${id}`}>
+                <Button
+                  variant="standard"
+                  color="primary"
+                  size="large"
+                  sx={{
+                    height: "2.6rem",
+                    backgroundColor: "transparent",
+                    border: "1.4px solid #63595C",
+                    borderRadius: "4px",
+                  }}
+                >
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="80%"
+                    fontWeight="bold"
+                    color="#63595C"
+                  >
+                    Estado de situación financiera
+                  </Typography>
+
+                  <Typography
+                    fontFamily="icomoon"
+                    fontSize="1.5rem"
+                    color="#63595C"
+                    marginLeft="0.9rem"
+                  >
+                    &#xe905;
+                  </Typography>
+                </Button>
+              </Link>
+            </Box>
             <Box marginBottom={3}>
               <Typography
                 letterSpacing={0}
-                fontSize="1.8vw"
+                fontSize="1.7vw"
                 fontWeight="regular"
                 color="#488B8F"
               >
@@ -504,14 +540,19 @@ export const FinancialProfile = ({ formik }) => {
                                 const fileCompleteName = e.target.files[0].name;
                                 console.log(fileCompleteName);
                                 getBase64(e.currentTarget.files[0]).then(
-                                  (data) =>
+                                  (data) => {
                                     setAllFiles({
                                       ...allFiles,
                                       [fileName]: {
                                         data: data,
                                         name: fileCompleteName,
                                       },
-                                    })
+                                    });
+                                    formik.setFieldValue("first_period", {
+                                      ...formik.values.first_period,
+                                      balance: data,
+                                    });
+                                  }
                                 );
                               } else {
                                 Toast("Sólo se permiten archivos PDF", "error");
@@ -558,14 +599,19 @@ export const FinancialProfile = ({ formik }) => {
                                 const fileName = e.currentTarget.name;
                                 const fileCompleteName = e.target.files[0].name;
                                 getBase64(e.currentTarget.files[0]).then(
-                                  (data) =>
+                                  (data) => {
                                     setAllFiles({
                                       ...allFiles,
                                       [fileName]: {
                                         data: data,
                                         name: fileCompleteName,
                                       },
-                                    })
+                                    });
+                                    formik.setFieldValue("first_period", {
+                                      ...formik.values.first_period,
+                                      financialStatementAudit: data,
+                                    });
+                                  }
                                 );
                               }
                             }}
@@ -612,14 +658,19 @@ export const FinancialProfile = ({ formik }) => {
                                 const fileName = e.currentTarget.name;
                                 const fileCompleteName = e.target.files[0].name;
                                 getBase64(e.currentTarget.files[0]).then(
-                                  (data) =>
+                                  (data) => {
                                     setAllFiles({
                                       ...allFiles,
                                       [fileName]: {
                                         data: data,
                                         name: fileCompleteName,
                                       },
-                                    })
+                                    });
+                                    formik.setFieldValue("first_period", {
+                                      ...formik.values.first_period,
+                                      certificateOfStockOwnership: data,
+                                    });
+                                  }
                                 );
                               }
                             }}
@@ -668,14 +719,19 @@ export const FinancialProfile = ({ formik }) => {
                                 const fileName = e.currentTarget.name;
                                 const fileCompleteName = e.target.files[0].name;
                                 getBase64(e.currentTarget.files[0]).then(
-                                  (data) =>
+                                  (data) => {
                                     setAllFiles({
                                       ...allFiles,
                                       [fileName]: {
                                         data: data,
                                         name: fileCompleteName,
                                       },
-                                    })
+                                    });
+                                    formik.setFieldValue("first_period", {
+                                      ...formik.values.first_period,
+                                      stateOfCashflow: data,
+                                    });
+                                  }
                                 );
                               }
                             }}
@@ -722,14 +778,19 @@ export const FinancialProfile = ({ formik }) => {
                                 const fileName = e.currentTarget.name;
                                 const fileCompleteName = e.target.files[0].name;
                                 getBase64(e.currentTarget.files[0]).then(
-                                  (data) =>
+                                  (data) => {
                                     setAllFiles({
                                       ...allFiles,
                                       [fileName]: {
                                         data: data,
                                         name: fileCompleteName,
                                       },
-                                    })
+                                    });
+                                    formik.setFieldValue("first_period", {
+                                      ...formik.values.first_period,
+                                      managementReport: data,
+                                    });
+                                  }
                                 );
                               }
                             }}
@@ -776,14 +837,19 @@ export const FinancialProfile = ({ formik }) => {
                                 const fileName = e.currentTarget.name;
                                 const fileCompleteName = e.target.files[0].name;
                                 getBase64(e.currentTarget.files[0]).then(
-                                  (data) =>
+                                  (data) => {
                                     setAllFiles({
                                       ...allFiles,
                                       [fileName]: {
                                         data: data,
                                         name: fileCompleteName,
                                       },
-                                    })
+                                    });
+                                    formik.setFieldValue("first_period", {
+                                      ...formik.values.first_period,
+                                      rentDeclaration: data,
+                                    });
+                                  }
                                 );
                               }
                             }}

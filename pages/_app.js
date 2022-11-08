@@ -20,6 +20,7 @@ const pathsWithoutDefaultLayout = [
   "/customers",
   "/self-management",
   "/auth/login",
+  "/financialProfile/financialStatement",
   "/administration/deposit-investor",
   "/administration/deposit-emitter",
 ];

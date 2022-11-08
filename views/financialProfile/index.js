@@ -4,12 +4,33 @@ import { FinancialProfile } from "./components";
 
 import { useFormik } from "formik";
 
-export default function FinancialProfile() {
+export default function FinancialProf() {
   const formik = useFormik({
     initialValues: {
-      first_period: {},
-      second_period: {},
-      third_period: {},
+      first_period: {
+        balance: "",
+        stateOfCashflow: "",
+        financialStatementAudit: "",
+        managementReport: "",
+        certificateOfStockOwnership: "",
+        rentDeclaration: "",
+      },
+      second_period: {
+        balance: "",
+        stateOfCashflow: "",
+        financialStatementAudit: "",
+        managementReport: "",
+        certificateOfStockOwnership: "",
+        rentDeclaration: "",
+      },
+      third_period: {
+        balance: "",
+        stateOfCashflow: "",
+        financialStatementAudit: "",
+        managementReport: "",
+        certificateOfStockOwnership: "",
+        rentDeclaration: "",
+      },
     },
 
     onSubmit: (values) => {
