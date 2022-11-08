@@ -381,7 +381,7 @@ export const Deposit = ({ formik, option, ToastContainer }) => {
                           <Box ml={5} position="relative">
                             <Box width="17vw">
                               <InputTitles>Cuenta</InputTitles>
-                              <AccountSelect formik={formik} />
+                              <AccountingAccountSelect formik={formik} />
                               <HelperText position="fixed">
                                 {formik.touched.account &&
                                   formik.errors.account}

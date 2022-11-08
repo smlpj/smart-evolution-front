@@ -381,9 +381,9 @@ export const ClientListComponent = () => {
       width: 60,
       sortable: false,
       filterable: false,
-      renderCell: () => {
+      renderCell: (params) => {
         return (
-          <Link href="/customers">
+          <Link href={`/riskProfile?id=${params.row.id}`}>
             <CustomTooltip
               title="Perfil de Riesgo Cliente"
               arrow
