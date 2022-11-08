@@ -7,6 +7,7 @@
       "@formats/*": ["./shared/formats/*"],
       "@hooks/*": ["./shared/hooks/*"],
       "@lib/*": ["./shared/lib/*"],
+      "@schemas/*": ["./shared/schemas/*"],
       "@styles/*": ["./styles/*"],
       "@views/*": ["./views/*"]
     }
