@@ -31,3 +31,13 @@ export const getRiskProfile = async (data) => {
       });
       return res.data;
 }
+
+export const updateRiskProfile = async (data) => {
+  console.log(data)
+  const res = await Axios.patch(`${API_URL}/riskProfile/${data.id}`, data, {
+    headers: {
+      authorization: "Bearer " + localStorage.getItem("access-token"),
+    },
+  });
+  return res.data;
+}

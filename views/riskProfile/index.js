@@ -9,7 +9,7 @@ import { useRouter } from 'next/router'
 // Component
 import { RiskProfileC } from './components'
 // Queries 
-import { GetCustomerById, saveRiskProfile, getRiskProfile } from './queries'
+import { GetCustomerById, saveRiskProfile, getRiskProfile, updateRiskProfile } from './queries'
 // alerts 
 import { ToastContainer } from "react-toastify"
 
@@ -24,11 +24,47 @@ export const RiskProfileV = () => {
     const [customer, setCustomer] = useState(null)
     const [riskProfileData, setRiskProfileData] = useState(null)
 
+    // Queries hooks
+
+    // Get customer data
+    const {
+        fetch: getCustomer,
+        loading: loadingGetCustomer,
+        error: errorGetCustomer,
+        data: dataCustomer,
+    } = useFetch({ service: GetCustomerById, init: false })
+
+    // get the client risk profile
+    const {
+        fetch: getRiskProfileFetch,
+        loading: loadingRiskProfileFetch,
+        error: errorRiskProfileFetch,
+        data: dataRiskProfileFetch,
+    } = useFetch({ service: getRiskProfile, init: true })
+
+    // save the risk profile
+    const {
+        fetch: riskProfile,
+        loading: loadingRiskProfile,
+        error: errorRiskProfile,
+        data: dataRiskProfile,
+    } = useFetch({ service: saveRiskProfile, init: false })
+
+    // Update the risk profile
+
+    const {
+        fetch: updateRiskProfileFetch,
+        loading: loadingUpdateRiskProfile,
+        error: errorUpdateRiskProfile,
+        data: dataUpdateRiskProfile,
+    } = useFetch({ service: updateRiskProfile, init: false })
+
+
     // Formik
     const formik = useFormik({
         initialValues: {
             gmf: false,
-            iva:false,
+            iva: false,
             ica: false,
             discount_rate: 0,
             discount_rate_investor: 0,
@@ -38,43 +74,27 @@ export const RiskProfileV = () => {
             account_number: 0,
             account_type: '',
             accountType: '',
-            client:'',
-            id:''
+            client: '',
+            id: ''
         },
         onSubmit: (values) => {
             if (values.client == "") {
                 formik.setFieldValue('account_type', values.accountType)
                 riskProfile(values)
             } else {
-                Toast('El cliente no existe', 'error')
+                updateRiskProfileFetch(values)
             }
         },
-        });
+    });
+    // useEffects
 
-    // get the customer data
-    const {
-        fetch: getCustomer,
-        loading: loadingGetCustomer,
-        error: errorGetCustomer,
-        data: dataCustomer,
-    } = useFetch({ service: GetCustomerById, init: false })
-
-    // start the fetch
+    // Get customer data
     useEffect(() => {
-    if (router.query.id != undefined) { 
-        getCustomer(router.query.id)
-        getRiskProfileFetch(router.query.id)
-    } 
-    },[router.query.id])
-
-    // save the risk profile
-
-    const {
-        fetch: riskProfile,
-        loading: loadingRiskProfile,
-        error: errorRiskProfile,
-        data: dataRiskProfile,
-    } = useFetch({ service: saveRiskProfile, init: false })
+        if (router.query.id != undefined) {
+            getCustomer(router.query.id)
+            getRiskProfileFetch(router.query.id)
+        }
+    }, [router.query.id])
 
     // set the customer data
     useEffect(() => {
@@ -90,25 +110,35 @@ export const RiskProfileV = () => {
             Toast('Perfil de riesgo guardado', 'success')
             router.push('/customers/customerList')
         }
-        
+
         if (errorRiskProfile) {
             Toast('Error al guardar el perfil de riesgo', 'error')
         }
-        
+
         if (loadingRiskProfile) {
             Toast('Guardando perfil de riesgo', 'info')
         }
 
-        
-    },[dataRiskProfile, errorRiskProfile, loadingRiskProfile])
-    
-    // get the risk profile of the client
-    const {
-        fetch: getRiskProfileFetch,
-        loading: loadingRiskProfileFetch,
-        error: errorRiskProfileFetch,
-        data: dataRiskProfileFetch,
-    } = useFetch({ service: getRiskProfile, init: true })
+
+    }, [dataRiskProfile, errorRiskProfile, loadingRiskProfile])
+
+
+    // get the update risk profile fetch response
+    useEffect(() => {
+        if (dataUpdateRiskProfile) {
+            Toast('Perfil de riesgo actualizado', 'success')
+            router.push('/customers/customerList')
+        }
+
+        if (errorUpdateRiskProfile) {
+            console.log(errorUpdateRiskProfile)
+            Toast('Error al actualizar el perfil de riesgo', 'error')
+        }
+
+        if (loadingUpdateRiskProfile) {
+            Toast('Actualizando perfil de riesgo', 'info')
+        }
+    }, [loadingUpdateRiskProfile, errorUpdateRiskProfile, dataUpdateRiskProfile])
 
     useEffect(() => {
         if (dataRiskProfileFetch) {
@@ -122,18 +152,19 @@ export const RiskProfileV = () => {
             formik.setFieldValue('payer_balance', dataRiskProfileFetch.data.payer_balance)
             formik.setFieldValue('account_number', dataRiskProfileFetch.data.account_number)
             formik.setFieldValue('accountType', dataRiskProfileFetch.data.account_type)
+            formik.setFieldValue('account_type', dataRiskProfileFetch.data.account_type)
             formik.setFieldValue('bank', dataRiskProfileFetch.data.bank)
             formik.setFieldValue('id', dataRiskProfileFetch.data.id)
             formik.setFieldValue('client', dataRiskProfileFetch.data.client)
         }
 
-    },[dataRiskProfileFetch, errorRiskProfileFetch, loadingRiskProfileFetch])
-return (
-<>
-    <Head>
-    <title>Perfil de riesgo</title>
-    <meta name="description" content="Generated by create next app" />
-    </Head>
-    <RiskProfileC formik={formik} data={dataCustomer} ToastContainer={ToastContainer} />
-</>)
+    }, [dataRiskProfileFetch, errorRiskProfileFetch, loadingRiskProfileFetch])
+    return (
+        <>
+            <Head>
+                <title>Perfil de riesgo</title>
+                <meta name="description" content="Generated by create next app" />
+            </Head>
+            <RiskProfileC formik={formik} data={dataCustomer} ToastContainer={ToastContainer} />
+        </>)
 }
