@@ -29,10 +29,7 @@ export default function ClientTypeSelect({ formik }) {
       data.data.map((type_client) => {
         if (type_client.description !== "gobierno") {
           ClientTypes.push({
-            label:
-              type_client.description === "jurídico"
-                ? `Persona ${type_client.description.replace(/.$/, "a")}`
-                : `Persona ${type_client.description}`,
+            label: type_client.description,
             value: type_client.id,
           });
         }

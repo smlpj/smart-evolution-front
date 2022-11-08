@@ -987,7 +987,7 @@ export const BillsComponents = () => {
                       style={{
                         color: "#5EA3A3",
                       }}
-                      class="fa-light fa-percent"
+                      className="fa-light fa-percent"
                     ></i>
                   ),
                 }}

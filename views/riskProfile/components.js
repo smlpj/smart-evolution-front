@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { Switch } from "@mui/material";
+import { Button, Switch } from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
@@ -353,7 +353,7 @@ export const RiskProfileC = ({ formik, ToastContainer, loading, data }) => {
                 name="discount_rate_investor"
                 type="number"
                 onChange={formik.handleChange}
-                value={formik.values.discount_rate_investor}
+                value={Math.round(formik.values.discount_rate_investor * 100) / 100}
                 variant="standard"
                 margin="normal"
                 fullWidth
@@ -362,6 +362,14 @@ export const RiskProfileC = ({ formik, ToastContainer, loading, data }) => {
                   sx: {
                     marginTop: "-5px",
                   },
+                  endAdornment: (
+                    <i
+                      style={{
+                        color: "#5EA3A3",
+                      }}
+                      className="fa-light fa-percent"
+                    ></i>
+                  )
                 }}
                 sx={{
                   ['@media (max-width:1366px)']: { // eslint-disable-line no-useless-computed-key
@@ -502,7 +510,7 @@ export const RiskProfileC = ({ formik, ToastContainer, loading, data }) => {
                 name="discount_rate"
                 type="number"
                 onChange={formik.handleChange}
-                value={formik.values.discount_rate}
+                value={Math.round(formik.values.discount_rate * 100) / 100}
                 variant="standard"
                 margin="normal"
                 fullWidth
@@ -511,6 +519,14 @@ export const RiskProfileC = ({ formik, ToastContainer, loading, data }) => {
                   sx: {
                     marginTop: "-5px",
                   },
+                  endAdornment: (
+                    <i
+                      style={{
+                        color: "#5EA3A3",
+                      }}
+                      className="fa-light fa-percent"
+                    ></i>
+                  ),
                 }}
                 sx={{
                   ['@media (max-width:1366px)']: { // eslint-disable-line no-useless-computed-key
@@ -597,8 +613,32 @@ export const RiskProfileC = ({ formik, ToastContainer, loading, data }) => {
               flexDirection="column"
               width={"30%"}
               justifyContent={"flex-end"}
+              
             >
-              <button onClick={formik.handleSubmit}>test</button>
+          <Button
+          variant="standard"
+          onClick={formik.handleSubmit}
+          sx={{
+            backgroundColor:"#488B8F",
+            borderRadius: "4px",
+            color: "#FFFFFF",
+            height: "3rem",
+            fontSize: "0.7rem",
+            fontFamily: "Montserrat",
+            fontWeight: "bold",
+            "&:hover": {
+              backgroundColor: "#5EA3A3",
+            },
+            marginRight: "1rem",
+          }}
+          aria-label="add"
+        >
+          {formik.values.client ? "Actualizar" : "Crear"}
+          <i
+            className="fa-regular fa-download"
+            style={{ marginLeft: 4, fontSize: "medium" }}
+          ></i>
+        </Button>
             </Box>
           </Box>
         </Box>
