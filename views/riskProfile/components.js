@@ -13,19 +13,20 @@ import MuiTextField from "@styles/fields";
 import InputTitles from "@styles/inputTitles";
 import scrollSx from "@styles/scroll";
 import BankSelect from "@components/selects/bankSelect";
+import ValueFormat from '@formats/ValueFormat'
+import { BookOutlined } from "@mui/icons-material";
 
 export const RiskProfileC = ({ formik, ToastContainer, loading, data }) => {
   return (
     <>
-      <Box height="76vh" display="flex" flexDirection="column" marginLeft="5%">
+      <Box height="78vh" display="flex" flexDirection="column" marginLeft="5%">
         <Box
-          container
           borderBottom="2px solid #A1A1A1"
           display="flex"
           flexDirection="column"
           sx={{ ...scrollSx }}
         >
-          <Box display="flex" flexDirection="column">
+          <Box display="flex" flexDirection="column" height={'50vh'}>
             <BackButton path="/dashboard" />
             <Box marginBottom={3}>
               <Typography
@@ -36,6 +37,119 @@ export const RiskProfileC = ({ formik, ToastContainer, loading, data }) => {
               >
                 Perfil De Riesgo
               </Typography>
+
+              {(data?.data?.risk_profile === 0 || data?.data?.risk_profile === null) && (
+                    <Box
+                      display="flex"
+                      flexDirection="row"
+                      justifyContent="center"
+                      textAlign="center"
+                      alignItems="center"
+                      padding="3% 8%"
+                      borderRadius="4px"
+                      backgroundColor="#488B8F"
+                    >
+                      <Image
+                        src="/assets/Icon - Perfil de riesgo - Desconocido.svg"
+                        width={30}
+                        height={30}
+                        alt="Perfil de riesgo desconocido"
+                      />
+                      <Typography
+                        fontSize="80%"
+                        width="100%"
+                        fontWeight="bold"
+                        color="#FFFFFF"
+                        textTransform="uppercase"
+                      >
+                        Desconocido
+                      </Typography>
+                    </Box>
+                  )}
+                  {data?.data?.riskProfile === 1 && (
+                    <Box
+                      display="flex"
+                      flexDirection="row"
+                      justifyContent="center"
+                      textAlign="center"
+                      alignItems="center"
+                      padding="3% 8%"
+                      borderRadius="4px"
+                      backgroundColor="#488B8F"
+                    >
+                      <Image
+                        src="/assets/Icon - Perfil de riesgo - Bajo.svg"
+                        width={30}
+                        height={30}
+                        alt="Bajo"
+                      />
+                      <Typography
+                        fontSize="80%"
+                        width="100%"
+                        fontWeight="bold"
+                        color="#FFFFFF"
+                        textTransform="uppercase"
+                      >
+                        Riesgo bajo
+                      </Typography>
+                    </Box>
+                  )}
+                  {data?.data?.risk_profile === 2 && (
+                    <Box
+                      display="flex"
+                      flexDirection="row"
+                      justifyContent="center"
+                      textAlign="center"
+                      alignItems="center"
+                      padding="3% 8%"
+                      borderRadius="4px"
+                      backgroundColor="#488B8F"
+                    >
+                      <Image
+                        src="/assets/Icon - Perfil de riesgo - Medio.svg"
+                        width={30}
+                        height={30}
+                        alt="Icon - Perfil de riesgo - Medio"
+                      />
+                      <Typography
+                        fontSize="80%"
+                        width="100%"
+                        fontWeight="bold"
+                        color="#FFFFFF"
+                        textTransform="uppercase"
+                      >
+                        Riesgo medio
+                      </Typography>
+                    </Box>
+                  )}
+                  {data?.data?.risk_profile === 3 && (
+                    <Box
+                      display="flex"
+                      flexDirection="row"
+                      justifyContent="center"
+                      textAlign="center"
+                      alignItems="center"
+                      padding="3% 8%"
+                      borderRadius="4px"
+                      backgroundColor="#488B8F"
+                    >
+                      <Image
+                        src="/assets/Icon - Perfil de riesgo - Alto.svg"
+                        width={30}
+                        height={30}
+                        alt="Alto"
+                      />
+                      <Typography
+                        fontSize="80%"
+                        width="100%"
+                        fontWeight="bold"
+                        color="#FFFFFF"
+                        textTransform="uppercase"
+                      >
+                        Riesgo alto
+                      </Typography>
+                    </Box>
+                  )}
             </Box>
             <Box display="flex" flexDirection="column">
               <Box
@@ -353,7 +467,7 @@ export const RiskProfileC = ({ formik, ToastContainer, loading, data }) => {
                 name="discount_rate_investor"
                 type="number"
                 onChange={formik.handleChange}
-                value={Math.round(formik.values.discount_rate_investor * 100) / 100}
+                value={ formik.values.discount_rate_investor ?  Math.round( formik.values.discount_rate_investor * 100) / 100 : formik.values.discount_rate_investor}
                 variant="standard"
                 margin="normal"
                 fullWidth
@@ -361,6 +475,14 @@ export const RiskProfileC = ({ formik, ToastContainer, loading, data }) => {
                   disableUnderline: true,
                   sx: {
                     marginTop: "-5px",
+                    "input::-webkit-outer-spin-button": {
+                      WebkitAppearance: "none",
+                      margin: 0,
+                    },
+                    "input::-webkit-inner-spin-button": {
+                      WebkitAppearance: "none",
+                      margin: 0,
+                    },
                   },
                   endAdornment: (
                     <i
@@ -411,6 +533,14 @@ export const RiskProfileC = ({ formik, ToastContainer, loading, data }) => {
                   width: "16.7vw",
                   height: "1.77vh",
                   marginBottom: "30px",
+                  "input::-webkit-outer-spin-button": {
+                    WebkitAppearance: "none",
+                    margin: 0,
+                  },
+                  "input::-webkit-inner-spin-button": {
+                    WebkitAppearance: "none",
+                    margin: 0,
+                  },
                 }}
               />
               </Box>
@@ -447,6 +577,14 @@ export const RiskProfileC = ({ formik, ToastContainer, loading, data }) => {
                   width: "17vw",
                   height: "1.77vh",
                   marginBottom: "30px",
+                  "input::-webkit-outer-spin-button": {
+                    WebkitAppearance: "none",
+                    margin: 0,
+                  },
+                  "input::-webkit-inner-spin-button": {
+                    WebkitAppearance: "none",
+                    margin: 0,
+                  },
                 }}
               />
               </Box>
@@ -510,7 +648,7 @@ export const RiskProfileC = ({ formik, ToastContainer, loading, data }) => {
                 name="discount_rate"
                 type="number"
                 onChange={formik.handleChange}
-                value={Math.round(formik.values.discount_rate * 100) / 100}
+                value={formik.values.discount_rate ? Math.round(formik.values.discount_rate * 100) / 100 : formik.values.discount_rate}
                 variant="standard"
                 margin="normal"
                 fullWidth
@@ -537,6 +675,14 @@ export const RiskProfileC = ({ formik, ToastContainer, loading, data }) => {
                   width: "17vw",
                   height: "1.77vh",
                   marginBottom: "30px",
+                  "input::-webkit-outer-spin-button": {
+                    WebkitAppearance: "none",
+                    margin: 0,
+                  },
+                  "input::-webkit-inner-spin-button": {
+                    WebkitAppearance: "none",
+                    margin: 0,
+                  },
                 }}
               />
               </Box>
@@ -550,6 +696,7 @@ export const RiskProfileC = ({ formik, ToastContainer, loading, data }) => {
                 type="number"
                 onChange={formik.handleChange}
                 value={formik.values.emitter_balance}
+
                 variant="standard"
                 margin="normal"
                 fullWidth
@@ -568,6 +715,14 @@ export const RiskProfileC = ({ formik, ToastContainer, loading, data }) => {
                   width: "16.7vw",
                   height: "1.77vh",
                   marginBottom: "30px",
+                  "input::-webkit-outer-spin-button": {
+                    WebkitAppearance: "none",
+                    margin: 0,
+                  },
+                  "input::-webkit-inner-spin-button": {
+                    WebkitAppearance: "none",
+                    margin: 0,
+                  },
                 }}
               />
               </Box>
@@ -599,6 +754,14 @@ export const RiskProfileC = ({ formik, ToastContainer, loading, data }) => {
                   width: "16.7vw",
                   height: "1.77vh",
                   marginBottom: "30px",
+                  "input::-webkit-outer-spin-button": {
+                    WebkitAppearance: "none",
+                    margin: 0,
+                  },
+                  "input::-webkit-inner-spin-button": {
+                    WebkitAppearance: "none",
+                    margin: 0,
+                  },
                 }}
               />
               </Box>
@@ -615,30 +778,31 @@ export const RiskProfileC = ({ formik, ToastContainer, loading, data }) => {
               justifyContent={"flex-end"}
               
             >
-          <Button
-          variant="standard"
-          onClick={formik.handleSubmit}
-          sx={{
-            backgroundColor:"#488B8F",
-            borderRadius: "4px",
-            color: "#FFFFFF",
-            height: "3rem",
-            fontSize: "0.7rem",
-            fontFamily: "Montserrat",
-            fontWeight: "bold",
-            "&:hover": {
-              backgroundColor: "#5EA3A3",
-            },
-            marginRight: "1rem",
-          }}
-          aria-label="add"
-        >
-          {formik.values.client ? "Actualizar" : "Crear"}
-          <i
-            className="fa-regular fa-download"
-            style={{ marginLeft: 4, fontSize: "medium" }}
-          ></i>
-        </Button>
+              <Button
+                variant="standard"
+                onClick={formik.handleSubmit}
+                sx={{
+                  backgroundColor: "#488B8F",
+                  borderRadius: "4px",
+                  color: "#FFFFFF",
+                  height: "3rem",
+                  width: "14vw",
+                  marginTop: "2rem",
+                  marginBottom: "2rem",
+                  position: "absolute",
+                  bottom: "3.5rem",
+                  right: "8rem",
+                  fontSize: "0.7rem",
+                  fontWeight: "bold",
+                  "&:hover": {
+                    backgroundColor: "#5EA3A3",
+                  },
+                }}
+                aria-label="add"
+              >
+                {formik.values.id ? "Actualizar" : "Guardar"}
+                <BookOutlined sx={{ ml: 1, fontSize: "medium" }} />
+              </Button>
             </Box>
           </Box>
         </Box>

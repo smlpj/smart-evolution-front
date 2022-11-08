@@ -78,7 +78,7 @@ export const RiskProfileV = () => {
             id: ''
         },
         onSubmit: (values) => {
-            if (values.client == "") {
+            if (values.id == "") {
                 formik.setFieldValue('account_type', values.accountType)
                 riskProfile(values)
             } else {
@@ -101,6 +101,7 @@ export const RiskProfileV = () => {
         if (dataCustomer) {
             setCustomer(dataCustomer)
             formik.setFieldValue('client', dataCustomer.data.id)
+            console.log(formik, 'data')
         }
     }, [dataCustomer])
 
