@@ -37,7 +37,7 @@ export const FinancialStatInputLong2 = {
   borderRadius: "4px",
   padding: "10px",
   height: "0.8rem",
-  width: "14vw",
+  width: "15vw",
   textAlign: "right",
   alignContent: "center",
   "input::-webkit-outer-spin-button": {
