@@ -134,7 +134,7 @@ export default function RegisterDeposit() {
   useEffect(() => {
     if (loading3) Toast("Cargando...", "loading");
 
-    if (error3) Toast("Error al actualizar el corredor", "error");
+    if (error3) Toast("Error al actualizar el giro", "error");
 
     if (data3) {
       Toast("Giro actualizado correctamente", "success");

@@ -27,7 +27,6 @@ export default function RegisterDeposit() {
     if (router && router.query) {
       setOption(Object.values(router.query)[0]);
       if (router.query.id) {
-        console.log(router.query.id);
         setId(router.query.id);
       }
     }

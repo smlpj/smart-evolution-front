@@ -12,7 +12,6 @@ import { RiskProfileC } from './components'
 import { GetCustomerById, saveRiskProfile, getRiskProfile, updateRiskProfile } from './queries'
 // alerts 
 import { ToastContainer } from "react-toastify"
-
 import { Toast } from "@components/toast"
 
 
@@ -101,7 +100,6 @@ export const RiskProfileV = () => {
         if (dataCustomer) {
             setCustomer(dataCustomer)
             formik.setFieldValue('client', dataCustomer.data.id)
-            console.log(formik, 'data')
         }
     }, [dataCustomer])
 
@@ -132,7 +130,6 @@ export const RiskProfileV = () => {
         }
 
         if (errorUpdateRiskProfile) {
-            console.log(errorUpdateRiskProfile)
             Toast('Error al actualizar el perfil de riesgo', 'error')
         }
 

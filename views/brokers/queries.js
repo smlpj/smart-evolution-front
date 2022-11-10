@@ -24,7 +24,6 @@ export const GetBrokerByID = async (id) => {
 };
 
 export const ModifyBrokerQuery = async (data) => {
-  console.log(data);
   const res = await Axios.patch(`${API_URL}/broker/${data.id}`, data, {
     headers: {
       authorization: "Bearer " + localStorage.getItem("access-token"),

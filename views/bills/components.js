@@ -198,7 +198,6 @@ export const BillsComponents = () => {
             const bills = {
               bills: bill,
             };
-            console.log(bills);
             fetchSaveBills(bills);
           }}
           sx={{
@@ -469,7 +468,6 @@ export const BillsComponents = () => {
         return Math.round(params.value);
       },
       valueSetter: (params) => {
-        console.log(params.value);
         return Math.round(params.value);
       },
     },
@@ -755,7 +753,6 @@ export const BillsComponents = () => {
         );
       },
       valueSetter: (params) => {
-        console.log(params.row.billId);
         setOtherRet({
           ...otherRet,
           [params.row.billId]: params.value,
@@ -1016,7 +1013,6 @@ export const BillsComponents = () => {
                   "& .MuiButton-startIcon": { margin: 0 },
                 }}
                 onClick={() => {
-                  console.log(bill);
                 }}
               >
                 <ArrowForward sx={{ color: "white" }} />
@@ -1131,7 +1127,6 @@ export const BillsComponents = () => {
                   "& .MuiButton-startIcon": { margin: 0 },
                 }}
                 onClick={() => {
-                  console.log(otherRet);
                 }}
               >
                 <ArrowForward sx={{ color: "white" }} />

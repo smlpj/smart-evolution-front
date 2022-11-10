@@ -24,7 +24,6 @@ export const GetClientByID = async (id) => {
 };
 
 export const ModifyClientQuery = async (data) => {
-  console.log(data);
   const res = await Axios.patch(`${API_URL}/client/${data.id}`, data, {
     headers: {
       authorization: "Bearer " + localStorage.getItem("access-token"),

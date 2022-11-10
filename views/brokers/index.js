@@ -25,7 +25,6 @@ export default function RegisterBroker() {
   useEffect(() => {
     if (router && router.query) {
       setOption(Object.values(router.query)[0]);
-      console.log(option);
     }
   }, [router.query]);
 

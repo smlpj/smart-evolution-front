@@ -40,7 +40,6 @@ export default function CitySelect({ formik }) {
   }, [data, loading, error]);
 
   useEffect(() => {
-    console.log(formik.values.department);
     if (
       formik.values.department !== undefined &&
       formik.values.department !== null
