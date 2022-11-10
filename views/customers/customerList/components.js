@@ -503,7 +503,6 @@ export const ClientListComponent = () => {
               //Delete customer by id
 
               onClick={() => {
-                console.log(params.row.id);
                 setCustomer(
                   customer.filter((item) => item.id !== params.row.id)
                 );
@@ -548,7 +547,6 @@ export const ClientListComponent = () => {
       });
       setCustomer(Customers);
 
-      console.log(data);
     }
 
     if (error) console.log(error);

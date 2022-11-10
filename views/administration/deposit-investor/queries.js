@@ -20,7 +20,6 @@ export const GetDepositByID = async (id) => {
       authorization: "Bearer " + localStorage.getItem("access-token"),
     },
   });
-  console.log(res.data);
   return res.data;
 };
 

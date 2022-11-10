@@ -25,7 +25,6 @@ export default function AccountTypeSelect({ formik }) {
 
   useEffect(() => {
     if (data) {
-      console.log(data);
       var accountTypes = [];
       data.data.map((accountType) => {
         accountTypes.push({

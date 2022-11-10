@@ -6,7 +6,7 @@ import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
 import Header from "@components/header";
-import AccountSelect from "@components/selects/accountSelect";
+import AccountingAccountSelect from "@components/selects/accountingAccountSelect";
 import AccountTypeSelect from "@components/selects/accountTypeSelect";
 import BankSelect from "@components/selects/bankSelect";
 import ClientSelect from "@components/selects/customerSelect";
@@ -283,7 +283,6 @@ export const Deposit = ({ formik, option, ToastContainer }) => {
                           </Box>
                           <Box ml={5} position="relative">
                             <Box width="17vw">
-                              <InputTitles>Banco</InputTitles>
                               <BankSelect formik={formik} />
                               <HelperText position="fixed">
                                 {formik.touched.bank && formik.errors.bank}
@@ -299,7 +298,6 @@ export const Deposit = ({ formik, option, ToastContainer }) => {
                         >
                           <Box mb={4} position="relative">
                             <Box width="17vw">
-                              <InputTitles>Tipo de cuenta</InputTitles>
                               <AccountTypeSelect formik={formik} />
                               <HelperText position="fixed">
                                 {formik.touched.accountType &&
@@ -370,7 +368,6 @@ export const Deposit = ({ formik, option, ToastContainer }) => {
                         >
                           <Box mb={4} position="relative">
                             <Box width="17vw">
-                              <InputTitles>Tipo de egreso</InputTitles>
                               <EgressSelect formik={formik} />
                               <HelperText position="fixed">
                                 {formik.touched.egressType &&
@@ -380,7 +377,6 @@ export const Deposit = ({ formik, option, ToastContainer }) => {
                           </Box>
                           <Box ml={5} position="relative">
                             <Box width="17vw">
-                              <InputTitles>Cuenta</InputTitles>
                               <AccountingAccountSelect formik={formik} />
                               <HelperText position="fixed">
                                 {formik.touched.account &&

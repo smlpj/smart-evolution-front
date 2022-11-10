@@ -23,7 +23,6 @@ export const saveRiskProfile = async (data) => {
 };
 
 export const getRiskProfile = async (data) => {
-  console.log(data)
     const res = await Axios.get(`${API_URL}/riskProfile/client/${data}`, {
         headers: {
           authorization: "Bearer " + localStorage.getItem("access-token"),
@@ -33,7 +32,6 @@ export const getRiskProfile = async (data) => {
 }
 
 export const updateRiskProfile = async (data) => {
-  console.log(data)
   const res = await Axios.patch(`${API_URL}/riskProfile/${data.id}`, data, {
     headers: {
       authorization: "Bearer " + localStorage.getItem("access-token"),

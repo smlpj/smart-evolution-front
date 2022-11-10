@@ -22,6 +22,7 @@ const pathsWithoutDefaultLayout = [
   "/auth/login",
   "/administration/deposit-investor",
   "/administration/deposit-emitter",
+  "/administration/refund"
 ];
 
 function MyApp({ Component, pageProps }) {

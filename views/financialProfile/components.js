@@ -55,7 +55,6 @@ export const FinancialProfile = ({ formik }) => {
   };
 
   const handleSubmission = () => {
-    console.log(allFiles);
   };
 
   const [allFiles, setAllFiles] = useState({});
