@@ -14,12 +14,7 @@ import Header from "@components/header";
 import { useFetch } from "@hooks/useFetch";
 
 import BackButton from "@styles/buttons/BackButton";
-import {
-  FinancialStatInputLong,
-  FinancialStatInputLong2,
-  FinancialStatInputShort,
-  FinancialStatInputShort2,
-} from "@styles/financialStatInput";
+import { FinancialStatInput } from "@styles/financialStatInput";
 import InputTitles from "@styles/inputTitles";
 import scrollSx from "@styles/scroll";
 
@@ -51,6 +46,7 @@ export const FinancialStat = () => {
       fetch(id);
     }
   }, [id]);
+
   return (
     <>
       <Grid
@@ -328,7 +324,1394 @@ export const FinancialStat = () => {
             }}
           >
             <Box display="flex" flexDirection="column">
-              <Box display="flex" flexDirection="row">
+              <Box display="flex" flexDirection="row" width="100%">
+                <Box width="15%" />
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                  borderBottom="2px solid #488B8F"
+                  pb="1%"
+                >
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.7vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                  >
+                    Ene-Dic 2021
+                  </Typography>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                  borderBottom="2px solid #488B8F"
+                  pb="1%"
+                >
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.7vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                  >
+                    Ene-Dic 2020
+                  </Typography>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                  borderBottom="2px solid #488B8F"
+                  pb="1%"
+                >
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.7vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                  >
+                    Ene-Dic 2019
+                  </Typography>
+                </Box>
+              </Box>
+              <Box
+                display="flex"
+                flexDirection="row"
+                width="100%"
+                mt="1%"
+                alignItems="center"
+              >
+                <Box width="15%">
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.85vw"
+                    fontWeight="500"
+                    color="#333333"
+                  >
+                    Activos
+                  </Typography>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                  justifyContent="flex-end"
+                >
+                  <InputTitles sx={{ fontSize: "0.7vw" }}>
+                    Variación<br></br>vertical
+                  </InputTitles>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                  justifyContent="flex-end"
+                >
+                  <InputTitles marginRight="5%" sx={{ fontSize: "0.7vw" }}>
+                    Variación<br></br>vertical
+                  </InputTitles>
+                  <InputTitles sx={{ fontSize: "0.7vw" }}>
+                    Variación<br></br>horizontal
+                  </InputTitles>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                  justifyContent="flex-end"
+                >
+                  <InputTitles marginRight="5%" sx={{ fontSize: "0.7vw" }}>
+                    Variación<br></br>vertical
+                  </InputTitles>
+                  <InputTitles sx={{ fontSize: "0.7vw" }}>
+                    Variación<br></br>horizontal
+                  </InputTitles>
+                </Box>
+              </Box>
+              <Box
+                display="flex"
+                flexDirection="row"
+                width="100%"
+                mt="1%"
+                alignItems="center"
+              >
+                <Box width="15%">
+                  <InputTitles sx={{ fontSize: "0.7vw" }}>
+                    CAJA E INVERSIONES TOTALES
+                  </InputTitles>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    variant="standard"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "80%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    value={100}
+                    type="number"
+                    variant="standard"
+                    disabled
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "15%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    variant="standard"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "45%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "14%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "4%",
+                      width: "16%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    variant="standard"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "45%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "14%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "4%",
+                      width: "16%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+              </Box>
+              <Box
+                display="flex"
+                flexDirection="row"
+                width="100%"
+                mt="1%"
+                alignItems="center"
+              >
+                <Box width="15%">
+                  <InputTitles sx={{ fontSize: "0.7vw" }}>
+                    CARTERA CLIENTES
+                  </InputTitles>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    variant="standard"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "80%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    value={100}
+                    type="number"
+                    variant="standard"
+                    disabled
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "15%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    variant="standard"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "45%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "14%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "4%",
+                      width: "16%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    variant="standard"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "45%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "14%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "4%",
+                      width: "16%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+              </Box>
+              <Box
+                display="flex"
+                flexDirection="row"
+                width="100%"
+                mt="1%"
+                alignItems="center"
+              >
+                <Box width="15%">
+                  <InputTitles sx={{ fontSize: "0.7vw" }}>
+                    CXC SOCIOS
+                  </InputTitles>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    variant="standard"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "80%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    value={100}
+                    type="number"
+                    variant="standard"
+                    disabled
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "15%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    variant="standard"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "45%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "14%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "4%",
+                      width: "16%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    variant="standard"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "45%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "14%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "4%",
+                      width: "16%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+              </Box>
+              <Box
+                display="flex"
+                flexDirection="row"
+                width="100%"
+                mt="1%"
+                alignItems="center"
+              >
+                <Box width="15%">
+                  <InputTitles sx={{ fontSize: "0.7vw" }}>
+                    OTRAS CXC
+                  </InputTitles>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    variant="standard"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "80%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    value={100}
+                    type="number"
+                    variant="standard"
+                    disabled
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "15%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    variant="standard"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "45%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "14%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "4%",
+                      width: "16%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    variant="standard"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "45%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "14%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "4%",
+                      width: "16%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+              </Box>
+              <Box
+                display="flex"
+                flexDirection="row"
+                width="100%"
+                mt="1%"
+                alignItems="center"
+                bgcolor="#CFDDDD"
+              >
+                <Box width="15%" bgcolor="#EBEBEB" pr="3%" height="100%">
+                  <InputTitles sx={{ fontSize: "0.7vw" }}>
+                    CXC NETOS
+                  </InputTitles>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="0%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    variant="standard"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "80%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    value={100}
+                    type="number"
+                    variant="standard"
+                    disabled
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "15%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    variant="standard"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "45%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "14%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "4%",
+                      width: "16%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    variant="standard"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "45%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "14%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "4%",
+                      width: "16%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+              </Box>
+              {/* <Box display="flex" flexDirection="row" borderTop="2px solid red">
                 <Box display="flex" flexDirection="column" width="15%">
                   <Box height="2.55vw"></Box>
                   <Box
@@ -415,12 +1798,11 @@ export const FinancialStat = () => {
 
                   <Box display="flex" flexDirection="row" marginTop="2%">
                     <TextField
-                      id="ICA"
                       placeholder="Ingrese Monto"
                       type="number"
                       variant="standard"
                       sx={{
-                        ...FinancialStatInputLong2,
+                        ...FinancialStatInputLong,
                       }}
                       InputProps={{
                         disableUnderline: true,
@@ -431,7 +1813,8 @@ export const FinancialStat = () => {
                           <i
                             style={{
                               color: "#5EA3A3",
-                              marginRight: "0.7rem",
+                              marginRight: "0.7vw",
+                              fontSize: "1.1vw",
                             }}
                             class="fa-regular fa-dollar-sign"
                           ></i>
@@ -618,710 +2001,8 @@ export const FinancialStat = () => {
                     />
                   </Box>
                 </Box>
-                <Box display="flex" flexDirection="column" marginLeft="3%">
-                  <Typography
-                    letterSpacing={0}
-                    fontSize="1.7vw"
-                    fontWeight="500"
-                    color="#488B8F"
-                  >
-                    Ene-Dic 2021
-                  </Typography>
-                  <Box
-                    display="flex"
-                    flexDirection="row"
-                    justifyContent="flex-end"
-                    marginTop="4%"
-                    borderTop="2px solid #488B8F"
-                    paddingTop="4%"
-                  >
-                    <InputTitles marginLeft="3%" sx={{ fontSize: "0.6vw" }}>
-                      Variación<br></br>vertical
-                    </InputTitles>
-                    <InputTitles marginLeft="3%" sx={{ fontSize: "0.6vw" }}>
-                      Variación<br></br>horizontal
-                    </InputTitles>
-                  </Box>
-                  <Box display="flex" flexDirection="row" marginTop="2%">
-                    <TextField
-                      id="ICA"
-                      placeholder="Ingrese Monto"
-                      type="number"
-                      variant="standard"
-                      sx={{
-                        ...FinancialStatInputLong,
-                      }}
-                      InputProps={{
-                        disableUnderline: true,
-                        sx: {
-                          marginTop: "-5px",
-                        },
-                        startAdornment: (
-                          <i
-                            style={{
-                              color: "#5EA3A3",
-                              marginRight: "0.7rem",
-                            }}
-                            class="fa-regular fa-dollar-sign"
-                          ></i>
-                        ),
-                      }}
-                    />
-                    <TextField
-                      id="ICA"
-                      placeholder="--"
-                      type="number"
-                      variant="standard"
-                      value={0}
-                      sx={{
-                        ...FinancialStatInputShort2,
-                        marginLeft: "3%",
-                      }}
-                      InputProps={{
-                        disableUnderline: true,
-                        sx: {
-                          marginTop: "-5px",
-                        },
-                        endAdornment: (
-                          <i
-                            style={{
-                              color: "#5EA3A3",
-                            }}
-                            class="fa-regular fa-percent"
-                          ></i>
-                        ),
-                      }}
-                    />
-                    <TextField
-                      id="ICA"
-                      placeholder="--"
-                      type="number"
-                      variant="standard"
-                      value={0}
-                      sx={{
-                        ...FinancialStatInputShort2,
-                        marginLeft: "3%",
-                      }}
-                      InputProps={{
-                        disableUnderline: true,
-                        sx: {
-                          marginTop: "-5px",
-                        },
-                        endAdornment: (
-                          <i
-                            style={{
-                              color: "#5EA3A3",
-                            }}
-                            class="fa-regular fa-percent"
-                          ></i>
-                        ),
-                      }}
-                    />
-                  </Box>
-                  <Box display="flex" flexDirection="row" marginTop="6%">
-                    <TextField
-                      id="ICA"
-                      placeholder="Ingrese Monto"
-                      type="number"
-                      variant="standard"
-                      sx={{
-                        ...FinancialStatInputLong,
-                      }}
-                      InputProps={{
-                        disableUnderline: true,
-                        sx: {
-                          marginTop: "-5px",
-                        },
-                        startAdornment: (
-                          <i
-                            style={{
-                              color: "#5EA3A3",
-                              marginRight: "0.7rem",
-                            }}
-                            class="fa-regular fa-dollar-sign"
-                          ></i>
-                        ),
-                      }}
-                    />
-                    <TextField
-                      id="ICA"
-                      placeholder="--"
-                      type="number"
-                      variant="standard"
-                      value={0}
-                      sx={{
-                        ...FinancialStatInputShort2,
-                        marginLeft: "3%",
-                      }}
-                      InputProps={{
-                        disableUnderline: true,
-                        sx: {
-                          marginTop: "-5px",
-                        },
-                        endAdornment: (
-                          <i
-                            style={{
-                              color: "#5EA3A3",
-                            }}
-                            class="fa-regular fa-percent"
-                          ></i>
-                        ),
-                      }}
-                    />
-                    <TextField
-                      id="ICA"
-                      placeholder="--"
-                      type="number"
-                      variant="standard"
-                      value={0}
-                      sx={{
-                        ...FinancialStatInputShort2,
-                        marginLeft: "3%",
-                      }}
-                      InputProps={{
-                        disableUnderline: true,
-                        sx: {
-                          marginTop: "-5px",
-                        },
-                        endAdornment: (
-                          <i
-                            style={{
-                              color: "#5EA3A3",
-                            }}
-                            class="fa-regular fa-percent"
-                          ></i>
-                        ),
-                      }}
-                    />
-                  </Box>
-                  <Box display="flex" flexDirection="row" marginTop="6%">
-                    <TextField
-                      id="ICA"
-                      placeholder="Ingrese Monto"
-                      type="number"
-                      variant="standard"
-                      sx={{
-                        ...FinancialStatInputLong,
-                      }}
-                      InputProps={{
-                        disableUnderline: true,
-                        sx: {
-                          marginTop: "-5px",
-                        },
-                        startAdornment: (
-                          <i
-                            style={{
-                              color: "#5EA3A3",
-                              marginRight: "0.7rem",
-                            }}
-                            class="fa-regular fa-dollar-sign"
-                          ></i>
-                        ),
-                      }}
-                    />
-                    <TextField
-                      id="ICA"
-                      placeholder="--"
-                      type="number"
-                      variant="standard"
-                      value={0}
-                      sx={{
-                        ...FinancialStatInputShort2,
-                        marginLeft: "3%",
-                      }}
-                      InputProps={{
-                        disableUnderline: true,
-                        sx: {
-                          marginTop: "-5px",
-                        },
-                        endAdornment: (
-                          <i
-                            style={{
-                              color: "#5EA3A3",
-                            }}
-                            class="fa-regular fa-percent"
-                          ></i>
-                        ),
-                      }}
-                    />
-                    <TextField
-                      id="ICA"
-                      placeholder="--"
-                      type="number"
-                      variant="standard"
-                      value={0}
-                      sx={{
-                        ...FinancialStatInputShort2,
-                        marginLeft: "3%",
-                      }}
-                      InputProps={{
-                        disableUnderline: true,
-                        sx: {
-                          marginTop: "-5px",
-                        },
-                        endAdornment: (
-                          <i
-                            style={{
-                              color: "#5EA3A3",
-                            }}
-                            class="fa-regular fa-percent"
-                          ></i>
-                        ),
-                      }}
-                    />
-                  </Box>
-                  <Box display="flex" flexDirection="row" marginTop="6%">
-                    <TextField
-                      id="ICA"
-                      placeholder="Ingrese Monto"
-                      type="number"
-                      variant="standard"
-                      sx={{
-                        ...FinancialStatInputLong,
-                      }}
-                      InputProps={{
-                        disableUnderline: true,
-                        sx: {
-                          marginTop: "-5px",
-                        },
-                        startAdornment: (
-                          <i
-                            style={{
-                              color: "#5EA3A3",
-                              marginRight: "0.7rem",
-                            }}
-                            class="fa-regular fa-dollar-sign"
-                          ></i>
-                        ),
-                      }}
-                    />
-                    <TextField
-                      id="ICA"
-                      placeholder="--"
-                      type="number"
-                      variant="standard"
-                      value={0}
-                      sx={{
-                        ...FinancialStatInputShort2,
-                        marginLeft: "3%",
-                      }}
-                      InputProps={{
-                        disableUnderline: true,
-                        sx: {
-                          marginTop: "-5px",
-                        },
-                        endAdornment: (
-                          <i
-                            style={{
-                              color: "#5EA3A3",
-                            }}
-                            class="fa-regular fa-percent"
-                          ></i>
-                        ),
-                      }}
-                    />
-                    <TextField
-                      id="ICA"
-                      placeholder="--"
-                      type="number"
-                      variant="standard"
-                      value={0}
-                      sx={{
-                        ...FinancialStatInputShort2,
-                        marginLeft: "3%",
-                      }}
-                      InputProps={{
-                        disableUnderline: true,
-                        sx: {
-                          marginTop: "-5px",
-                        },
-                        endAdornment: (
-                          <i
-                            style={{
-                              color: "#5EA3A3",
-                            }}
-                            class="fa-regular fa-percent"
-                          ></i>
-                        ),
-                      }}
-                    />
-                  </Box>
-                </Box>
-                <Box display="flex" flexDirection="column" marginLeft="3%">
-                  <Typography
-                    letterSpacing={0}
-                    fontSize="1.7vw"
-                    fontWeight="500"
-                    color="#488B8F"
-                  >
-                    Ene-Dic 2021
-                  </Typography>
-                  <Box
-                    display="flex"
-                    flexDirection="row"
-                    justifyContent="flex-end"
-                    marginTop="4%"
-                    borderTop="2px solid #488B8F"
-                    paddingTop="4%"
-                  >
-                    <InputTitles marginLeft="3%" sx={{ fontSize: "0.6vw" }}>
-                      Variación<br></br>vertical
-                    </InputTitles>
-                    <InputTitles marginLeft="3%" sx={{ fontSize: "0.6vw" }}>
-                      Variación<br></br>horizontal
-                    </InputTitles>
-                  </Box>
-                  <Box display="flex" flexDirection="row" marginTop="2%">
-                    <TextField
-                      id="ICA"
-                      placeholder="Ingrese Monto"
-                      type="number"
-                      variant="standard"
-                      sx={{
-                        ...FinancialStatInputLong,
-                      }}
-                      InputProps={{
-                        disableUnderline: true,
-                        sx: {
-                          marginTop: "-5px",
-                        },
-                        startAdornment: (
-                          <i
-                            style={{
-                              color: "#5EA3A3",
-                              marginRight: "0.7rem",
-                            }}
-                            class="fa-regular fa-dollar-sign"
-                          ></i>
-                        ),
-                      }}
-                    />
-                    <TextField
-                      id="ICA"
-                      placeholder="--"
-                      type="number"
-                      variant="standard"
-                      value={0}
-                      sx={{
-                        ...FinancialStatInputShort2,
-                        marginLeft: "3%",
-                      }}
-                      InputProps={{
-                        disableUnderline: true,
-                        sx: {
-                          marginTop: "-5px",
-                        },
-                        endAdornment: (
-                          <i
-                            style={{
-                              color: "#5EA3A3",
-                            }}
-                            class="fa-regular fa-percent"
-                          ></i>
-                        ),
-                      }}
-                    />
-                    <TextField
-                      id="ICA"
-                      placeholder="--"
-                      type="number"
-                      variant="standard"
-                      value={0}
-                      sx={{
-                        ...FinancialStatInputShort2,
-                        marginLeft: "3%",
-                      }}
-                      InputProps={{
-                        disableUnderline: true,
-                        sx: {
-                          marginTop: "-5px",
-                        },
-                        endAdornment: (
-                          <i
-                            style={{
-                              color: "#5EA3A3",
-                            }}
-                            class="fa-regular fa-percent"
-                          ></i>
-                        ),
-                      }}
-                    />
-                  </Box>
-                  <Box display="flex" flexDirection="row" marginTop="6%">
-                    <TextField
-                      id="ICA"
-                      placeholder="Ingrese Monto"
-                      type="number"
-                      variant="standard"
-                      sx={{
-                        ...FinancialStatInputLong,
-                      }}
-                      InputProps={{
-                        disableUnderline: true,
-                        sx: {
-                          marginTop: "-5px",
-                        },
-                        startAdornment: (
-                          <i
-                            style={{
-                              color: "#5EA3A3",
-                              marginRight: "0.7rem",
-                            }}
-                            class="fa-regular fa-dollar-sign"
-                          ></i>
-                        ),
-                      }}
-                    />
-                    <TextField
-                      id="ICA"
-                      placeholder="--"
-                      type="number"
-                      variant="standard"
-                      value={0}
-                      sx={{
-                        ...FinancialStatInputShort2,
-                        marginLeft: "3%",
-                      }}
-                      InputProps={{
-                        disableUnderline: true,
-                        sx: {
-                          marginTop: "-5px",
-                        },
-                        endAdornment: (
-                          <i
-                            style={{
-                              color: "#5EA3A3",
-                            }}
-                            class="fa-regular fa-percent"
-                          ></i>
-                        ),
-                      }}
-                    />
-                    <TextField
-                      id="ICA"
-                      placeholder="--"
-                      type="number"
-                      variant="standard"
-                      value={0}
-                      sx={{
-                        ...FinancialStatInputShort2,
-                        marginLeft: "3%",
-                      }}
-                      InputProps={{
-                        disableUnderline: true,
-                        sx: {
-                          marginTop: "-5px",
-                        },
-                        endAdornment: (
-                          <i
-                            style={{
-                              color: "#5EA3A3",
-                            }}
-                            class="fa-regular fa-percent"
-                          ></i>
-                        ),
-                      }}
-                    />
-                  </Box>
-                  <Box display="flex" flexDirection="row" marginTop="6%">
-                    <TextField
-                      id="ICA"
-                      placeholder="Ingrese Monto"
-                      type="number"
-                      variant="standard"
-                      sx={{
-                        ...FinancialStatInputLong,
-                      }}
-                      InputProps={{
-                        disableUnderline: true,
-                        sx: {
-                          marginTop: "-5px",
-                        },
-                        startAdornment: (
-                          <i
-                            style={{
-                              color: "#5EA3A3",
-                              marginRight: "0.7rem",
-                            }}
-                            class="fa-regular fa-dollar-sign"
-                          ></i>
-                        ),
-                      }}
-                    />
-                    <TextField
-                      id="ICA"
-                      placeholder="--"
-                      type="number"
-                      variant="standard"
-                      value={0}
-                      sx={{
-                        ...FinancialStatInputShort2,
-                        marginLeft: "3%",
-                      }}
-                      InputProps={{
-                        disableUnderline: true,
-                        sx: {
-                          marginTop: "-5px",
-                        },
-                        endAdornment: (
-                          <i
-                            style={{
-                              color: "#5EA3A3",
-                            }}
-                            class="fa-regular fa-percent"
-                          ></i>
-                        ),
-                      }}
-                    />
-                    <TextField
-                      id="ICA"
-                      placeholder="--"
-                      type="number"
-                      variant="standard"
-                      value={0}
-                      sx={{
-                        ...FinancialStatInputShort2,
-                        marginLeft: "3%",
-                      }}
-                      InputProps={{
-                        disableUnderline: true,
-                        sx: {
-                          marginTop: "-5px",
-                        },
-                        endAdornment: (
-                          <i
-                            style={{
-                              color: "#5EA3A3",
-                            }}
-                            class="fa-regular fa-percent"
-                          ></i>
-                        ),
-                      }}
-                    />
-                  </Box>
-                  <Box display="flex" flexDirection="row" marginTop="6%">
-                    <TextField
-                      id="ICA"
-                      placeholder="Ingrese Monto"
-                      type="number"
-                      variant="standard"
-                      sx={{
-                        ...FinancialStatInputLong,
-                      }}
-                      InputProps={{
-                        disableUnderline: true,
-                        sx: {
-                          marginTop: "-5px",
-                        },
-                        startAdornment: (
-                          <i
-                            style={{
-                              color: "#5EA3A3",
-                              marginRight: "0.7rem",
-                            }}
-                            class="fa-regular fa-dollar-sign"
-                          ></i>
-                        ),
-                      }}
-                    />
-                    <TextField
-                      id="ICA"
-                      placeholder="--"
-                      type="number"
-                      variant="standard"
-                      value={0}
-                      sx={{
-                        ...FinancialStatInputShort2,
-                        marginLeft: "3%",
-                      }}
-                      InputProps={{
-                        disableUnderline: true,
-                        sx: {
-                          marginTop: "-5px",
-                        },
-                        endAdornment: (
-                          <i
-                            style={{
-                              color: "#5EA3A3",
-                            }}
-                            class="fa-regular fa-percent"
-                          ></i>
-                        ),
-                      }}
-                    />
-                    <TextField
-                      id="ICA"
-                      placeholder="--"
-                      type="number"
-                      variant="standard"
-                      value={0}
-                      sx={{
-                        ...FinancialStatInputShort2,
-                        marginLeft: "3%",
-                      }}
-                      InputProps={{
-                        disableUnderline: true,
-                        sx: {
-                          marginTop: "-5px",
-                        },
-                        endAdornment: (
-                          <i
-                            style={{
-                              color: "#5EA3A3",
-                            }}
-                            class="fa-regular fa-percent"
-                          ></i>
-                        ),
-                      }}
-                    />
-                  </Box>
-                </Box>
-              </Box>
-              <Box display="flex" flexDirection="row">
-                <Box display="flex" flexDirection="column" width="15%">
-                  <Box
-                    display="flex"
-                    flexDirection="row"
-                    marginTop="11%"
-                    height="0.8rem"
-                    padding="10px 10px 10px 0px"
-                  >
-                    <InputTitles sx={{ fontSize: "0.7vw" }}>
-                      CXC NETOS
-                    </InputTitles>
-                  </Box>
-                </Box>
-                <Box
-                  display="flex"
-                  flexDirection="row"
-                  bgcolor="#CFDDDD"
-                  borderRadius="4px"
-                  marginLeft="3%"
-                  alignItems="center"
-                  width="calc(85% - 3vw)"
-                >
-                  <Box display="flex" alignItems="center" height="100%">
-                    <Typography
-                      letterSpacing={0}
-                      fontSize="1vw"
-                      fontWeight="500"
-                      color="#488B8F"
-                    >
-                      0987987987
-                    </Typography>
-                  </Box>
-                  <Box display="flex" alignItems="center" height="100%">
-                    <Typography
-                      letterSpacing={0}
-                      fontSize="1vw"
-                      fontWeight="500"
-                      color="#488B8F"
-                    >
-                      0%
-                    </Typography>
-                  </Box>
-                </Box>
-              </Box>
+                
+              </Box> */}
             </Box>
           </Box>
         </Grid>
