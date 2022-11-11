@@ -1287,7 +1287,7 @@ export const FinancialStat = () => {
                     padding="10px 10px 10px 0px"
                   >
                     <InputTitles sx={{ fontSize: "0.7vw" }}>
-                      OTRAS CXC
+                      CXC NETOS
                     </InputTitles>
                   </Box>
                 </Box>
@@ -1298,15 +1298,9 @@ export const FinancialStat = () => {
                   borderRadius="4px"
                   marginLeft="3%"
                   alignItems="center"
+                  width="calc(85% - 3vw)"
                 >
-                  <Box
-                    display="flex"
-                    alignItems="center"
-                    height="100%"
-                    sx={{
-                      width: "17vw",
-                    }}
-                  >
+                  <Box display="flex" alignItems="center" height="100%">
                     <Typography
                       letterSpacing={0}
                       fontSize="1vw"
@@ -1316,14 +1310,7 @@ export const FinancialStat = () => {
                       0987987987
                     </Typography>
                   </Box>
-                  <Box
-                    display="flex"
-                    alignItems="center"
-                    height="100%"
-                    sx={{
-                      width: "4vw",
-                    }}
-                  >
+                  <Box display="flex" alignItems="center" height="100%">
                     <Typography
                       letterSpacing={0}
                       fontSize="1vw"
