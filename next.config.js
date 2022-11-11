@@ -11,6 +11,13 @@ const nextConfig = {
       },
     ];
   },
+  compiler: {
+    ...(process.env.NODE_ENV === "production" && {
+      removeConsole: {
+        exclude: ["error"],
+      },
+    }),
+  },
 };
 
 module.exports = nextConfig;

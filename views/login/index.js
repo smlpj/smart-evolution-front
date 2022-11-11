@@ -1,30 +1,28 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-// hooks
 import { useEffect, useState } from "react";
-import { useFormik } from "formik";
-import { useFetch } from "../../shared/hooks/useFetch";
-//queries
-import { login } from "./queries";
-// validations
-import { string, object } from "yup";
-// views
-import { InputAdornments } from "./components";
-// alerts and notifications
-import { Toast } from '../../shared/components/toast'
 import { ToastContainer } from "react-toastify";
-// router
-import { useRouter } from 'next/router'
+
+import { useRouter } from "next/router";
+
+import { Toast } from "@components/toast";
+
+import { useFetch } from "@hooks/useFetch";
+
+import { InputAdornments } from "./components";
+import { login } from "./queries";
+
+import { useFormik } from "formik";
+import { object, string } from "yup";
 
 export const InputV = () => {
   // Hooks
   const {
     fetch: loginFetch,
     loading: Loading,
-    error  : Error,
-    data   : data,
+    error: Error,
+    data: data,
   } = useFetch({ service: login, init: false });
 
-  const router = useRouter()
+  const router = useRouter();
 
   // Effects
   useEffect(() => {
@@ -35,21 +33,22 @@ export const InputV = () => {
     if (data !== undefined) {
       localStorage.setItem("access-token", data.access);
       localStorage.setItem("refresh-token", data.refresh);
-      Toast("bienvenido", "success");
-      router.push('/dashboard')
+      Toast("Bienvenido", "success");
+      router.push("/dashboard");
     }
   }, [data, Error]);
 
   const validationSchema = object({
-    email:  string("Ingresa un email")
-            .matches(
-            /^[a-zA-Z]+[a-zA-Z0-9_.]+@[a-zA-Z.]+[a-zA-Z]$/,
-            "Ingresa un email válido")
-            .required("El email es requerido"),
+    email: string("Ingresa un email")
+      .matches(
+        /^[a-zA-Z]+[a-zA-Z0-9_.]+@[a-zA-Z.]+[a-zA-Z]$/,
+        "Ingresa un email válido"
+      )
+      .required("El email es requerido"),
 
     password: string("Ingresa una contraseña")
-              .min(8, "La contraseña debe tener al menos 8 caracteres")
-              .required("La contraseña es requerida"),
+      .min(8, "La contraseña debe tener al menos 8 caracteres")
+      .required("La contraseña es requerida"),
   });
 
   const formik = useFormik({
@@ -77,8 +76,6 @@ export const InputV = () => {
       showPassword: !values.showPassword,
     });
   };
-
-
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();

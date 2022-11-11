@@ -1,13 +1,16 @@
-import { Egresses } from "./queries";
-import { useFetch } from "../../hooks/useFetch";
 import { useEffect, useState } from "react";
-import { Box } from "@mui/system";
-import InputTitles from "../../../styles/inputTitles";
-import { Autocomplete } from "@mui/material";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+
 import Clear from "@mui/icons-material/Clear";
-import MuiTextField from "../../../styles/fields";
-import HelperText from "../../../styles/helperText";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { Autocomplete, Box } from "@mui/material";
+
+import { useFetch } from "@hooks/useFetch";
+
+import MuiTextField from "@styles/fields";
+import HelperText from "@styles/helperText";
+import InputTitles from "@styles/inputTitles";
+
+import { Egresses } from "./queries";
 
 export default function EgressSelect({ formik }) {
   // Hooks
@@ -37,7 +40,7 @@ export default function EgressSelect({ formik }) {
 
   useEffect(() => {
     fetch();
-  }, [formik.values.client]);
+  }, []);
 
   return (
     <Box width="17vw">
@@ -50,19 +53,21 @@ export default function EgressSelect({ formik }) {
           getOptionLabel={(option) => option.label}
           onChange={(e, value) => {
             if (value !== null) {
-              formik.setFieldValue("egress", value.value);
+              formik.setFieldValue("egressType", value.value);
             } else {
-              formik.setFieldValue("egress", null);
+              formik.setFieldValue("egressType", null);
             }
           }}
           color="#5EA3A3"
           inputValue={
-            egress.filter((option) => option.value === formik.values.egress)[0]
-              ?.label
+            egress.filter(
+              (option) => option.value === formik.values.egressType
+            )[0]?.label
           }
           value={
-            egress.filter((option) => option.value === formik.values.egress)[0] ||
-            null
+            egress.filter(
+              (option) => option.value === formik.values.egressType
+            )[0] || null
           }
           popupIcon={<KeyboardArrowDownIcon sx={{ color: "#5EA3A3" }} />}
           clearIcon={<Clear sx={{ color: "#5EA3A3" }} />}
@@ -72,10 +77,12 @@ export default function EgressSelect({ formik }) {
               {...params}
               name="egress"
               placeholder="Tipo de Egreso"
-              value={formik.values.egress}
-              error={formik.touched.egress && Boolean(formik.errors.egress)}
+              value={formik.values.egressType}
+              error={
+                formik.touched.egressType && Boolean(formik.errors.egressType)
+              }
               sx={
-                formik.touched.egress && Boolean(formik.errors.egress)
+                formik.touched.egressType && Boolean(formik.errors.egressType)
                   ? { border: "1.4px solid #E6643180" }
                   : null
               }
@@ -90,7 +97,7 @@ export default function EgressSelect({ formik }) {
           )}
         />
         <HelperText position="fixed">
-          {formik.touched.egress && formik.errors.egress}
+          {formik.touched.egressType && formik.errors.egressType}
         </HelperText>
       </Box>
     </Box>

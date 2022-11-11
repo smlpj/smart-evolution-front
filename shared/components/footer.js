@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <>
       <Divider sx={{ borderBottomWidth: 4 }} />
-      <Typography fontFamily="Montserrat" fontSize="0.6rem" align="left">
+      <Typography fontSize="0.6rem" align="left">
         Copyright © 2022 Infinity. Desarrollado por Infinity Todos los Derechos
         Reservados
       </Typography>

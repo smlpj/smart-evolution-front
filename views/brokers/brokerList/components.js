@@ -1,26 +1,42 @@
-import { Button } from "@mui/material";
-import { Box } from "@mui/material";
-import { Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+
 import Link from "next/link";
-import InputTitles from "../../../styles/inputTitles";
+
+import { SearchOutlined } from "@mui/icons-material";
+import { Box, Button, Fade, Typography } from "@mui/material";
+
+import Modal from "@components/modals/modal";
+
+import DateFormat from "@formats/DateFormat";
+
+import { useFetch } from "@hooks/useFetch";
+
+import CustomTooltip from "@styles/customTooltip";
+import MuiTextField from "@styles/fields";
+import InputTitles from "@styles/inputTitles";
+import RedButtonModal from "@styles/buttons/noButtonModal";
+import CustomDataGrid from "@styles/tables";
+import GreenButtonModal from "@styles/buttons/yesButtonModal";
+
 import {
+  DeleteBrokerById,
   GetBrokerList,
   GetBrokerListByQuery,
-  DeleteBrokerById,
 } from "./queries";
-import { useFetch } from "../../../shared/hooks/useFetch";
-import { useEffect, useState } from "react";
-import CustomDataGrid from "../../../styles/tables";
-import { format } from "date-fns";
-import Image from "next/image";
-import CustomTooltip from "../../../styles/customTooltip";
-import { Fade } from "@mui/material";
-import MuiTextField from "../../../styles/fields";
-import { SearchOutlined } from "@mui/icons-material";
 
 let dataCount;
 
 export const BrokerListComponent = () => {
+  const [open, setOpen] = useState([false, "", null]);
+
+  const handleOpen = (broker, id) => setOpen([true, broker, id]);
+  const handleClose = () => setOpen([false, "", null]);
+  const handleDelete = (id) => {
+    setBroker(broker.filter((item) => item.id !== id));
+    DeleteBrokerById(id);
+    setOpen([false, "", null]);
+  };
+
   const columns = [
     {
       field: "DocumentNumber",
@@ -83,7 +99,6 @@ export const BrokerListComponent = () => {
       renderCell: (params) => {
         return (
           <Typography
-            fontFamily="Montserrat"
             fontSize="80%"
             width="100%"
             fontWeight="bold"
@@ -162,44 +177,101 @@ export const BrokerListComponent = () => {
       filterable: false,
       renderCell: (params) => {
         return (
-          <CustomTooltip
-            title="Eliminar"
-            arrow
-            placement="bottom-start"
-            TransitionComponent={Fade}
-            PopperProps={{
-              modifiers: [
-                {
-                  name: "offset",
-                  options: {
-                    offset: [0, -15],
+          <>
+            <CustomTooltip
+              title="Eliminar"
+              arrow
+              placement="bottom-start"
+              TransitionComponent={Fade}
+              PopperProps={{
+                modifiers: [
+                  {
+                    name: "offset",
+                    options: {
+                      offset: [0, -15],
+                    },
                   },
-                },
-              ],
-            }}
-          >
-            <Typography
-              fontFamily="icomoon"
-              fontSize="1.9rem"
-              color="#999999"
-              borderRadius="5px"
-              sx={{
-                "&:hover": {
-                  backgroundColor: "#B5D1C980",
-                  color: "#488B8F",
-                },
-                cursor: "pointer",
-              }}
-              //Delete broker by id
-
-              onClick={() => {
-                setBroker(broker.filter((item) => item.id !== params.row.id));
-                DeleteBrokerById(params.row.id);
+                ],
               }}
             >
-              &#xe901;
-            </Typography>
-          </CustomTooltip>
+              <Typography
+                fontFamily="icomoon"
+                fontSize="1.9rem"
+                color="#999999"
+                borderRadius="5px"
+                sx={{
+                  "&:hover": {
+                    backgroundColor: "#B5D1C980",
+                    color: "#488B8F",
+                  },
+                  cursor: "pointer",
+                }}
+                //Delete broker by id
+                onClick={() => handleOpen(params.row.Broker, params.row.id)}
+              >
+                &#xe901;
+              </Typography>
+            </CustomTooltip>
+            <Modal open={open[0]} handleClose={handleClose}>
+              <Box
+                display="flex"
+                flexDirection="column"
+                alignItems="center"
+                justifyContent="center"
+                height="100%"
+                width="100%"
+              >
+                <Typography
+                  letterSpacing={0}
+                  fontSize="1vw"
+                  fontWeight="medium"
+                  color="#63595C"
+                >
+                  ¿Estás seguro que deseas eliminar a
+                </Typography>
+                <InputTitles mt={2} sx={{ fontSize: "1.1vw" }}>
+                  {open[1]}
+                </InputTitles>
+                <Typography
+                  letterSpacing={0}
+                  fontSize="1vw"
+                  fontWeight="medium"
+                  color="#63595C"
+                  mt={2}
+                >
+                  de los corredores?
+                </Typography>
+                <Typography
+                  letterSpacing={0}
+                  fontSize="0.8vw"
+                  fontWeight="medium"
+                  color="#333333"
+                  mt={3.5}
+                >
+                  Si eliminas a este corredor, no podrás recuperarlo.
+                </Typography>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  alignItems="center"
+                  justifyContent="center"
+                  mt={4}
+                >
+                  <GreenButtonModal onClick={handleClose}>
+                    Volver
+                  </GreenButtonModal>
+                  <RedButtonModal
+                    sx={{
+                      ml: 2,
+                    }}
+                    onClick={() => handleDelete(open[2])}
+                  >
+                    Eliminar
+                  </RedButtonModal>
+                </Box>
+              </Box>
+            </Modal>
+          </>
         );
       },
     },
@@ -227,7 +299,7 @@ export const BrokerListComponent = () => {
             broker.social_reason ?? ""
           }`,
           Status: broker.state,
-          DateCreated: format(new Date(broker.created_at), "dd / MM / yyyy"),
+          DateCreated: <DateFormat date={broker.created_at} />,
         });
       });
       setBroker(Brokers);
@@ -259,7 +331,7 @@ export const BrokerListComponent = () => {
           }`,
           Status: broker.status,
           EnteredBy: `${broker.entered_by.first_name} ${broker.entered_by.last_name}`,
-          DateCreated: format(new Date(broker.created_at), "dd / MM / yyyy"),
+          DateCreated: <DateFormat date={broker.created_at} />,
           FinancialProfile: broker.financial_profile,
           RiskProfile: broker.risk_profile,
         });
@@ -287,7 +359,6 @@ export const BrokerListComponent = () => {
           <Typography
             letterSpacing={0}
             fontSize="1.7rem"
-            fontFamily="Montserrat"
             fontWeight="regular"
             marginBottom="0.7rem"
             color="#5EA3A3"
@@ -309,7 +380,6 @@ export const BrokerListComponent = () => {
               <Typography
                 letterSpacing={0}
                 fontSize="80%"
-                fontFamily="Montserrat"
                 fontWeight="bold"
                 color="#63595C"
               >
@@ -350,7 +420,6 @@ export const BrokerListComponent = () => {
               <Typography
                 letterSpacing={0}
                 fontSize="85%"
-                fontFamily="Montserrat"
                 fontWeight="600"
                 color="#5EA3A3"
                 textTransform="none"
@@ -372,7 +441,6 @@ export const BrokerListComponent = () => {
               <Typography
                 letterSpacing={0}
                 fontSize="85%"
-                fontFamily="Montserrat"
                 fontWeight="600"
                 color="#5EA3A3"
                 textTransform="none"
@@ -394,7 +462,6 @@ export const BrokerListComponent = () => {
               <Typography
                 letterSpacing={0}
                 fontSize="85%"
-                fontFamily="Montserrat"
                 fontWeight="600"
                 color="#5EA3A3"
                 textTransform="none"
@@ -459,7 +526,6 @@ export const BrokerListComponent = () => {
                   alignItems="center"
                 >
                   <Typography
-                    fontFamily="Montserrat"
                     fontSize="0.8rem"
                     fontWeight="600"
                     color="#5EA3A3"

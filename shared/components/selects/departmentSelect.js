@@ -1,12 +1,15 @@
-import { Departments } from "./queries";
-import { useFetch } from "../../hooks/useFetch";
 import { useEffect, useState } from "react";
-import { Box } from "@mui/system";
-import InputTitles from "../../../styles/inputTitles";
-import { Autocomplete } from "@mui/material";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+
 import Clear from "@mui/icons-material/Clear";
-import MuiTextField from "../../../styles/fields";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { Autocomplete, Box } from "@mui/material";
+
+import { useFetch } from "@hooks/useFetch";
+
+import MuiTextField from "@styles/fields";
+import InputTitles from "@styles/inputTitles";
+
+import { Departments } from "./queries";
 
 export default function DepartmentSelect({ formik }) {
   // Hooks

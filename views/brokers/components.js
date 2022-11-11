@@ -1,20 +1,19 @@
-import * as React from "react";
-import { useState } from "react";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import MuiTextField from "../../styles/fields";
-import Image from "next/image";
-import InputTitles from "../../styles/inputTitles";
-import MuiButton from "../../styles/button";
-import Header from "../../shared/components/header";
-import HelperText from "../../styles/helperText";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import CitySelect from "../../shared/components/selects/citySelect";
-import TypeIDSelect from "../../shared/components/selects/typeIdentitySelect";
-import DepartmentSelect from "../../shared/components/selects/departmentSelect";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
 
-export const SignUpBroker = ({ formik, option }) => {
+import Header from "@components/header";
+import CitySelect from "@components/selects/citySelect";
+import DepartmentSelect from "@components/selects/departmentSelect";
+import TypeIDSelect from "@components/selects/typeIdentitySelect";
+
+import MuiButton from "@styles/buttons/button";
+import MuiTextField from "@styles/fields";
+import HelperText from "@styles/helperText";
+import InputTitles from "@styles/inputTitles";
+
+export const SignUpBroker = ({ formik, option, ToastContainer }) => {
   return (
     <>
       <Grid
@@ -38,15 +37,7 @@ export const SignUpBroker = ({ formik, option }) => {
             display="flex"
             alignItems="center"
             justifyContent="center"
-          >
-            <Image
-              src="/assets/Ilustración - Creación de Usuario 1.svg"
-              alt="clients"
-              width={500}
-              height={500}
-              priority={true}
-            />
-          </Grid>
+          ></Grid>
           <Grid
             item
             xs={12}
@@ -61,7 +52,6 @@ export const SignUpBroker = ({ formik, option }) => {
                 <Typography
                   letterSpacing={0}
                   fontSize="1.7rem"
-                  fontFamily="Montserrat"
                   fontWeight="regular"
                   marginBottom="4rem"
                   color="#5EA3A3"
@@ -315,11 +305,7 @@ export const SignUpBroker = ({ formik, option }) => {
                   onClick={formik.handleSubmit}
                   sx={{ mt: 3, mb: 2, boxShadow: "none", borderRadius: "4px" }}
                 >
-                  <Typography
-                    fontSize="90%"
-                    fontFamily="Montserrat"
-                    fontWeight="bold"
-                  >
+                  <Typography fontSize="90%" fontWeight="bold">
                     {option === "register" ? "Registrar" : "Modificar"}
                   </Typography>
                   <ArrowForwardIcon
@@ -331,6 +317,17 @@ export const SignUpBroker = ({ formik, option }) => {
           </Grid>
         </Grid>
       </Grid>
+      <ToastContainer
+        position="top-right"
+        autoClose={50000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </>
   );
 };

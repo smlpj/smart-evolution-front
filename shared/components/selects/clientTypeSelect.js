@@ -1,13 +1,16 @@
-import { ClientType } from "./queries";
-import { useFetch } from "../../hooks/useFetch";
 import { useEffect, useState } from "react";
-import { Box } from "@mui/system";
-import InputTitles from "../../../styles/inputTitles";
-import { Autocomplete } from "@mui/material";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+
 import Clear from "@mui/icons-material/Clear";
-import MuiTextField from "../../../styles/fields";
-import HelperText from "../../../styles/helperText";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { Autocomplete, Box } from "@mui/material";
+
+import { useFetch } from "@hooks/useFetch";
+
+import MuiTextField from "@styles/fields";
+import HelperText from "@styles/helperText";
+import InputTitles from "@styles/inputTitles";
+
+import { ClientType } from "./queries";
 
 export default function ClientTypeSelect({ formik }) {
   // Hooks
@@ -26,10 +29,7 @@ export default function ClientTypeSelect({ formik }) {
       data.data.map((type_client) => {
         if (type_client.description !== "gobierno") {
           ClientTypes.push({
-            label:
-              type_client.description === "jurídico"
-                ? `Persona ${type_client.description.replace(/.$/, "a")}`
-                : `Persona ${type_client.description}`,
+            label: type_client.description,
             value: type_client.id,
           });
         }

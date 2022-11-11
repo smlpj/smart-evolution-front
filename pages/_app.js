@@ -1,30 +1,55 @@
-import "../styles/globals.css";
-import { useRouter } from "next/router";
-import { Grid } from "@mui/material";
-import Layout from "../shared/components/layout";
+import "react-toastify/dist/ReactToastify.css";
+
 import Head from "next/head";
-import 'react-toastify/dist/ReactToastify.css';
-import { AuthProvider } from '../shared/context/authContext'
-import '../public/icomoon/style.css'
+import { useRouter } from "next/router";
+
+import { ThemeProvider } from "@mui/material/styles";
+
+import Layout from "@components/layout";
+
+import "../public/fontawesome/css/all.min.css";
+import "../public/icomoon/style.css";
+import "../styles/globals.css";
+import theme from "../styles/themes";
+
+import { AuthProvider } from "@context/authContext";
+
+const pathsWithoutDefaultLayout = [
+  "/",
+  "/brokers",
+  "/customers",
+  "/self-management",
+  "/auth/login",
+  "/administration/deposit-investor",
+  "/administration/deposit-emitter",
+  "/administration/refund"
+];
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
+
+  const isErrorPage = pageProps?.statusCode === 404;
+
   return (
     <>
-    <AuthProvider>
-      {router.pathname !== "/auth/login" &&
-      router.pathname  !== "/brokers" &&
-      router.pathname  !== "/customers" &&
-      router.pathname  !== "/" &&
-      router.pathname  !== "/administration/deposit-investor" && 
-      router.pathname  !== "/administration/deposit-emitter" ? (
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      ) : (
-        <Component {...pageProps} />
-      )}
-    </AuthProvider>
+      <ThemeProvider theme={theme}>
+        <AuthProvider>
+          <>
+            <Head>
+              <title>Smart Evolution</title>
+            </Head>
+
+            {!pathsWithoutDefaultLayout.includes(router.pathname) &&
+            !isErrorPage ? (
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            ) : (
+              <Component {...pageProps} />
+            )}
+          </>
+        </AuthProvider>
+      </ThemeProvider>
     </>
   );
 }

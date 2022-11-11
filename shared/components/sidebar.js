@@ -1,6 +1,8 @@
-import { Grid } from "@mui/material";
-import NavbarButton from "../../styles/button_2";
 import Link from "next/link";
+
+import { Grid } from "@mui/material";
+
+import NavbarButton from "@styles/buttons/button_2";
 
 export default function Navbar() {
   return (
@@ -33,7 +35,6 @@ export default function Navbar() {
             <Link href="/customers/customerList" underline="none">
               <NavbarButton
                 sx={{
-                  border: "0.5px solid #488B8F",
                   marginBottom: "8%",
                   width: "70%",
                   height: "10%",
@@ -46,7 +47,6 @@ export default function Navbar() {
             <Link href="/bills" underline="none">
               <NavbarButton
                 sx={{
-                  border: "0.5px solid #488B8F",
                   marginBottom: "8%",
                   width: "70%",
                   height: "10%",
@@ -71,9 +71,9 @@ export default function Navbar() {
               </NavbarButton>
             </Link>
             <Link href="/administration" underline="none">
-            <NavbarButton sx={{ width: "70%", height: "10%" }}>
-              Administración
-            </NavbarButton>
+              <NavbarButton sx={{ width: "70%", height: "10%" }}>
+                Administración
+              </NavbarButton>
             </Link>
           </Grid>
         </Grid>
@@ -88,7 +88,7 @@ export default function Navbar() {
           <NavbarButton
             sx={{ backgroundColor: "#FFFFFF", width: "70%", height: "25%" }}
           >
-            Inversores disponibles
+            Autogestión del cliente
           </NavbarButton>
         </Grid>
       </Grid>

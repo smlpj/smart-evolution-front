@@ -1,22 +1,24 @@
-import { Button } from "@mui/material";
-import { Box } from "@mui/material";
-import { Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+
 import Link from "next/link";
-import InputTitles from "../../../../styles/inputTitles";
+
+import { SearchOutlined } from "@mui/icons-material";
+import { Box, Button, Fade, Typography } from "@mui/material";
+
+import DateFormat from "@formats/DateFormat";
+
+import { useFetch } from "@hooks/useFetch";
+
+import CustomTooltip from "@styles/customTooltip";
+import MuiTextField from "@styles/fields";
+import InputTitles from "@styles/inputTitles";
+import CustomDataGrid from "@styles/tables";
+
 import {
+  DeleteDepositById,
   GetDepositList,
   GetDepositListByQuery,
-  DeleteDepositById,
 } from "./queries";
-import { useFetch } from "../../../../shared/hooks/useFetch";
-import { useEffect, useState } from "react";
-import CustomDataGrid from "../../../../styles/tables";
-import { format } from "date-fns";
-import Image from "next/image";
-import CustomTooltip from "../../../../styles/customTooltip";
-import { Fade } from "@mui/material";
-import MuiTextField from "../../../../styles/fields";
-import { SearchOutlined } from "@mui/icons-material";
 
 let dataCount;
 
@@ -210,7 +212,7 @@ export const DepositListComponent = () => {
             ? deposit.client.first_name + " " + deposit.client.last_name
             : deposit.client.social_reason,
           amount: deposit.amount,
-          date: format(new Date(deposit.date), "dd / MM / yyyy"),
+          date: <DateFormat date={deposit.date} />,
         });
       });
       setDeposit(Deposits);
@@ -240,7 +242,7 @@ export const DepositListComponent = () => {
             ? deposit.client.first_name + " " + deposit.client.last_name
             : deposit.client.social_reason,
           amount: deposit.amount,
-          date: format(new Date(deposit.date), "dd / MM / yyyy"),
+          date: <DateFormat date={deposit.date} />,
         });
       });
       setDeposit(Deposits);
@@ -266,7 +268,6 @@ export const DepositListComponent = () => {
           <Typography
             letterSpacing={0}
             fontSize="1.7rem"
-            fontFamily="Montserrat"
             fontWeight="regular"
             marginBottom="0.7rem"
             color="#5EA3A3"
@@ -291,7 +292,6 @@ export const DepositListComponent = () => {
               <Typography
                 letterSpacing={0}
                 fontSize="80%"
-                fontFamily="Montserrat"
                 fontWeight="bold"
                 color="#63595C"
               >
@@ -332,7 +332,6 @@ export const DepositListComponent = () => {
               <Typography
                 letterSpacing={0}
                 fontSize="85%"
-                fontFamily="Montserrat"
                 fontWeight="600"
                 color="#5EA3A3"
                 textTransform="none"
@@ -354,7 +353,6 @@ export const DepositListComponent = () => {
               <Typography
                 letterSpacing={0}
                 fontSize="85%"
-                fontFamily="Montserrat"
                 fontWeight="600"
                 color="#5EA3A3"
                 textTransform="none"
@@ -376,7 +374,6 @@ export const DepositListComponent = () => {
               <Typography
                 letterSpacing={0}
                 fontSize="85%"
-                fontFamily="Montserrat"
                 fontWeight="600"
                 color="#5EA3A3"
                 textTransform="none"
@@ -434,19 +431,15 @@ export const DepositListComponent = () => {
 
               NoRowsOverlay: () => (
                 <Typography
-                  letterSpacing={0}
-                  fontSize="1.2rem"
-                  fontFamily="Montserrat"
-                  fontWeight="regular"
-                  color="#5EA3A3"
+                  fontSize="0.9rem"
+                  fontWeight="600"
+                  color="#488B8F"
                   height="100%"
-                  width="100%"
                   display="flex"
                   alignItems="center"
                   justifyContent="center"
-                  backgroundColor="#F5F5F5"
                 >
-                  No hay giros-inversionistas registrados
+                  No hay giros de inversionistas registrados
                 </Typography>
               ),
 
@@ -459,7 +452,6 @@ export const DepositListComponent = () => {
                   alignItems="center"
                 >
                   <Typography
-                    fontFamily="Montserrat"
                     fontSize="0.8rem"
                     fontWeight="600"
                     color="#5EA3A3"

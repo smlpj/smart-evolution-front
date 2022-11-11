@@ -5,7 +5,6 @@ import { styled } from "@mui/material/styles";
   backgroundColor: "#63595C",
   border: "1px solid #8C7E82",
   color: "#FFFFFF",
-  fontFamily: "Montserrat",
   fontSize: "0.8rem",
   fontWeight: "600",
 }); */
@@ -17,7 +16,6 @@ const CustomTooltip = styled(({ className, ...props }) => (
     backgroundColor: "#63595C",
     border: "1px solid #8C7E82",
     color: "#FFFFFF",
-    fontFamily: "Montserrat",
     fontSize: "0.8rem",
     fontWeight: "600",
   },
