@@ -12,11 +12,9 @@ import { GetRefund } from "./queries";
 export const RefundListV = () => {
   // State
   const [refund, setRefund] = useState([]);
-  const [nextPage, setNextPage] = useState(null);
-  const [previousPage, setPreviousPage] = useState(null);
-  const [currentPage, setCurrentPage] = useState(
-    "https://smart-evolution-api2.herokuapp.com/api/refund/"
-  );
+  const initPage =
+    "https://smartevolution-production.up.railway.app/api/refund/";
+  const [page, setPage] = useState(1);
 
   // Queries
   const {
@@ -27,7 +25,7 @@ export const RefundListV = () => {
   } = useFetch({ service: GetRefund, init: false });
 
   useEffect(() => {
-    fetch(currentPage);
+    fetch(initPage);
   }, []);
 
   useEffect(() => {
@@ -44,21 +42,22 @@ export const RefundListV = () => {
         };
       });
       setRefund(parsed);
-      setNextPage(data.next);
-      setPreviousPage(data.previous);
     }
   }, [loading, error, data]);
 
-  const getRefundData = (page, action) => {
-    if (action === "next" && nextPage) fetch(nextPage)
-    else if (action === 'previous' && previousPage) fetch(previousPage)
-  }
+  const getRefundData = (action) => {
+    if (action === "next" && data.next !== null) {
+      setPage(page + 1);
+      fetch("url", page + 1);
+    } else if (action === "previous" && data.previous !== null) {
+      setPage(page - 1);
+      fetch("url", page - 1);
+    } 
+  };
 
   return (
     <RefundListC
       data={refund}
-      nextPage={nextPage}
-      previousPage={previousPage}
       getRefundData={getRefundData}
       loading={loading}
     />

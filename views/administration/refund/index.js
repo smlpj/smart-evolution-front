@@ -23,16 +23,6 @@ export const RefundC = () => {
     const [option, setOption] = useState("")
     const [id, setId] = useState("")
 
-    // Effects
-    useEffect(() => {
-        if (router && router.query) {
-            setOption(Object.values(router.query)[0]);
-            if (router.query.id) {
-                setId(router.query.id);
-            }
-        }
-    }, [router.query])
-
     // Get the refund data
     useEffect(() => {
             if (router.query.id != undefined) {
@@ -101,7 +91,8 @@ export const RefundC = () => {
         if (saveRefundError) Toast(saveRefundError.message, 'error')
         
         if (saveRefundData) {
-            Toast("Se ha registrado el giro correctamente", 'success')
+            Toast("Se ha registrado el reintegro correctamente", 'success')
+            router.push('/administration/refund/refundList')
         }
         
       }, [saveRefundData, saveRefundError, saveRefundLoading])
@@ -113,13 +104,19 @@ export const RefundC = () => {
             
             if (updateRefundData) {
                 Toast("Se ha actualizado el reintegro correctamente", 'success')
+                router.push('/administration/refund/refundList')
             }
         }, [updateRefundData, updateRefundError, updateRefundLoading])
 
         useEffect(() => {
             if (RefundByIdData !== undefined) {
                 formik.setValues(RefundByIdData?.data)
+                formik.setFieldValue('client', RefundByIdData?.data?.client?.id)
+                formik.setFieldValue('account', RefundByIdData?.data?.account?.id)
+                formik.setFieldValue('bank', RefundByIdData?.data?.bank?.id)
+                formik.setFieldValue('accountType', RefundByIdData?.data?.accountType?.id)
             }
+            console.log(formik.values, 'xxxxxxx')
 
         },[RefundByIdData, RefundByIdError, RefundByIdLoading])
 
