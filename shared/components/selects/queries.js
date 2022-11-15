@@ -114,8 +114,7 @@ export const Egresses = async (data) => {
 };
 
 export const AccountingAccounts = async (data) => {
-  const res = await Axios.get(
-    "https://smart-evolution-api2.herokuapp.com/api/accounting_account/all",
+  const res = await Axios.get(`${API_URL}/accounting_account/all`,
     {
       headers: {
         authorization: "Bearer " + localStorage.getItem("access-token"),
