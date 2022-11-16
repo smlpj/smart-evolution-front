@@ -33,7 +33,6 @@ export const FinancialStat = ({ formik }) => {
   } = useFetch({ service: GetCustomerById, init: false });
 
   const [id, setID] = useState("");
-  const [results, setResults] = useState({});
   const router = useRouter();
 
   useEffect(() => {
@@ -47,6 +46,19 @@ export const FinancialStat = ({ formik }) => {
       fetch(id);
     }
   }, [id]);
+
+  const holaxd = (e) => {
+    console.log(e.target.parentNode.attributes.value.value);
+  };
+
+  const addListener = (e) => {
+    const NetCXCFirstPeriod = document.getElementById("net_cxc-first_period");
+    NetCXCFirstPeriod.addEventListener("DOMCharacterDataModified", holaxd);
+  };
+
+  useEffect(() => {
+    addListener();
+  }, []);
 
   const handleFieldChange = (e) => {
     const [field, period] = e.target.id.split("-");
@@ -1553,6 +1565,9 @@ export const FinancialStat = ({ formik }) => {
                     color="#488B8F"
                     marginLeft="5%"
                     width="70%"
+                    onClick={(e) => {
+                      console.log(e.target.attributes.value.value);
+                    }}
                     value={
                       (formik.values.first_period.assets.clients_wallet ?? 0) +
                       (formik.values.first_period.assets.cxc_partners ?? 0) +
