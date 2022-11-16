@@ -33,6 +33,7 @@ export const FinancialStat = ({ formik }) => {
   } = useFetch({ service: GetCustomerById, init: false });
 
   const [id, setID] = useState("");
+  const [results, setResults] = useState({});
   const router = useRouter();
 
   useEffect(() => {
@@ -53,7 +54,7 @@ export const FinancialStat = ({ formik }) => {
       ...formik.values[period],
       assets: {
         ...formik.values[period].assets,
-        [field]: parseFloat(e.target.value),
+        [field]: e.target.value ? parseFloat(e.target.value) : 0,
       },
     });
   };
@@ -1550,10 +1551,20 @@ export const FinancialStat = ({ formik }) => {
                     fontSize="1.1vw"
                     fontWeight="500"
                     color="#488B8F"
-                    marginLeft="10%"
-                    width="65%"
+                    marginLeft="5%"
+                    width="70%"
+                    value={
+                      (formik.values.first_period.assets.clients_wallet ?? 0) +
+                      (formik.values.first_period.assets.cxc_partners ?? 0) +
+                      (formik.values.first_period.assets.other_cxc ?? 0)
+                    }
+                    id="net_cxc-first_period"
                   >
-                    7.378.000
+                    {`$ ${
+                      (formik.values.first_period.assets.clients_wallet ?? 0) +
+                      (formik.values.first_period.assets.cxc_partners ?? 0) +
+                      (formik.values.first_period.assets.other_cxc ?? 0)
+                    }`}
                   </Typography>
                   <Typography
                     letterSpacing={0}

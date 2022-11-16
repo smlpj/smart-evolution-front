@@ -30,3 +30,14 @@ export const FinancialStatInput = {
     },
   },
 };
+
+export const Results = {
+  backgroundColor: "none",
+  letterSpacing: 0,
+  fontSize: "1.1vw",
+  fontWeight: "500",
+  color: "#488B8F",
+  "&:disabled": {
+    color: "#488B8F",
+  },
+};
