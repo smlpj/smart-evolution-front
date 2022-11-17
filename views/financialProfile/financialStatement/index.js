@@ -35,7 +35,7 @@ export default function FinancialStatement() {
         assets: {},
       },
     },
-
+    enableReinitialize: true,
     onSubmit: (values) => {
       console.log(values);
     },
