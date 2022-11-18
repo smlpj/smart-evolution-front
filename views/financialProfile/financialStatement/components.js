@@ -547,7 +547,27 @@ export const FinancialStat = ({ formik }) => {
                   />
                   <TextField
                     placeholder="–"
-                    value={100}
+                    value={
+                      formik.values.first_period.assets.cash_and_investments
+                        ? Math.round(
+                            (formik.values.first_period.assets
+                              .cash_and_investments /
+                              (resultsOf("current_assets", "first_period") +
+                                resultsOf("net_cxc", "first_period") +
+                                resultsOf("total_inventory", "first_period") +
+                                resultsOf(
+                                  "gross_fixed_assets",
+                                  "first_period"
+                                ) -
+                                resultsOf("net_fixed_assets", "first_period") +
+                                resultsOf(
+                                  "total_other_assets",
+                                  "first_period"
+                                ))) *
+                              100
+                          )
+                        : 0
+                    }
                     type="number"
                     variant="standard"
                     disabled
@@ -617,6 +637,27 @@ export const FinancialStat = ({ formik }) => {
                     type="number"
                     variant="standard"
                     disabled
+                    value={
+                      formik.values.second_period.assets.cash_and_investments
+                        ? Math.round(
+                            (formik.values.second_period.assets
+                              .cash_and_investments /
+                              (resultsOf("current_assets", "first_period") +
+                                resultsOf("net_cxc", "first_period") +
+                                resultsOf("total_inventory", "first_period") +
+                                resultsOf(
+                                  "gross_fixed_assets",
+                                  "first_period"
+                                ) -
+                                resultsOf("net_fixed_assets", "first_period") +
+                                resultsOf(
+                                  "total_other_assets",
+                                  "first_period"
+                                ))) *
+                              100
+                          )
+                        : null
+                    }
                     sx={{
                       ...FinancialStatInput,
                       marginLeft: "5%",
@@ -646,6 +687,30 @@ export const FinancialStat = ({ formik }) => {
                     type="number"
                     variant="standard"
                     disabled
+                    value={
+                      formik.values.first_period.assets.cash_and_investments &&
+                      formik.values.second_period.assets.cash_and_investments
+                        ? Math.round(
+                            ((formik.values.second_period.assets
+                              .cash_and_investments -
+                              formik.values.first_period.assets
+                                .cash_and_investments) /
+                              (resultsOf("current_assets", "first_period") +
+                                resultsOf("net_cxc", "first_period") +
+                                resultsOf("total_inventory", "first_period") +
+                                resultsOf(
+                                  "gross_fixed_assets",
+                                  "first_period"
+                                ) -
+                                resultsOf("net_fixed_assets", "first_period") +
+                                resultsOf(
+                                  "total_other_assets",
+                                  "first_period"
+                                ))) *
+                              100
+                          )
+                        : null
+                    }
                     sx={{
                       ...FinancialStatInput,
                       marginLeft: "4%",
@@ -712,6 +777,27 @@ export const FinancialStat = ({ formik }) => {
                     type="number"
                     variant="standard"
                     disabled
+                    value={
+                      formik.values.third_period.assets.cash_and_investments
+                        ? Math.round(
+                            (formik.values.third_period.assets
+                              .cash_and_investments /
+                              (resultsOf("current_assets", "first_period") +
+                                resultsOf("net_cxc", "first_period") +
+                                resultsOf("total_inventory", "first_period") +
+                                resultsOf(
+                                  "gross_fixed_assets",
+                                  "first_period"
+                                ) -
+                                resultsOf("net_fixed_assets", "first_period") +
+                                resultsOf(
+                                  "total_other_assets",
+                                  "first_period"
+                                ))) *
+                              100
+                          )
+                        : null
+                    }
                     sx={{
                       ...FinancialStatInput,
                       marginLeft: "5%",
@@ -741,6 +827,30 @@ export const FinancialStat = ({ formik }) => {
                     type="number"
                     variant="standard"
                     disabled
+                    value={
+                      formik.values.third_period.assets.cash_and_investments &&
+                      formik.values.second_period.assets.cash_and_investments
+                        ? Math.round(
+                            ((formik.values.third_period.assets
+                              .cash_and_investments -
+                              formik.values.second_period.assets
+                                .cash_and_investments) /
+                              (resultsOf("current_assets", "first_period") +
+                                resultsOf("net_cxc", "first_period") +
+                                resultsOf("total_inventory", "first_period") +
+                                resultsOf(
+                                  "gross_fixed_assets",
+                                  "first_period"
+                                ) -
+                                resultsOf("net_fixed_assets", "first_period") +
+                                resultsOf(
+                                  "total_other_assets",
+                                  "first_period"
+                                ))) *
+                              100
+                          )
+                        : null
+                    }
                     sx={{
                       ...FinancialStatInput,
                       marginLeft: "4%",
@@ -817,7 +927,26 @@ export const FinancialStat = ({ formik }) => {
                   />
                   <TextField
                     placeholder="–"
-                    value={100}
+                    value={
+                      formik.values.first_period.assets.clients_wallet
+                        ? Math.round(
+                            (formik.values.first_period.assets.clients_wallet /
+                              (resultsOf("current_assets", "first_period") +
+                                resultsOf("net_cxc", "first_period") +
+                                resultsOf("total_inventory", "first_period") +
+                                resultsOf(
+                                  "gross_fixed_assets",
+                                  "first_period"
+                                ) -
+                                resultsOf("net_fixed_assets", "first_period") +
+                                resultsOf(
+                                  "total_other_assets",
+                                  "first_period"
+                                ))) *
+                              100
+                          )
+                        : 0
+                    }
                     type="number"
                     variant="standard"
                     disabled
