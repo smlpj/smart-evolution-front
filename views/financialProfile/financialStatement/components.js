@@ -137,6 +137,24 @@ export const FinancialStat = ({ formik }) => {
         (formik.values[period].passives.estimated_passives ?? 0)
       );
     }
+    if (name === "lp_passives") {
+      return (
+        (formik.values[period].passives.financial_obligation_lp ?? 0) +
+        (formik.values[period].passives.other_lp_leasing ?? 0)
+      );
+    }
+    if (name === "total_passives") {
+      return (
+        (formik.values[period].passives.financial_obligation_cp ?? 0) +
+        (formik.values[period].passives.providers ?? 0) +
+        (formik.values[period].passives.unpaid_expenses ?? 0) +
+        (formik.values[period].passives.unpaid_taxes ?? 0) +
+        (formik.values[period].passives.linked_economics ?? 0) +
+        (formik.values[period].passives.estimated_passives ?? 0) +
+        (formik.values[period].passives.financial_obligation_lp ?? 0) +
+        (formik.values[period].passives.other_lp_leasing ?? 0)
+      );
+    }
   };
 
   return (
@@ -8030,7 +8048,53 @@ export const FinancialStat = ({ formik }) => {
                   </Typography>
                 </Box>
               </Box>
-              {/* <Box
+              <Box
+                display="flex"
+                alignItems="center"
+                flexDirection="row"
+                width="100%"
+                padding="10px 0px"
+                mt="1%"
+              >
+                <Box width="18%">
+                  <Divider
+                    sx={{
+                      borderBottomWidth: "1.4px",
+                      borderColor: "#575757",
+                      opacity: "0.5",
+                    }}
+                  />
+                </Box>
+                <Box width="calc(76% / 3)">
+                  <Divider
+                    sx={{
+                      borderBottomWidth: "1.4px",
+                      borderColor: "#575757",
+                      opacity: "0.5",
+                    }}
+                  />
+                </Box>
+                <Box width="calc(76% / 3)" ml="3%">
+                  <Divider
+                    sx={{
+                      borderBottomWidth: "1.4px",
+                      borderColor: "#575757",
+                      opacity: "0.5",
+                    }}
+                  />
+                </Box>
+                <Box width="calc(76% / 3)" ml="3%">
+                  <Divider
+                    sx={{
+                      borderBottomWidth: "1.4px",
+                      borderColor: "#575757",
+                      opacity: "0.5",
+                    }}
+                  />
+                </Box>
+              </Box>
+              {/* Segunda sección pasivos */}
+              <Box
                 display="flex"
                 flexDirection="row"
                 width="100%"
@@ -8039,7 +8103,7 @@ export const FinancialStat = ({ formik }) => {
               >
                 <Box width="15%">
                   <InputTitles sx={{ fontSize: "0.7vw" }}>
-                    PRODUCTOS TERMINADOS
+                    OBLIGACIONES FINANCIERAS LP
                   </InputTitles>
                 </Box>
                 <Box
@@ -8056,8 +8120,8 @@ export const FinancialStat = ({ formik }) => {
                     onChange={(e) => {
                       handleFieldChange(e);
                     }}
-                    name="assets"
-                    id="products_finished-first_period"
+                    name="passives"
+                    id="financial_obligation_lp-first_period"
                     sx={{
                       ...FinancialStatInput,
                       width: "80%",
@@ -8085,10 +8149,11 @@ export const FinancialStat = ({ formik }) => {
                     variant="standard"
                     disabled
                     value={
-                      formik.values.first_period.assets.products_finished
+                      formik.values.first_period.passives
+                        .financial_obligation_lp
                         ? Math.round(
-                            (formik.values.first_period.assets
-                              .products_finished /
+                            (formik.values.first_period.passives
+                              .financial_obligation_lp /
                               resultsOf("total_assets", "first_period")) *
                               100
                           )
@@ -8133,8 +8198,8 @@ export const FinancialStat = ({ formik }) => {
                     onChange={(e) => {
                       handleFieldChange(e);
                     }}
-                    name="assets"
-                    id="products_finished-second_period"
+                    name="passives"
+                    id="financial_obligation_lp-second_period"
                     sx={{
                       ...FinancialStatInput,
                       width: "45%",
@@ -8162,10 +8227,11 @@ export const FinancialStat = ({ formik }) => {
                     variant="standard"
                     disabled
                     value={
-                      formik.values.second_period.assets.products_finished
+                      formik.values.second_period.passives
+                        .financial_obligation_lp
                         ? Math.round(
-                            (formik.values.second_period.assets
-                              .products_finished /
+                            (formik.values.second_period.passives
+                              .financial_obligation_lp /
                               resultsOf("total_assets", "second_period")) *
                               100
                           )
@@ -8201,15 +8267,17 @@ export const FinancialStat = ({ formik }) => {
                     variant="standard"
                     disabled
                     value={
-                      formik.values.first_period.assets.products_finished &&
-                      formik.values.second_period.assets.products_finished
+                      formik.values.first_period.passives
+                        .financial_obligation_lp &&
+                      formik.values.second_period.passives
+                        .financial_obligation_lp
                         ? Math.round(
-                            ((formik.values.second_period.assets
-                              .products_finished -
-                              formik.values.first_period.assets
-                                .products_finished) /
-                              formik.values.first_period.assets
-                                .products_finished) *
+                            ((formik.values.second_period.passives
+                              .financial_obligation_lp -
+                              formik.values.first_period.passives
+                                .financial_obligation_lp) /
+                              formik.values.first_period.passives
+                                .financial_obligation_lp) *
                               100
                           )
                         : null
@@ -8253,8 +8321,8 @@ export const FinancialStat = ({ formik }) => {
                     onChange={(e) => {
                       handleFieldChange(e);
                     }}
-                    name="assets"
-                    id="products_finished-third_period"
+                    name="passives"
+                    id="financial_obligation_lp-third_period"
                     sx={{
                       ...FinancialStatInput,
                       width: "45%",
@@ -8282,10 +8350,11 @@ export const FinancialStat = ({ formik }) => {
                     variant="standard"
                     disabled
                     value={
-                      formik.values.third_period.assets.products_finished
+                      formik.values.third_period.passives
+                        .financial_obligation_lp
                         ? Math.round(
-                            (formik.values.third_period.assets
-                              .products_finished /
+                            (formik.values.third_period.passives
+                              .financial_obligation_lp /
                               resultsOf("total_assets", "third_period")) *
                               100
                           )
@@ -8321,15 +8390,347 @@ export const FinancialStat = ({ formik }) => {
                     variant="standard"
                     disabled
                     value={
-                      formik.values.third_period.assets.products_finished &&
-                      formik.values.second_period.assets.products_finished
+                      formik.values.third_period.passives
+                        .financial_obligation_lp &&
+                      formik.values.second_period.passives
+                        .financial_obligation_lp
                         ? Math.round(
-                            ((formik.values.third_period.assets
-                              .products_finished -
-                              formik.values.second_period.assets
-                                .products_finished) /
-                              formik.values.second_period.assets
-                                .products_finished) *
+                            ((formik.values.third_period.passives
+                              .financial_obligation_lp -
+                              formik.values.second_period.passives
+                                .financial_obligation_lp) /
+                              formik.values.second_period.passives
+                                .financial_obligation_lp) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "4%",
+                      width: "16%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+              </Box>
+              <Box
+                display="flex"
+                flexDirection="row"
+                width="100%"
+                mt="1%"
+                alignItems="center"
+              >
+                <Box width="15%">
+                  <InputTitles sx={{ fontSize: "0.7vw" }}>
+                    OTROS LP, LEASING
+                  </InputTitles>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="passives"
+                    id="other_lp_leasing-first_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "80%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.first_period.passives.other_lp_leasing
+                        ? Math.round(
+                            (formik.values.first_period.passives
+                              .other_lp_leasing /
+                              resultsOf("total_assets", "first_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "15%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="passives"
+                    id="other_lp_leasing-second_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "45%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.second_period.passives.other_lp_leasing
+                        ? Math.round(
+                            (formik.values.second_period.passives
+                              .other_lp_leasing /
+                              resultsOf("total_assets", "second_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "14%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.first_period.passives.other_lp_leasing &&
+                      formik.values.second_period.passives.other_lp_leasing
+                        ? Math.round(
+                            ((formik.values.second_period.passives
+                              .other_lp_leasing -
+                              formik.values.first_period.passives
+                                .other_lp_leasing) /
+                              formik.values.first_period.passives
+                                .other_lp_leasing) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "4%",
+                      width: "16%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="passives"
+                    id="other_lp_leasing-third_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "45%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.third_period.passives.other_lp_leasing
+                        ? Math.round(
+                            (formik.values.third_period.passives
+                              .other_lp_leasing /
+                              resultsOf("total_assets", "third_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "14%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.third_period.passives.other_lp_leasing &&
+                      formik.values.second_period.passives.other_lp_leasing
+                        ? Math.round(
+                            ((formik.values.third_period.passives
+                              .other_lp_leasing -
+                              formik.values.second_period.passives
+                                .other_lp_leasing) /
+                              formik.values.second_period.passives
+                                .other_lp_leasing) *
                               100
                           )
                         : null
@@ -8377,7 +8778,7 @@ export const FinancialStat = ({ formik }) => {
                   height="100%"
                 >
                   <InputTitles sx={{ fontSize: "0.7vw" }}>
-                    INVENTARIO TOTAL
+                    PASIVOS DE LP
                   </InputTitles>
                 </Box>
                 <Box
@@ -8394,10 +8795,10 @@ export const FinancialStat = ({ formik }) => {
                     color="#488B8F"
                     marginLeft="5%"
                     width="70%"
-                    value={resultsOf("total_inventory", "first_period")}
-                    id="total_inventory-first_period"
+                    value={resultsOf("lp_passives", "first_period")}
+                    id="lp_passives-first_period"
                   >
-                    {`$ ${resultsOf("total_inventory", "first_period")}`}
+                    {`$ ${resultsOf("lp_passives", "first_period")}`}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -8407,11 +8808,13 @@ export const FinancialStat = ({ formik }) => {
                     marginLeft="10%"
                     width="15%"
                   >
-                    {`${Math.round(
-                      (resultsOf("total_inventory", "first_period") /
-                        resultsOf("total_assets", "first_period")) *
-                        100
-                    )}%`}
+                    {`${
+                      Math.round(
+                        (resultsOf("lp_passives", "first_period") /
+                          resultsOf("total_assets", "first_period")) *
+                          100
+                      ) || 0
+                    }%`}
                   </Typography>
                 </Box>
                 <Box
@@ -8428,10 +8831,10 @@ export const FinancialStat = ({ formik }) => {
                     color="#488B8F"
                     marginLeft="5%"
                     width="45%"
-                    value={resultsOf("total_inventory", "second_period")}
-                    id="total_inventory-second_period"
+                    value={resultsOf("lp_passives", "second_period")}
+                    id="lp_passives-second_period"
                   >
-                    {`$ ${resultsOf("total_inventory", "second_period")}`}
+                    {`$ ${resultsOf("lp_passives", "second_period")}`}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -8441,11 +8844,13 @@ export const FinancialStat = ({ formik }) => {
                     marginLeft="10%"
                     width="15%"
                   >
-                    {`${Math.round(
-                      (resultsOf("total_inventory", "second_period") /
-                        resultsOf("total_assets", "second_period")) *
-                        100
-                    )}%`}
+                    {`${
+                      Math.round(
+                        (resultsOf("lp_passives", "second_period") /
+                          resultsOf("total_assets", "second_period")) *
+                          100
+                      ) || 0
+                    }%`}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -8455,12 +8860,14 @@ export const FinancialStat = ({ formik }) => {
                     marginLeft="10%"
                     width="15%"
                   >
-                    {`${Math.round(
-                      ((resultsOf("total_inventory", "second_period") -
-                        resultsOf("total_inventory", "first_period")) /
-                        resultsOf("total_inventory", "first_period")) *
-                        100
-                    )}%`}
+                    {`${
+                      Math.round(
+                        ((resultsOf("lp_passives", "second_period") -
+                          resultsOf("lp_passives", "first_period")) /
+                          resultsOf("lp_passives", "first_period")) *
+                          100
+                      ) || 0
+                    }%`}
                   </Typography>
                 </Box>
                 <Box
@@ -8477,10 +8884,10 @@ export const FinancialStat = ({ formik }) => {
                     color="#488B8F"
                     marginLeft="5%"
                     width="45%"
-                    value={resultsOf("total_inventory", "third_period")}
-                    id="total_inventory-third_period"
+                    value={resultsOf("lp_passives", "third_period")}
+                    id="lp_passives-third_period"
                   >
-                    {`$ ${resultsOf("total_inventory", "third_period")}`}
+                    {`$ ${resultsOf("lp_passives", "third_period")}`}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -8490,11 +8897,13 @@ export const FinancialStat = ({ formik }) => {
                     marginLeft="10%"
                     width="15%"
                   >
-                    {`${Math.round(
-                      (resultsOf("total_inventory", "third_period") /
-                        resultsOf("total_assets", "third_period")) *
-                        100
-                    )}%`}
+                    {`${
+                      Math.round(
+                        (resultsOf("lp_passives", "third_period") /
+                          resultsOf("total_assets", "third_period")) *
+                          100
+                      ) || 0
+                    }%`}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -8504,58 +8913,177 @@ export const FinancialStat = ({ formik }) => {
                     marginLeft="10%"
                     width="15%"
                   >
-                    {`${Math.round(
-                      ((resultsOf("total_inventory", "third_period") -
-                        resultsOf("total_inventory", "second_period")) /
-                        resultsOf("total_inventory", "second_period")) *
-                        100
-                    )}%`}
+                    {`${
+                      Math.round(
+                        ((resultsOf("lp_passives", "third_period") -
+                          resultsOf("lp_passives", "second_period")) /
+                          resultsOf("lp_passives", "second_period")) *
+                          100
+                      ) || 0
+                    }%`}
                   </Typography>
                 </Box>
-              </Box> */}
+              </Box>
               <Box
                 display="flex"
-                alignItems="center"
                 flexDirection="row"
                 width="100%"
-                padding="10px 0px"
-                mt="1%"
+                height="100%"
+                alignItems="center"
+                bgcolor="#CFDDDD"
               >
-                <Box width="18%">
-                  <Divider
-                    sx={{
-                      borderBottomWidth: "1.4px",
-                      borderColor: "#575757",
-                      opacity: "0.5",
-                    }}
-                  />
+                <Box
+                  width="18%"
+                  display="flex"
+                  bgcolor="#EBEBEB"
+                  alignItems="center"
+                  height="100%"
+                >
+                  <InputTitles sx={{ fontSize: "0.7vw" }}>
+                    TOTAL PASIVOS
+                  </InputTitles>
                 </Box>
-                <Box width="calc(76% / 3)">
-                  <Divider
-                    sx={{
-                      borderBottomWidth: "1.4px",
-                      borderColor: "#575757",
-                      opacity: "0.5",
-                    }}
-                  />
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="0%"
+                  padding="10px 0px"
+                >
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="5%"
+                    width="70%"
+                    value={resultsOf("total_passives", "first_period")}
+                    id="total_passives-first_period"
+                  >
+                    {`$ ${resultsOf("total_passives", "first_period")}`}
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="10%"
+                    width="15%"
+                  >
+                    {`${
+                      Math.round(
+                        (resultsOf("total_passives", "first_period") /
+                          resultsOf("total_assets", "first_period")) *
+                          100
+                      ) || 0
+                    }%`}
+                  </Typography>
                 </Box>
-                <Box width="calc(76% / 3)" ml="3%">
-                  <Divider
-                    sx={{
-                      borderBottomWidth: "1.4px",
-                      borderColor: "#575757",
-                      opacity: "0.5",
-                    }}
-                  />
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                  padding="10px 0px"
+                >
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="5%"
+                    width="45%"
+                    value={resultsOf("total_passives", "second_period")}
+                    id="total_passives-second_period"
+                  >
+                    {`$ ${resultsOf("total_passives", "second_period")}`}
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="10%"
+                    width="15%"
+                  >
+                    {`${
+                      Math.round(
+                        (resultsOf("total_passives", "second_period") /
+                          resultsOf("total_assets", "second_period")) *
+                          100
+                      ) || 0
+                    }%`}
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="10%"
+                    width="15%"
+                  >
+                    {`${
+                      Math.round(
+                        ((resultsOf("total_passives", "second_period") -
+                          resultsOf("total_passives", "first_period")) /
+                          resultsOf("total_passives", "first_period")) *
+                          100
+                      ) || 0
+                    }%`}
+                  </Typography>
                 </Box>
-                <Box width="calc(76% / 3)" ml="3%">
-                  <Divider
-                    sx={{
-                      borderBottomWidth: "1.4px",
-                      borderColor: "#575757",
-                      opacity: "0.5",
-                    }}
-                  />
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                  padding="10px 0px"
+                >
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="5%"
+                    width="45%"
+                    value={resultsOf("total_passives", "third_period")}
+                    id="total_passives-third_period"
+                  >
+                    {`$ ${resultsOf("total_passives", "third_period")}`}
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="10%"
+                    width="15%"
+                  >
+                    {`${
+                      Math.round(
+                        (resultsOf("total_passives", "third_period") /
+                          resultsOf("total_assets", "third_period")) *
+                          100
+                      ) || 0
+                    }%`}
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="10%"
+                    width="15%"
+                  >
+                    {`${
+                      Math.round(
+                        ((resultsOf("total_passives", "third_period") -
+                          resultsOf("total_passives", "second_period")) /
+                          resultsOf("total_passives", "second_period")) *
+                          100
+                      ) || 0
+                    }%`}
+                  </Typography>
                 </Box>
               </Box>
             </Box>
