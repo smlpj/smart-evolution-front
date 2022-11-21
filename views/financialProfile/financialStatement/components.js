@@ -9086,6 +9086,65 @@ export const FinancialStat = ({ formik }) => {
                   </Typography>
                 </Box>
               </Box>
+
+              <Box
+                display="flex"
+                flexDirection="row"
+                width="100%"
+                mt="6%"
+                alignItems="center"
+              >
+                <Box width="15%">
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.85vw"
+                    fontWeight="500"
+                    color="#333333"
+                  >
+                    Patrimonio
+                  </Typography>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                  justifyContent="flex-end"
+                >
+                  <InputTitles sx={{ fontSize: "0.7vw" }}>
+                    Variación<br></br>vertical
+                  </InputTitles>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                  justifyContent="flex-end"
+                >
+                  <InputTitles marginRight="5%" sx={{ fontSize: "0.7vw" }}>
+                    Variación<br></br>vertical
+                  </InputTitles>
+                  <InputTitles sx={{ fontSize: "0.7vw" }}>
+                    Variación<br></br>horizontal
+                  </InputTitles>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                  justifyContent="flex-end"
+                >
+                  <InputTitles marginRight="5%" sx={{ fontSize: "0.7vw" }}>
+                    Variación<br></br>vertical
+                  </InputTitles>
+                  <InputTitles sx={{ fontSize: "0.7vw" }}>
+                    Variación<br></br>horizontal
+                  </InputTitles>
+                </Box>
+              </Box>
+              {/* Primera sección patrimonio */}
             </Box>
           </Box>
         </Grid>
