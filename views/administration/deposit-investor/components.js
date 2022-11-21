@@ -86,8 +86,7 @@ export const Deposit = ({ formik, option, ToastContainer }) => {
                     <ClientSelect formik={formik} />
                     <Box ml={5} position="relative">
                       <Box width="17vw">
-                        <InputTitles>Cuenta inversionista</InputTitles>
-                        <AccountSelect formik={formik} />
+                          <AccountSelect formik={formik} />
                         <HelperText position="fixed">
                           {formik.touched.document_number &&
                             formik.errors.document_number}

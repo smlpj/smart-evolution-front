@@ -13,6 +13,7 @@ import {
   GetDepositByID,
   ModifyDepositQuery,
   RegisterDepositQuery,
+  GetRiskProfile
 } from "./queries";
 
 import { useFormik } from "formik";
@@ -53,6 +54,13 @@ export default function RegisterDeposit() {
     error: error3,
     data: data3,
   } = useFetch({ service: ModifyDepositQuery, init: false });
+
+  const {
+    fetch: fetch4,
+    loading: loading4,
+    error: error4,
+    data: data4,
+  } = useFetch({ service: GetRiskProfile, init: false });
 
   useEffect(() => {
     if (option !== "register" && option !== "" && option !== undefined) {
@@ -160,6 +168,35 @@ export default function RegisterDeposit() {
       }, 2000);
     }
   }, [loading, data, error]);
+
+  useEffect(() => {
+    if ( formik.values.client) {
+      fetch4(formik.values.client)
+    }
+  },[formik.values.client])
+
+  useEffect(() => {
+    if (data4) {
+      formik.setValues({
+        ...formik.values,
+        beneficiary: data4?.data?.client,
+        accountNumber: data4?.data?.account_number,
+        accountType: data4?.data?.account_type,
+        bank: data4?.data?.bank,
+      })
+    }
+
+    if (error4) {
+      formik.setValues({
+        ...formik.values,
+        beneficiary: '',
+        accountNumber: '',
+        accountType: '',
+        bank: '',
+      })
+      Toast("Cliente sin cuenta en el perfil de riesgo", "error");
+    }
+  },[data4, loading4, error4])  
 
   return (
     <>

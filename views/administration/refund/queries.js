@@ -29,3 +29,13 @@ export const GetRefundByID = async (id) => {
     });
     return res.data;
   };
+
+
+  export const GetRiskProfile = async (data) => {
+    const res = await Axios.get(`${API_URL}/riskProfile/client/${data}`, {
+        headers: {
+          authorization: "Bearer " + localStorage.getItem("access-token"),
+        },
+      });
+      return res.data;
+  }

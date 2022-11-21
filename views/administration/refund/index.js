@@ -12,7 +12,7 @@ import { RefundV } from './components'
 // Validations
 import { object, string } from "yup"
 // Queries
-import { SaveRefund, UpdateRefund, GetRefundByID } from './queries'
+import { SaveRefund, UpdateRefund, GetRefundByID, GetRiskProfile } from './queries'
 
 
 export const RefundC = () => {
@@ -83,6 +83,13 @@ export const RefundC = () => {
         data: RefundByIdData,
       } = useFetch({ service: GetRefundByID, init: false })
 
+      const {
+        fetch: fetch4,
+        loading: loading4,
+        error: error4,
+        data: data4,
+      } = useFetch({ service: GetRiskProfile, init: false });
+
       useEffect(() => {
           
         if (saveRefundLoading) Toast("Se está registrando el reintegro", 'info')
@@ -120,6 +127,31 @@ export const RefundC = () => {
 
         },[RefundByIdData, RefundByIdError, RefundByIdLoading])
 
+
+
+        useEffect(() => {
+            if (data4) {
+              formik.setValues({
+                ...formik.values,
+                beneficiary: data4?.data?.client,
+                accountNumber: data4?.data?.account_number,
+                accountType: data4?.data?.account_type,
+                bank: data4?.data?.bank,
+              })
+            }
+        
+            if (error4) {
+              formik.setValues({
+                ...formik.values,
+                beneficiary: '',
+                accountNumber: '',
+                accountType: '',
+                bank: '',
+              })
+              Toast("Cliente sin cuenta en el perfil de riesgo", "error");
+            }
+          },[data4, loading4, error4])  
+
     // Form
     const formik = useFormik({
         initialValues: {
@@ -142,6 +174,12 @@ export const RefundC = () => {
             else updateRefundFetch(values)
         }
     })
+
+    useEffect(() => {
+        if ( formik.values.client) {
+          fetch4(formik.values.client)
+        }
+      },[formik?.values?.client])
 
     return <RefundV formik={formik} ToastContainer={ToastContainer} />
 }
