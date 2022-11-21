@@ -10,7 +10,7 @@ const authContext = createContext();
 export default authContext;
 
 const pathsToRedirectDashboard = ["/auth/login", "/auth/register"];
-const pathsExlcuded = ["/self-management"];
+const pathsExcluded = ["/self-management"];
 
 export const AuthProvider = (child) => {
   const router = useRouter();
@@ -23,7 +23,7 @@ export const AuthProvider = (child) => {
 
   useEffect(() => {
     const shouldRedirect = pathsToRedirectDashboard.includes(router.pathname);
-    const isExcluded = !pathsExlcuded.includes(router.pathname);
+    const isExcluded     = !pathsExcluded.includes(router.pathname);
 
     try {
       const access_token = localStorage.getItem("access-token");
