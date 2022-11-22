@@ -155,6 +155,64 @@ export const FinancialStat = ({ formik }) => {
         (formik.values[period].passives.other_lp_leasing ?? 0)
       );
     }
+    if (name === "total_patrimony") {
+      return (
+        (formik.values[period].patrimony.payed_capital ?? 0) +
+        (formik.values[period].patrimony.sup_capital_prima ?? 0) +
+        (formik.values[period].patrimony.legal_reserve ?? 0) +
+        (formik.values[period].patrimony.periods_results ?? 0) +
+        (formik.values[period].patrimony.accumulated_results ?? 0) +
+        (formik.values[period].patrimony.rev_patrimony_niif ?? 0)
+      );
+    }
+    if (name === "passive_and_patrimony") {
+      return (
+        (formik.values[period].passives.financial_obligation_cp ?? 0) +
+        (formik.values[period].passives.providers ?? 0) +
+        (formik.values[period].passives.unpaid_expenses ?? 0) +
+        (formik.values[period].passives.unpaid_taxes ?? 0) +
+        (formik.values[period].passives.linked_economics ?? 0) +
+        (formik.values[period].passives.estimated_passives ?? 0) +
+        (formik.values[period].passives.financial_obligation_lp ?? 0) +
+        (formik.values[period].passives.other_lp_leasing ?? 0) +
+        (formik.values[period].patrimony.payed_capital ?? 0) +
+        (formik.values[period].patrimony.sup_capital_prima ?? 0) +
+        (formik.values[period].patrimony.legal_reserve ?? 0) +
+        (formik.values[period].patrimony.periods_results ?? 0) +
+        (formik.values[period].patrimony.accumulated_results ?? 0) +
+        (formik.values[period].patrimony.rev_patrimony_niif ?? 0)
+      );
+    }
+    if (name === "total_assets_passives") {
+      return (
+        (formik.values[period].passives.financial_obligation_cp ?? 0) +
+        (formik.values[period].passives.providers ?? 0) +
+        (formik.values[period].passives.unpaid_expenses ?? 0) +
+        (formik.values[period].passives.unpaid_taxes ?? 0) +
+        (formik.values[period].passives.linked_economics ?? 0) +
+        (formik.values[period].passives.estimated_passives ?? 0) +
+        (formik.values[period].passives.financial_obligation_lp ?? 0) +
+        (formik.values[period].passives.other_lp_leasing ?? 0) +
+        (formik.values[period].patrimony.payed_capital ?? 0) +
+        (formik.values[period].patrimony.sup_capital_prima ?? 0) +
+        (formik.values[period].patrimony.legal_reserve ?? 0) +
+        (formik.values[period].patrimony.periods_results ?? 0) +
+        (formik.values[period].patrimony.accumulated_results ?? 0) +
+        (formik.values[period].patrimony.rev_patrimony_niif ?? 0) -
+        ((formik.values[period].assets.cash_and_investments ?? 0) +
+          (formik.values[period].assets.advances_and_progress ?? 0) +
+          (formik.values[period].assets.clients_wallet ?? 0) +
+          (formik.values[period].assets.cxc_partners ?? 0) +
+          (formik.values[period].assets.other_cxc ?? 0) +
+          (formik.values[period].assets.raw_material_and_others ?? 0) +
+          (formik.values[period].assets.products_finished ?? 0) +
+          (formik.values[period].assets.lands_and_buildings ?? 0) +
+          (formik.values[period].assets.m_and_e_vehicles ?? 0) -
+          (formik.values[period].assets.dep_acum ?? 0) +
+          (formik.values[period].assets.difer_intang_leasing ?? 0) +
+          (formik.values[period].assets.investments_and_others ?? 0))
+      );
+    }
   };
 
   return (
@@ -9145,6 +9203,2475 @@ export const FinancialStat = ({ formik }) => {
                 </Box>
               </Box>
               {/* Primera sección patrimonio */}
+              <Box
+                display="flex"
+                flexDirection="row"
+                width="100%"
+                mt="1%"
+                alignItems="center"
+              >
+                <Box width="15%">
+                  <InputTitles sx={{ fontSize: "0.7vw" }}>
+                    CAPITAL PAGADO
+                  </InputTitles>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="patrimony"
+                    id="payed_capital-first_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "80%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.first_period.patrimony.payed_capital
+                        ? Math.round(
+                            (formik.values.first_period.patrimony
+                              .payed_capital /
+                              resultsOf("total_assets", "first_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "15%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="patrimony"
+                    id="payed_capital-second_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "45%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.second_period.patrimony.payed_capital
+                        ? Math.round(
+                            (formik.values.second_period.patrimony
+                              .payed_capital /
+                              resultsOf("total_assets", "second_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "14%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.first_period.patrimony.payed_capital &&
+                      formik.values.second_period.patrimony.payed_capital
+                        ? Math.round(
+                            ((formik.values.second_period.patrimony
+                              .payed_capital -
+                              formik.values.first_period.patrimony
+                                .payed_capital) /
+                              formik.values.first_period.patrimony
+                                .payed_capital) *
+                              100
+                          ) || 0
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "4%",
+                      width: "16%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="patrimony"
+                    id="payed_capital-third_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "45%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.third_period.patrimony.payed_capital
+                        ? Math.round(
+                            (formik.values.third_period.patrimony
+                              .payed_capital /
+                              resultsOf("total_assets", "third_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "14%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.third_period.patrimony.payed_capital &&
+                      formik.values.second_period.patrimony.payed_capital
+                        ? Math.round(
+                            ((formik.values.third_period.patrimony
+                              .payed_capital -
+                              formik.values.second_period.patrimony
+                                .payed_capital) /
+                              formik.values.second_period.patrimony
+                                .payed_capital) *
+                              100
+                          ) || 0
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "4%",
+                      width: "16%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+              </Box>
+              <Box
+                display="flex"
+                flexDirection="row"
+                width="100%"
+                mt="1%"
+                alignItems="center"
+              >
+                <Box width="15%">
+                  <InputTitles sx={{ fontSize: "0.7vw" }}>
+                    SUP. CAPITAL, PRIMA
+                  </InputTitles>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="patrimony"
+                    id="sup_capital_prima-first_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "80%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.first_period.patrimony.sup_capital_prima
+                        ? Math.round(
+                            (formik.values.first_period.patrimony
+                              .sup_capital_prima /
+                              resultsOf("total_assets", "first_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "15%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="patrimony"
+                    id="sup_capital_prima-second_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "45%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.second_period.patrimony.sup_capital_prima
+                        ? Math.round(
+                            (formik.values.second_period.patrimony
+                              .sup_capital_prima /
+                              resultsOf("total_assets", "second_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "14%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.first_period.patrimony.sup_capital_prima &&
+                      formik.values.second_period.patrimony.sup_capital_prima
+                        ? Math.round(
+                            ((formik.values.second_period.patrimony
+                              .sup_capital_prima -
+                              formik.values.first_period.patrimony
+                                .sup_capital_prima) /
+                              formik.values.first_period.patrimony
+                                .sup_capital_prima) *
+                              100
+                          ) || 0
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "4%",
+                      width: "16%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="patrimony"
+                    id="sup_capital_prima-third_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "45%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.third_period.patrimony.sup_capital_prima
+                        ? Math.round(
+                            (formik.values.third_period.patrimony
+                              .sup_capital_prima /
+                              resultsOf("total_assets", "third_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "14%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.third_period.patrimony.sup_capital_prima &&
+                      formik.values.second_period.patrimony.sup_capital_prima
+                        ? Math.round(
+                            ((formik.values.third_period.patrimony
+                              .sup_capital_prima -
+                              formik.values.second_period.patrimony
+                                .sup_capital_prima) /
+                              formik.values.second_period.patrimony
+                                .sup_capital_prima) *
+                              100
+                          ) || 0
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "4%",
+                      width: "16%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+              </Box>
+              <Box
+                display="flex"
+                flexDirection="row"
+                width="100%"
+                mt="1%"
+                alignItems="center"
+              >
+                <Box width="15%">
+                  <InputTitles sx={{ fontSize: "0.7vw" }}>
+                    RESERVA LEGAL
+                  </InputTitles>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="patrimony"
+                    id="legal_reserve-first_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "80%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.first_period.patrimony.legal_reserve
+                        ? Math.round(
+                            (formik.values.first_period.patrimony
+                              .legal_reserve /
+                              resultsOf("total_assets", "first_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "15%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="patrimony"
+                    id="legal_reserve-second_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "45%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.second_period.patrimony.legal_reserve
+                        ? Math.round(
+                            (formik.values.second_period.patrimony
+                              .legal_reserve /
+                              resultsOf("total_assets", "second_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "14%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.first_period.patrimony.legal_reserve &&
+                      formik.values.second_period.patrimony.legal_reserve
+                        ? Math.round(
+                            ((formik.values.second_period.patrimony
+                              .legal_reserve -
+                              formik.values.first_period.patrimony
+                                .legal_reserve) /
+                              formik.values.first_period.patrimony
+                                .legal_reserve) *
+                              100
+                          ) || 0
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "4%",
+                      width: "16%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="patrimony"
+                    id="legal_reserve-third_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "45%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.third_period.patrimony.legal_reserve
+                        ? Math.round(
+                            (formik.values.third_period.patrimony
+                              .legal_reserve /
+                              resultsOf("total_assets", "third_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "14%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.third_period.patrimony.legal_reserve &&
+                      formik.values.second_period.patrimony.legal_reserve
+                        ? Math.round(
+                            ((formik.values.third_period.patrimony
+                              .legal_reserve -
+                              formik.values.second_period.patrimony
+                                .legal_reserve) /
+                              formik.values.second_period.patrimony
+                                .legal_reserve) *
+                              100
+                          ) || 0
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "4%",
+                      width: "16%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+              </Box>
+              <Box
+                display="flex"
+                flexDirection="row"
+                width="100%"
+                mt="1%"
+                alignItems="center"
+              >
+                <Box width="15%">
+                  <InputTitles sx={{ fontSize: "0.7vw" }}>
+                    RESULTADOS PERÍODO
+                  </InputTitles>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="patrimony"
+                    id="periods_results-first_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "80%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.first_period.patrimony.periods_results
+                        ? Math.round(
+                            (formik.values.first_period.patrimony
+                              .periods_results /
+                              resultsOf("total_assets", "first_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "15%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="patrimony"
+                    id="periods_results-second_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "45%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.second_period.patrimony.periods_results
+                        ? Math.round(
+                            (formik.values.second_period.patrimony
+                              .periods_results /
+                              resultsOf("total_assets", "second_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "14%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.first_period.patrimony.periods_results &&
+                      formik.values.second_period.patrimony.periods_results
+                        ? Math.round(
+                            ((formik.values.second_period.patrimony
+                              .periods_results -
+                              formik.values.first_period.patrimony
+                                .periods_results) /
+                              formik.values.first_period.patrimony
+                                .periods_results) *
+                              100
+                          ) || 0
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "4%",
+                      width: "16%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="patrimony"
+                    id="periods_results-third_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "45%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.third_period.patrimony.periods_results
+                        ? Math.round(
+                            (formik.values.third_period.patrimony
+                              .periods_results /
+                              resultsOf("total_assets", "third_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "14%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.third_period.patrimony.periods_results &&
+                      formik.values.second_period.patrimony.periods_results
+                        ? Math.round(
+                            ((formik.values.third_period.patrimony
+                              .periods_results -
+                              formik.values.second_period.patrimony
+                                .periods_results) /
+                              formik.values.second_period.patrimony
+                                .periods_results) *
+                              100
+                          ) || 0
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "4%",
+                      width: "16%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+              </Box>
+              <Box
+                display="flex"
+                flexDirection="row"
+                width="100%"
+                mt="1%"
+                alignItems="center"
+              >
+                <Box width="15%">
+                  <InputTitles sx={{ fontSize: "0.7vw" }}>
+                    RESULTADOS ACUMULADOS
+                  </InputTitles>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="patrimony"
+                    id="accumulated_results-first_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "80%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.first_period.patrimony.accumulated_results
+                        ? Math.round(
+                            (formik.values.first_period.patrimony
+                              .accumulated_results /
+                              resultsOf("total_assets", "first_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "15%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="patrimony"
+                    id="accumulated_results-second_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "45%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.second_period.patrimony.accumulated_results
+                        ? Math.round(
+                            (formik.values.second_period.patrimony
+                              .accumulated_results /
+                              resultsOf("total_assets", "second_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "14%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.first_period.patrimony
+                        .accumulated_results &&
+                      formik.values.second_period.patrimony.accumulated_results
+                        ? Math.round(
+                            ((formik.values.second_period.patrimony
+                              .accumulated_results -
+                              formik.values.first_period.patrimony
+                                .accumulated_results) /
+                              formik.values.first_period.patrimony
+                                .accumulated_results) *
+                              100
+                          ) || 0
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "4%",
+                      width: "16%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="patrimony"
+                    id="accumulated_results-third_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "45%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.third_period.patrimony.accumulated_results
+                        ? Math.round(
+                            (formik.values.third_period.patrimony
+                              .accumulated_results /
+                              resultsOf("total_assets", "third_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "14%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.third_period.patrimony
+                        .accumulated_results &&
+                      formik.values.second_period.patrimony.accumulated_results
+                        ? Math.round(
+                            ((formik.values.third_period.patrimony
+                              .accumulated_results -
+                              formik.values.second_period.patrimony
+                                .accumulated_results) /
+                              formik.values.second_period.patrimony
+                                .accumulated_results) *
+                              100
+                          ) || 0
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "4%",
+                      width: "16%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+              </Box>
+              <Box
+                display="flex"
+                flexDirection="row"
+                width="100%"
+                mt="1%"
+                alignItems="center"
+              >
+                <Box width="15%">
+                  <InputTitles sx={{ fontSize: "0.7vw" }}>
+                    REV. PATRIMONIO/ NIIF
+                  </InputTitles>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="patrimony"
+                    id="rev_patrimony_niif-first_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "80%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.first_period.patrimony.rev_patrimony_niif
+                        ? Math.round(
+                            (formik.values.first_period.patrimony
+                              .rev_patrimony_niif /
+                              resultsOf("total_assets", "first_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "15%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="patrimony"
+                    id="rev_patrimony_niif-second_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "45%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.second_period.patrimony.rev_patrimony_niif
+                        ? Math.round(
+                            (formik.values.second_period.patrimony
+                              .rev_patrimony_niif /
+                              resultsOf("total_assets", "second_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "14%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.first_period.patrimony.rev_patrimony_niif &&
+                      formik.values.second_period.patrimony.rev_patrimony_niif
+                        ? Math.round(
+                            ((formik.values.second_period.patrimony
+                              .rev_patrimony_niif -
+                              formik.values.first_period.patrimony
+                                .rev_patrimony_niif) /
+                              formik.values.first_period.patrimony
+                                .rev_patrimony_niif) *
+                              100
+                          ) || 0
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "4%",
+                      width: "16%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="patrimony"
+                    id="rev_patrimony_niif-third_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "45%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.third_period.patrimony.rev_patrimony_niif
+                        ? Math.round(
+                            (formik.values.third_period.patrimony
+                              .rev_patrimony_niif /
+                              resultsOf("total_assets", "third_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "14%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.third_period.patrimony.rev_patrimony_niif &&
+                      formik.values.second_period.patrimony.rev_patrimony_niif
+                        ? Math.round(
+                            ((formik.values.third_period.patrimony
+                              .rev_patrimony_niif -
+                              formik.values.second_period.patrimony
+                                .rev_patrimony_niif) /
+                              formik.values.second_period.patrimony
+                                .rev_patrimony_niif) *
+                              100
+                          ) || 0
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "4%",
+                      width: "16%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+              </Box>
+              <Box
+                display="flex"
+                flexDirection="row"
+                width="100%"
+                height="100%"
+                mt="1%"
+                alignItems="center"
+                bgcolor="#CFDDDD"
+              >
+                <Box
+                  width="18%"
+                  display="flex"
+                  bgcolor="#EBEBEB"
+                  alignItems="center"
+                  height="100%"
+                >
+                  <InputTitles sx={{ fontSize: "0.7vw" }}>
+                    TOTAL PATRIMONIO
+                  </InputTitles>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="0%"
+                  padding="10px 0px"
+                >
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="5%"
+                    width="70%"
+                    value={resultsOf("total_patrimony", "first_period")}
+                    id="total_patrimony-first_period"
+                  >
+                    {`$ ${resultsOf("total_patrimony", "first_period")}`}
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="10%"
+                    width="15%"
+                  >
+                    {`${
+                      Math.round(
+                        (resultsOf("total_patrimony", "first_period") /
+                          resultsOf("total_assets", "first_period")) *
+                          100
+                      ) || 0
+                    }%`}
+                  </Typography>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                  padding="10px 0px"
+                >
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="5%"
+                    width="45%"
+                    value={resultsOf("total_patrimony", "second_period")}
+                    id="total_patrimony-second_period"
+                  >
+                    {`$ ${resultsOf("total_patrimony", "second_period")}`}
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="10%"
+                    width="15%"
+                  >
+                    {`${
+                      Math.round(
+                        (resultsOf("total_patrimony", "second_period") /
+                          resultsOf("total_assets", "second_period")) *
+                          100
+                      ) || 0
+                    }%`}
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="10%"
+                    width="15%"
+                  >
+                    {`${
+                      Math.round(
+                        ((resultsOf("total_patrimony", "second_period") -
+                          resultsOf("total_patrimony", "first_period")) /
+                          resultsOf("total_patrimony", "first_period")) *
+                          100
+                      ) || 0
+                    }%`}
+                  </Typography>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                  padding="10px 0px"
+                >
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="5%"
+                    width="45%"
+                    value={resultsOf("total_patrimony", "third_period")}
+                    id="total_patrimony-third_period"
+                  >
+                    {`$ ${resultsOf("total_patrimony", "third_period")}`}
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="10%"
+                    width="15%"
+                  >
+                    {`${
+                      Math.round(
+                        (resultsOf("total_patrimony", "third_period") /
+                          resultsOf("total_assets", "third_period")) *
+                          100
+                      ) || 0
+                    }%`}
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="10%"
+                    width="15%"
+                  >
+                    {`${
+                      Math.round(
+                        ((resultsOf("total_patrimony", "third_period") -
+                          resultsOf("total_patrimony", "second_period")) /
+                          resultsOf("total_patrimony", "second_period")) *
+                          100
+                      ) || 0
+                    }%`}
+                  </Typography>
+                </Box>
+              </Box>
+              <Box
+                display="flex"
+                flexDirection="row"
+                width="100%"
+                height="100%"
+                alignItems="center"
+                bgcolor="#CFDDDD"
+              >
+                <Box
+                  width="18%"
+                  display="flex"
+                  bgcolor="#EBEBEB"
+                  alignItems="center"
+                  height="100%"
+                >
+                  <InputTitles sx={{ fontSize: "0.7vw" }}>
+                    PASIVO Y PATRIMONIO
+                  </InputTitles>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="0%"
+                  padding="10px 0px"
+                >
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="5%"
+                    width="70%"
+                    value={resultsOf("passive_and_patrimony", "first_period")}
+                    id="passive_and_patrimony-first_period"
+                  >
+                    {`$ ${resultsOf("passive_and_patrimony", "first_period")}`}
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="10%"
+                    width="15%"
+                  >
+                    {`${
+                      Math.round(
+                        (resultsOf("passive_and_patrimony", "first_period") /
+                          resultsOf("total_assets", "first_period")) *
+                          100
+                      ) || 0
+                    }%`}
+                  </Typography>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                  padding="10px 0px"
+                >
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="5%"
+                    width="45%"
+                    value={resultsOf("passive_and_patrimony", "second_period")}
+                    id="passive_and_patrimony-second_period"
+                  >
+                    {`$ ${resultsOf("passive_and_patrimony", "second_period")}`}
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="10%"
+                    width="15%"
+                  >
+                    {`${
+                      Math.round(
+                        (resultsOf("passive_and_patrimony", "second_period") /
+                          resultsOf("total_assets", "second_period")) *
+                          100
+                      ) || 0
+                    }%`}
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="10%"
+                    width="15%"
+                  >
+                    {`${
+                      Math.round(
+                        ((resultsOf("passive_and_patrimony", "second_period") -
+                          resultsOf("passive_and_patrimony", "first_period")) /
+                          resultsOf("passive_and_patrimony", "first_period")) *
+                          100
+                      ) || 0
+                    }%`}
+                  </Typography>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                  padding="10px 0px"
+                >
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="5%"
+                    width="45%"
+                    value={resultsOf("passive_and_patrimony", "third_period")}
+                    id="passive_and_patrimony-third_period"
+                  >
+                    {`$ ${resultsOf("passive_and_patrimony", "third_period")}`}
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="10%"
+                    width="15%"
+                  >
+                    {`${
+                      Math.round(
+                        (resultsOf("passive_and_patrimony", "third_period") /
+                          resultsOf("total_assets", "third_period")) *
+                          100
+                      ) || 0
+                    }%`}
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="10%"
+                    width="15%"
+                  >
+                    {`${
+                      Math.round(
+                        ((resultsOf("passive_and_patrimony", "third_period") -
+                          resultsOf("passive_and_patrimony", "second_period")) /
+                          resultsOf("passive_and_patrimony", "second_period")) *
+                          100
+                      ) || 0
+                    }%`}
+                  </Typography>
+                </Box>
+              </Box>
+              <Box
+                display="flex"
+                flexDirection="row"
+                width="100%"
+                height="100%"
+                alignItems="center"
+                bgcolor="#CFDDDD"
+              >
+                <Box
+                  width="18%"
+                  display="flex"
+                  bgcolor="#EBEBEB"
+                  alignItems="center"
+                  height="100%"
+                >
+                  <InputTitles sx={{ fontSize: "0.7vw" }}>
+                    Pasivos & Patrimonio - Activos
+                  </InputTitles>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="0%"
+                  padding="10px 0px"
+                >
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="5%"
+                    width="70%"
+                    value={resultsOf("total_assets_passives", "first_period")}
+                    id="total_assets_passives-first_period"
+                  >
+                    {`$ ${resultsOf("total_assets_passives", "first_period")}`}
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="10%"
+                    width="15%"
+                  >
+                    {`${
+                      Math.round(
+                        (resultsOf("total_assets_passives", "first_period") /
+                          resultsOf("total_assets", "first_period")) *
+                          100
+                      ) || 0
+                    }%`}
+                  </Typography>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                  padding="10px 0px"
+                >
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="5%"
+                    width="45%"
+                    value={resultsOf("total_assets_passives", "second_period")}
+                    id="total_assets_passives-second_period"
+                  >
+                    {`$ ${resultsOf("total_assets_passives", "second_period")}`}
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="10%"
+                    width="15%"
+                  >
+                    {`${
+                      Math.round(
+                        (resultsOf("total_assets_passives", "second_period") /
+                          resultsOf("total_assets", "second_period")) *
+                          100
+                      ) || 0
+                    }%`}
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="10%"
+                    width="15%"
+                  >
+                    {`${
+                      Math.round(
+                        ((resultsOf("total_assets_passives", "second_period") -
+                          resultsOf("total_assets_passives", "first_period")) /
+                          resultsOf("total_assets_passives", "first_period")) *
+                          100
+                      ) || 0
+                    }%`}
+                  </Typography>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                  padding="10px 0px"
+                >
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="5%"
+                    width="45%"
+                    value={resultsOf("total_assets_passives", "third_period")}
+                    id="total_assets_passives-third_period"
+                  >
+                    {`$ ${resultsOf("total_assets_passives", "third_period")}`}
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="10%"
+                    width="15%"
+                  >
+                    {`${
+                      Math.round(
+                        (resultsOf("total_assets_passives", "third_period") /
+                          resultsOf("total_assets", "third_period")) *
+                          100
+                      ) || 0
+                    }%`}
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="10%"
+                    width="15%"
+                  >
+                    {`${
+                      Math.round(
+                        ((resultsOf("total_assets_passives", "third_period") -
+                          resultsOf("total_assets_passives", "second_period")) /
+                          resultsOf("total_assets_passives", "second_period")) *
+                          100
+                      ) || 0
+                    }%`}
+                  </Typography>
+                </Box>
+              </Box>
             </Box>
           </Box>
         </Grid>
