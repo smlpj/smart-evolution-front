@@ -213,6 +213,58 @@ export const FinancialStat = ({ formik }) => {
           (formik.values[period].assets.investments_and_others ?? 0))
       );
     }
+    if (name === "net_sales") {
+      return (
+        (formik.values[period].stateOfResult.gross_sale ?? 0) -
+        (formik.values[period].stateOfResult.dtos_returns ?? 0)
+      );
+    }
+    if (name === "gross_profit") {
+      return (
+        (formik.values[period].stateOfResult.gross_sale ?? 0) -
+        (formik.values[period].stateOfResult.dtos_returns ?? 0) -
+        (formik.values[period].stateOfResult.cost_of_sales ?? 0)
+      );
+    }
+    if (name === "operating_profit") {
+      return (
+        (formik.values[period].stateOfResult.gross_sale ?? 0) -
+        (formik.values[period].stateOfResult.dtos_returns ?? 0) -
+        (formik.values[period].stateOfResult.cost_of_sales ?? 0) -
+        ((formik.values[period].stateOfResult.administrative_expenses_sales ??
+          0) +
+          (formik.values[period].stateOfResult.dep_amortization ?? 0))
+      );
+    }
+    if (name === "income_before_taxes") {
+      return (
+        (formik.values[period].stateOfResult.gross_sale ?? 0) -
+        (formik.values[period].stateOfResult.dtos_returns ?? 0) -
+        (formik.values[period].stateOfResult.cost_of_sales ?? 0) -
+        ((formik.values[period].stateOfResult.administrative_expenses_sales ??
+          0) +
+          (formik.values[period].stateOfResult.dep_amortization ?? 0)) +
+        (formik.values[period].stateOfResult.financial_income ?? 0) +
+        (formik.values[period].stateOfResult.other_incomes ?? 0) -
+        (formik.values[period].stateOfResult.financial_expenses ?? 0) -
+        (formik.values[period].stateOfResult.other_expenditures ?? 0)
+      );
+    }
+    if (name === "net_income") {
+      return (
+        (formik.values[period].stateOfResult.gross_sale ?? 0) -
+        (formik.values[period].stateOfResult.dtos_returns ?? 0) -
+        (formik.values[period].stateOfResult.cost_of_sales ?? 0) -
+        ((formik.values[period].stateOfResult.administrative_expenses_sales ??
+          0) +
+          (formik.values[period].stateOfResult.dep_amortization ?? 0)) +
+        (formik.values[period].stateOfResult.financial_income ?? 0) +
+        (formik.values[period].stateOfResult.other_incomes ?? 0) -
+        (formik.values[period].stateOfResult.financial_expenses ?? 0) -
+        (formik.values[period].stateOfResult.other_expenditures ?? 0) -
+        (formik.values[period].stateOfResult.provision_for_taxes ?? 0)
+      );
+    }
   };
 
   return (
@@ -11666,6 +11718,4396 @@ export const FinancialStat = ({ formik }) => {
                         ((resultsOf("total_assets_passives", "third_period") -
                           resultsOf("total_assets_passives", "second_period")) /
                           resultsOf("total_assets_passives", "second_period")) *
+                          100
+                      ) || 0
+                    }%`}
+                  </Typography>
+                </Box>
+              </Box>
+
+              <Box
+                display="flex"
+                flexDirection="row"
+                width="100%"
+                mt="6%"
+                alignItems="center"
+              >
+                <Box width="15%">
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.85vw"
+                    fontWeight="500"
+                    color="#333333"
+                  >
+                    Estado de resultados
+                  </Typography>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                  justifyContent="flex-end"
+                >
+                  <InputTitles sx={{ fontSize: "0.7vw" }}>
+                    Variación<br></br>vertical
+                  </InputTitles>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                  justifyContent="flex-end"
+                >
+                  <InputTitles marginRight="5%" sx={{ fontSize: "0.7vw" }}>
+                    Variación<br></br>vertical
+                  </InputTitles>
+                  <InputTitles sx={{ fontSize: "0.7vw" }}>
+                    Variación<br></br>horizontal
+                  </InputTitles>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                  justifyContent="flex-end"
+                >
+                  <InputTitles marginRight="5%" sx={{ fontSize: "0.7vw" }}>
+                    Variación<br></br>vertical
+                  </InputTitles>
+                  <InputTitles sx={{ fontSize: "0.7vw" }}>
+                    Variación<br></br>horizontal
+                  </InputTitles>
+                </Box>
+              </Box>
+              {/* Primera sección Estado de resultados */}
+              <Box
+                display="flex"
+                flexDirection="row"
+                width="100%"
+                mt="1%"
+                alignItems="center"
+              >
+                <Box width="15%">
+                  <InputTitles sx={{ fontSize: "0.7vw" }}>
+                    Ventas Brutas
+                  </InputTitles>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="stateOfResult"
+                    id="gross_sale-first_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "80%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.first_period.stateOfResult.gross_sale
+                        ? Math.round(
+                            (formik.values.first_period.stateOfResult
+                              .gross_sale /
+                              resultsOf("net_income", "first_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "15%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="stateOfResult"
+                    id="gross_sale-second_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "45%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.second_period.stateOfResult.gross_sale
+                        ? Math.round(
+                            (formik.values.second_period.stateOfResult
+                              .gross_sale /
+                              resultsOf("net_income", "second_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "14%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.first_period.stateOfResult.gross_sale &&
+                      formik.values.second_period.stateOfResult.gross_sale
+                        ? Math.round(
+                            ((formik.values.second_period.stateOfResult
+                              .gross_sale -
+                              formik.values.first_period.stateOfResult
+                                .gross_sale) /
+                              formik.values.first_period.stateOfResult
+                                .gross_sale) *
+                              100
+                          ) || 0
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "4%",
+                      width: "16%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="stateOfResult"
+                    id="gross_sale-third_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "45%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.third_period.stateOfResult.gross_sale
+                        ? Math.round(
+                            (formik.values.third_period.stateOfResult
+                              .gross_sale /
+                              resultsOf("net_income", "third_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "14%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.third_period.stateOfResult.gross_sale &&
+                      formik.values.second_period.stateOfResult.gross_sale
+                        ? Math.round(
+                            ((formik.values.third_period.stateOfResult
+                              .gross_sale -
+                              formik.values.second_period.stateOfResult
+                                .gross_sale) /
+                              formik.values.second_period.stateOfResult
+                                .gross_sale) *
+                              100
+                          ) || 0
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "4%",
+                      width: "16%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+              </Box>
+              <Box
+                display="flex"
+                flexDirection="row"
+                width="100%"
+                mt="1%"
+                alignItems="center"
+              >
+                <Box width="15%">
+                  <InputTitles sx={{ fontSize: "0.7vw" }}>
+                    Dtos y devoluciones
+                  </InputTitles>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="stateOfResult"
+                    id="dtos_returns-first_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "80%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.first_period.stateOfResult.dtos_returns
+                        ? Math.round(
+                            (formik.values.first_period.stateOfResult
+                              .dtos_returns /
+                              resultsOf("net_income", "first_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "15%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="stateOfResult"
+                    id="dtos_returns-second_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "45%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.second_period.stateOfResult.dtos_returns
+                        ? Math.round(
+                            (formik.values.second_period.stateOfResult
+                              .dtos_returns /
+                              resultsOf("net_income", "second_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "14%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.first_period.stateOfResult.dtos_returns &&
+                      formik.values.second_period.stateOfResult.dtos_returns
+                        ? Math.round(
+                            ((formik.values.second_period.stateOfResult
+                              .dtos_returns -
+                              formik.values.first_period.stateOfResult
+                                .dtos_returns) /
+                              formik.values.first_period.stateOfResult
+                                .dtos_returns) *
+                              100
+                          ) || 0
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "4%",
+                      width: "16%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="stateOfResult"
+                    id="dtos_returns-third_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "45%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.third_period.stateOfResult.dtos_returns
+                        ? Math.round(
+                            (formik.values.third_period.stateOfResult
+                              .dtos_returns /
+                              resultsOf("net_income", "third_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "14%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.third_period.stateOfResult.dtos_returns &&
+                      formik.values.second_period.stateOfResult.dtos_returns
+                        ? Math.round(
+                            ((formik.values.third_period.stateOfResult
+                              .dtos_returns -
+                              formik.values.second_period.stateOfResult
+                                .dtos_returns) /
+                              formik.values.second_period.stateOfResult
+                                .dtos_returns) *
+                              100
+                          ) || 0
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "4%",
+                      width: "16%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+              </Box>
+              <Box
+                display="flex"
+                flexDirection="row"
+                width="100%"
+                height="100%"
+                mt="1%"
+                alignItems="center"
+                bgcolor="#CFDDDD"
+              >
+                <Box
+                  width="18%"
+                  display="flex"
+                  bgcolor="#EBEBEB"
+                  alignItems="center"
+                  height="100%"
+                >
+                  <InputTitles sx={{ fontSize: "0.7vw" }}>
+                    Ventas Netas
+                  </InputTitles>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="0%"
+                  padding="10px 0px"
+                >
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="5%"
+                    width="70%"
+                    value={resultsOf("net_sales", "first_period")}
+                    id="net_sales-first_period"
+                  >
+                    {`$ ${resultsOf("net_sales", "first_period")}`}
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="10%"
+                    width="15%"
+                  >
+                    {`${
+                      Math.round(
+                        (resultsOf("net_sales", "first_period") /
+                          resultsOf("net_income", "first_period")) *
+                          100
+                      ) || 0
+                    }%`}
+                  </Typography>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                  padding="10px 0px"
+                >
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="5%"
+                    width="45%"
+                    value={resultsOf("net_sales", "second_period")}
+                    id="net_sales-second_period"
+                  >
+                    {`$ ${resultsOf("net_sales", "second_period")}`}
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="10%"
+                    width="15%"
+                  >
+                    {`${
+                      Math.round(
+                        (resultsOf("net_sales", "second_period") /
+                          resultsOf("net_income", "second_period")) *
+                          100
+                      ) || 0
+                    }%`}
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="10%"
+                    width="15%"
+                  >
+                    {`${
+                      Math.round(
+                        ((resultsOf("net_sales", "second_period") -
+                          resultsOf("net_sales", "first_period")) /
+                          resultsOf("net_sales", "first_period")) *
+                          100
+                      ) || 0
+                    }%`}
+                  </Typography>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                  padding="10px 0px"
+                >
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="5%"
+                    width="45%"
+                    value={resultsOf("net_sales", "third_period")}
+                    id="net_sales-third_period"
+                  >
+                    {`$ ${resultsOf("net_sales", "third_period")}`}
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="10%"
+                    width="15%"
+                  >
+                    {`${
+                      Math.round(
+                        (resultsOf("net_sales", "third_period") /
+                          resultsOf("net_income", "third_period")) *
+                          100
+                      ) || 0
+                    }%`}
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="10%"
+                    width="15%"
+                  >
+                    {`${
+                      Math.round(
+                        ((resultsOf("net_sales", "third_period") -
+                          resultsOf("net_sales", "second_period")) /
+                          resultsOf("net_sales", "second_period")) *
+                          100
+                      ) || 0
+                    }%`}
+                  </Typography>
+                </Box>
+              </Box>
+              <Box
+                display="flex"
+                alignItems="center"
+                flexDirection="row"
+                width="100%"
+                padding="10px 0px"
+                mt="1%"
+              >
+                <Box width="18%">
+                  <Divider
+                    sx={{
+                      borderBottomWidth: "1.4px",
+                      borderColor: "#575757",
+                      opacity: "0.5",
+                    }}
+                  />
+                </Box>
+                <Box width="calc(76% / 3)">
+                  <Divider
+                    sx={{
+                      borderBottomWidth: "1.4px",
+                      borderColor: "#575757",
+                      opacity: "0.5",
+                    }}
+                  />
+                </Box>
+                <Box width="calc(76% / 3)" ml="3%">
+                  <Divider
+                    sx={{
+                      borderBottomWidth: "1.4px",
+                      borderColor: "#575757",
+                      opacity: "0.5",
+                    }}
+                  />
+                </Box>
+                <Box width="calc(76% / 3)" ml="3%">
+                  <Divider
+                    sx={{
+                      borderBottomWidth: "1.4px",
+                      borderColor: "#575757",
+                      opacity: "0.5",
+                    }}
+                  />
+                </Box>
+              </Box>
+              {/* Segunda sección Estado de resultados */}
+              <Box
+                display="flex"
+                flexDirection="row"
+                width="100%"
+                mt="1%"
+                alignItems="center"
+              >
+                <Box width="15%">
+                  <InputTitles sx={{ fontSize: "0.7vw" }}>
+                    Costo de Ventas
+                  </InputTitles>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="stateOfResult"
+                    id="cost_of_sales-first_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "80%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.first_period.stateOfResult.cost_of_sales
+                        ? Math.round(
+                            (formik.values.first_period.stateOfResult
+                              .cost_of_sales /
+                              resultsOf("net_income", "first_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "15%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="stateOfResult"
+                    id="cost_of_sales-second_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "45%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.second_period.stateOfResult.cost_of_sales
+                        ? Math.round(
+                            (formik.values.second_period.stateOfResult
+                              .cost_of_sales /
+                              resultsOf("net_income", "second_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "14%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.first_period.stateOfResult.cost_of_sales &&
+                      formik.values.second_period.stateOfResult.cost_of_sales
+                        ? Math.round(
+                            ((formik.values.second_period.stateOfResult
+                              .cost_of_sales -
+                              formik.values.first_period.stateOfResult
+                                .cost_of_sales) /
+                              formik.values.first_period.stateOfResult
+                                .cost_of_sales) *
+                              100
+                          ) || 0
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "4%",
+                      width: "16%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="stateOfResult"
+                    id="cost_of_sales-third_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "45%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.third_period.stateOfResult.cost_of_sales
+                        ? Math.round(
+                            (formik.values.third_period.stateOfResult
+                              .cost_of_sales /
+                              resultsOf("net_income", "third_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "14%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.third_period.stateOfResult.cost_of_sales &&
+                      formik.values.second_period.stateOfResult.cost_of_sales
+                        ? Math.round(
+                            ((formik.values.third_period.stateOfResult
+                              .cost_of_sales -
+                              formik.values.second_period.stateOfResult
+                                .cost_of_sales) /
+                              formik.values.second_period.stateOfResult
+                                .cost_of_sales) *
+                              100
+                          ) || 0
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "4%",
+                      width: "16%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+              </Box>
+              <Box
+                display="flex"
+                flexDirection="row"
+                width="100%"
+                height="100%"
+                mt="1%"
+                alignItems="center"
+                bgcolor="#CFDDDD"
+              >
+                <Box
+                  width="18%"
+                  display="flex"
+                  bgcolor="#EBEBEB"
+                  alignItems="center"
+                  height="100%"
+                >
+                  <InputTitles sx={{ fontSize: "0.7vw" }}>
+                    UTILIDAD BRUTA
+                  </InputTitles>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="0%"
+                  padding="10px 0px"
+                >
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="5%"
+                    width="70%"
+                    value={resultsOf("gross_profit", "first_period")}
+                    id="gross_profit-first_period"
+                  >
+                    {`$ ${resultsOf("gross_profit", "first_period")}`}
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="10%"
+                    width="15%"
+                  >
+                    {`${
+                      Math.round(
+                        (resultsOf("gross_profit", "first_period") /
+                          resultsOf("net_income", "first_period")) *
+                          100
+                      ) || 0
+                    }%`}
+                  </Typography>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                  padding="10px 0px"
+                >
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="5%"
+                    width="45%"
+                    value={resultsOf("gross_profit", "second_period")}
+                    id="gross_profit-second_period"
+                  >
+                    {`$ ${resultsOf("gross_profit", "second_period")}`}
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="10%"
+                    width="15%"
+                  >
+                    {`${
+                      Math.round(
+                        (resultsOf("gross_profit", "second_period") /
+                          resultsOf("net_income", "second_period")) *
+                          100
+                      ) || 0
+                    }%`}
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="10%"
+                    width="15%"
+                  >
+                    {`${
+                      Math.round(
+                        ((resultsOf("gross_profit", "second_period") -
+                          resultsOf("gross_profit", "first_period")) /
+                          resultsOf("gross_profit", "first_period")) *
+                          100
+                      ) || 0
+                    }%`}
+                  </Typography>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                  padding="10px 0px"
+                >
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="5%"
+                    width="45%"
+                    value={resultsOf("gross_profit", "third_period")}
+                    id="gross_profit-third_period"
+                  >
+                    {`$ ${resultsOf("gross_profit", "third_period")}`}
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="10%"
+                    width="15%"
+                  >
+                    {`${
+                      Math.round(
+                        (resultsOf("gross_profit", "third_period") /
+                          resultsOf("net_income", "third_period")) *
+                          100
+                      ) || 0
+                    }%`}
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="10%"
+                    width="15%"
+                  >
+                    {`${
+                      Math.round(
+                        ((resultsOf("gross_profit", "third_period") -
+                          resultsOf("gross_profit", "second_period")) /
+                          resultsOf("gross_profit", "second_period")) *
+                          100
+                      ) || 0
+                    }%`}
+                  </Typography>
+                </Box>
+              </Box>
+              <Box
+                display="flex"
+                alignItems="center"
+                flexDirection="row"
+                width="100%"
+                padding="10px 0px"
+                mt="1%"
+              >
+                <Box width="18%">
+                  <Divider
+                    sx={{
+                      borderBottomWidth: "1.4px",
+                      borderColor: "#575757",
+                      opacity: "0.5",
+                    }}
+                  />
+                </Box>
+                <Box width="calc(76% / 3)">
+                  <Divider
+                    sx={{
+                      borderBottomWidth: "1.4px",
+                      borderColor: "#575757",
+                      opacity: "0.5",
+                    }}
+                  />
+                </Box>
+                <Box width="calc(76% / 3)" ml="3%">
+                  <Divider
+                    sx={{
+                      borderBottomWidth: "1.4px",
+                      borderColor: "#575757",
+                      opacity: "0.5",
+                    }}
+                  />
+                </Box>
+                <Box width="calc(76% / 3)" ml="3%">
+                  <Divider
+                    sx={{
+                      borderBottomWidth: "1.4px",
+                      borderColor: "#575757",
+                      opacity: "0.5",
+                    }}
+                  />
+                </Box>
+              </Box>
+              {/* Tercera sección Estado de resultados */}
+              <Box
+                display="flex"
+                flexDirection="row"
+                width="100%"
+                mt="1%"
+                alignItems="center"
+              >
+                <Box width="15%">
+                  <InputTitles sx={{ fontSize: "0.7vw" }}>
+                    Gastos Admon y Vtas
+                  </InputTitles>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="stateOfResult"
+                    id="administrative_expenses_sales-first_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "80%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.first_period.stateOfResult
+                        .administrative_expenses_sales
+                        ? Math.round(
+                            (formik.values.first_period.stateOfResult
+                              .administrative_expenses_sales /
+                              resultsOf("net_income", "first_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "15%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="stateOfResult"
+                    id="administrative_expenses_sales-second_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "45%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.second_period.stateOfResult
+                        .administrative_expenses_sales
+                        ? Math.round(
+                            (formik.values.second_period.stateOfResult
+                              .administrative_expenses_sales /
+                              resultsOf("net_income", "second_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "14%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.first_period.stateOfResult
+                        .administrative_expenses_sales &&
+                      formik.values.second_period.stateOfResult
+                        .administrative_expenses_sales
+                        ? Math.round(
+                            ((formik.values.second_period.stateOfResult
+                              .administrative_expenses_sales -
+                              formik.values.first_period.stateOfResult
+                                .administrative_expenses_sales) /
+                              formik.values.first_period.stateOfResult
+                                .administrative_expenses_sales) *
+                              100
+                          ) || 0
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "4%",
+                      width: "16%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="stateOfResult"
+                    id="administrative_expenses_sales-third_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "45%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.third_period.stateOfResult
+                        .administrative_expenses_sales
+                        ? Math.round(
+                            (formik.values.third_period.stateOfResult
+                              .administrative_expenses_sales /
+                              resultsOf("net_income", "third_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "14%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.third_period.stateOfResult
+                        .administrative_expenses_sales &&
+                      formik.values.second_period.stateOfResult
+                        .administrative_expenses_sales
+                        ? Math.round(
+                            ((formik.values.third_period.stateOfResult
+                              .administrative_expenses_sales -
+                              formik.values.second_period.stateOfResult
+                                .administrative_expenses_sales) /
+                              formik.values.second_period.stateOfResult
+                                .administrative_expenses_sales) *
+                              100
+                          ) || 0
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "4%",
+                      width: "16%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+              </Box>
+              <Box
+                display="flex"
+                flexDirection="row"
+                width="100%"
+                mt="1%"
+                alignItems="center"
+              >
+                <Box width="15%">
+                  <InputTitles sx={{ fontSize: "0.7vw" }}>
+                    Dep. y amortizacion
+                  </InputTitles>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="stateOfResult"
+                    id="dep_amortization-first_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "80%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.first_period.stateOfResult.dep_amortization
+                        ? Math.round(
+                            (formik.values.first_period.stateOfResult
+                              .dep_amortization /
+                              resultsOf("net_income", "first_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "15%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="stateOfResult"
+                    id="dep_amortization-second_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "45%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.second_period.stateOfResult.dep_amortization
+                        ? Math.round(
+                            (formik.values.second_period.stateOfResult
+                              .dep_amortization /
+                              resultsOf("net_income", "second_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "14%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.first_period.stateOfResult
+                        .dep_amortization &&
+                      formik.values.second_period.stateOfResult.dep_amortization
+                        ? Math.round(
+                            ((formik.values.second_period.stateOfResult
+                              .dep_amortization -
+                              formik.values.first_period.stateOfResult
+                                .dep_amortization) /
+                              formik.values.first_period.stateOfResult
+                                .dep_amortization) *
+                              100
+                          ) || 0
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "4%",
+                      width: "16%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="stateOfResult"
+                    id="dep_amortization-third_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "45%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.third_period.stateOfResult.dep_amortization
+                        ? Math.round(
+                            (formik.values.third_period.stateOfResult
+                              .dep_amortization /
+                              resultsOf("net_income", "third_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "14%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.third_period.stateOfResult
+                        .dep_amortization &&
+                      formik.values.second_period.stateOfResult.dep_amortization
+                        ? Math.round(
+                            ((formik.values.third_period.stateOfResult
+                              .dep_amortization -
+                              formik.values.second_period.stateOfResult
+                                .dep_amortization) /
+                              formik.values.second_period.stateOfResult
+                                .dep_amortization) *
+                              100
+                          ) || 0
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "4%",
+                      width: "16%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+              </Box>
+              <Box
+                display="flex"
+                flexDirection="row"
+                width="100%"
+                height="100%"
+                mt="1%"
+                alignItems="center"
+                bgcolor="#CFDDDD"
+              >
+                <Box
+                  width="18%"
+                  display="flex"
+                  bgcolor="#EBEBEB"
+                  alignItems="center"
+                  height="100%"
+                >
+                  <InputTitles sx={{ fontSize: "0.7vw" }}>
+                    UTILIDAD OPER.
+                  </InputTitles>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="0%"
+                  padding="10px 0px"
+                >
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="5%"
+                    width="70%"
+                    value={resultsOf("operating_profit", "first_period")}
+                    id="operating_profit-first_period"
+                  >
+                    {`$ ${resultsOf("operating_profit", "first_period")}`}
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="10%"
+                    width="15%"
+                  >
+                    {`${
+                      Math.round(
+                        (resultsOf("operating_profit", "first_period") /
+                          resultsOf("net_income", "first_period")) *
+                          100
+                      ) || 0
+                    }%`}
+                  </Typography>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                  padding="10px 0px"
+                >
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="5%"
+                    width="45%"
+                    value={resultsOf("operating_profit", "second_period")}
+                    id="operating_profit-second_period"
+                  >
+                    {`$ ${resultsOf("operating_profit", "second_period")}`}
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="10%"
+                    width="15%"
+                  >
+                    {`${
+                      Math.round(
+                        (resultsOf("operating_profit", "second_period") /
+                          resultsOf("net_income", "second_period")) *
+                          100
+                      ) || 0
+                    }%`}
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="10%"
+                    width="15%"
+                  >
+                    {`${
+                      Math.round(
+                        ((resultsOf("operating_profit", "second_period") -
+                          resultsOf("operating_profit", "first_period")) /
+                          resultsOf("operating_profit", "first_period")) *
+                          100
+                      ) || 0
+                    }%`}
+                  </Typography>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                  padding="10px 0px"
+                >
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="5%"
+                    width="45%"
+                    value={resultsOf("operating_profit", "third_period")}
+                    id="operating_profit-third_period"
+                  >
+                    {`$ ${resultsOf("operating_profit", "third_period")}`}
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="10%"
+                    width="15%"
+                  >
+                    {`${
+                      Math.round(
+                        (resultsOf("operating_profit", "third_period") /
+                          resultsOf("net_income", "third_period")) *
+                          100
+                      ) || 0
+                    }%`}
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="10%"
+                    width="15%"
+                  >
+                    {`${
+                      Math.round(
+                        ((resultsOf("operating_profit", "third_period") -
+                          resultsOf("operating_profit", "second_period")) /
+                          resultsOf("operating_profit", "second_period")) *
+                          100
+                      ) || 0
+                    }%`}
+                  </Typography>
+                </Box>
+              </Box>
+              <Box
+                display="flex"
+                alignItems="center"
+                flexDirection="row"
+                width="100%"
+                padding="10px 0px"
+                mt="1%"
+              >
+                <Box width="18%">
+                  <Divider
+                    sx={{
+                      borderBottomWidth: "1.4px",
+                      borderColor: "#575757",
+                      opacity: "0.5",
+                    }}
+                  />
+                </Box>
+                <Box width="calc(76% / 3)">
+                  <Divider
+                    sx={{
+                      borderBottomWidth: "1.4px",
+                      borderColor: "#575757",
+                      opacity: "0.5",
+                    }}
+                  />
+                </Box>
+                <Box width="calc(76% / 3)" ml="3%">
+                  <Divider
+                    sx={{
+                      borderBottomWidth: "1.4px",
+                      borderColor: "#575757",
+                      opacity: "0.5",
+                    }}
+                  />
+                </Box>
+                <Box width="calc(76% / 3)" ml="3%">
+                  <Divider
+                    sx={{
+                      borderBottomWidth: "1.4px",
+                      borderColor: "#575757",
+                      opacity: "0.5",
+                    }}
+                  />
+                </Box>
+              </Box>
+              {/* Cuarta sección Estado de resultado */}
+              <Box
+                display="flex"
+                flexDirection="row"
+                width="100%"
+                mt="1%"
+                alignItems="center"
+              >
+                <Box width="15%">
+                  <InputTitles sx={{ fontSize: "0.7vw" }}>
+                    Ingresos Financieros
+                  </InputTitles>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="stateOfResult"
+                    id="financial_income-first_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "80%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.first_period.stateOfResult.financial_income
+                        ? Math.round(
+                            (formik.values.first_period.stateOfResult
+                              .financial_income /
+                              resultsOf("net_income", "first_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "15%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="stateOfResult"
+                    id="financial_income-second_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "45%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.second_period.stateOfResult.financial_income
+                        ? Math.round(
+                            (formik.values.second_period.stateOfResult
+                              .financial_income /
+                              resultsOf("net_income", "second_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "14%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.first_period.stateOfResult
+                        .financial_income &&
+                      formik.values.second_period.stateOfResult.financial_income
+                        ? Math.round(
+                            ((formik.values.second_period.stateOfResult
+                              .financial_income -
+                              formik.values.first_period.stateOfResult
+                                .financial_income) /
+                              formik.values.first_period.stateOfResult
+                                .financial_income) *
+                              100
+                          ) || 0
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "4%",
+                      width: "16%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="stateOfResult"
+                    id="financial_income-third_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "45%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.third_period.stateOfResult.financial_income
+                        ? Math.round(
+                            (formik.values.third_period.stateOfResult
+                              .financial_income /
+                              resultsOf("net_income", "third_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "14%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.third_period.stateOfResult
+                        .financial_income &&
+                      formik.values.second_period.stateOfResult.financial_income
+                        ? Math.round(
+                            ((formik.values.third_period.stateOfResult
+                              .financial_income -
+                              formik.values.second_period.stateOfResult
+                                .financial_income) /
+                              formik.values.second_period.stateOfResult
+                                .financial_income) *
+                              100
+                          ) || 0
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "4%",
+                      width: "16%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+              </Box>
+              <Box
+                display="flex"
+                flexDirection="row"
+                width="100%"
+                mt="1%"
+                alignItems="center"
+              >
+                <Box width="15%">
+                  <InputTitles sx={{ fontSize: "0.7vw" }}>
+                    Otros ingresos
+                  </InputTitles>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="stateOfResult"
+                    id="other_incomes-first_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "80%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.first_period.stateOfResult.other_incomes
+                        ? Math.round(
+                            (formik.values.first_period.stateOfResult
+                              .other_incomes /
+                              resultsOf("net_income", "first_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "15%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="stateOfResult"
+                    id="other_incomes-second_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "45%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.second_period.stateOfResult.other_incomes
+                        ? Math.round(
+                            (formik.values.second_period.stateOfResult
+                              .other_incomes /
+                              resultsOf("net_income", "second_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "14%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.first_period.stateOfResult.other_incomes &&
+                      formik.values.second_period.stateOfResult.other_incomes
+                        ? Math.round(
+                            ((formik.values.second_period.stateOfResult
+                              .other_incomes -
+                              formik.values.first_period.stateOfResult
+                                .other_incomes) /
+                              formik.values.first_period.stateOfResult
+                                .other_incomes) *
+                              100
+                          ) || 0
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "4%",
+                      width: "16%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="stateOfResult"
+                    id="other_incomes-third_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "45%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.third_period.stateOfResult.other_incomes
+                        ? Math.round(
+                            (formik.values.third_period.stateOfResult
+                              .other_incomes /
+                              resultsOf("net_income", "third_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "14%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.third_period.stateOfResult.other_incomes &&
+                      formik.values.second_period.stateOfResult.other_incomes
+                        ? Math.round(
+                            ((formik.values.third_period.stateOfResult
+                              .other_incomes -
+                              formik.values.second_period.stateOfResult
+                                .other_incomes) /
+                              formik.values.second_period.stateOfResult
+                                .other_incomes) *
+                              100
+                          ) || 0
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "4%",
+                      width: "16%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+              </Box>
+              <Box
+                display="flex"
+                flexDirection="row"
+                width="100%"
+                mt="1%"
+                alignItems="center"
+              >
+                <Box width="15%">
+                  <InputTitles sx={{ fontSize: "0.7vw" }}>
+                    Gastos financieros
+                  </InputTitles>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="stateOfResult"
+                    id="financial_expenses-first_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "80%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.first_period.stateOfResult
+                        .financial_expenses
+                        ? Math.round(
+                            (formik.values.first_period.stateOfResult
+                              .financial_expenses /
+                              resultsOf("net_income", "first_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "15%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="stateOfResult"
+                    id="financial_expenses-second_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "45%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.second_period.stateOfResult
+                        .financial_expenses
+                        ? Math.round(
+                            (formik.values.second_period.stateOfResult
+                              .financial_expenses /
+                              resultsOf("net_income", "second_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "14%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.first_period.stateOfResult
+                        .financial_expenses &&
+                      formik.values.second_period.stateOfResult
+                        .financial_expenses
+                        ? Math.round(
+                            ((formik.values.second_period.stateOfResult
+                              .financial_expenses -
+                              formik.values.first_period.stateOfResult
+                                .financial_expenses) /
+                              formik.values.first_period.stateOfResult
+                                .financial_expenses) *
+                              100
+                          ) || 0
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "4%",
+                      width: "16%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="stateOfResult"
+                    id="financial_expenses-third_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "45%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.third_period.stateOfResult
+                        .financial_expenses
+                        ? Math.round(
+                            (formik.values.third_period.stateOfResult
+                              .financial_expenses /
+                              resultsOf("net_income", "third_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "14%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.third_period.stateOfResult
+                        .financial_expenses &&
+                      formik.values.second_period.stateOfResult
+                        .financial_expenses
+                        ? Math.round(
+                            ((formik.values.third_period.stateOfResult
+                              .financial_expenses -
+                              formik.values.second_period.stateOfResult
+                                .financial_expenses) /
+                              formik.values.second_period.stateOfResult
+                                .financial_expenses) *
+                              100
+                          ) || 0
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "4%",
+                      width: "16%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+              </Box>
+              <Box
+                display="flex"
+                flexDirection="row"
+                width="100%"
+                mt="1%"
+                alignItems="center"
+              >
+                <Box width="15%">
+                  <InputTitles sx={{ fontSize: "0.7vw" }}>
+                    Otros egresos
+                  </InputTitles>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="stateOfResult"
+                    id="other_expenditures-first_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "80%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.first_period.stateOfResult
+                        .other_expenditures
+                        ? Math.round(
+                            (formik.values.first_period.stateOfResult
+                              .other_expenditures /
+                              resultsOf("net_income", "first_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "15%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="stateOfResult"
+                    id="other_expenditures-second_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "45%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.second_period.stateOfResult
+                        .other_expenditures
+                        ? Math.round(
+                            (formik.values.second_period.stateOfResult
+                              .other_expenditures /
+                              resultsOf("net_income", "second_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "14%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.first_period.stateOfResult
+                        .other_expenditures &&
+                      formik.values.second_period.stateOfResult
+                        .other_expenditures
+                        ? Math.round(
+                            ((formik.values.second_period.stateOfResult
+                              .other_expenditures -
+                              formik.values.first_period.stateOfResult
+                                .other_expenditures) /
+                              formik.values.first_period.stateOfResult
+                                .other_expenditures) *
+                              100
+                          ) || 0
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "4%",
+                      width: "16%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="stateOfResult"
+                    id="other_expenditures-third_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "45%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.third_period.stateOfResult
+                        .other_expenditures
+                        ? Math.round(
+                            (formik.values.third_period.stateOfResult
+                              .other_expenditures /
+                              resultsOf("net_income", "third_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "14%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.third_period.stateOfResult
+                        .other_expenditures &&
+                      formik.values.second_period.stateOfResult
+                        .other_expenditures
+                        ? Math.round(
+                            ((formik.values.third_period.stateOfResult
+                              .other_expenditures -
+                              formik.values.second_period.stateOfResult
+                                .other_expenditures) /
+                              formik.values.second_period.stateOfResult
+                                .other_expenditures) *
+                              100
+                          ) || 0
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "4%",
+                      width: "16%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+              </Box>
+              <Box
+                display="flex"
+                flexDirection="row"
+                width="100%"
+                height="100%"
+                mt="1%"
+                alignItems="center"
+                bgcolor="#CFDDDD"
+              >
+                <Box
+                  width="18%"
+                  display="flex"
+                  bgcolor="#EBEBEB"
+                  alignItems="center"
+                  height="100%"
+                >
+                  <InputTitles sx={{ fontSize: "0.7vw" }}>
+                    UTIL. NETA ANTES IMP.
+                  </InputTitles>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="0%"
+                  padding="10px 0px"
+                >
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="5%"
+                    width="70%"
+                    value={resultsOf("income_before_taxes", "first_period")}
+                    id="income_before_taxes-first_period"
+                  >
+                    {`$ ${resultsOf("income_before_taxes", "first_period")}`}
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="10%"
+                    width="15%"
+                  >
+                    {`${
+                      Math.round(
+                        (resultsOf("income_before_taxes", "first_period") /
+                          resultsOf("net_income", "first_period")) *
+                          100
+                      ) || 0
+                    }%`}
+                  </Typography>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                  padding="10px 0px"
+                >
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="5%"
+                    width="45%"
+                    value={resultsOf("income_before_taxes", "second_period")}
+                    id="income_before_taxes-second_period"
+                  >
+                    {`$ ${resultsOf("income_before_taxes", "second_period")}`}
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="10%"
+                    width="15%"
+                  >
+                    {`${
+                      Math.round(
+                        (resultsOf("income_before_taxes", "second_period") /
+                          resultsOf("net_income", "second_period")) *
+                          100
+                      ) || 0
+                    }%`}
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="10%"
+                    width="15%"
+                  >
+                    {`${
+                      Math.round(
+                        ((resultsOf("income_before_taxes", "second_period") -
+                          resultsOf("income_before_taxes", "first_period")) /
+                          resultsOf("income_before_taxes", "first_period")) *
+                          100
+                      ) || 0
+                    }%`}
+                  </Typography>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                  padding="10px 0px"
+                >
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="5%"
+                    width="45%"
+                    value={resultsOf("income_before_taxes", "third_period")}
+                    id="income_before_taxes-third_period"
+                  >
+                    {`$ ${resultsOf("income_before_taxes", "third_period")}`}
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="10%"
+                    width="15%"
+                  >
+                    {`${
+                      Math.round(
+                        (resultsOf("income_before_taxes", "third_period") /
+                          resultsOf("net_income", "third_period")) *
+                          100
+                      ) || 0
+                    }%`}
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="10%"
+                    width="15%"
+                  >
+                    {`${
+                      Math.round(
+                        ((resultsOf("income_before_taxes", "third_period") -
+                          resultsOf("income_before_taxes", "second_period")) /
+                          resultsOf("income_before_taxes", "second_period")) *
+                          100
+                      ) || 0
+                    }%`}
+                  </Typography>
+                </Box>
+              </Box>
+              <Box
+                display="flex"
+                alignItems="center"
+                flexDirection="row"
+                width="100%"
+                padding="10px 0px"
+                mt="1%"
+              >
+                <Box width="18%">
+                  <Divider
+                    sx={{
+                      borderBottomWidth: "1.4px",
+                      borderColor: "#575757",
+                      opacity: "0.5",
+                    }}
+                  />
+                </Box>
+                <Box width="calc(76% / 3)">
+                  <Divider
+                    sx={{
+                      borderBottomWidth: "1.4px",
+                      borderColor: "#575757",
+                      opacity: "0.5",
+                    }}
+                  />
+                </Box>
+                <Box width="calc(76% / 3)" ml="3%">
+                  <Divider
+                    sx={{
+                      borderBottomWidth: "1.4px",
+                      borderColor: "#575757",
+                      opacity: "0.5",
+                    }}
+                  />
+                </Box>
+                <Box width="calc(76% / 3)" ml="3%">
+                  <Divider
+                    sx={{
+                      borderBottomWidth: "1.4px",
+                      borderColor: "#575757",
+                      opacity: "0.5",
+                    }}
+                  />
+                </Box>
+              </Box>
+              {/* Quinta sección Estado de resultado */}
+              <Box
+                display="flex"
+                flexDirection="row"
+                width="100%"
+                mt="1%"
+                alignItems="center"
+              >
+                <Box width="15%">
+                  <InputTitles sx={{ fontSize: "0.7vw" }}>
+                    Provisión Impuestos
+                  </InputTitles>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="stateOfResult"
+                    id="provision_for_taxes-first_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "80%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.first_period.stateOfResult
+                        .provision_for_taxes
+                        ? Math.round(
+                            (formik.values.first_period.stateOfResult
+                              .provision_for_taxes /
+                              resultsOf("net_income", "first_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "15%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="stateOfResult"
+                    id="provision_for_taxes-second_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "45%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.second_period.stateOfResult
+                        .provision_for_taxes
+                        ? Math.round(
+                            (formik.values.second_period.stateOfResult
+                              .provision_for_taxes /
+                              resultsOf("net_income", "second_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "14%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.first_period.stateOfResult
+                        .provision_for_taxes &&
+                      formik.values.second_period.stateOfResult
+                        .provision_for_taxes
+                        ? Math.round(
+                            ((formik.values.second_period.stateOfResult
+                              .provision_for_taxes -
+                              formik.values.first_period.stateOfResult
+                                .provision_for_taxes) /
+                              formik.values.first_period.stateOfResult
+                                .provision_for_taxes) *
+                              100
+                          ) || 0
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "4%",
+                      width: "16%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                >
+                  <TextField
+                    placeholder="Ingrese Monto"
+                    type="number"
+                    onWheel={(e) => e.target.blur()}
+                    variant="standard"
+                    onChange={(e) => {
+                      handleFieldChange(e);
+                    }}
+                    name="stateOfResult"
+                    id="provision_for_taxes-third_period"
+                    sx={{
+                      ...FinancialStatInput,
+                      width: "45%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                      },
+                      startAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            marginRight: "0.7vw",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-dollar-sign"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.third_period.stateOfResult
+                        .provision_for_taxes
+                        ? Math.round(
+                            (formik.values.third_period.stateOfResult
+                              .provision_for_taxes /
+                              resultsOf("net_income", "third_period")) *
+                              100
+                          )
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "5%",
+                      width: "14%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    placeholder="–"
+                    type="number"
+                    variant="standard"
+                    disabled
+                    value={
+                      formik.values.third_period.stateOfResult
+                        .provision_for_taxes &&
+                      formik.values.second_period.stateOfResult
+                        .provision_for_taxes
+                        ? Math.round(
+                            ((formik.values.third_period.stateOfResult
+                              .provision_for_taxes -
+                              formik.values.second_period.stateOfResult
+                                .provision_for_taxes) /
+                              formik.values.second_period.stateOfResult
+                                .provision_for_taxes) *
+                              100
+                          ) || 0
+                        : null
+                    }
+                    sx={{
+                      ...FinancialStatInput,
+                      marginLeft: "4%",
+                      width: "16%",
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                      sx: {
+                        marginTop: "-5px",
+                        "& .Mui-disabled": {
+                          "-webkit-text-fill-color": "#4A4546",
+                        },
+                      },
+                      endAdornment: (
+                        <i
+                          style={{
+                            color: "#5EA3A3",
+                            fontSize: "1.1vw",
+                          }}
+                          class="fa-regular fa-percent"
+                        ></i>
+                      ),
+                    }}
+                  />
+                </Box>
+              </Box>
+              <Box
+                display="flex"
+                flexDirection="row"
+                width="100%"
+                height="100%"
+                mt="1%"
+                alignItems="center"
+                bgcolor="#CFDDDD"
+              >
+                <Box
+                  width="18%"
+                  display="flex"
+                  bgcolor="#EBEBEB"
+                  alignItems="center"
+                  height="100%"
+                >
+                  <InputTitles sx={{ fontSize: "0.7vw" }}>
+                    UTILIDAD NETA
+                  </InputTitles>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="0%"
+                  padding="10px 0px"
+                >
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="5%"
+                    width="70%"
+                    value={resultsOf("net_income", "first_period")}
+                    id="net_income-first_period"
+                  >
+                    {`$ ${resultsOf("net_income", "first_period")}`}
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="10%"
+                    width="15%"
+                  >
+                    {`${
+                      Math.round(
+                        (resultsOf("net_income", "first_period") /
+                          resultsOf("net_income", "first_period")) *
+                          100
+                      ) || 0
+                    }%`}
+                  </Typography>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                  padding="10px 0px"
+                >
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="5%"
+                    width="45%"
+                    value={resultsOf("net_income", "second_period")}
+                    id="net_income-second_period"
+                  >
+                    {`$ ${resultsOf("net_income", "second_period")}`}
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="10%"
+                    width="15%"
+                  >
+                    {`${
+                      Math.round(
+                        (resultsOf("net_income", "second_period") /
+                          resultsOf("net_income", "second_period")) *
+                          100
+                      ) || 0
+                    }%`}
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="10%"
+                    width="15%"
+                  >
+                    {`${
+                      Math.round(
+                        ((resultsOf("net_income", "second_period") -
+                          resultsOf("net_income", "first_period")) /
+                          resultsOf("net_income", "first_period")) *
+                          100
+                      ) || 0
+                    }%`}
+                  </Typography>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                  padding="10px 0px"
+                >
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="5%"
+                    width="45%"
+                    value={resultsOf("net_income", "third_period")}
+                    id="net_income-third_period"
+                  >
+                    {`$ ${resultsOf("net_income", "third_period")}`}
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="10%"
+                    width="15%"
+                  >
+                    {`${
+                      Math.round(
+                        (resultsOf("net_income", "third_period") /
+                          resultsOf("net_income", "third_period")) *
+                          100
+                      ) || 0
+                    }%`}
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.1vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                    marginLeft="10%"
+                    width="15%"
+                  >
+                    {`${
+                      Math.round(
+                        ((resultsOf("net_income", "third_period") -
+                          resultsOf("net_income", "second_period")) /
+                          resultsOf("net_income", "second_period")) *
                           100
                       ) || 0
                     }%`}
