@@ -123,3 +123,25 @@ export const AccountingAccounts = async (data) => {
   );
   return res.data;
 };
+
+export const TypeOperation = async (data) => {
+  const res = await Axios.get(`${API_URL}/type_operation`,
+    {
+      headers: {
+        authorization: "Bearer " + localStorage.getItem("access-token"),
+      },
+    }
+  );
+  return res.data;
+};
+
+export const Bills = async (data) => {
+    const res = await Axios.get(`${API_URL}/bill/${data}`,
+    {
+      headers: {
+        authorization: "Bearer " + localStorage.getItem("access-token"),
+      },
+    }
+  );
+  return res.data;
+}

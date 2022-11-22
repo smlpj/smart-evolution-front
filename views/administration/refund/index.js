@@ -18,11 +18,7 @@ import { SaveRefund, UpdateRefund, GetRefundByID, GetRiskProfile } from './queri
 export const RefundC = () => {
     // Router
     const router = useRouter()
-
-    // State
-    const [option, setOption] = useState("")
-    const [id, setId] = useState("")
-
+    
     // Get the refund data
     useEffect(() => {
             if (router.query.id != undefined) {

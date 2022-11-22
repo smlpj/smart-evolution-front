@@ -10,69 +10,62 @@ import MuiTextField from "@styles/fields";
 import HelperText from "@styles/helperText";
 import InputTitles from "@styles/inputTitles";
 
-import { AccountsFromClient } from "./queries";
+import { Clients } from "./queries";
 
-export default function AccountSelect({ formik, marginLeft }) {
+export default function ClientSelect({ formik, customer }) {
   // Hooks
   const {
     fetch: fetch,
     loading: loading,
     error: error,
     data: data,
-  } = useFetch({ service: AccountsFromClient, init: true });
+  } = useFetch({ service: Clients, init: true });
 
-  const [account, setAccount] = useState([]);
+  const [client, setClient] = useState([]);
 
   useEffect(() => {
     if (data) {
-      var accounts = [];
-      data.data.map((account) => {
-        accounts.push({
-          label: `${account.account_number}`,
-          value: account.id,
+      var Clients = [];
+      data.data.map((client) => {
+        Clients.push({
+          label: client.first_name
+            ? client.first_name + " " + client.last_name
+            : client.social_reason,
+          value: client.id,
         });
       });
-      setAccount(accounts);
+      setClient(Clients);
     }
 
     if (error) console.log(error);
   }, [data, loading, error]);
 
-  useEffect(() => {
-    if (formik.values.client !== undefined && formik.values.client !== null) {
-      fetch({ client: formik.values.client });
-    } else {
-      setAccount([]);
-    }
-  }, [formik.values.client]);
-
   return (
-    <Box width="17vw" sx={{
-      marginLeft: marginLeft ? marginLeft : "0rem",
-    }}>
+    <Box width="17vw">
       <Box>
-        <InputTitles marginBottom={2}>Cuenta</InputTitles>
+        <InputTitles marginBottom={2}>
+          Nombre {customer ? customer : "Inversionista"}
+        </InputTitles>
         <Autocomplete
-          id="account"
+          id="emitter"
           disablePortal
-          options={account}
+          options={client}
           getOptionLabel={(option) => option.label}
           onChange={(e, value) => {
             if (value !== null) {
-              formik.setFieldValue("account", value.value);
+              formik.setFieldValue("emitter", value.value);
             } else {
-              formik.setFieldValue("account", null);
+              formik.setFieldValue("emitter", null);
             }
           }}
           color="#5EA3A3"
           inputValue={
-            account.filter(
-              (option) => option.value === formik.values.account
-            )[0]?.label
+            client.filter((option) => option.value === formik.values.emitter)[0]
+              ?.label
           }
           value={
-            account.filter(
-              (option) => option.value === formik.values.account
+            client.filter(
+              (option) => option.value === formik.values.emitter
             )[0] || null
           }
           popupIcon={<KeyboardArrowDownIcon sx={{ color: "#5EA3A3" }} />}
@@ -81,12 +74,12 @@ export default function AccountSelect({ formik, marginLeft }) {
             <MuiTextField
               variant="standard"
               {...params}
-              name="account"
-              placeholder="Cuenta"
-              value={formik.values.account}
-              error={formik.touched.account && Boolean(formik.errors.account)}
+              name="emitter"
+              placeholder={customer ? customer : "Inversionista"}
+              value={formik.values.emitter}
+              error={formik.touched.emitter && Boolean(formik.errors.emitter)}
               sx={
-                formik.touched.account && Boolean(formik.errors.account)
+                formik.touched.emitter && Boolean(formik.errors.emitter)
                   ? { border: "1.4px solid #E6643180" }
                   : null
               }
@@ -101,7 +94,7 @@ export default function AccountSelect({ formik, marginLeft }) {
           )}
         />
         <HelperText position="fixed">
-          {formik.touched.account && formik.errors.account}
+          {formik.touched.emitter && formik.errors.emitter}
         </HelperText>
       </Box>
     </Box>
