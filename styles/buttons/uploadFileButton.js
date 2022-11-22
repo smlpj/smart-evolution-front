@@ -6,7 +6,7 @@ const FileUploadButton = styled(Button)({
   border: "1.4px solid #ACCFCF",
   borderRadius: "4px",
   height: "2.5rem",
-  width: "20vw",
+  width: "17vw",
   textAlign: "left",
   letterSpacing: "0",
   fontSize: "calc(0.3rem + 0.5vw)",
