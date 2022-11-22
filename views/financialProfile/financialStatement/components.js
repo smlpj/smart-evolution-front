@@ -795,7 +795,7 @@ export const FinancialStat = ({ formik }) => {
                         ? Math.round(
                             (formik.values.second_period.assets
                               .cash_and_investments /
-                              resultsOf("total_assets", "first_period")) *
+                              resultsOf("total_assets", "second_period")) *
                               100
                           )
                         : null
@@ -915,7 +915,7 @@ export const FinancialStat = ({ formik }) => {
                         ? Math.round(
                             (formik.values.third_period.assets
                               .cash_and_investments /
-                              resultsOf("total_assets", "first_period")) *
+                              resultsOf("total_assets", "third_period")) *
                               100
                           )
                         : null
@@ -11600,22 +11600,8 @@ export const FinancialStat = ({ formik }) => {
                   >
                     {`$ ${resultsOf("total_assets_passives", "first_period")}`}
                   </Typography>
-                  <Typography
-                    letterSpacing={0}
-                    fontSize="1.1vw"
-                    fontWeight="500"
-                    color="#488B8F"
-                    marginLeft="10%"
-                    width="15%"
-                  >
-                    {`${
-                      Math.round(
-                        (resultsOf("total_assets_passives", "first_period") /
-                          resultsOf("total_assets", "first_period")) *
-                          100
-                      ) || 0
-                    }%`}
-                  </Typography>
+
+                  <Box width="15%" marginLeft="10%" />
                 </Box>
                 <Box
                   display="flex"
@@ -11636,39 +11622,8 @@ export const FinancialStat = ({ formik }) => {
                   >
                     {`$ ${resultsOf("total_assets_passives", "second_period")}`}
                   </Typography>
-                  <Typography
-                    letterSpacing={0}
-                    fontSize="1.1vw"
-                    fontWeight="500"
-                    color="#488B8F"
-                    marginLeft="10%"
-                    width="15%"
-                  >
-                    {`${
-                      Math.round(
-                        (resultsOf("total_assets_passives", "second_period") /
-                          resultsOf("total_assets", "second_period")) *
-                          100
-                      ) || 0
-                    }%`}
-                  </Typography>
-                  <Typography
-                    letterSpacing={0}
-                    fontSize="1.1vw"
-                    fontWeight="500"
-                    color="#488B8F"
-                    marginLeft="10%"
-                    width="15%"
-                  >
-                    {`${
-                      Math.round(
-                        ((resultsOf("total_assets_passives", "second_period") -
-                          resultsOf("total_assets_passives", "first_period")) /
-                          resultsOf("total_assets_passives", "first_period")) *
-                          100
-                      ) || 0
-                    }%`}
-                  </Typography>
+                  <Box width="15%" marginLeft="10%" />
+                  <Box width="15%" marginLeft="10%" />
                 </Box>
                 <Box
                   display="flex"
@@ -11689,39 +11644,8 @@ export const FinancialStat = ({ formik }) => {
                   >
                     {`$ ${resultsOf("total_assets_passives", "third_period")}`}
                   </Typography>
-                  <Typography
-                    letterSpacing={0}
-                    fontSize="1.1vw"
-                    fontWeight="500"
-                    color="#488B8F"
-                    marginLeft="10%"
-                    width="15%"
-                  >
-                    {`${
-                      Math.round(
-                        (resultsOf("total_assets_passives", "third_period") /
-                          resultsOf("total_assets", "third_period")) *
-                          100
-                      ) || 0
-                    }%`}
-                  </Typography>
-                  <Typography
-                    letterSpacing={0}
-                    fontSize="1.1vw"
-                    fontWeight="500"
-                    color="#488B8F"
-                    marginLeft="10%"
-                    width="15%"
-                  >
-                    {`${
-                      Math.round(
-                        ((resultsOf("total_assets_passives", "third_period") -
-                          resultsOf("total_assets_passives", "second_period")) /
-                          resultsOf("total_assets_passives", "second_period")) *
-                          100
-                      ) || 0
-                    }%`}
-                  </Typography>
+                  <Box width="15%" marginLeft="10%" />
+                  <Box width="15%" marginLeft="10%" />
                 </Box>
               </Box>
 
@@ -11842,7 +11766,8 @@ export const FinancialStat = ({ formik }) => {
                         ? Math.round(
                             (formik.values.first_period.stateOfResult
                               .gross_sale /
-                              resultsOf("net_income", "first_period")) *
+                              formik.values.first_period.stateOfResult
+                                .gross_sale) *
                               100
                           )
                         : null
@@ -11919,7 +11844,8 @@ export const FinancialStat = ({ formik }) => {
                         ? Math.round(
                             (formik.values.second_period.stateOfResult
                               .gross_sale /
-                              resultsOf("net_income", "second_period")) *
+                              formik.values.second_period.stateOfResult
+                                .gross_sale) *
                               100
                           )
                         : null
@@ -12039,7 +11965,8 @@ export const FinancialStat = ({ formik }) => {
                         ? Math.round(
                             (formik.values.third_period.stateOfResult
                               .gross_sale /
-                              resultsOf("net_income", "third_period")) *
+                              formik.values.third_period.stateOfResult
+                                .gross_sale) *
                               100
                           )
                         : null
@@ -12172,7 +12099,8 @@ export const FinancialStat = ({ formik }) => {
                         ? Math.round(
                             (formik.values.first_period.stateOfResult
                               .dtos_returns /
-                              resultsOf("net_income", "first_period")) *
+                              formik.values.first_period.stateOfResult
+                                .gross_sale) *
                               100
                           )
                         : null
@@ -12249,7 +12177,8 @@ export const FinancialStat = ({ formik }) => {
                         ? Math.round(
                             (formik.values.second_period.stateOfResult
                               .dtos_returns /
-                              resultsOf("net_income", "second_period")) *
+                              formik.values.second_period.stateOfResult
+                                .gross_sale) *
                               100
                           )
                         : null
@@ -12369,7 +12298,8 @@ export const FinancialStat = ({ formik }) => {
                         ? Math.round(
                             (formik.values.third_period.stateOfResult
                               .dtos_returns /
-                              resultsOf("net_income", "third_period")) *
+                              formik.values.third_period.stateOfResult
+                                .gross_sale) *
                               100
                           )
                         : null
@@ -12493,7 +12423,7 @@ export const FinancialStat = ({ formik }) => {
                     {`${
                       Math.round(
                         (resultsOf("net_sales", "first_period") /
-                          resultsOf("net_income", "first_period")) *
+                          formik.values.first_period.stateOfResult.gross_sale) *
                           100
                       ) || 0
                     }%`}
@@ -12529,7 +12459,8 @@ export const FinancialStat = ({ formik }) => {
                     {`${
                       Math.round(
                         (resultsOf("net_sales", "second_period") /
-                          resultsOf("net_income", "second_period")) *
+                          formik.values.second_period.stateOfResult
+                            .gross_sale) *
                           100
                       ) || 0
                     }%`}
@@ -12582,7 +12513,7 @@ export const FinancialStat = ({ formik }) => {
                     {`${
                       Math.round(
                         (resultsOf("net_sales", "third_period") /
-                          resultsOf("net_income", "third_period")) *
+                          formik.values.third_period.stateOfResult.gross_sale) *
                           100
                       ) || 0
                     }%`}
@@ -12711,7 +12642,8 @@ export const FinancialStat = ({ formik }) => {
                         ? Math.round(
                             (formik.values.first_period.stateOfResult
                               .cost_of_sales /
-                              resultsOf("net_income", "first_period")) *
+                              formik.values.first_period.stateOfResult
+                                .gross_sale) *
                               100
                           )
                         : null
@@ -12788,7 +12720,8 @@ export const FinancialStat = ({ formik }) => {
                         ? Math.round(
                             (formik.values.second_period.stateOfResult
                               .cost_of_sales /
-                              resultsOf("net_income", "second_period")) *
+                              formik.values.second_period.stateOfResult
+                                .gross_sale) *
                               100
                           )
                         : null
@@ -12908,7 +12841,8 @@ export const FinancialStat = ({ formik }) => {
                         ? Math.round(
                             (formik.values.third_period.stateOfResult
                               .cost_of_sales /
-                              resultsOf("net_income", "third_period")) *
+                              formik.values.third_period.stateOfResult
+                                .gross_sale) *
                               100
                           )
                         : null
@@ -13032,7 +12966,7 @@ export const FinancialStat = ({ formik }) => {
                     {`${
                       Math.round(
                         (resultsOf("gross_profit", "first_period") /
-                          resultsOf("net_income", "first_period")) *
+                          formik.values.first_period.stateOfResult.gross_sale) *
                           100
                       ) || 0
                     }%`}
@@ -13068,7 +13002,8 @@ export const FinancialStat = ({ formik }) => {
                     {`${
                       Math.round(
                         (resultsOf("gross_profit", "second_period") /
-                          resultsOf("net_income", "second_period")) *
+                          formik.values.second_period.stateOfResult
+                            .gross_sale) *
                           100
                       ) || 0
                     }%`}
@@ -13121,7 +13056,7 @@ export const FinancialStat = ({ formik }) => {
                     {`${
                       Math.round(
                         (resultsOf("gross_profit", "third_period") /
-                          resultsOf("net_income", "third_period")) *
+                          formik.values.third_period.stateOfResult.gross_sale) *
                           100
                       ) || 0
                     }%`}
@@ -13251,7 +13186,8 @@ export const FinancialStat = ({ formik }) => {
                         ? Math.round(
                             (formik.values.first_period.stateOfResult
                               .administrative_expenses_sales /
-                              resultsOf("net_income", "first_period")) *
+                              formik.values.first_period.stateOfResult
+                                .gross_sale) *
                               100
                           )
                         : null
@@ -13329,7 +13265,8 @@ export const FinancialStat = ({ formik }) => {
                         ? Math.round(
                             (formik.values.second_period.stateOfResult
                               .administrative_expenses_sales /
-                              resultsOf("net_income", "second_period")) *
+                              formik.values.second_period.stateOfResult
+                                .gross_sale) *
                               100
                           )
                         : null
@@ -13452,7 +13389,8 @@ export const FinancialStat = ({ formik }) => {
                         ? Math.round(
                             (formik.values.third_period.stateOfResult
                               .administrative_expenses_sales /
-                              resultsOf("net_income", "third_period")) *
+                              formik.values.third_period.stateOfResult
+                                .gross_sale) *
                               100
                           )
                         : null
@@ -13587,7 +13525,8 @@ export const FinancialStat = ({ formik }) => {
                         ? Math.round(
                             (formik.values.first_period.stateOfResult
                               .dep_amortization /
-                              resultsOf("net_income", "first_period")) *
+                              formik.values.first_period.stateOfResult
+                                .gross_sale) *
                               100
                           )
                         : null
@@ -13664,7 +13603,8 @@ export const FinancialStat = ({ formik }) => {
                         ? Math.round(
                             (formik.values.second_period.stateOfResult
                               .dep_amortization /
-                              resultsOf("net_income", "second_period")) *
+                              formik.values.second_period.stateOfResult
+                                .gross_sale) *
                               100
                           )
                         : null
@@ -13785,7 +13725,8 @@ export const FinancialStat = ({ formik }) => {
                         ? Math.round(
                             (formik.values.third_period.stateOfResult
                               .dep_amortization /
-                              resultsOf("net_income", "third_period")) *
+                              formik.values.third_period.stateOfResult
+                                .gross_sale) *
                               100
                           )
                         : null
@@ -13910,7 +13851,7 @@ export const FinancialStat = ({ formik }) => {
                     {`${
                       Math.round(
                         (resultsOf("operating_profit", "first_period") /
-                          resultsOf("net_income", "first_period")) *
+                          formik.values.first_period.stateOfResult.gross_sale) *
                           100
                       ) || 0
                     }%`}
@@ -13946,7 +13887,8 @@ export const FinancialStat = ({ formik }) => {
                     {`${
                       Math.round(
                         (resultsOf("operating_profit", "second_period") /
-                          resultsOf("net_income", "second_period")) *
+                          formik.values.second_period.stateOfResult
+                            .gross_sale) *
                           100
                       ) || 0
                     }%`}
@@ -13999,7 +13941,7 @@ export const FinancialStat = ({ formik }) => {
                     {`${
                       Math.round(
                         (resultsOf("operating_profit", "third_period") /
-                          resultsOf("net_income", "third_period")) *
+                          formik.values.third_period.stateOfResult.gross_sale) *
                           100
                       ) || 0
                     }%`}
@@ -14128,7 +14070,8 @@ export const FinancialStat = ({ formik }) => {
                         ? Math.round(
                             (formik.values.first_period.stateOfResult
                               .financial_income /
-                              resultsOf("net_income", "first_period")) *
+                              formik.values.first_period.stateOfResult
+                                .gross_sale) *
                               100
                           )
                         : null
@@ -14205,7 +14148,8 @@ export const FinancialStat = ({ formik }) => {
                         ? Math.round(
                             (formik.values.second_period.stateOfResult
                               .financial_income /
-                              resultsOf("net_income", "second_period")) *
+                              formik.values.second_period.stateOfResult
+                                .gross_sale) *
                               100
                           )
                         : null
@@ -14326,7 +14270,8 @@ export const FinancialStat = ({ formik }) => {
                         ? Math.round(
                             (formik.values.third_period.stateOfResult
                               .financial_income /
-                              resultsOf("net_income", "third_period")) *
+                              formik.values.third_period.stateOfResult
+                                .gross_sale) *
                               100
                           )
                         : null
@@ -14460,7 +14405,8 @@ export const FinancialStat = ({ formik }) => {
                         ? Math.round(
                             (formik.values.first_period.stateOfResult
                               .other_incomes /
-                              resultsOf("net_income", "first_period")) *
+                              formik.values.first_period.stateOfResult
+                                .gross_sale) *
                               100
                           )
                         : null
@@ -14537,7 +14483,8 @@ export const FinancialStat = ({ formik }) => {
                         ? Math.round(
                             (formik.values.second_period.stateOfResult
                               .other_incomes /
-                              resultsOf("net_income", "second_period")) *
+                              formik.values.second_period.stateOfResult
+                                .gross_sale) *
                               100
                           )
                         : null
@@ -14657,7 +14604,8 @@ export const FinancialStat = ({ formik }) => {
                         ? Math.round(
                             (formik.values.third_period.stateOfResult
                               .other_incomes /
-                              resultsOf("net_income", "third_period")) *
+                              formik.values.third_period.stateOfResult
+                                .gross_sale) *
                               100
                           )
                         : null
@@ -14791,7 +14739,8 @@ export const FinancialStat = ({ formik }) => {
                         ? Math.round(
                             (formik.values.first_period.stateOfResult
                               .financial_expenses /
-                              resultsOf("net_income", "first_period")) *
+                              formik.values.first_period.stateOfResult
+                                .gross_sale) *
                               100
                           )
                         : null
@@ -14869,7 +14818,8 @@ export const FinancialStat = ({ formik }) => {
                         ? Math.round(
                             (formik.values.second_period.stateOfResult
                               .financial_expenses /
-                              resultsOf("net_income", "second_period")) *
+                              formik.values.second_period.stateOfResult
+                                .gross_sale) *
                               100
                           )
                         : null
@@ -14992,7 +14942,8 @@ export const FinancialStat = ({ formik }) => {
                         ? Math.round(
                             (formik.values.third_period.stateOfResult
                               .financial_expenses /
-                              resultsOf("net_income", "third_period")) *
+                              formik.values.third_period.stateOfResult
+                                .gross_sale) *
                               100
                           )
                         : null
@@ -15128,7 +15079,8 @@ export const FinancialStat = ({ formik }) => {
                         ? Math.round(
                             (formik.values.first_period.stateOfResult
                               .other_expenditures /
-                              resultsOf("net_income", "first_period")) *
+                              formik.values.first_period.stateOfResult
+                                .gross_sale) *
                               100
                           )
                         : null
@@ -15206,7 +15158,8 @@ export const FinancialStat = ({ formik }) => {
                         ? Math.round(
                             (formik.values.second_period.stateOfResult
                               .other_expenditures /
-                              resultsOf("net_income", "second_period")) *
+                              formik.values.second_period.stateOfResult
+                                .gross_sale) *
                               100
                           )
                         : null
@@ -15329,7 +15282,8 @@ export const FinancialStat = ({ formik }) => {
                         ? Math.round(
                             (formik.values.third_period.stateOfResult
                               .other_expenditures /
-                              resultsOf("net_income", "third_period")) *
+                              formik.values.third_period.stateOfResult
+                                .gross_sale) *
                               100
                           )
                         : null
@@ -15455,7 +15409,7 @@ export const FinancialStat = ({ formik }) => {
                     {`${
                       Math.round(
                         (resultsOf("income_before_taxes", "first_period") /
-                          resultsOf("net_income", "first_period")) *
+                          formik.values.first_period.stateOfResult.gross_sale) *
                           100
                       ) || 0
                     }%`}
@@ -15491,7 +15445,8 @@ export const FinancialStat = ({ formik }) => {
                     {`${
                       Math.round(
                         (resultsOf("income_before_taxes", "second_period") /
-                          resultsOf("net_income", "second_period")) *
+                          formik.values.second_period.stateOfResult
+                            .gross_sale) *
                           100
                       ) || 0
                     }%`}
@@ -15544,7 +15499,7 @@ export const FinancialStat = ({ formik }) => {
                     {`${
                       Math.round(
                         (resultsOf("income_before_taxes", "third_period") /
-                          resultsOf("net_income", "third_period")) *
+                          formik.values.third_period.stateOfResult.gross_sale) *
                           100
                       ) || 0
                     }%`}
@@ -15674,7 +15629,8 @@ export const FinancialStat = ({ formik }) => {
                         ? Math.round(
                             (formik.values.first_period.stateOfResult
                               .provision_for_taxes /
-                              resultsOf("net_income", "first_period")) *
+                              formik.values.first_period.stateOfResult
+                                .gross_sale) *
                               100
                           )
                         : null
@@ -15752,7 +15708,8 @@ export const FinancialStat = ({ formik }) => {
                         ? Math.round(
                             (formik.values.second_period.stateOfResult
                               .provision_for_taxes /
-                              resultsOf("net_income", "second_period")) *
+                              formik.values.second_period.stateOfResult
+                                .gross_sale) *
                               100
                           )
                         : null
@@ -15875,7 +15832,8 @@ export const FinancialStat = ({ formik }) => {
                         ? Math.round(
                             (formik.values.third_period.stateOfResult
                               .provision_for_taxes /
-                              resultsOf("net_income", "third_period")) *
+                              formik.values.third_period.stateOfResult
+                                .gross_sale) *
                               100
                           )
                         : null
@@ -16001,7 +15959,7 @@ export const FinancialStat = ({ formik }) => {
                     {`${
                       Math.round(
                         (resultsOf("net_income", "first_period") /
-                          resultsOf("net_income", "first_period")) *
+                          formik.values.first_period.stateOfResult.gross_sale) *
                           100
                       ) || 0
                     }%`}
@@ -16037,7 +15995,8 @@ export const FinancialStat = ({ formik }) => {
                     {`${
                       Math.round(
                         (resultsOf("net_income", "second_period") /
-                          resultsOf("net_income", "second_period")) *
+                          formik.values.second_period.stateOfResult
+                            .gross_sale) *
                           100
                       ) || 0
                     }%`}
@@ -16090,7 +16049,7 @@ export const FinancialStat = ({ formik }) => {
                     {`${
                       Math.round(
                         (resultsOf("net_income", "third_period") /
-                          resultsOf("net_income", "third_period")) *
+                          formik.values.third_period.stateOfResult.gross_sale) *
                           100
                       ) || 0
                     }%`}
