@@ -292,6 +292,42 @@ export const FinancialStat = ({ formik }) => {
               Estado de situación financiera
             </Typography>
             <Box flexGrow={1} />
+            <Button
+              variant="standard"
+              color="primary"
+              size="large"
+              onClick={() => {
+                console.log(formik.values);
+                console.log(
+                  document.getElementById("total_assets-first_period")
+                    .attributes.value.value
+                );
+              }}
+              sx={{
+                height: "2.6rem",
+                backgroundColor: "transparent",
+                border: "1.4px solid #63595C",
+                borderRadius: "4px",
+                mr: "1%",
+              }}
+            >
+              <Typography
+                letterSpacing={0}
+                fontSize="80%"
+                fontWeight="bold"
+                color="#63595C"
+              >
+                Descargar indicadores
+              </Typography>
+
+              <i
+                style={{
+                  color: "#63595C",
+                  marginLeft: "0.7rem",
+                }}
+                class="fa-regular fa-download"
+              ></i>
+            </Button>
             <Link href={`/financialProfile/financialStatement/?=${id}`}>
               <Button
                 variant="standard"
@@ -504,12 +540,12 @@ export const FinancialStat = ({ formik }) => {
               color="primary"
               size="large"
               onClick={() => {
-                console.log(formik.values);
+                console.log("click");
               }}
               sx={{
                 height: "2.6rem",
-                backgroundColor: "transparent",
-                border: "1.4px solid #63595C",
+                backgroundColor: "#488B8F",
+                border: "1.4px solid #5EA3A3",
                 borderRadius: "4px",
               }}
             >
@@ -517,17 +553,17 @@ export const FinancialStat = ({ formik }) => {
                 letterSpacing={0}
                 fontSize="80%"
                 fontWeight="bold"
-                color="#63595C"
+                color="#FFFFFF"
               >
-                Descargar indicadores
+                Ver en modo de presentación
               </Typography>
 
               <i
                 style={{
-                  color: "#63595C",
+                  color: "#FFFFFF",
                   marginLeft: "0.7rem",
                 }}
-                class="fa-regular fa-download"
+                class="fa-regular fa-expand"
               ></i>
             </Button>
           </Box>
