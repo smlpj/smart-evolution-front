@@ -2,7 +2,6 @@ import { useContext, useMemo, useState } from "react";
 
 import Link from "next/link";
 
-import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import {
   AppBar,
   Avatar,
@@ -87,23 +86,6 @@ export default function Header() {
           </>
 
           <Box flexGrow={1} />
-
-          <IconButton
-            edge="end"
-            sx={{
-              border: "0.5px solid #488B8F",
-              backgroundColor: "#EBEBEB",
-              color: "#488B8F",
-              padding: "0.5%",
-              marginRight: "1%",
-              "&:hover": {
-                backgroundColor: "#CFDDDD",
-              },
-            }}
-            aria-label="notifications"
-          >
-            <NotificationsNoneOutlinedIcon />
-          </IconButton>
 
           <Avatar
             id="menu-button"
