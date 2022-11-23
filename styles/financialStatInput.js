@@ -29,6 +29,14 @@ export const FinancialStatInput = {
       opacity: 1,
     },
   },
+
+  "@media all and (display-mode: fullscreen)": {
+    pointerEvents: "none",
+    //disabled input
+
+    backgroundColor: "#b9bdba78",
+
+  }
 };
 
 export const Results = {

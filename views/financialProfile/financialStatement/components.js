@@ -281,8 +281,26 @@ export const FinancialStat = ({ formik }) => {
         <Grid item xs={1}>
           <Header />
         </Grid>
-        <Grid item xs margin="1% 5%">
-          <Box display="flex" flexDirection="row">
+        <Grid
+          item
+          xs
+          sx={{
+            margin: "1% 5%",
+            "@media all and (display-mode: fullscreen)": {
+              margin: "0% 1%",
+              paddingTop: "1vh",
+            },
+          }}
+        >
+          <Box
+            display="flex"
+            flexDirection="row"
+            sx={{
+              "@media all and (display-mode: fullscreen)": {
+                display: "none",
+              },
+            }}
+          >
             <BackButton path={`/financialProfile?id=${id}`} />
             <Typography
               letterSpacing={0}
@@ -435,7 +453,16 @@ export const FinancialStat = ({ formik }) => {
               </Button>
             </Link>
           </Box>
-          <Box display="flex" flexDirection="row" marginTop="1%">
+          <Box
+            display="flex"
+            flexDirection="row"
+            marginTop="1%"
+            sx={{
+              "@media all and (display-mode: fullscreen)": {
+                display: "none",
+              },
+            }}
+          >
             <Box display="flex" flexDirection="column">
               <InputTitles marginBottom={1}>N° Identificación</InputTitles>
               <Typography
@@ -615,8 +642,20 @@ export const FinancialStat = ({ formik }) => {
               variant="standard"
               color="primary"
               size="large"
-              onClick={() => {
-                console.log("click");
+              onClick={(e) => {
+                // UniversalXPConnect privilege is required in Firefox
+                var docElm = document.documentElement;
+
+                if (docElm.requestFullscreen) {
+                  docElm.requestFullscreen();
+                } else if (docElm.mozRequestFullScreen) {
+                  docElm.mozRequestFullScreen();
+                } else if (docElm.webkitRequestFullScreen) {
+                  docElm.webkitRequestFullScreen();
+                }
+
+                
+
               }}
               sx={{
                 height: "2.6rem",
@@ -658,6 +697,12 @@ export const FinancialStat = ({ formik }) => {
               width: "100%",
               ["@media (max-height: 850px)"]: {
                 height: "56vh",
+              },
+              "@media all and (display-mode: fullscreen)": {
+                border: "none",
+                margin: "0px",
+                paddingTop: "0",
+                height: "88vh",
               },
             }}
           >
