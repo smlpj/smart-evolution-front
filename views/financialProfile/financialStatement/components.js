@@ -30,6 +30,8 @@ import typeForeignCurrencyAccountStep from "@views/self-management/Steps/LegalSt
 //Queries imports
 import { GetCustomerById } from "./queries";
 
+import axios from "axios";
+
 export const FinancialStat = ({ formik }) => {
   //Get ID from URL
   const {
@@ -316,6 +318,80 @@ export const FinancialStat = ({ formik }) => {
               size="large"
               onClick={() => {
                 console.log(formik.values);
+                const periods = [
+                  "first_period",
+                  "second_period",
+                  "third_period",
+                ];
+                periods.forEach((period) => {
+                  formik.setFieldValue(period, {
+                    ...formik.values[period],
+                    assets: {
+                      ...formik.values[period].assets,
+                      net_cxc: document.getElementById(`net_cxc-${period}`)
+                        .attributes.value.value,
+                      total_inventory: document.getElementById(
+                        `total_inventory-${period}`
+                      ).attributes.value.value,
+                      current_assets: document.getElementById(
+                        `current_assets-${period}`
+                      ).attributes.value.value,
+                      gross_fixed_assets: document.getElementById(
+                        `gross_fixed_assets-${period}`
+                      ).attributes.value.value,
+                      net_fixed_assets: document.getElementById(
+                        `net_fixed_assets-${period}`
+                      ).attributes.value.value,
+                      total_other_assets: document.getElementById(
+                        `total_other_assets-${period}`
+                      ).attributes.value.value,
+                      total_assets: document.getElementById(
+                        `total_assets-${period}`
+                      ).attributes.value.value,
+                    },
+                    passives: {
+                      ...formik.values[period].passives,
+                      current_liabilities: document.getElementById(
+                        `current_liabilities-${period}`
+                      ).attributes.value.value,
+                      lp_passives: document.getElementById(
+                        `lp_passives-${period}`
+                      ).attributes.value.value,
+                      total_passives: document.getElementById(
+                        `total_passives-${period}`
+                      ).attributes.value.value,
+                    },
+                    patrimony: {
+                      ...formik.values[period].patrimony,
+                      total_patrimony: document.getElementById(
+                        `total_patrimony-${period}`
+                      ).attributes.value.value,
+                      passive_and_patrimony: document.getElementById(
+                        `passive_and_patrimony-${period}`
+                      ).attributes.value.value,
+                      total_assets_passives: document.getElementById(
+                        `total_assets_passives-${period}`
+                      ).attributes.value.value,
+                    },
+                    stateOfResult: {
+                      ...formik.values[period].stateOfResult,
+                      net_sales: document.getElementById(`net_sales-${period}`)
+                        .attributes.value.value,
+                      gross_profit: document.getElementById(
+                        `gross_profit-${period}`
+                      ).attributes.value.value,
+                      operating_profit: document.getElementById(
+                        `operating_profit-${period}`
+                      ).attributes.value.value,
+                      income_before_taxes: document.getElementById(
+                        `income_before_taxes-${period}`
+                      ).attributes.value.value,
+                      net_income: document.getElementById(
+                        `net_income-${period}`
+                      ).attributes.value.value,
+                    },
+                  });
+                });
                 console.log(
                   document.getElementById("total_assets-first_period")
                     .attributes.value.value
@@ -586,6 +662,9 @@ export const FinancialStat = ({ formik }) => {
                 backgroundColor: "#488B8F",
                 border: "1.4px solid #5EA3A3",
                 borderRadius: "4px",
+                "&:hover": {
+                  backgroundColor: "#5EA3A3",
+                },
               }}
             >
               <Typography
