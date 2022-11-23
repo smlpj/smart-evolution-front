@@ -56,6 +56,11 @@ export default function Header() {
           padding: "0.6rem",
           height: "100%",
           justifyContent: "center",
+
+
+          "@media all and (display-mode: fullscreen)": {
+            height: "10vh",
+          }
         }}
       >
         <Toolbar sx={{ marginRight: "3%", marginLeft: "3%" }}>
