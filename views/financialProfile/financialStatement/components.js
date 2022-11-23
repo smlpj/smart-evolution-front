@@ -328,74 +328,92 @@ export const FinancialStat = ({ formik }) => {
                     ...formik.values[period],
                     assets: {
                       ...formik.values[period].assets,
-                      net_cxc: document.getElementById(`net_cxc-${period}`)
-                        .attributes.value.value,
-                      total_inventory: document.getElementById(
-                        `total_inventory-${period}`
-                      ).attributes.value.value,
-                      current_assets: document.getElementById(
-                        `current_assets-${period}`
-                      ).attributes.value.value,
-                      gross_fixed_assets: document.getElementById(
-                        `gross_fixed_assets-${period}`
-                      ).attributes.value.value,
-                      net_fixed_assets: document.getElementById(
-                        `net_fixed_assets-${period}`
-                      ).attributes.value.value,
-                      total_other_assets: document.getElementById(
-                        `total_other_assets-${period}`
-                      ).attributes.value.value,
-                      total_assets: document.getElementById(
-                        `total_assets-${period}`
-                      ).attributes.value.value,
+                      net_cxc: parseFloat(
+                        document.getElementById(`net_cxc-${period}`).attributes
+                          .value.value
+                      ),
+                      total_inventory: parseFloat(
+                        document.getElementById(`total_inventory-${period}`)
+                          .attributes.value.value
+                      ),
+                      current_assets: parseFloat(
+                        document.getElementById(`current_assets-${period}`)
+                          .attributes.value.value
+                      ),
+                      gross_fixed_assets: parseFloat(
+                        document.getElementById(`gross_fixed_assets-${period}`)
+                          .attributes.value.value
+                      ),
+                      net_fixed_assets: parseFloat(
+                        document.getElementById(`net_fixed_assets-${period}`)
+                          .attributes.value.value
+                      ),
+                      total_other_assets: parseFloat(
+                        document.getElementById(`total_other_assets-${period}`)
+                          .attributes.value.value
+                      ),
+                      total_assets: parseFloat(
+                        document.getElementById(`total_assets-${period}`)
+                          .attributes.value.value
+                      ),
                     },
                     passives: {
                       ...formik.values[period].passives,
-                      current_liabilities: document.getElementById(
-                        `current_liabilities-${period}`
-                      ).attributes.value.value,
-                      lp_passives: document.getElementById(
-                        `lp_passives-${period}`
-                      ).attributes.value.value,
-                      total_passives: document.getElementById(
-                        `total_passives-${period}`
-                      ).attributes.value.value,
+                      current_liabilities: parseFloat(
+                        document.getElementById(`current_liabilities-${period}`)
+                          .attributes.value.value
+                      ),
+                      lp_passives: parseFloat(
+                        document.getElementById(`lp_passives-${period}`)
+                          .attributes.value.value
+                      ),
+                      total_passives: parseFloat(
+                        document.getElementById(`total_passives-${period}`)
+                          .attributes.value.value
+                      ),
                     },
                     patrimony: {
                       ...formik.values[period].patrimony,
-                      total_patrimony: document.getElementById(
-                        `total_patrimony-${period}`
-                      ).attributes.value.value,
-                      passive_and_patrimony: document.getElementById(
-                        `passive_and_patrimony-${period}`
-                      ).attributes.value.value,
-                      total_assets_passives: document.getElementById(
-                        `total_assets_passives-${period}`
-                      ).attributes.value.value,
+                      total_patrimony: parseFloat(
+                        document.getElementById(`total_patrimony-${period}`)
+                          .attributes.value.value
+                      ),
+                      passive_and_patrimony: parseFloat(
+                        document.getElementById(
+                          `passive_and_patrimony-${period}`
+                        ).attributes.value.value
+                      ),
+                      total_assets_passives: parseFloat(
+                        document.getElementById(
+                          `total_assets_passives-${period}`
+                        ).attributes.value.value
+                      ),
                     },
                     stateOfResult: {
                       ...formik.values[period].stateOfResult,
-                      net_sales: document.getElementById(`net_sales-${period}`)
-                        .attributes.value.value,
-                      gross_profit: document.getElementById(
-                        `gross_profit-${period}`
-                      ).attributes.value.value,
-                      operating_profit: document.getElementById(
-                        `operating_profit-${period}`
-                      ).attributes.value.value,
-                      income_before_taxes: document.getElementById(
-                        `income_before_taxes-${period}`
-                      ).attributes.value.value,
-                      net_income: document.getElementById(
-                        `net_income-${period}`
-                      ).attributes.value.value,
+                      net_sales: parseFloat(
+                        document.getElementById(`net_sales-${period}`)
+                          .attributes.value.value
+                      ),
+                      gross_profit: parseFloat(
+                        document.getElementById(`gross_profit-${period}`)
+                          .attributes.value.value
+                      ),
+                      operating_profit: parseFloat(
+                        document.getElementById(`operating_profit-${period}`)
+                          .attributes.value.value
+                      ),
+                      income_before_taxes: parseFloat(
+                        document.getElementById(`income_before_taxes-${period}`)
+                          .attributes.value.value
+                      ),
+                      net_income: parseFloat(
+                        document.getElementById(`net_income-${period}`)
+                          .attributes.value.value
+                      ),
                     },
                   });
                 });
-                console.log(
-                  document.getElementById("total_assets-first_period")
-                    .attributes.value.value
-                );
               }}
               sx={{
                 height: "2.6rem",
@@ -653,9 +671,6 @@ export const FinancialStat = ({ formik }) => {
                 } else if (docElm.webkitRequestFullScreen) {
                   docElm.webkitRequestFullScreen();
                 }
-
-                
-
               }}
               sx={{
                 height: "2.6rem",
