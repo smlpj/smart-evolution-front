@@ -21,9 +21,10 @@ const pathsWithoutDefaultLayout = [
   "/self-management",
   "/auth/login",
   "/financialProfile/financialStatement",
+  "/financialProfile/indicators",
   "/administration/deposit-investor",
   "/administration/deposit-emitter",
-  "/administration/refund"
+  "/administration/refund",
 ];
 
 function MyApp({ Component, pageProps }) {

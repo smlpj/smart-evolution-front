@@ -42,7 +42,6 @@ export const FinancialStat = ({ formik }) => {
   } = useFetch({ service: GetCustomerById, init: false });
 
   const [id, setID] = useState("");
-  const [results, setResults] = useState({});
   const router = useRouter();
 
   useEffect(() => {
@@ -440,7 +439,7 @@ export const FinancialStat = ({ formik }) => {
                 class="fa-regular fa-download"
               ></i>
             </Button>
-            <Link href={`/financialProfile/financialStatement/?=${id}`}>
+            <Link href={`/financialProfile/indicators/?id=${id}`}>
               <Button
                 variant="standard"
                 color="primary"
@@ -773,6 +772,23 @@ export const FinancialStat = ({ formik }) => {
                     color="#488B8F"
                   >
                     Ene-Dic 2021
+                  </Typography>
+                </Box>
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="calc(76% / 3)"
+                  ml="3%"
+                  borderBottom="2px solid #488B8F"
+                  pb="1%"
+                >
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.7vw"
+                    fontWeight="500"
+                    color="#488B8F"
+                  >
+                    Nuevo registro
                   </Typography>
                 </Box>
               </Box>
