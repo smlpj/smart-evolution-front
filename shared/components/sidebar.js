@@ -44,7 +44,7 @@ export default function Navbar() {
               </NavbarButton>
             </Link>
 
-            <Link href="/bills" underline="none">
+            <Link href="/bills/billList" underline="none">
               <NavbarButton
                 sx={{
                   marginBottom: "8%",
