@@ -359,7 +359,7 @@ export const RiskProfileC = ({ formik, ToastContainer, loading, data }) => {
             sx={{ ...scrollSx }}
           >
             <Box display="flex" flexDirection="column" width={"35%"}>
-              <InputTitles marginBottom={2}>Aplica GMF</InputTitles>
+              <InputTitles marginBottom={2}>Aplica GM</InputTitles>
               <Box
                 display={"flex"}
                 justifyContent={"space-between"}
@@ -378,7 +378,7 @@ export const RiskProfileC = ({ formik, ToastContainer, loading, data }) => {
                   fontWeight="regular"
                   color="#333333"
                 >
-                  Aplica GMF
+                  Aplica GM
                 </Typography>
                 <Switch
                   value={formik.values.gmf}
