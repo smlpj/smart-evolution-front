@@ -118,7 +118,7 @@ export const FinancialInd = () => {
                 letterSpacing={0}
                 fontSize="80%"
                 fontWeight="bold"
-                color="#63595C"
+                color="#FFFFFF"
               >
                 Descargar indicadores
               </Typography>
