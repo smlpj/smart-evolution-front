@@ -721,7 +721,7 @@ export const FinancialStat = ({ formik }) => {
             }}
           >
             <Box display="flex" flexDirection="column">
-              <Box display="flex" flexDirection="row" width="100%">
+              <Box display="flex" flexDirection="row">
                 <Box width="15%" />
                 <Box
                   display="flex"
@@ -774,7 +774,7 @@ export const FinancialStat = ({ formik }) => {
                     Ene-Dic 2021
                   </Typography>
                 </Box>
-                <Box
+                {/* <Box
                   display="flex"
                   flexDirection="row"
                   width="calc(76% / 3)"
@@ -790,7 +790,7 @@ export const FinancialStat = ({ formik }) => {
                   >
                     Nuevo registro
                   </Typography>
-                </Box>
+                </Box> */}
               </Box>
               <Box
                 display="flex"
