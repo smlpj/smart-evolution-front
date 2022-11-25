@@ -27,7 +27,7 @@ export const RiskProfileC = ({ formik, ToastContainer, loading, data }) => {
           sx={{ ...scrollSx }}
         >
           <Box display="flex" flexDirection="column" height={"50vh"}>
-            <BackButton path="/dashboard" />
+            <BackButton path="/customers/customerList" />
             <Box marginBottom={3}>
               <Typography
                 letterSpacing={0}
@@ -37,125 +37,11 @@ export const RiskProfileC = ({ formik, ToastContainer, loading, data }) => {
               >
                 Perfil De Riesgo
               </Typography>
-
-              {(data?.data?.risk_profile === 0 ||
-                data?.data?.risk_profile === null) && (
-                <Box
-                  display="flex"
-                  flexDirection="row"
-                  justifyContent="center"
-                  textAlign="center"
-                  alignItems="center"
-                  padding="3% 8%"
-                  borderRadius="4px"
-                  backgroundColor="#488B8F"
-                >
-                  <Image
-                    src="/assets/Icon - Perfil de riesgo - Desconocido.svg"
-                    width={30}
-                    height={30}
-                    alt="Perfil de riesgo desconocido"
-                  />
-                  <Typography
-                    fontSize="80%"
-                    width="100%"
-                    fontWeight="bold"
-                    color="#FFFFFF"
-                    textTransform="uppercase"
-                  >
-                    Desconocido
-                  </Typography>
-                </Box>
-              )}
-              {data?.data?.riskProfile === 1 && (
-                <Box
-                  display="flex"
-                  flexDirection="row"
-                  justifyContent="center"
-                  textAlign="center"
-                  alignItems="center"
-                  padding="3% 8%"
-                  borderRadius="4px"
-                  backgroundColor="#488B8F"
-                >
-                  <Image
-                    src="/assets/Icon - Perfil de riesgo - Bajo.svg"
-                    width={30}
-                    height={30}
-                    alt="Bajo"
-                  />
-                  <Typography
-                    fontSize="80%"
-                    width="100%"
-                    fontWeight="bold"
-                    color="#FFFFFF"
-                    textTransform="uppercase"
-                  >
-                    Riesgo bajo
-                  </Typography>
-                </Box>
-              )}
-              {data?.data?.risk_profile === 2 && (
-                <Box
-                  display="flex"
-                  flexDirection="row"
-                  justifyContent="center"
-                  textAlign="center"
-                  alignItems="center"
-                  padding="3% 8%"
-                  borderRadius="4px"
-                  backgroundColor="#488B8F"
-                >
-                  <Image
-                    src="/assets/Icon - Perfil de riesgo - Medio.svg"
-                    width={30}
-                    height={30}
-                    alt="Icon - Perfil de riesgo - Medio"
-                  />
-                  <Typography
-                    fontSize="80%"
-                    width="100%"
-                    fontWeight="bold"
-                    color="#FFFFFF"
-                    textTransform="uppercase"
-                  >
-                    Riesgo medio
-                  </Typography>
-                </Box>
-              )}
-              {data?.data?.risk_profile === 3 && (
-                <Box
-                  display="flex"
-                  flexDirection="row"
-                  justifyContent="center"
-                  textAlign="center"
-                  alignItems="center"
-                  padding="3% 8%"
-                  borderRadius="4px"
-                  backgroundColor="#488B8F"
-                >
-                  <Image
-                    src="/assets/Icon - Perfil de riesgo - Alto.svg"
-                    width={30}
-                    height={30}
-                    alt="Alto"
-                  />
-                  <Typography
-                    fontSize="80%"
-                    width="100%"
-                    fontWeight="bold"
-                    color="#FFFFFF"
-                    textTransform="uppercase"
-                  >
-                    Riesgo alto
-                  </Typography>
-                </Box>
-              )}
             </Box>
             <Box display="flex" flexDirection="column">
               <Box
                 display="grid"
-                gridTemplateColumns="1fr 1fr 1fr"
+                gridTemplateColumns="1fr 1fr"
                 gridTemplateRows="1fr 1fr"
                 gap={3.5}
                 width="80%"
@@ -184,126 +70,7 @@ export const RiskProfileC = ({ formik, ToastContainer, loading, data }) => {
                     } ${data?.data?.social_reason ?? ""}`}
                   </Typography>
                 </Box>
-                <Box display="flex" flexDirection="column">
-                  <InputTitles marginBottom={1}>PERFIL DE RIESGO</InputTitles>
-                  {(data?.data?.riskProfile === 0 ||
-                    data?.data?.riskProfile === null) && (
-                    <Box
-                      display="flex"
-                      flexDirection="row"
-                      justifyContent="center"
-                      textAlign="center"
-                      alignItems="center"
-                      padding="3% 8%"
-                      width={"160px"}
-                      borderRadius="4px"
-                      backgroundColor="#488B8F"
-                    >
-                      <Image
-                        src="/assets/Icon - Perfil de riesgo - Desconocido.svg"
-                        width={30}
-                        height={30}
-                        alt="Perfil de riesgo desconocido"
-                      />
-                      <Typography
-                        fontSize="80%"
-                        width="100%"
-                        fontWeight="bold"
-                        color="#FFFFFF"
-                        textTransform="uppercase"
-                      >
-                        Desconocido
-                      </Typography>
-                    </Box>
-                  )}
-                  {data?.data?.riskProfile === 1 && (
-                    <Box
-                      display="flex"
-                      flexDirection="row"
-                      justifyContent="center"
-                      textAlign="center"
-                      alignItems="center"
-                      padding="3% 8%"
-                      width={"160px"}
-                      borderRadius="4px"
-                      backgroundColor="#488B8F"
-                    >
-                      <Image
-                        src="/assets/Icon - Perfil de riesgo - Bajo.svg"
-                        width={30}
-                        height={30}
-                        alt="Bajo"
-                      />
-                      <Typography
-                        fontSize="80%"
-                        width="100%"
-                        fontWeight="bold"
-                        color="#FFFFFF"
-                        textTransform="uppercase"
-                      >
-                        Riesgo bajo
-                      </Typography>
-                    </Box>
-                  )}
-                  {data?.data?.riskProfile === 2 && (
-                    <Box
-                      display="flex"
-                      flexDirection="row"
-                      justifyContent="center"
-                      textAlign="center"
-                      alignItems="center"
-                      padding="3% 8%"
-                      width={"160px"}
-                      borderRadius="4px"
-                      backgroundColor="#488B8F"
-                    >
-                      <Image
-                        src="/assets/Icon - Perfil de riesgo - Medio.svg"
-                        width={30}
-                        height={30}
-                        alt="Icon - Perfil de riesgo - Medio"
-                      />
-                      <Typography
-                        fontSize="80%"
-                        width="100%"
-                        fontWeight="bold"
-                        color="#FFFFFF"
-                        textTransform="uppercase"
-                      >
-                        Riesgo medio
-                      </Typography>
-                    </Box>
-                  )}
-                  {data?.data?.riskProfile === 3 && (
-                    <Box
-                      display="flex"
-                      flexDirection="row"
-                      justifyContent="center"
-                      textAlign="center"
-                      alignItems="center"
-                      padding="3% 8%"
-                      width={"160px"}
-                      borderRadius="4px"
-                      backgroundColor="#488B8F"
-                    >
-                      <Image
-                        src="/assets/Icon - Perfil de riesgo - Alto.svg"
-                        width={30}
-                        height={30}
-                        alt="Alto"
-                      />
-                      <Typography
-                        fontSize="80%"
-                        width="100%"
-                        fontWeight="bold"
-                        color="#FFFFFF"
-                        textTransform="uppercase"
-                      >
-                        Riesgo alto
-                      </Typography>
-                    </Box>
-                  )}
-                </Box>
+
                 <Box display="flex" flexDirection="column">
                   <InputTitles marginBottom={2}>
                     Representante legal

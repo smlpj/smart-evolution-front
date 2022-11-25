@@ -179,7 +179,6 @@ export const FinancialInd = () => {
             </Box>
             <Box display="flex" flexDirection="column" marginLeft="3%">
               <InputTitles marginBottom={1}>PERFIL DE RIESGO</InputTitles>
-
               {data?.data?.riskProfile === null && (
                 <Link href={`/riskProfile?id=${id}`} underline="none">
                   <Button
@@ -205,114 +204,30 @@ export const FinancialInd = () => {
                   </Button>
                 </Link>
               )}
+              {data?.data?.riskProfile && (
+                <Link href={`/riskProfile?id=${id}`} underline="none">
+                  <Button
+                    variant="standard"
+                    sx={{
+                      backgroundColor: "#488B8F",
+                      color: "#FFFFFF",
+                      textTransform: "none",
+                      borderRadius: "4px",
+                      width: "40%",
 
-              {data?.data?.risk_profile === 0 && (
-                <Box
-                  display="flex"
-                  flexDirection="row"
-                  justifyContent="center"
-                  textAlign="center"
-                  alignItems="center"
-                  padding="3% 8%"
-                  borderRadius="4px"
-                  backgroundColor="#488B8F"
-                >
-                  <Image
-                    src="/assets/Icon - Perfil de riesgo - Desconocido.svg"
-                    width={30}
-                    height={30}
-                  />
-                  <Typography
-                    fontSize="0.7vw"
-                    width="100%"
-                    fontWeight="bold"
-                    color="#FFFFFF"
-                    textTransform="uppercase"
+                      "&:hover": { backgroundColor: "#5EA3A3" },
+                    }}
                   >
-                    Desconocido
-                  </Typography>
-                </Box>
-              )}
-              {data?.data?.riskProfile === 1 && (
-                <Box
-                  display="flex"
-                  flexDirection="row"
-                  justifyContent="center"
-                  textAlign="center"
-                  alignItems="center"
-                  padding="3% 8%"
-                  borderRadius="4px"
-                  backgroundColor="#488B8F"
-                >
-                  <Image
-                    src="/assets/Icon - Perfil de riesgo - Bajo.svg"
-                    width={30}
-                    height={30}
-                  />
-                  <Typography
-                    fontSize="0.7vw"
-                    width="100%"
-                    fontWeight="bold"
-                    color="#FFFFFF"
-                    textTransform="uppercase"
-                  >
-                    Riesgo bajo
-                  </Typography>
-                </Box>
-              )}
-              {data?.data?.risk_profile === 2 && (
-                <Box
-                  display="flex"
-                  flexDirection="row"
-                  justifyContent="center"
-                  textAlign="center"
-                  alignItems="center"
-                  padding="3% 8%"
-                  borderRadius="4px"
-                  backgroundColor="#488B8F"
-                >
-                  <Image
-                    src="/assets/Icon - Perfil de riesgo - Medio.svg"
-                    width={30}
-                    height={30}
-                  />
-                  <Typography
-                    fontSize="0.7vw"
-                    width="100%"
-                    fontWeight="bold"
-                    color="#FFFFFF"
-                    textTransform="uppercase"
-                  >
-                    Riesgo medio
-                  </Typography>
-                </Box>
-              )}
-              {data?.data?.risk_profile === 3 && (
-                <Box
-                  display="flex"
-                  flexDirection="row"
-                  justifyContent="center"
-                  textAlign="center"
-                  alignItems="center"
-                  padding="3% 8%"
-                  borderRadius="4px"
-                  backgroundColor="#488B8F"
-                >
-                  <Image
-                    src="/assets/Icon - Perfil de riesgo - Alto.svg"
-                    width={30}
-                    height={30}
-                  />
-                  <Typography
-                    fontSize="0.7vw"
-                    width="100%"
-                    fontWeight="bold"
-                    color="#FFFFFF"
-                    textTransform="uppercase"
-                  >
-                    Riesgo alto
-                  </Typography>
-                </Box>
+                    <Typography
+                      fontSize="0.7vw"
+                      fontWeight="bold"
+                      color="#FFFFFF"
+                      textTransform="uppercase"
+                    >
+                      Ver
+                    </Typography>
+                  </Button>
+                </Link>
               )}
             </Box>
           </Box>
@@ -389,23 +304,6 @@ export const FinancialInd = () => {
                     color="#488B8F"
                   >
                     Ene-Dic 2021
-                  </Typography>
-                </Box>
-                <Box
-                  display="flex"
-                  flexDirection="row"
-                  width="calc(76% / 3)"
-                  ml="3%"
-                  borderBottom="2px solid #488B8F"
-                  pb="1%"
-                >
-                  <Typography
-                    letterSpacing={0}
-                    fontSize="1.7vw"
-                    fontWeight="500"
-                    color="#488B8F"
-                  >
-                    Nuevo registro
                   </Typography>
                 </Box>
               </Box>
