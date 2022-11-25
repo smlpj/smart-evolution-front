@@ -25,7 +25,7 @@ export default function Navbar() {
             borderColor="#B5D1C9"
             height="100%"
           >
-            <Link href="/operations" underline="none">
+            <Link href="/brochures" underline="none">
               <NavbarButton
                 sx={{ marginBottom: "8%", width: "70%", height: "10%" }}
               >
