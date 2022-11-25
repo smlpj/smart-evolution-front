@@ -25,7 +25,6 @@ import { FinancialStatInput } from "@styles/financialStatInput";
 import InputTitles from "@styles/inputTitles";
 import scrollSx from "@styles/scroll";
 
-import typeForeignCurrencyAccountStep from "@views/self-management/Steps/LegalSteps/typeForeignCurrencyAccountStep";
 
 //Queries imports
 import { GetCustomerById } from "./queries";
