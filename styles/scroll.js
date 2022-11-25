@@ -1,6 +1,7 @@
 const scrollSx = {
   scrollBehavior: "smooth",
   overflowY: "auto",
+  overflowX: "auto",
   "&::-webkit-scrollbar": {
     position: "absolute",
     width: "9px",
