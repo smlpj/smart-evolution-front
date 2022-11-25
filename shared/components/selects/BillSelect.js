@@ -33,15 +33,18 @@ export default function BillSelect({
   const numberFormat1 = new Intl.NumberFormat('es-ES', options1);
 
   useEffect(() => {
-    fetch(customer)
-  }, [])
+    console.log("customer", formik.values);
+    if (formik.values.emitter) {
+      fetch(formik.values.emitter);
+    }
+  }, [formik.values.emitter])
 
   useEffect(() => {
     if (data) {
       let bills = [];
       data.data.map((data) => {
         bills.push({
-          label: `${data.billId}  - monto disponible ${numberFormat1.format(data.currentBalance)}`,
+          label: `${data.billId}  - Monto Disponible: ${numberFormat1.format(data.currentBalance)}`,
           value: data.id,
         });
       });

@@ -1,7 +1,5 @@
 import Axios from "axios";
 
-
-
 const readToken =
   "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxOTgyOTM5Mzg0LCJpYXQiOjE2Njc1NzkzODQsImp0aSI6ImU0MGM1ZjZiNDdiMzRmODk4NGE4MjExMDc2MWMxZjZkIiwidXNlcl9pZCI6IjdmMzU3ZGNkLWQ2Y2UtNDkzNS1iZmFiLWVlZTZkNzdmOWMzZCIsIm5hbWUiOiJyZWFkIG9ubHkiLCJyb2xlcyI6WyJjbGllbnQiXSwiaXNfc3VwZXJ1c2VyIjpmYWxzZX0.fgtLoeOeoa53hqRbH3I9ZHALqmb3mbbuDRQCcG1w0IM";
 
@@ -114,34 +112,37 @@ export const Egresses = async (data) => {
 };
 
 export const AccountingAccounts = async (data) => {
-  const res = await Axios.get(`${API_URL}/accounting_account/all`,
-    {
-      headers: {
-        authorization: "Bearer " + localStorage.getItem("access-token"),
-      },
-    }
-  );
+  const res = await Axios.get(`${API_URL}/accounting_account/all`, {
+    headers: {
+      authorization: "Bearer " + localStorage.getItem("access-token"),
+    },
+  });
   return res.data;
 };
 
 export const TypeOperation = async (data) => {
-  const res = await Axios.get(`${API_URL}/type_operation`,
-    {
-      headers: {
-        authorization: "Bearer " + localStorage.getItem("access-token"),
-      },
-    }
-  );
+  const res = await Axios.get(`${API_URL}/type_operation`, {
+    headers: {
+      authorization: "Bearer " + localStorage.getItem("access-token"),
+    },
+  });
   return res.data;
 };
 
 export const Bills = async (data) => {
-    const res = await Axios.get(`${API_URL}/bill/${data}`,
-    {
-      headers: {
-        authorization: "Bearer " + localStorage.getItem("access-token"),
-      },
-    }
-  );
+  const res = await Axios.get(`${API_URL}/bill/${data}`, {
+    headers: {
+      authorization: "Bearer " + localStorage.getItem("access-token"),
+    },
+  });
   return res.data;
-}
+};
+
+export const BrokerByClient = async (data) => {
+  const res = await Axios.get(`${API_URL}/broker/client/${data}`, {
+    headers: {
+      authorization: "Bearer " + localStorage.getItem("access-token"),
+    },
+  });
+  return res.data;
+};
