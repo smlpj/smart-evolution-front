@@ -24,3 +24,13 @@ export const GetCustomerById = async (id) => {
   });
   return res.data;
 };
+
+//Get Financial Profile Indicators by ID
+export const GetFinancialProfileIndicatorsById = async (id) => {
+  const res = await Axios.get(`${API_URL}/financialProfile/indicators/${id}`, {
+    headers: {
+      authorization: "Bearer " + localStorage.getItem("access-token"),
+    },
+  });
+  return res.data;
+};

@@ -28,7 +28,7 @@ import scrollSx from "@styles/scroll";
 import typeForeignCurrencyAccountStep from "@views/self-management/Steps/LegalSteps/typeForeignCurrencyAccountStep";
 
 //Queries imports
-import { GetCustomerById } from "./queries";
+import { GetCustomerById, GetFinancialProfileIndicatorsById } from "./queries";
 
 export const FinancialInd = () => {
   //Get ID from URL
@@ -38,6 +38,14 @@ export const FinancialInd = () => {
     error: error,
     data: data,
   } = useFetch({ service: GetCustomerById, init: false });
+
+  //Get Financial Profile Indicators by ID
+  const {
+    fetch: fetchIndicators,
+    loading: loadingIndicators,
+    error: errorIndicators,
+    data: dataIndicators,
+  } = useFetch({ service: GetFinancialProfileIndicatorsById, init: false });
 
   const [id, setID] = useState("");
   const router = useRouter();
@@ -51,8 +59,23 @@ export const FinancialInd = () => {
   useEffect(() => {
     if (id) {
       fetch(id);
+      fetchIndicators(id);
     }
   }, [id]);
+
+  useEffect(() => {
+    if (dataIndicators) {
+      console.log(dataIndicators);
+    }
+  }, [dataIndicators]);
+
+  const sxNumbers = {
+    letterSpacing: 0,
+    fontSize: "0.9vw",
+    fontWeight: "medium",
+    color: "#333333",
+    height: "5.5vh",
+  };
 
   return (
     <>
@@ -252,58 +275,24 @@ export const FinancialInd = () => {
               },
             }}
           >
+            {/* Actividad / Eficiencia */}
             <Box display="flex" flexDirection="column">
-              <Box display="flex" flexDirection="row" width="100%">
-                <Box width="15%" />
-                <Box
-                  display="flex"
-                  flexDirection="row"
-                  width="calc(76% / 3)"
-                  ml="3%"
-                  borderBottom="2px solid #488B8F"
-                  pb="1%"
-                >
+              {/* Titulo */}
+              <Box
+                display="flex"
+                flexDirection="row"
+                width="100%"
+                mt="1%"
+                alignItems="center"
+              >
+                <Box width="100%">
                   <Typography
                     letterSpacing={0}
-                    fontSize="1.7vw"
+                    fontSize="1.85vw"
                     fontWeight="500"
-                    color="#488B8F"
+                    color="#333333"
                   >
-                    Ene-Dic 2019
-                  </Typography>
-                </Box>
-                <Box
-                  display="flex"
-                  flexDirection="row"
-                  width="calc(76% / 3)"
-                  ml="3%"
-                  borderBottom="2px solid #488B8F"
-                  pb="1%"
-                >
-                  <Typography
-                    letterSpacing={0}
-                    fontSize="1.7vw"
-                    fontWeight="500"
-                    color="#488B8F"
-                  >
-                    Ene-Dic 2020
-                  </Typography>
-                </Box>
-                <Box
-                  display="flex"
-                  flexDirection="row"
-                  width="calc(76% / 3)"
-                  ml="3%"
-                  borderBottom="2px solid #488B8F"
-                  pb="1%"
-                >
-                  <Typography
-                    letterSpacing={0}
-                    fontSize="1.7vw"
-                    fontWeight="500"
-                    color="#488B8F"
-                  >
-                    Ene-Dic 2021
+                    Actividad / Eficiencia
                   </Typography>
                 </Box>
               </Box>
@@ -314,55 +303,306 @@ export const FinancialInd = () => {
                 mt="1%"
                 alignItems="center"
               >
-                <Box width="15%">
-                  <Typography
-                    letterSpacing={0}
-                    fontSize="1.85vw"
-                    fontWeight="500"
-                    color="#333333"
-                  >
-                    Activos
-                  </Typography>
+                <Box display="flex" flexDirection="column" width="40%">
+                  <Box display="flex" flexDirection="row">
+                    <Box width="50%"></Box>
+                    <Box width="50%">
+                      <Box display="flex" flexDirection="row">
+                        <Box
+                          width="calc(91%/3)"
+                          ml="3%"
+                          borderRight="1px solid #57575780"
+                        >
+                          <InputTitles
+                            sx={{ fontSize: "0.7vw", height: "6vh" }}
+                          >
+                            ENE-DIC<br></br>2019
+                          </InputTitles>
+                        </Box>
+                        <Box
+                          width="calc(91%/3)"
+                          ml="3%"
+                          borderRight="1px solid #57575780"
+                        >
+                          <InputTitles sx={{ fontSize: "0.7vw" }}>
+                            ENE-DIC<br></br>2020
+                          </InputTitles>
+                        </Box>
+                        <Box width="calc(91%/3)" ml="3%">
+                          <InputTitles sx={{ fontSize: "0.7vw" }}>
+                            ENE-DIC<br></br>2021
+                          </InputTitles>
+                        </Box>
+                      </Box>
+                    </Box>
+                  </Box>
+                  <Box display="flex" flexDirection="row">
+                    <Box width="50%">
+                      <InputTitles sx={{ fontSize: "0.7vw" }}>
+                        ROTACIÓN CARTERA
+                      </InputTitles>
+                    </Box>
+                    <Box width="50%">
+                      <Box display="flex" flexDirection="row">
+                        <Box
+                          width="calc(91%/3)"
+                          ml="3%"
+                          borderRight="1px solid #57575780"
+                        >
+                          <Typography sx={{ ...sxNumbers }}>
+                            {dataIndicators?.data?.activityEfficiency?.period_1
+                              ?.walletRotation ?? ""}
+                          </Typography>
+                        </Box>
+                        <Box
+                          width="calc(91%/3)"
+                          ml="3%"
+                          borderRight="1px solid #57575780"
+                        >
+                          <Typography sx={{ ...sxNumbers }}>
+                            {dataIndicators?.data?.activityEfficiency?.period_2
+                              ?.walletRotation ?? ""}
+                          </Typography>
+                        </Box>
+                        <Box width="calc(91%/3)" ml="3%">
+                          <Typography sx={{ ...sxNumbers }}>
+                            {dataIndicators?.data?.activityEfficiency?.period_3
+                              ?.walletRotation ?? ""}
+                          </Typography>
+                        </Box>
+                      </Box>
+                    </Box>
+                  </Box>
+                  <Box display="flex" flexDirection="row">
+                    <Box width="50%">
+                      <InputTitles sx={{ fontSize: "0.7vw" }}>
+                        ROTACIÓN INVENTARIOS
+                      </InputTitles>
+                    </Box>
+                    <Box width="50%">
+                      <Box display="flex" flexDirection="row">
+                        <Box
+                          width="calc(91%/3)"
+                          ml="3%"
+                          borderRight="1px solid #57575780"
+                        >
+                          <Typography sx={{ ...sxNumbers }}>
+                            {dataIndicators?.data?.activityEfficiency?.period_1
+                              ?.inventoryRotation ?? ""}
+                          </Typography>
+                        </Box>
+                        <Box
+                          width="calc(91%/3)"
+                          ml="3%"
+                          borderRight="1px solid #57575780"
+                        >
+                          <Typography sx={{ ...sxNumbers }}>
+                            {dataIndicators?.data?.activityEfficiency?.period_2
+                              ?.inventoryRotation ?? ""}
+                          </Typography>
+                        </Box>
+                        <Box width="calc(91%/3)" ml="3%">
+                          <Typography sx={{ ...sxNumbers }}>
+                            {dataIndicators?.data?.activityEfficiency?.period_3
+                              ?.inventoryRotation ?? ""}
+                          </Typography>
+                        </Box>
+                      </Box>
+                    </Box>
+                  </Box>
+                  <Box display="flex" flexDirection="row">
+                    <Box width="50%">
+                      <InputTitles sx={{ fontSize: "0.7vw" }}>
+                        CICLO OPERACIONAL
+                      </InputTitles>
+                    </Box>
+                    <Box width="50%">
+                      <Box display="flex" flexDirection="row">
+                        <Box
+                          width="calc(91%/3)"
+                          ml="3%"
+                          borderRight="1px solid #57575780"
+                        >
+                          <Typography sx={{ ...sxNumbers }}>
+                            {dataIndicators?.data?.activityEfficiency?.period_1
+                              ?.operationalCycle ?? ""}
+                          </Typography>
+                        </Box>
+                        <Box
+                          width="calc(91%/3)"
+                          ml="3%"
+                          borderRight="1px solid #57575780"
+                        >
+                          <Typography sx={{ ...sxNumbers }}>
+                            {dataIndicators?.data?.activityEfficiency?.period_2
+                              ?.operationalCycle ?? ""}
+                          </Typography>
+                        </Box>
+                        <Box width="calc(91%/3)" ml="3%">
+                          <Typography sx={{ ...sxNumbers }}>
+                            {dataIndicators?.data?.activityEfficiency?.period_3
+                              ?.operationalCycle ?? ""}
+                          </Typography>
+                        </Box>
+                      </Box>
+                    </Box>
+                  </Box>
+                  <Box display="flex" flexDirection="row">
+                    <Box width="50%">
+                      <InputTitles sx={{ fontSize: "0.7vw" }}>
+                        ROTACIÓN PROVEEDORES
+                      </InputTitles>
+                    </Box>
+                    <Box width="50%">
+                      <Box display="flex" flexDirection="row">
+                        <Box
+                          width="calc(91%/3)"
+                          ml="3%"
+                          borderRight="1px solid #57575780"
+                        >
+                          <Typography sx={{ ...sxNumbers }}>
+                            {dataIndicators?.data?.activityEfficiency?.period_1
+                              ?.providersRotation ?? ""}
+                          </Typography>
+                        </Box>
+                        <Box
+                          width="calc(91%/3)"
+                          ml="3%"
+                          borderRight="1px solid #57575780"
+                        >
+                          <Typography sx={{ ...sxNumbers }}>
+                            {dataIndicators?.data?.activityEfficiency?.period_2
+                              ?.providersRotation ?? ""}
+                          </Typography>
+                        </Box>
+                        <Box width="calc(91%/3)" ml="3%">
+                          <Typography sx={{ ...sxNumbers }}>
+                            {dataIndicators?.data?.activityEfficiency?.period_3
+                              ?.providersRotation ?? ""}
+                          </Typography>
+                        </Box>
+                      </Box>
+                    </Box>
+                  </Box>
+                  <Box display="flex" flexDirection="row">
+                    <Box width="50%">
+                      <InputTitles sx={{ fontSize: "0.7vw" }}>
+                        ROTACIÓN GASTOS ACUMULADOS
+                      </InputTitles>
+                    </Box>
+                    <Box width="50%">
+                      <Box display="flex" flexDirection="row">
+                        <Box
+                          width="calc(91%/3)"
+                          ml="3%"
+                          borderRight="1px solid #57575780"
+                        >
+                          <Typography sx={{ ...sxNumbers }}>
+                            {dataIndicators?.data?.activityEfficiency?.period_1
+                              ?.accumulatedExpensesRotation ?? ""}
+                          </Typography>
+                        </Box>
+                        <Box
+                          width="calc(91%/3)"
+                          ml="3%"
+                          borderRight="1px solid #57575780"
+                        >
+                          <Typography sx={{ ...sxNumbers }}>
+                            {dataIndicators?.data?.activityEfficiency?.period_2
+                              ?.accumulatedExpensesRotation ?? ""}
+                          </Typography>
+                        </Box>
+                        <Box width="calc(91%/3)" ml="3%">
+                          <Typography sx={{ ...sxNumbers }}>
+                            {dataIndicators?.data?.activityEfficiency?.period_3
+                              ?.accumulatedExpensesRotation ?? ""}
+                          </Typography>
+                        </Box>
+                      </Box>
+                    </Box>
+                  </Box>
+                  <Box display="flex" flexDirection="row">
+                    <Box width="50%">
+                      <InputTitles sx={{ fontSize: "0.7vw" }}>
+                        CICLO CONVERSIÓN EFECTIVO
+                      </InputTitles>
+                    </Box>
+                    <Box width="50%">
+                      <Box display="flex" flexDirection="row">
+                        <Box
+                          width="calc(91%/3)"
+                          ml="3%"
+                          borderRight="1px solid #57575780"
+                        >
+                          <Typography sx={{ ...sxNumbers }}>
+                            {dataIndicators?.data?.activityEfficiency?.period_1
+                              ?.cashConversionCycle ?? ""}
+                          </Typography>
+                        </Box>
+                        <Box
+                          width="calc(91%/3)"
+                          ml="3%"
+                          borderRight="1px solid #57575780"
+                        >
+                          <Typography sx={{ ...sxNumbers }}>
+                            {dataIndicators?.data?.activityEfficiency?.period_2
+                              ?.cashConversionCycle ?? ""}
+                          </Typography>
+                        </Box>
+                        <Box width="calc(91%/3)" ml="3%">
+                          <Typography sx={{ ...sxNumbers }}>
+                            {dataIndicators?.data?.activityEfficiency?.period_3
+                              ?.cashConversionCycle ?? ""}
+                          </Typography>
+                        </Box>
+                      </Box>
+                    </Box>
+                  </Box>
+                  <Box display="flex" flexDirection="row">
+                    <Box width="50%">
+                      <InputTitles sx={{ fontSize: "0.7vw" }}>
+                        ROTACIÓN DE ACTIVOS
+                      </InputTitles>
+                    </Box>
+                    <Box width="50%">
+                      <Box display="flex" flexDirection="row">
+                        <Box
+                          width="calc(91%/3)"
+                          ml="3%"
+                          borderRight="1px solid #57575780"
+                        >
+                          <Typography sx={{ ...sxNumbers, height: "0%" }}>
+                            {Math.round(
+                              dataIndicators?.data?.activityEfficiency?.period_1
+                                ?.assetsRotation ?? ""
+                            )}
+                          </Typography>
+                        </Box>
+                        <Box
+                          width="calc(91%/3)"
+                          ml="3%"
+                          borderRight="1px solid #57575780"
+                        >
+                          <Typography sx={{ ...sxNumbers, height: "0%" }}>
+                            {Math.round(
+                              dataIndicators?.data?.activityEfficiency?.period_2
+                                ?.assetsRotation ?? ""
+                            )}
+                          </Typography>
+                        </Box>
+                        <Box width="calc(91%/3)" ml="3%">
+                          <Typography sx={{ ...sxNumbers, height: "0%" }}>
+                            {Math.round(
+                              dataIndicators?.data?.activityEfficiency?.period_3
+                                ?.assetsRotation ?? ""
+                            )}
+                          </Typography>
+                        </Box>
+                      </Box>
+                    </Box>
+                  </Box>
                 </Box>
-                <Box
-                  display="flex"
-                  flexDirection="row"
-                  width="calc(76% / 3)"
-                  ml="3%"
-                  justifyContent="flex-end"
-                >
-                  <InputTitles sx={{ fontSize: "0.7vw" }}>
-                    Variación<br></br>vertical
-                  </InputTitles>
-                </Box>
-                <Box
-                  display="flex"
-                  flexDirection="row"
-                  width="calc(76% / 3)"
-                  ml="3%"
-                  justifyContent="flex-end"
-                >
-                  <InputTitles marginRight="5%" sx={{ fontSize: "0.7vw" }}>
-                    Variación<br></br>vertical
-                  </InputTitles>
-                  <InputTitles sx={{ fontSize: "0.7vw" }}>
-                    Variación<br></br>horizontal
-                  </InputTitles>
-                </Box>
-                <Box
-                  display="flex"
-                  flexDirection="row"
-                  width="calc(76% / 3)"
-                  ml="3%"
-                  justifyContent="flex-end"
-                >
-                  <InputTitles marginRight="5%" sx={{ fontSize: "0.7vw" }}>
-                    Variación<br></br>vertical
-                  </InputTitles>
-                  <InputTitles sx={{ fontSize: "0.7vw" }}>
-                    Variación<br></br>horizontal
-                  </InputTitles>
-                </Box>
+                <Box display="flex" flexDirection="column" width="60%"></Box>
               </Box>
             </Box>
           </Box>
