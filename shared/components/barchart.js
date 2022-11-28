@@ -10,28 +10,19 @@ import {
   YAxis,
 } from "recharts";
 
-const data = [
-  {
-    name: "Page A",
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
-  },
-  {
-    name: "Page B",
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: "Page C",
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
-  },
-];
+function intToString(value) {
+  var suffixes = ["", "K", "M", "B", "T"];
+  var suffixNum = Math.floor(("" + value).length / 3);
+  var shortValue = parseFloat(
+    (suffixNum != 0 ? value / Math.pow(1000, suffixNum) : value).toPrecision(2)
+  );
+  if (shortValue % 1 != 0) {
+    shortValue = shortValue.toFixed(1);
+  }
+  return shortValue + suffixes[suffixNum];
+}
 
-const renderCustomBarLabel = ({ payload, x, y, width, height, value }) => {
+const renderCustomBarLabel = ({ x, y, width, value }) => {
   return (
     <text
       style={{
@@ -47,12 +38,12 @@ const renderCustomBarLabel = ({ payload, x, y, width, height, value }) => {
       textAnchor="middle"
       dy={-6}
     >
-      {value}
+      {value > 100000 ? intToString(value) : value}
     </text>
   );
 };
 
-export default function BarChartComponent({}) {
+export default function BarChartComponent({ data }) {
   return (
     <ResponsiveContainer width="98%" height="70%">
       <BarChart data={data} margin={{ top: 0, left: 0, right: 15, bottom: 0 }}>
@@ -62,7 +53,7 @@ export default function BarChartComponent({}) {
           vertical={false}
         />
         <Bar
-          dataKey="amt"
+          dataKey="value"
           fill="#488B8FCC"
           label={renderCustomBarLabel}
           radius={[4, 4, 0, 0]}
@@ -77,6 +68,9 @@ export default function BarChartComponent({}) {
             color: "#7C828A",
           }}
           tickCount={5}
+          tickFormatter={(value) =>
+            value > 100000 ? intToString(value) : value
+          }
         />
         <XAxis
           dataKey="name"
