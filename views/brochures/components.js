@@ -26,7 +26,7 @@ let dataCount;
 export const BrochureListComponent = () => {
   const columns = [
     {
-      field: "DocumentNumber",
+      field: "id",
       headerName: "# ID",
       width: 110,
       renderCell: (params) => {
@@ -85,19 +85,24 @@ export const BrochureListComponent = () => {
       width: 120,
       renderCell: (params) => {
         return (
-          <Typography
-            fontSize="80%"
-            width="100%"
-            fontWeight="bold"
-            color="#488B8F"
-            backgroundColor="#B5D1C9"
-            textTransform="uppercase"
-            textAlign="center"
-            padding="5.5% 8%"
-            borderRadius="4px"
-          >
-            {params.value === true ? "Validado" : "En proceso"}
-          </Typography>
+          <>
+            {params.value === true ? (
+              <i className="fa-light fa-badge-check"></i>
+            ) : (
+              <i class="fa-thin fa-badge"></i>
+            )}
+            <Typography
+              fontSize="12px"
+              width="100%"
+              fontWeight="bold"
+              color={params.value === true ? "#488B8F" : "#E66431"}
+              textTransform="uppercase"
+              textAlign="center"
+              padding="5.5% 8%"
+            >
+              {params.value === true ? "Verificado" : "Sin verificar"}
+            </Typography>
+          </>
         );
       },
     },
@@ -137,11 +142,11 @@ export const BrochureListComponent = () => {
       },
     },
     {
-      field: "FinancialProfile",
-      headerName: "PERFIL FINANCIERO",
+      field: "AccountType",
+      headerName: "TIPO DE CUENTA",
       width: 160,
       renderCell: (params) => {
-        return params.value === true ? (
+        return (
           <>
             <Typography
               fontSize="80%"
@@ -155,66 +160,62 @@ export const BrochureListComponent = () => {
               padding="3% 8%"
               borderRadius="4px"
             >
-              Cargado
-            </Typography>
-            <Typography fontFamily="icomoon" fontSize="1.5rem" color="#488B8F">
-              &#xe906;
-            </Typography>
-          </>
-        ) : (
-          <>
-            <Typography
-              fontSize="80%"
-              width="80%"
-              fontWeight="bold"
-              color="#E66431"
-              textAlign="center"
-              border="1.4px solid #E66431"
-              backgroundColor="#E6643133"
-              textTransform="uppercase"
-              padding="3% 8%"
-              borderRadius="4px"
-            >
-              Sin cargar
-            </Typography>
-            <Typography fontFamily="icomoon" fontSize="1.5rem" color="#E66431">
-              &#xe907;
+              AUTOGESTIÓN
             </Typography>
           </>
         );
       },
     },
-
     {
-      field: "RiskProfile",
-      headerName: "PERFIL DE RIESGO",
+      field: "Exp",
+      headerName: "EXP. CONSOLIDADO",
       width: 160,
 
       renderCell: (params) => {
-        return params.value === true ? (
-          <>
+        return (
+          <Box
+            display="flex"
+            flexDirection="row"
+            justifyContent="center"
+            textAlign="center"
+            alignItems="center"
+            padding="1% 10%"
+            borderRadius="4px"
+            backgroundColor="transparent"
+            border="1px solid #488B8F"
+            // pointer events
+            sx={{
+              cursor: "pointer",
+            }}
+
+            // onClick={() => {
+            //   downloadFile(params.value);
+            // }}
+          >
             <Typography
               fontSize="80%"
               width="100%"
               fontWeight="bold"
-              color="#FFFFFF"
-              textAlign="center"
-              backgroundColor="#488B8F"
+              color="#488B8F"
               textTransform="uppercase"
-              padding="3% 8%"
-              borderRadius="4px"
+              marginRight="1px"
             >
-              <Typography
-                fontFamily="icomoon"
-                fontSize="1.5rem"
-                color="#FFFFFF"
-              >
-                &#xe91a;
-              </Typography>
-              Riesgo medio
+              Descargar
             </Typography>
-          </>
-        ) : (
+            <Typography fontFamily="icomoon" fontSize="19px" color="#488B8F">
+              &#xe902;
+            </Typography>
+          </Box>
+        );
+      },
+    },
+    {
+      field: "Comite",
+      headerName: "RESULTADO COMITE DE RIESGO",
+      width: 260,
+
+      renderCell: (params) => {
+        return (
           <Box
             display="flex"
             flexDirection="row"
@@ -225,11 +226,6 @@ export const BrochureListComponent = () => {
             borderRadius="4px"
             backgroundColor="#488B8F"
           >
-            <Image
-              src="/assets/Icon - Perfil de riesgo - Desconocido.svg"
-              width={30}
-              height={30}
-            />
             <Typography
               fontSize="80%"
               width="100%"
@@ -237,17 +233,25 @@ export const BrochureListComponent = () => {
               color="#FFFFFF"
               textTransform="uppercase"
             >
-              Desconocido
+              APROBAR
+              {/* <Typography
+                fontFamily="icomoon"
+                fontSize="1.5rem"
+                color="#E66431"
+              >
+                &#xe907;
+              </Typography> */}
             </Typography>
           </Box>
         );
       },
     },
 
+    //Iconos de acciones
     {
-      field: "Resumen financiero",
+      field: "vinculacion",
       headerName: "",
-      width: 50,
+      width: 20,
       sortable: false,
       filterable: false,
       renderCell: () => {
@@ -288,9 +292,6 @@ export const BrochureListComponent = () => {
         );
       },
     },
-
-    //Iconos de acciones
-
     {
       field: "Expediente Cliente",
       headerName: "",
@@ -329,94 +330,6 @@ export const BrochureListComponent = () => {
                 }}
               >
                 &#xe902;
-              </Typography>
-            </CustomTooltip>
-          </Link>
-        );
-      },
-    },
-    {
-      field: "Perfil Financiero Cliente",
-      headerName: "",
-      width: 20,
-      sortable: false,
-      filterable: false,
-      renderCell: (params) => {
-        return (
-          <Link href={`/financialProfile?id=${params.row.id}`}>
-            <CustomTooltip
-              title="Perfil Financiero Cliente"
-              arrow
-              placement="bottom-start"
-              TransitionComponent={Fade}
-              PopperProps={{
-                modifiers: [
-                  {
-                    name: "offset",
-                    options: {
-                      offset: [0, -15],
-                    },
-                  },
-                ],
-              }}
-            >
-              <Typography
-                fontFamily="icomoon"
-                fontSize="1.9rem"
-                color="#488B8F"
-                borderRadius="5px"
-                sx={{
-                  "&:hover": {
-                    backgroundColor: "#B5D1C980",
-                  },
-                  cursor: "pointer",
-                }}
-              >
-                &#xe904;
-              </Typography>
-            </CustomTooltip>
-          </Link>
-        );
-      },
-    },
-    {
-      field: "Perfil de riesgo Cliente",
-      headerName: "",
-      width: 60,
-      sortable: false,
-      filterable: false,
-      renderCell: (params) => {
-        return (
-          <Link href={`/riskProfile?id=${params.row.id}`}>
-            <CustomTooltip
-              title="Perfil de Riesgo Cliente"
-              arrow
-              placement="bottom-start"
-              TransitionComponent={Fade}
-              PopperProps={{
-                modifiers: [
-                  {
-                    name: "offset",
-                    options: {
-                      offset: [0, -15],
-                    },
-                  },
-                ],
-              }}
-            >
-              <Typography
-                fontFamily="icomoon"
-                fontSize="1.9rem"
-                color="#488B8F"
-                borderRadius="5px"
-                sx={{
-                  "&:hover": {
-                    backgroundColor: "#B5D1C980",
-                  },
-                  cursor: "pointer",
-                }}
-              >
-                &#xe903;
               </Typography>
             </CustomTooltip>
           </Link>
@@ -507,8 +420,8 @@ export const BrochureListComponent = () => {
               //Delete customer by id
 
               onClick={() => {
-                setCustomer(
-                  customer.filter((item) => item.id !== params.row.id)
+                setBrochure(
+                  brochure.filter((item) => item.id !== params.row.id)
                 );
                 DeleteBrochureById(params.row.id);
               }}
@@ -521,36 +434,39 @@ export const BrochureListComponent = () => {
     },
   ];
   // Hooks
+
+  const [brochure, setBrochure] = useState([]);
+  const [brochureType, setBrochureType] = useState("natural");
+  const [page, setPage] = useState(1);
+
   const {
     fetch: fetch,
     loading: loading,
     error: error,
     data: data,
-  } = useFetch({ service: GetBrochureList, init: true });
+  } = useFetch({ service: GetBrochureList, init: false });
 
-  const [customer, setCustomer] = useState([]);
-  const [page, setPage] = useState(1);
+  useEffect(() => {
+    fetch(brochureType);
+  }, [brochureType]);
 
   useEffect(() => {
     if (data) {
-      let Customers = [];
+      console.log(data);
+      let Brochures = [];
       dataCount = data.count;
-      data.results.map((customer) => {
-        Customers.push({
-          id: customer.id,
-          DocumentNumber: customer.document_number,
-          Customer: `${customer.first_name ?? ""} ${customer.last_name ?? ""} ${
-            customer.social_reason ?? ""
+      data.data.map((brochure) => {
+        Brochures.push({
+          id: brochure.id,
+          Customer: `${brochure.firstName ?? ""} ${brochure.lastName ?? ""} ${
+            brochure.socialReason ?? ""
           }`,
-          Status: customer.status,
-          EnteredBy: `${customer.entered_by.first_name} ${customer.entered_by.last_name}`,
-          DateCreated: <DateFormat date={customer.created_at} />,
-          FinancialProfile: customer.financial_profile,
-          RiskProfile: customer.risk_profile,
+          Status: brochure.status === 0 ? true : false,
+          Ciuu: brochure.ciiu,
+          DateCreated: <DateFormat date={brochure.created_at} />,
         });
       });
-      setCustomer(Customers);
-
+      setBrochure(Brochures);
     }
 
     if (error) console.log(error);
@@ -568,26 +484,21 @@ export const BrochureListComponent = () => {
 
   useEffect(() => {
     if (data2) {
-      let Customers = [];
+      let Brochures = [];
       let pageSizeForPagination = data2.count;
-      data2.results.map((customer) => {
-        Customers.push({
-          id: customer.id,
-          DocumentNumber: customer.document_number,
-          Customer: `${customer.first_name ?? ""} ${customer.last_name ?? ""} ${
-            customer.social_reason ?? ""
+      data2.data.map((brochure) => {
+        Brochures.push({
+          id: brochure.id,
+          Customer: `${brochure.firstName ?? ""} ${brochure.lastName ?? ""} ${
+            brochure.socialReason ?? ""
           }`,
-          Status: customer.status,
-          EnteredBy: `${customer.entered_by.first_name} ${customer.entered_by.last_name}`,
-          DateCreated: <DateFormat date={customer.created_at} />,
-          FinancialProfile: customer.financial_profile,
-          RiskProfile: customer.risk_profile,
+          Status: brochure.status,
+          Ciuu: brochure.ciuu,
         });
       });
-      setCustomer(Customers);
+      setBrochure(Brochures);
     }
   }, [data2, loading2, error2]);
-
   return (
     <>
       <Box
@@ -612,37 +523,42 @@ export const BrochureListComponent = () => {
           >
             Consulta y gestión de Prospectos
           </Typography>
-          <Link href="/customers?=register" underline="none">
-            <Button
-              variant="standard"
-              color="primary"
-              size="large"
-              sx={{
-                height: "2.6rem",
-                backgroundColor: "transparent",
-                border: "1.4px solid #63595C",
-                borderRadius: "4px",
-              }}
+          <Button
+            variant="standard"
+            color="primary"
+            size="large"
+            sx={{
+              height: "2.6rem",
+              backgroundColor: "transparent",
+              border: "1.4px solid #63595C",
+              borderRadius: "4px",
+            }}
+            onClick={() => {
+              //change text to Ver prospectos jurídicos o Ver prospectos naturales
+              brochureType === "natural"
+                ? setBrochureType("")
+                : setBrochureType("natural");
+            }}
+          >
+            <Typography
+              letterSpacing={0}
+              fontSize="80%"
+              fontWeight="bold"
+              color="#63595C"
             >
-              <Typography
-                letterSpacing={0}
-                fontSize="80%"
-                fontWeight="bold"
-                color="#63595C"
-              >
-                Registrar nuevo cliente
-              </Typography>
+              Ver prospectos{" "}
+              {brochureType == "" ? "naturales" : "jurídicos"}
+            </Typography>
 
-              <Typography
-                fontFamily="icomoon"
-                fontSize="1.2rem"
-                color="#63595C"
-                marginLeft="0.9rem"
-              >
-                &#xe927;
-              </Typography>
-            </Button>
-          </Link>
+            <Typography
+              fontFamily="icomoon"
+              fontSize="1.8rem"
+              color="#63595C"
+              marginLeft="0.6rem"
+            >
+              &#xe923;
+            </Typography>
+          </Button>
         </Box>
         <Box
           container
@@ -653,7 +569,7 @@ export const BrochureListComponent = () => {
           height="100%"
         >
           <CustomDataGrid
-            rows={customer}
+            rows={brochure}
             columns={columns}
             pageSize={15}
             rowsPerPageOptions={[5]}
