@@ -15,6 +15,7 @@ import {
   Typography,
 } from "@mui/material";
 
+import BarChart from "@components/barchart";
 //Custom imports
 import Header from "@components/header";
 
@@ -288,7 +289,7 @@ export const FinancialInd = () => {
                 <Box width="100%">
                   <Typography
                     letterSpacing={0}
-                    fontSize="1.85vw"
+                    fontSize="1.6vw"
                     fontWeight="500"
                     color="#333333"
                   >
@@ -303,7 +304,7 @@ export const FinancialInd = () => {
                 mt="1%"
                 alignItems="center"
               >
-                <Box display="flex" flexDirection="column" width="40%">
+                <Box display="flex" flexDirection="column" width="35%">
                   <Box display="flex" flexDirection="row">
                     <Box width="50%"></Box>
                     <Box width="50%">
@@ -602,7 +603,107 @@ export const FinancialInd = () => {
                     </Box>
                   </Box>
                 </Box>
-                <Box display="flex" flexDirection="column" width="60%"></Box>
+                {/* Gráficas Actvidad / Eficiencia */}
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  width="65%"
+                  height="42vh"
+                >
+                  <Box
+                    width="calc(94%/3)"
+                    ml="2%"
+                    bgcolor="#fff"
+                    borderRadius="4px"
+                    display="flex"
+                    flexDirection="column"
+                    justifyContent="center"
+                  >
+                    <Typography
+                      letterSpacing={0}
+                      fontSize="0.7vw"
+                      fontWeight="600"
+                      color="#8C7E82"
+                      ml="4%"
+                      mb="0%"
+                    >
+                      Comparativo
+                    </Typography>
+                    <Typography
+                      letterSpacing={0}
+                      fontSize="1.042vw"
+                      fontWeight="medium"
+                      color="#333333"
+                      ml="4%"
+                      mb="5%"
+                    >
+                      Rotación de Cartera
+                    </Typography>
+                    <BarChart />
+                  </Box>
+                  <Box
+                    width="calc(94%/3)"
+                    ml="2%"
+                    bgcolor="#fff"
+                    borderRadius="4px"
+                    display="flex"
+                    flexDirection="column"
+                    justifyContent="center"
+                  >
+                    <Typography
+                      letterSpacing={0}
+                      fontSize="0.7vw"
+                      fontWeight="600"
+                      color="#8C7E82"
+                      ml="4%"
+                      mb="0%"
+                    >
+                      Comparativo
+                    </Typography>
+                    <Typography
+                      letterSpacing={0}
+                      fontSize="1.042vw"
+                      fontWeight="medium"
+                      color="#333333"
+                      ml="4%"
+                      mb="5%"
+                    >
+                      Rotación de Cartera
+                    </Typography>
+                    <BarChart />
+                  </Box>
+                  <Box
+                    width="calc(94%/3)"
+                    ml="2%"
+                    bgcolor="#fff"
+                    borderRadius="4px"
+                    display="flex"
+                    flexDirection="column"
+                    justifyContent="center"
+                  >
+                    <Typography
+                      letterSpacing={0}
+                      fontSize="0.7vw"
+                      fontWeight="600"
+                      color="#8C7E82"
+                      ml="4%"
+                      mb="0%"
+                    >
+                      Comparativo
+                    </Typography>
+                    <Typography
+                      letterSpacing={0}
+                      fontSize="1.042vw"
+                      fontWeight="medium"
+                      color="#333333"
+                      ml="4%"
+                      mb="5%"
+                    >
+                      Rotación de Cartera
+                    </Typography>
+                    <BarChart />
+                  </Box>
+                </Box>
               </Box>
             </Box>
           </Box>
