@@ -104,6 +104,7 @@ export const SignUpClient = ({ formik, option, ToastContainer, loading }) => {
                               variant="standard"
                               margin="normal"
                               fullWidth
+                              disabled={option !== "register"}
                               value={formik.values.document_number}
                               InputProps={{
                                 disableUnderline: true,

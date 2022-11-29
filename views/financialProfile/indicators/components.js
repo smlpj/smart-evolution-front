@@ -15,6 +15,7 @@ import {
   Typography,
 } from "@mui/material";
 
+import BarChart from "@components/barchart";
 //Custom imports
 import Header from "@components/header";
 
@@ -28,7 +29,7 @@ import scrollSx from "@styles/scroll";
 import typeForeignCurrencyAccountStep from "@views/self-management/Steps/LegalSteps/typeForeignCurrencyAccountStep";
 
 //Queries imports
-import { GetCustomerById } from "./queries";
+import { GetCustomerById, GetFinancialProfileIndicatorsById } from "./queries";
 
 export const FinancialInd = () => {
   //Get ID from URL
@@ -38,6 +39,14 @@ export const FinancialInd = () => {
     error: error,
     data: data,
   } = useFetch({ service: GetCustomerById, init: false });
+
+  //Get Financial Profile Indicators by ID
+  const {
+    fetch: fetchIndicators,
+    loading: loadingIndicators,
+    error: errorIndicators,
+    data: dataIndicators,
+  } = useFetch({ service: GetFinancialProfileIndicatorsById, init: false });
 
   const [id, setID] = useState("");
   const router = useRouter();
@@ -51,8 +60,36 @@ export const FinancialInd = () => {
   useEffect(() => {
     if (id) {
       fetch(id);
+      fetchIndicators(id);
     }
   }, [id]);
+
+  useEffect(() => {
+    if (dataIndicators) {
+      console.log(dataIndicators);
+    }
+  }, []);
+
+  const getData = (dataKey, dataKey2) => {
+    let dataObject = [];
+    if (dataIndicators) {
+      Object.keys(dataIndicators.data[dataKey]).forEach((period) => {
+        dataObject.push({
+          name: dataIndicators.data[dataKey][period].period,
+          value: dataIndicators.data[dataKey][period][dataKey2],
+        });
+      });
+    }
+    return dataObject;
+  };
+
+  const sxNumbers = {
+    letterSpacing: 0,
+    fontSize: "0.9vw",
+    fontWeight: "medium",
+    color: "#333333",
+    height: "5.5vh",
+  };
 
   return (
     <>
@@ -128,7 +165,7 @@ export const FinancialInd = () => {
                   color: "#FFFFFF",
                   marginLeft: "0.7rem",
                 }}
-                class="fa-regular fa-download"
+                className="fa-regular fa-download"
               ></i>
             </Button>
           </Box>
@@ -179,7 +216,6 @@ export const FinancialInd = () => {
             </Box>
             <Box display="flex" flexDirection="column" marginLeft="3%">
               <InputTitles marginBottom={1}>PERFIL DE RIESGO</InputTitles>
-
               {data?.data?.riskProfile === null && (
                 <Link href={`/riskProfile?id=${id}`} underline="none">
                   <Button
@@ -205,114 +241,30 @@ export const FinancialInd = () => {
                   </Button>
                 </Link>
               )}
+              {data?.data?.riskProfile && (
+                <Link href={`/riskProfile?id=${id}`} underline="none">
+                  <Button
+                    variant="standard"
+                    sx={{
+                      backgroundColor: "#488B8F",
+                      color: "#FFFFFF",
+                      textTransform: "none",
+                      borderRadius: "4px",
+                      width: "40%",
 
-              {data?.data?.risk_profile === 0 && (
-                <Box
-                  display="flex"
-                  flexDirection="row"
-                  justifyContent="center"
-                  textAlign="center"
-                  alignItems="center"
-                  padding="3% 8%"
-                  borderRadius="4px"
-                  backgroundColor="#488B8F"
-                >
-                  <Image
-                    src="/assets/Icon - Perfil de riesgo - Desconocido.svg"
-                    width={30}
-                    height={30}
-                  />
-                  <Typography
-                    fontSize="0.7vw"
-                    width="100%"
-                    fontWeight="bold"
-                    color="#FFFFFF"
-                    textTransform="uppercase"
+                      "&:hover": { backgroundColor: "#5EA3A3" },
+                    }}
                   >
-                    Desconocido
-                  </Typography>
-                </Box>
-              )}
-              {data?.data?.riskProfile === 1 && (
-                <Box
-                  display="flex"
-                  flexDirection="row"
-                  justifyContent="center"
-                  textAlign="center"
-                  alignItems="center"
-                  padding="3% 8%"
-                  borderRadius="4px"
-                  backgroundColor="#488B8F"
-                >
-                  <Image
-                    src="/assets/Icon - Perfil de riesgo - Bajo.svg"
-                    width={30}
-                    height={30}
-                  />
-                  <Typography
-                    fontSize="0.7vw"
-                    width="100%"
-                    fontWeight="bold"
-                    color="#FFFFFF"
-                    textTransform="uppercase"
-                  >
-                    Riesgo bajo
-                  </Typography>
-                </Box>
-              )}
-              {data?.data?.risk_profile === 2 && (
-                <Box
-                  display="flex"
-                  flexDirection="row"
-                  justifyContent="center"
-                  textAlign="center"
-                  alignItems="center"
-                  padding="3% 8%"
-                  borderRadius="4px"
-                  backgroundColor="#488B8F"
-                >
-                  <Image
-                    src="/assets/Icon - Perfil de riesgo - Medio.svg"
-                    width={30}
-                    height={30}
-                  />
-                  <Typography
-                    fontSize="0.7vw"
-                    width="100%"
-                    fontWeight="bold"
-                    color="#FFFFFF"
-                    textTransform="uppercase"
-                  >
-                    Riesgo medio
-                  </Typography>
-                </Box>
-              )}
-              {data?.data?.risk_profile === 3 && (
-                <Box
-                  display="flex"
-                  flexDirection="row"
-                  justifyContent="center"
-                  textAlign="center"
-                  alignItems="center"
-                  padding="3% 8%"
-                  borderRadius="4px"
-                  backgroundColor="#488B8F"
-                >
-                  <Image
-                    src="/assets/Icon - Perfil de riesgo - Alto.svg"
-                    width={30}
-                    height={30}
-                  />
-                  <Typography
-                    fontSize="0.7vw"
-                    width="100%"
-                    fontWeight="bold"
-                    color="#FFFFFF"
-                    textTransform="uppercase"
-                  >
-                    Riesgo alto
-                  </Typography>
-                </Box>
+                    <Typography
+                      fontSize="0.7vw"
+                      fontWeight="bold"
+                      color="#FFFFFF"
+                      textTransform="uppercase"
+                    >
+                      Ver
+                    </Typography>
+                  </Button>
+                </Link>
               )}
             </Box>
           </Box>
@@ -338,132 +290,1520 @@ export const FinancialInd = () => {
             }}
           >
             <Box display="flex" flexDirection="column">
-              <Box display="flex" flexDirection="row" width="100%">
-                <Box width="15%" />
-                <Box
-                  display="flex"
-                  flexDirection="row"
-                  width="calc(76% / 3)"
-                  ml="3%"
-                  borderBottom="2px solid #488B8F"
-                  pb="1%"
-                >
+              {/* Actividad / Eficiencia */}
+              <Box display="flex" flexDirection="row" width="100%" mt="1%">
+                <Box width="100%">
                   <Typography
                     letterSpacing={0}
-                    fontSize="1.7vw"
-                    fontWeight="500"
-                    color="#488B8F"
-                  >
-                    Ene-Dic 2019
-                  </Typography>
-                </Box>
-                <Box
-                  display="flex"
-                  flexDirection="row"
-                  width="calc(76% / 3)"
-                  ml="3%"
-                  borderBottom="2px solid #488B8F"
-                  pb="1%"
-                >
-                  <Typography
-                    letterSpacing={0}
-                    fontSize="1.7vw"
-                    fontWeight="500"
-                    color="#488B8F"
-                  >
-                    Ene-Dic 2020
-                  </Typography>
-                </Box>
-                <Box
-                  display="flex"
-                  flexDirection="row"
-                  width="calc(76% / 3)"
-                  ml="3%"
-                  borderBottom="2px solid #488B8F"
-                  pb="1%"
-                >
-                  <Typography
-                    letterSpacing={0}
-                    fontSize="1.7vw"
-                    fontWeight="500"
-                    color="#488B8F"
-                  >
-                    Ene-Dic 2021
-                  </Typography>
-                </Box>
-                <Box
-                  display="flex"
-                  flexDirection="row"
-                  width="calc(76% / 3)"
-                  ml="3%"
-                  borderBottom="2px solid #488B8F"
-                  pb="1%"
-                >
-                  <Typography
-                    letterSpacing={0}
-                    fontSize="1.7vw"
-                    fontWeight="500"
-                    color="#488B8F"
-                  >
-                    Nuevo registro
-                  </Typography>
-                </Box>
-              </Box>
-              <Box
-                display="flex"
-                flexDirection="row"
-                width="100%"
-                mt="1%"
-                alignItems="center"
-              >
-                <Box width="15%">
-                  <Typography
-                    letterSpacing={0}
-                    fontSize="1.85vw"
+                    fontSize="1.6vw"
                     fontWeight="500"
                     color="#333333"
                   >
-                    Activos
+                    Actividad / Eficiencia
                   </Typography>
                 </Box>
+              </Box>
+              <Box display="flex" flexDirection="row" width="100%" mt="1%">
+                <Box display="flex" flexDirection="column" width="35%">
+                  <Box display="flex" flexDirection="row">
+                    <Box width="50%"></Box>
+                    <Box width="50%">
+                      <Box display="flex" flexDirection="row">
+                        <Box
+                          width="calc(91%/3)"
+                          ml="3%"
+                          borderRight="1px solid #57575780"
+                        >
+                          <InputTitles
+                            sx={{ fontSize: "0.7vw", height: "6vh" }}
+                          >
+                            ENE-DIC<br></br>2019
+                          </InputTitles>
+                        </Box>
+                        <Box
+                          width="calc(91%/3)"
+                          ml="3%"
+                          borderRight="1px solid #57575780"
+                        >
+                          <InputTitles sx={{ fontSize: "0.7vw" }}>
+                            ENE-DIC<br></br>2020
+                          </InputTitles>
+                        </Box>
+                        <Box width="calc(91%/3)" ml="3%">
+                          <InputTitles sx={{ fontSize: "0.7vw" }}>
+                            ENE-DIC<br></br>2021
+                          </InputTitles>
+                        </Box>
+                      </Box>
+                    </Box>
+                  </Box>
+                  <Box display="flex" flexDirection="row">
+                    <Box width="50%">
+                      <InputTitles sx={{ fontSize: "0.7vw" }}>
+                        ROTACIÓN CARTERA
+                      </InputTitles>
+                    </Box>
+                    <Box width="50%">
+                      <Box display="flex" flexDirection="row">
+                        <Box
+                          width="calc(91%/3)"
+                          ml="3%"
+                          borderRight="1px solid #57575780"
+                        >
+                          <Typography sx={{ ...sxNumbers }}>
+                            {dataIndicators?.data?.activityEfficiency?.period_1
+                              ?.walletRotation ?? ""}
+                          </Typography>
+                        </Box>
+                        <Box
+                          width="calc(91%/3)"
+                          ml="3%"
+                          borderRight="1px solid #57575780"
+                        >
+                          <Typography sx={{ ...sxNumbers }}>
+                            {dataIndicators?.data?.activityEfficiency?.period_2
+                              ?.walletRotation ?? ""}
+                          </Typography>
+                        </Box>
+                        <Box width="calc(91%/3)" ml="3%">
+                          <Typography sx={{ ...sxNumbers }}>
+                            {dataIndicators?.data?.activityEfficiency?.period_3
+                              ?.walletRotation ?? ""}
+                          </Typography>
+                        </Box>
+                      </Box>
+                    </Box>
+                  </Box>
+                  <Box display="flex" flexDirection="row">
+                    <Box width="50%">
+                      <InputTitles sx={{ fontSize: "0.7vw" }}>
+                        ROTACIÓN INVENTARIOS
+                      </InputTitles>
+                    </Box>
+                    <Box width="50%">
+                      <Box display="flex" flexDirection="row">
+                        <Box
+                          width="calc(91%/3)"
+                          ml="3%"
+                          borderRight="1px solid #57575780"
+                        >
+                          <Typography sx={{ ...sxNumbers }}>
+                            {dataIndicators?.data?.activityEfficiency?.period_1
+                              ?.inventoryRotation ?? ""}
+                          </Typography>
+                        </Box>
+                        <Box
+                          width="calc(91%/3)"
+                          ml="3%"
+                          borderRight="1px solid #57575780"
+                        >
+                          <Typography sx={{ ...sxNumbers }}>
+                            {dataIndicators?.data?.activityEfficiency?.period_2
+                              ?.inventoryRotation ?? ""}
+                          </Typography>
+                        </Box>
+                        <Box width="calc(91%/3)" ml="3%">
+                          <Typography sx={{ ...sxNumbers }}>
+                            {dataIndicators?.data?.activityEfficiency?.period_3
+                              ?.inventoryRotation ?? ""}
+                          </Typography>
+                        </Box>
+                      </Box>
+                    </Box>
+                  </Box>
+                  <Box display="flex" flexDirection="row">
+                    <Box width="50%">
+                      <InputTitles sx={{ fontSize: "0.7vw" }}>
+                        CICLO OPERACIONAL
+                      </InputTitles>
+                    </Box>
+                    <Box width="50%">
+                      <Box display="flex" flexDirection="row">
+                        <Box
+                          width="calc(91%/3)"
+                          ml="3%"
+                          borderRight="1px solid #57575780"
+                        >
+                          <Typography sx={{ ...sxNumbers }}>
+                            {dataIndicators?.data?.activityEfficiency?.period_1
+                              ?.operationalCycle ?? ""}
+                          </Typography>
+                        </Box>
+                        <Box
+                          width="calc(91%/3)"
+                          ml="3%"
+                          borderRight="1px solid #57575780"
+                        >
+                          <Typography sx={{ ...sxNumbers }}>
+                            {dataIndicators?.data?.activityEfficiency?.period_2
+                              ?.operationalCycle ?? ""}
+                          </Typography>
+                        </Box>
+                        <Box width="calc(91%/3)" ml="3%">
+                          <Typography sx={{ ...sxNumbers }}>
+                            {dataIndicators?.data?.activityEfficiency?.period_3
+                              ?.operationalCycle ?? ""}
+                          </Typography>
+                        </Box>
+                      </Box>
+                    </Box>
+                  </Box>
+                  <Box display="flex" flexDirection="row">
+                    <Box width="50%">
+                      <InputTitles sx={{ fontSize: "0.7vw" }}>
+                        ROTACIÓN PROVEEDORES
+                      </InputTitles>
+                    </Box>
+                    <Box width="50%">
+                      <Box display="flex" flexDirection="row">
+                        <Box
+                          width="calc(91%/3)"
+                          ml="3%"
+                          borderRight="1px solid #57575780"
+                        >
+                          <Typography sx={{ ...sxNumbers }}>
+                            {dataIndicators?.data?.activityEfficiency?.period_1
+                              ?.providersRotation ?? ""}
+                          </Typography>
+                        </Box>
+                        <Box
+                          width="calc(91%/3)"
+                          ml="3%"
+                          borderRight="1px solid #57575780"
+                        >
+                          <Typography sx={{ ...sxNumbers }}>
+                            {dataIndicators?.data?.activityEfficiency?.period_2
+                              ?.providersRotation ?? ""}
+                          </Typography>
+                        </Box>
+                        <Box width="calc(91%/3)" ml="3%">
+                          <Typography sx={{ ...sxNumbers }}>
+                            {dataIndicators?.data?.activityEfficiency?.period_3
+                              ?.providersRotation ?? ""}
+                          </Typography>
+                        </Box>
+                      </Box>
+                    </Box>
+                  </Box>
+                  <Box display="flex" flexDirection="row">
+                    <Box width="50%">
+                      <InputTitles sx={{ fontSize: "0.7vw" }}>
+                        ROTACIÓN GASTOS ACUMULADOS
+                      </InputTitles>
+                    </Box>
+                    <Box width="50%">
+                      <Box display="flex" flexDirection="row">
+                        <Box
+                          width="calc(91%/3)"
+                          ml="3%"
+                          borderRight="1px solid #57575780"
+                        >
+                          <Typography sx={{ ...sxNumbers }}>
+                            {dataIndicators?.data?.activityEfficiency?.period_1
+                              ?.accumulatedExpensesRotation ?? ""}
+                          </Typography>
+                        </Box>
+                        <Box
+                          width="calc(91%/3)"
+                          ml="3%"
+                          borderRight="1px solid #57575780"
+                        >
+                          <Typography sx={{ ...sxNumbers }}>
+                            {dataIndicators?.data?.activityEfficiency?.period_2
+                              ?.accumulatedExpensesRotation ?? ""}
+                          </Typography>
+                        </Box>
+                        <Box width="calc(91%/3)" ml="3%">
+                          <Typography sx={{ ...sxNumbers }}>
+                            {dataIndicators?.data?.activityEfficiency?.period_3
+                              ?.accumulatedExpensesRotation ?? ""}
+                          </Typography>
+                        </Box>
+                      </Box>
+                    </Box>
+                  </Box>
+                  <Box display="flex" flexDirection="row">
+                    <Box width="50%">
+                      <InputTitles sx={{ fontSize: "0.7vw" }}>
+                        CICLO CONVERSIÓN EFECTIVO
+                      </InputTitles>
+                    </Box>
+                    <Box width="50%">
+                      <Box display="flex" flexDirection="row">
+                        <Box
+                          width="calc(91%/3)"
+                          ml="3%"
+                          borderRight="1px solid #57575780"
+                        >
+                          <Typography sx={{ ...sxNumbers }}>
+                            {dataIndicators?.data?.activityEfficiency?.period_1
+                              ?.cashConversionCycle ?? ""}
+                          </Typography>
+                        </Box>
+                        <Box
+                          width="calc(91%/3)"
+                          ml="3%"
+                          borderRight="1px solid #57575780"
+                        >
+                          <Typography sx={{ ...sxNumbers }}>
+                            {dataIndicators?.data?.activityEfficiency?.period_2
+                              ?.cashConversionCycle ?? ""}
+                          </Typography>
+                        </Box>
+                        <Box width="calc(91%/3)" ml="3%">
+                          <Typography sx={{ ...sxNumbers }}>
+                            {dataIndicators?.data?.activityEfficiency?.period_3
+                              ?.cashConversionCycle ?? ""}
+                          </Typography>
+                        </Box>
+                      </Box>
+                    </Box>
+                  </Box>
+                  <Box display="flex" flexDirection="row">
+                    <Box width="50%">
+                      <InputTitles sx={{ fontSize: "0.7vw" }}>
+                        ROTACIÓN DE ACTIVOS
+                      </InputTitles>
+                    </Box>
+                    <Box width="50%">
+                      <Box display="flex" flexDirection="row">
+                        <Box
+                          width="calc(91%/3)"
+                          ml="3%"
+                          borderRight="1px solid #57575780"
+                        >
+                          <Typography sx={{ ...sxNumbers, height: "0%" }}>
+                            {Math.round(
+                              dataIndicators?.data?.activityEfficiency?.period_1
+                                ?.assetsRotation ?? ""
+                            )}
+                          </Typography>
+                        </Box>
+                        <Box
+                          width="calc(91%/3)"
+                          ml="3%"
+                          borderRight="1px solid #57575780"
+                        >
+                          <Typography sx={{ ...sxNumbers, height: "0%" }}>
+                            {Math.round(
+                              dataIndicators?.data?.activityEfficiency?.period_2
+                                ?.assetsRotation ?? ""
+                            )}
+                          </Typography>
+                        </Box>
+                        <Box width="calc(91%/3)" ml="3%">
+                          <Typography sx={{ ...sxNumbers, height: "0%" }}>
+                            {Math.round(
+                              dataIndicators?.data?.activityEfficiency?.period_3
+                                ?.assetsRotation ?? ""
+                            )}
+                          </Typography>
+                        </Box>
+                      </Box>
+                    </Box>
+                  </Box>
+                </Box>
+                {/* Gráficas Actvidad / Eficiencia */}
                 <Box
                   display="flex"
                   flexDirection="row"
-                  width="calc(76% / 3)"
-                  ml="3%"
-                  justifyContent="flex-end"
+                  width="65%"
+                  height="42vh"
                 >
-                  <InputTitles sx={{ fontSize: "0.7vw" }}>
-                    Variación<br></br>vertical
-                  </InputTitles>
+                  <Box
+                    width="calc(94%/3)"
+                    ml="2%"
+                    bgcolor="#fff"
+                    borderRadius="4px"
+                    display="flex"
+                    flexDirection="column"
+                    justifyContent="center"
+                  >
+                    <Typography
+                      letterSpacing={0}
+                      fontSize="0.7vw"
+                      fontWeight="600"
+                      color="#8C7E82"
+                      ml="4%"
+                      mb="0%"
+                    >
+                      Comparativo
+                    </Typography>
+                    <Typography
+                      letterSpacing={0}
+                      fontSize="1.042vw"
+                      fontWeight="medium"
+                      color="#333333"
+                      ml="4%"
+                      mb="5%"
+                    >
+                      Rotación de Cartera
+                    </Typography>
+                    <BarChart
+                      data={getData("activityEfficiency", "walletRotation")}
+                    />
+                  </Box>
+                  <Box
+                    width="calc(94%/3)"
+                    ml="2%"
+                    bgcolor="#fff"
+                    borderRadius="4px"
+                    display="flex"
+                    flexDirection="column"
+                    justifyContent="center"
+                  >
+                    <Typography
+                      letterSpacing={0}
+                      fontSize="0.7vw"
+                      fontWeight="600"
+                      color="#8C7E82"
+                      ml="4%"
+                      mb="0%"
+                    >
+                      Comparativo
+                    </Typography>
+                    <Typography
+                      letterSpacing={0}
+                      fontSize="1.042vw"
+                      fontWeight="medium"
+                      color="#333333"
+                      ml="4%"
+                      mb="5%"
+                    >
+                      Rotación de Inventarios
+                    </Typography>
+                    <BarChart
+                      data={getData("activityEfficiency", "inventoryRotation")}
+                    />
+                  </Box>
+                  <Box
+                    width="calc(94%/3)"
+                    ml="2%"
+                    bgcolor="#fff"
+                    borderRadius="4px"
+                    display="flex"
+                    flexDirection="column"
+                    justifyContent="center"
+                  >
+                    <Typography
+                      letterSpacing={0}
+                      fontSize="0.7vw"
+                      fontWeight="600"
+                      color="#8C7E82"
+                      ml="4%"
+                      mb="0%"
+                    >
+                      Comparativo
+                    </Typography>
+                    <Typography
+                      letterSpacing={0}
+                      fontSize="1.042vw"
+                      fontWeight="medium"
+                      color="#333333"
+                      ml="4%"
+                      mb="5%"
+                    >
+                      Rotación de Proveedores
+                    </Typography>
+                    <BarChart
+                      data={getData("activityEfficiency", "providersRotation")}
+                    />
+                  </Box>
+                </Box>
+              </Box>
+              {/* Fin Actvidad / Eficiencia */}
+            </Box>
+
+            <Divider
+              sx={{
+                borderBottomWidth: "1.4px",
+                borderColor: "#575757",
+                opacity: "0.5",
+                margin: "4% 0%",
+              }}
+            />
+
+            {/* Rentabilidad */}
+            <Box display="flex" flexDirection="row" width="100%">
+              <Box width="100%">
+                <Typography
+                  letterSpacing={0}
+                  fontSize="1.6vw"
+                  fontWeight="500"
+                  color="#333333"
+                >
+                  Rentabilidad
+                </Typography>
+              </Box>
+            </Box>
+            <Box display="flex" flexDirection="row" width="100%" mt="1%">
+              <Box display="flex" flexDirection="column" width="35%">
+                <Box display="flex" flexDirection="row">
+                  <Box width="50%"></Box>
+                  <Box width="50%">
+                    <Box display="flex" flexDirection="row">
+                      <Box
+                        width="calc(91%/3)"
+                        ml="3%"
+                        borderRight="1px solid #57575780"
+                      >
+                        <InputTitles sx={{ fontSize: "0.7vw", height: "6vh" }}>
+                          ENE-DIC<br></br>2019
+                        </InputTitles>
+                      </Box>
+                      <Box
+                        width="calc(91%/3)"
+                        ml="3%"
+                        borderRight="1px solid #57575780"
+                      >
+                        <InputTitles sx={{ fontSize: "0.7vw" }}>
+                          ENE-DIC<br></br>2020
+                        </InputTitles>
+                      </Box>
+                      <Box width="calc(91%/3)" ml="3%">
+                        <InputTitles sx={{ fontSize: "0.7vw" }}>
+                          ENE-DIC<br></br>2021
+                        </InputTitles>
+                      </Box>
+                    </Box>
+                  </Box>
+                </Box>
+                <Box display="flex" flexDirection="row">
+                  <Box width="50%">
+                    <InputTitles sx={{ fontSize: "0.7vw" }}>
+                      MARGEN BRUTO
+                    </InputTitles>
+                  </Box>
+                  <Box width="50%">
+                    <Box display="flex" flexDirection="row">
+                      <Box
+                        width="calc(91%/3)"
+                        ml="3%"
+                        borderRight="1px solid #57575780"
+                      >
+                        <Typography sx={{ ...sxNumbers }}>
+                          {dataIndicators?.data?.rentability?.period_1
+                            ?.grossMargin ?? ""}
+                        </Typography>
+                      </Box>
+                      <Box
+                        width="calc(91%/3)"
+                        ml="3%"
+                        borderRight="1px solid #57575780"
+                      >
+                        <Typography sx={{ ...sxNumbers }}>
+                          {dataIndicators?.data?.rentability?.period_2
+                            ?.grossMargin ?? ""}
+                        </Typography>
+                      </Box>
+                      <Box width="calc(91%/3)" ml="3%">
+                        <Typography sx={{ ...sxNumbers }}>
+                          {dataIndicators?.data?.rentability?.period_3
+                            ?.grossMargin ?? ""}
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </Box>
+                </Box>
+                <Box display="flex" flexDirection="row">
+                  <Box width="50%">
+                    <InputTitles sx={{ fontSize: "0.7vw" }}>
+                      MARGEN OPERACIONAL
+                    </InputTitles>
+                  </Box>
+                  <Box width="50%">
+                    <Box display="flex" flexDirection="row">
+                      <Box
+                        width="calc(91%/3)"
+                        ml="3%"
+                        borderRight="1px solid #57575780"
+                      >
+                        <Typography sx={{ ...sxNumbers }}>
+                          {dataIndicators?.data?.rentability?.period_1
+                            ?.operationalMargin ?? ""}
+                        </Typography>
+                      </Box>
+                      <Box
+                        width="calc(91%/3)"
+                        ml="3%"
+                        borderRight="1px solid #57575780"
+                      >
+                        <Typography sx={{ ...sxNumbers }}>
+                          {dataIndicators?.data?.rentability?.period_2
+                            ?.operationalMargin ?? ""}
+                        </Typography>
+                      </Box>
+                      <Box width="calc(91%/3)" ml="3%">
+                        <Typography sx={{ ...sxNumbers }}>
+                          {dataIndicators?.data?.rentability?.period_3
+                            ?.operationalMargin ?? ""}
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </Box>
+                </Box>
+                <Box display="flex" flexDirection="row">
+                  <Box width="50%">
+                    <InputTitles sx={{ fontSize: "0.7vw" }}>EBITDA</InputTitles>
+                  </Box>
+                  <Box width="50%">
+                    <Box display="flex" flexDirection="row">
+                      <Box
+                        width="calc(91%/3)"
+                        ml="3%"
+                        borderRight="1px solid #57575780"
+                      >
+                        <Typography sx={{ ...sxNumbers }}>
+                          {dataIndicators?.data?.rentability?.period_1
+                            ?.EBITDA ?? ""}
+                        </Typography>
+                      </Box>
+                      <Box
+                        width="calc(91%/3)"
+                        ml="3%"
+                        borderRight="1px solid #57575780"
+                      >
+                        <Typography sx={{ ...sxNumbers }}>
+                          {dataIndicators?.data?.rentability?.period_2
+                            ?.EBITDA ?? ""}
+                        </Typography>
+                      </Box>
+                      <Box width="calc(91%/3)" ml="3%">
+                        <Typography sx={{ ...sxNumbers }}>
+                          {dataIndicators?.data?.rentability?.period_3
+                            ?.EBITDA ?? ""}
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </Box>
+                </Box>
+                <Box display="flex" flexDirection="row">
+                  <Box width="50%">
+                    <InputTitles sx={{ fontSize: "0.7vw" }}>
+                      MARGEN EBITDA
+                    </InputTitles>
+                  </Box>
+                  <Box width="50%">
+                    <Box display="flex" flexDirection="row">
+                      <Box
+                        width="calc(91%/3)"
+                        ml="3%"
+                        borderRight="1px solid #57575780"
+                      >
+                        <Typography sx={{ ...sxNumbers }}>
+                          {dataIndicators?.data?.rentability?.period_1
+                            ?.EBITDAMargin ?? ""}
+                        </Typography>
+                      </Box>
+                      <Box
+                        width="calc(91%/3)"
+                        ml="3%"
+                        borderRight="1px solid #57575780"
+                      >
+                        <Typography sx={{ ...sxNumbers }}>
+                          {dataIndicators?.data?.rentability?.period_2
+                            ?.EBITDAMargin ?? ""}
+                        </Typography>
+                      </Box>
+                      <Box width="calc(91%/3)" ml="3%">
+                        <Typography sx={{ ...sxNumbers }}>
+                          {dataIndicators?.data?.rentability?.period_3
+                            ?.EBITDAMargin ?? ""}
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </Box>
+                </Box>
+                <Box display="flex" flexDirection="row">
+                  <Box width="50%">
+                    <InputTitles sx={{ fontSize: "0.7vw" }}>
+                      MARGEN NETO
+                    </InputTitles>
+                  </Box>
+                  <Box width="50%">
+                    <Box display="flex" flexDirection="row">
+                      <Box
+                        width="calc(91%/3)"
+                        ml="3%"
+                        borderRight="1px solid #57575780"
+                      >
+                        <Typography sx={{ ...sxNumbers }}>
+                          {dataIndicators?.data?.rentability?.period_1
+                            ?.netMargin ?? ""}
+                        </Typography>
+                      </Box>
+                      <Box
+                        width="calc(91%/3)"
+                        ml="3%"
+                        borderRight="1px solid #57575780"
+                      >
+                        <Typography sx={{ ...sxNumbers }}>
+                          {dataIndicators?.data?.rentability?.period_2
+                            ?.netMargin ?? ""}
+                        </Typography>
+                      </Box>
+                      <Box width="calc(91%/3)" ml="3%">
+                        <Typography sx={{ ...sxNumbers }}>
+                          {dataIndicators?.data?.rentability?.period_3
+                            ?.netMargin ?? ""}
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </Box>
+                </Box>
+                <Box display="flex" flexDirection="row">
+                  <Box width="50%">
+                    <InputTitles sx={{ fontSize: "0.7vw" }}>
+                      RENTABILIDAD ACTIVO TOTAL
+                    </InputTitles>
+                  </Box>
+                  <Box width="50%">
+                    <Box display="flex" flexDirection="row">
+                      <Box
+                        width="calc(91%/3)"
+                        ml="3%"
+                        borderRight="1px solid #57575780"
+                      >
+                        <Typography sx={{ ...sxNumbers }}>
+                          {dataIndicators?.data?.rentability?.period_1
+                            ?.rentabilityTotalAssets ?? ""}
+                        </Typography>
+                      </Box>
+                      <Box
+                        width="calc(91%/3)"
+                        ml="3%"
+                        borderRight="1px solid #57575780"
+                      >
+                        <Typography sx={{ ...sxNumbers }}>
+                          {dataIndicators?.data?.rentability?.period_2
+                            ?.rentabilityTotalAssets ?? ""}
+                        </Typography>
+                      </Box>
+                      <Box width="calc(91%/3)" ml="3%">
+                        <Typography sx={{ ...sxNumbers }}>
+                          {dataIndicators?.data?.rentability?.period_3
+                            ?.rentabilityTotalAssets ?? ""}
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </Box>
+                </Box>
+                <Box display="flex" flexDirection="row">
+                  <Box width="50%">
+                    <InputTitles sx={{ fontSize: "0.7vw" }}>
+                      RENTABILIDAD PATRIMONIO
+                    </InputTitles>
+                  </Box>
+                  <Box width="50%">
+                    <Box display="flex" flexDirection="row">
+                      <Box
+                        width="calc(91%/3)"
+                        ml="3%"
+                        borderRight="1px solid #57575780"
+                      >
+                        <Typography sx={{ ...sxNumbers, height: "0%" }}>
+                          {Math.round(
+                            dataIndicators?.data?.rentability?.period_1
+                              ?.patrimonyRentability ?? ""
+                          )}
+                        </Typography>
+                      </Box>
+                      <Box
+                        width="calc(91%/3)"
+                        ml="3%"
+                        borderRight="1px solid #57575780"
+                      >
+                        <Typography sx={{ ...sxNumbers, height: "0%" }}>
+                          {Math.round(
+                            dataIndicators?.data?.rentability?.period_2
+                              ?.patrimonyRentability ?? ""
+                          )}
+                        </Typography>
+                      </Box>
+                      <Box width="calc(91%/3)" ml="3%">
+                        <Typography sx={{ ...sxNumbers, height: "0%" }}>
+                          {Math.round(
+                            dataIndicators?.data?.rentability?.period_3
+                              ?.patrimonyRentability ?? ""
+                          )}
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </Box>
+                </Box>
+              </Box>
+              {/* Gráficas Rentabilidad */}
+              <Box display="flex" flexDirection="row" width="65%" height="42vh">
+                <Box
+                  width="calc(94%/3)"
+                  ml="2%"
+                  bgcolor="#fff"
+                  borderRadius="4px"
+                  display="flex"
+                  flexDirection="column"
+                  justifyContent="center"
+                >
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="0.7vw"
+                    fontWeight="600"
+                    color="#8C7E82"
+                    ml="4%"
+                    mb="0%"
+                  >
+                    Comparativo
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.042vw"
+                    fontWeight="medium"
+                    color="#333333"
+                    ml="4%"
+                    mb="5%"
+                  >
+                    Margen bruto
+                  </Typography>
+                  <BarChart data={getData("rentability", "grossMargin")} />
                 </Box>
                 <Box
+                  width="calc(94%/3)"
+                  ml="2%"
+                  bgcolor="#fff"
+                  borderRadius="4px"
                   display="flex"
-                  flexDirection="row"
-                  width="calc(76% / 3)"
-                  ml="3%"
-                  justifyContent="flex-end"
+                  flexDirection="column"
+                  justifyContent="center"
                 >
-                  <InputTitles marginRight="5%" sx={{ fontSize: "0.7vw" }}>
-                    Variación<br></br>vertical
-                  </InputTitles>
-                  <InputTitles sx={{ fontSize: "0.7vw" }}>
-                    Variación<br></br>horizontal
-                  </InputTitles>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="0.7vw"
+                    fontWeight="600"
+                    color="#8C7E82"
+                    ml="4%"
+                    mb="0%"
+                  >
+                    Comparativo
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.042vw"
+                    fontWeight="medium"
+                    color="#333333"
+                    ml="4%"
+                    mb="5%"
+                  >
+                    EBITDA
+                  </Typography>
+                  <BarChart data={getData("rentability", "EBITDA")} />
                 </Box>
                 <Box
+                  width="calc(94%/3)"
+                  ml="2%"
+                  bgcolor="#fff"
+                  borderRadius="4px"
                   display="flex"
-                  flexDirection="row"
-                  width="calc(76% / 3)"
-                  ml="3%"
-                  justifyContent="flex-end"
+                  flexDirection="column"
+                  justifyContent="center"
                 >
-                  <InputTitles marginRight="5%" sx={{ fontSize: "0.7vw" }}>
-                    Variación<br></br>vertical
-                  </InputTitles>
-                  <InputTitles sx={{ fontSize: "0.7vw" }}>
-                    Variación<br></br>horizontal
-                  </InputTitles>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="0.7vw"
+                    fontWeight="600"
+                    color="#8C7E82"
+                    ml="4%"
+                    mb="0%"
+                  >
+                    Comparativo
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.042vw"
+                    fontWeight="medium"
+                    color="#333333"
+                    ml="4%"
+                    mb="5%"
+                  >
+                    Margen neto
+                  </Typography>
+                  <BarChart data={getData("rentability", "netMargin")} />
+                </Box>
+              </Box>
+            </Box>
+            {/* Fin Rentabilidad */}
+
+            <Divider
+              sx={{
+                borderBottomWidth: "1.4px",
+                borderColor: "#575757",
+                opacity: "0.5",
+                margin: "4% 0%",
+              }}
+            />
+
+            {/* Riesgo financiero */}
+            <Box display="flex" flexDirection="row" width="100%">
+              <Box width="100%">
+                <Typography
+                  letterSpacing={0}
+                  fontSize="1.6vw"
+                  fontWeight="500"
+                  color="#333333"
+                >
+                  Riesgo financiero
+                </Typography>
+              </Box>
+            </Box>
+            <Box display="flex" flexDirection="row" width="100%" mt="1%">
+              <Box display="flex" flexDirection="column" width="35%">
+                <Box display="flex" flexDirection="row">
+                  <Box width="50%"></Box>
+                  <Box width="50%">
+                    <Box display="flex" flexDirection="row">
+                      <Box
+                        width="calc(91%/3)"
+                        ml="3%"
+                        borderRight="1px solid #57575780"
+                      >
+                        <InputTitles sx={{ fontSize: "0.7vw", height: "6vh" }}>
+                          ENE-DIC<br></br>2019
+                        </InputTitles>
+                      </Box>
+                      <Box
+                        width="calc(91%/3)"
+                        ml="3%"
+                        borderRight="1px solid #57575780"
+                      >
+                        <InputTitles sx={{ fontSize: "0.7vw" }}>
+                          ENE-DIC<br></br>2020
+                        </InputTitles>
+                      </Box>
+                      <Box width="calc(91%/3)" ml="3%">
+                        <InputTitles sx={{ fontSize: "0.7vw" }}>
+                          ENE-DIC<br></br>2021
+                        </InputTitles>
+                      </Box>
+                    </Box>
+                  </Box>
+                </Box>
+                <Box display="flex" flexDirection="row">
+                  <Box width="50%">
+                    <InputTitles sx={{ fontSize: "0.7vw" }}>
+                      RAZÓN CORRIENTE
+                    </InputTitles>
+                  </Box>
+                  <Box width="50%">
+                    <Box display="flex" flexDirection="row">
+                      <Box
+                        width="calc(91%/3)"
+                        ml="3%"
+                        borderRight="1px solid #57575780"
+                      >
+                        <Typography sx={{ ...sxNumbers }}>
+                          {dataIndicators?.data?.financialRisk?.period_1
+                            ?.currentReason ?? ""}
+                        </Typography>
+                      </Box>
+                      <Box
+                        width="calc(91%/3)"
+                        ml="3%"
+                        borderRight="1px solid #57575780"
+                      >
+                        <Typography sx={{ ...sxNumbers }}>
+                          {dataIndicators?.data?.financialRisk?.period_2
+                            ?.currentReason ?? ""}
+                        </Typography>
+                      </Box>
+                      <Box width="calc(91%/3)" ml="3%">
+                        <Typography sx={{ ...sxNumbers }}>
+                          {dataIndicators?.data?.financialRisk?.period_3
+                            ?.currentReason ?? ""}
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </Box>
+                </Box>
+                <Box display="flex" flexDirection="row">
+                  <Box width="50%">
+                    <InputTitles sx={{ fontSize: "0.7vw" }}>
+                      CAPITAL DE TRABAJO
+                    </InputTitles>
+                  </Box>
+                  <Box width="50%">
+                    <Box display="flex" flexDirection="row">
+                      <Box
+                        width="calc(91%/3)"
+                        ml="3%"
+                        borderRight="1px solid #57575780"
+                      >
+                        <Typography sx={{ ...sxNumbers }}>
+                          {dataIndicators?.data?.financialRisk?.period_1
+                            ?.workingCapital ?? ""}
+                        </Typography>
+                      </Box>
+                      <Box
+                        width="calc(91%/3)"
+                        ml="3%"
+                        borderRight="1px solid #57575780"
+                      >
+                        <Typography sx={{ ...sxNumbers }}>
+                          {dataIndicators?.data?.financialRisk?.period_2
+                            ?.workingCapital ?? ""}
+                        </Typography>
+                      </Box>
+                      <Box width="calc(91%/3)" ml="3%">
+                        <Typography sx={{ ...sxNumbers }}>
+                          {dataIndicators?.data?.financialRisk?.period_3
+                            ?.workingCapital ?? ""}
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </Box>
+                </Box>
+                <Box display="flex" flexDirection="row">
+                  <Box width="50%">
+                    <InputTitles sx={{ fontSize: "0.7vw" }}>
+                      ENDEUDAMIENTO
+                    </InputTitles>
+                  </Box>
+                  <Box width="50%">
+                    <Box display="flex" flexDirection="row">
+                      <Box
+                        width="calc(91%/3)"
+                        ml="3%"
+                        borderRight="1px solid #57575780"
+                      >
+                        <Typography sx={{ ...sxNumbers }}>
+                          {dataIndicators?.data?.financialRisk?.period_1
+                            ?.debt ?? ""}
+                        </Typography>
+                      </Box>
+                      <Box
+                        width="calc(91%/3)"
+                        ml="3%"
+                        borderRight="1px solid #57575780"
+                      >
+                        <Typography sx={{ ...sxNumbers }}>
+                          {dataIndicators?.data?.financialRisk?.period_2
+                            ?.debt ?? ""}
+                        </Typography>
+                      </Box>
+                      <Box width="calc(91%/3)" ml="3%">
+                        <Typography sx={{ ...sxNumbers }}>
+                          {dataIndicators?.data?.financialRisk?.period_3
+                            ?.debt ?? ""}
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </Box>
+                </Box>
+                <Box display="flex" flexDirection="row">
+                  <Box width="50%">
+                    <InputTitles sx={{ fontSize: "0.7vw" }}>
+                      COSTO PROM. DEUDA FINANCIERA
+                    </InputTitles>
+                  </Box>
+                  <Box width="50%">
+                    <Box display="flex" flexDirection="row">
+                      <Box
+                        width="calc(91%/3)"
+                        ml="3%"
+                        borderRight="1px solid #57575780"
+                      >
+                        <Typography sx={{ ...sxNumbers }}>
+                          {dataIndicators?.data?.financialRisk?.period_1
+                            ?.avgFinancialDebt ?? ""}
+                        </Typography>
+                      </Box>
+                      <Box
+                        width="calc(91%/3)"
+                        ml="3%"
+                        borderRight="1px solid #57575780"
+                      >
+                        <Typography sx={{ ...sxNumbers }}>
+                          {dataIndicators?.data?.financialRisk?.period_2
+                            ?.avgFinancialDebt ?? ""}
+                        </Typography>
+                      </Box>
+                      <Box width="calc(91%/3)" ml="3%">
+                        <Typography sx={{ ...sxNumbers }}>
+                          {dataIndicators?.data?.financialRisk?.period_3
+                            ?.avgFinancialDebt ?? ""}
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </Box>
+                </Box>
+                <Box display="flex" flexDirection="row">
+                  <Box width="50%">
+                    <InputTitles sx={{ fontSize: "0.7vw" }}>
+                      DEUDA FINANCIERA / EBITDA
+                    </InputTitles>
+                  </Box>
+                  <Box width="50%">
+                    <Box display="flex" flexDirection="row">
+                      <Box
+                        width="calc(91%/3)"
+                        ml="3%"
+                        borderRight="1px solid #57575780"
+                      >
+                        <Typography sx={{ ...sxNumbers }}>
+                          {dataIndicators?.data?.financialRisk?.period_1[
+                            "financialDebt/EBITDA"
+                          ] ?? ""}
+                        </Typography>
+                      </Box>
+                      <Box
+                        width="calc(91%/3)"
+                        ml="3%"
+                        borderRight="1px solid #57575780"
+                      >
+                        <Typography sx={{ ...sxNumbers }}>
+                          {dataIndicators?.data?.financialRisk?.period_2[
+                            "financialDebt/EBITDA"
+                          ] ?? ""}
+                        </Typography>
+                      </Box>
+                      <Box width="calc(91%/3)" ml="3%">
+                        <Typography sx={{ ...sxNumbers }}>
+                          {dataIndicators?.data?.financialRisk?.period_3[
+                            "financialDebt/EBITDA"
+                          ] ?? ""}
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </Box>
+                </Box>
+                <Box display="flex" flexDirection="row">
+                  <Box width="50%">
+                    <InputTitles sx={{ fontSize: "0.7vw" }}>
+                      EBITDA / GASTOS FINANCIEROS
+                    </InputTitles>
+                  </Box>
+                  <Box width="50%">
+                    <Box display="flex" flexDirection="row">
+                      <Box
+                        width="calc(91%/3)"
+                        ml="3%"
+                        borderRight="1px solid #57575780"
+                      >
+                        <Typography sx={{ ...sxNumbers }}>
+                          {dataIndicators?.data?.financialRisk?.period_1[
+                            "EBITDA/financialExpenses"
+                          ] ?? ""}
+                        </Typography>
+                      </Box>
+                      <Box
+                        width="calc(91%/3)"
+                        ml="3%"
+                        borderRight="1px solid #57575780"
+                      >
+                        <Typography sx={{ ...sxNumbers }}>
+                          {dataIndicators?.data?.financialRisk?.period_2[
+                            "EBITDA/financialExpenses"
+                          ] ?? ""}
+                        </Typography>
+                      </Box>
+                      <Box width="calc(91%/3)" ml="3%">
+                        <Typography sx={{ ...sxNumbers }}>
+                          {dataIndicators?.data?.financialRisk?.period_3[
+                            "EBITDA/financialExpenses"
+                          ] ?? ""}
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </Box>
+                </Box>
+                <Box display="flex" flexDirection="row">
+                  <Box width="50%">
+                    <InputTitles sx={{ fontSize: "0.7vw" }}>
+                      EBITDA / SERV. DE LA DEUDA (GASTOS FIN + OBL. CP)
+                    </InputTitles>
+                  </Box>
+                  <Box width="50%">
+                    <Box display="flex" flexDirection="row">
+                      <Box
+                        width="calc(91%/3)"
+                        ml="3%"
+                        borderRight="1px solid #57575780"
+                      >
+                        <Typography sx={{ ...sxNumbers }}>
+                          {Math.round(
+                            dataIndicators?.data?.financialRisk?.period_1[
+                              "EBITDA/debtServices"
+                            ] ?? ""
+                          )}
+                        </Typography>
+                      </Box>
+                      <Box
+                        width="calc(91%/3)"
+                        ml="3%"
+                        borderRight="1px solid #57575780"
+                      >
+                        <Typography sx={{ ...sxNumbers, height: "0%" }}>
+                          {Math.round(
+                            dataIndicators?.data?.financialRisk?.period_2[
+                              "EBITDA/debtServices"
+                            ] ?? ""
+                          )}
+                        </Typography>
+                      </Box>
+                      <Box width="calc(91%/3)" ml="3%">
+                        <Typography sx={{ ...sxNumbers, height: "0%" }}>
+                          {Math.round(
+                            dataIndicators?.data?.financialRisk?.period_3[
+                              "EBITDA/debtServices"
+                            ] ?? ""
+                          )}
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </Box>
+                </Box>
+                <Box display="flex" flexDirection="row">
+                  <Box width="50%">
+                    <InputTitles sx={{ fontSize: "0.7vw" }}>
+                      CAPITAL PAGADO + PRIMA / PATRIMONIO TOTAL
+                    </InputTitles>
+                  </Box>
+                  <Box width="50%">
+                    <Box display="flex" flexDirection="row">
+                      <Box
+                        width="calc(91%/3)"
+                        ml="3%"
+                        borderRight="1px solid #57575780"
+                      >
+                        <Typography sx={{ ...sxNumbers, height: "0%" }}>
+                          {Math.round(
+                            dataIndicators?.data?.financialRisk?.period_1[
+                              "payedCapital+prim/totalPatrimony"
+                            ] ?? ""
+                          )}
+                        </Typography>
+                      </Box>
+                      <Box
+                        width="calc(91%/3)"
+                        ml="3%"
+                        borderRight="1px solid #57575780"
+                      >
+                        <Typography sx={{ ...sxNumbers, height: "0%" }}>
+                          {Math.round(
+                            dataIndicators?.data?.financialRisk?.period_2[
+                              "payedCapital+prim/totalPatrimony"
+                            ] ?? ""
+                          )}
+                        </Typography>
+                      </Box>
+                      <Box width="calc(91%/3)" ml="3%">
+                        <Typography sx={{ ...sxNumbers, height: "0%" }}>
+                          {Math.round(
+                            dataIndicators?.data?.financialRisk?.period_3[
+                              "payedCapital+prim/totalPatrimony"
+                            ] ?? ""
+                          )}
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </Box>
+                </Box>
+              </Box>
+              {/* Gráficas Riesgo Financiero */}
+              <Box display="flex" flexDirection="row" width="65%" height="42vh">
+                <Box
+                  width="calc(94%/3)"
+                  ml="2%"
+                  bgcolor="#fff"
+                  borderRadius="4px"
+                  display="flex"
+                  flexDirection="column"
+                  justifyContent="center"
+                >
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="0.7vw"
+                    fontWeight="600"
+                    color="#8C7E82"
+                    ml="4%"
+                    mb="0%"
+                  >
+                    Comparativo
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.042vw"
+                    fontWeight="medium"
+                    color="#333333"
+                    ml="4%"
+                    mb="5%"
+                  >
+                    Endeudamiento
+                  </Typography>
+                  <BarChart data={getData("financialRisk", "debt")} />
+                </Box>
+                <Box
+                  width="calc(94%/3)"
+                  ml="2%"
+                  bgcolor="#fff"
+                  borderRadius="4px"
+                  display="flex"
+                  flexDirection="column"
+                  justifyContent="center"
+                >
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="0.7vw"
+                    fontWeight="600"
+                    color="#8C7E82"
+                    ml="4%"
+                    mb="0%"
+                  >
+                    Comparativo
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.042vw"
+                    fontWeight="medium"
+                    color="#333333"
+                    ml="4%"
+                    mb="5%"
+                  >
+                    EBITDA / Gastos financieros
+                  </Typography>
+                  <BarChart
+                    data={getData("financialRisk", "EBITDA/financialExpenses")}
+                  />
+                </Box>
+                <Box
+                  width="calc(94%/3)"
+                  ml="2%"
+                  bgcolor="#fff"
+                  borderRadius="4px"
+                  display="flex"
+                  flexDirection="column"
+                  justifyContent="center"
+                >
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="0.7vw"
+                    fontWeight="600"
+                    color="#8C7E82"
+                    ml="4%"
+                    mb="0%"
+                  >
+                    Comparativo
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.042vw"
+                    fontWeight="medium"
+                    color="#333333"
+                    ml="4%"
+                    mb="5%"
+                  >
+                    Capital de trabajo
+                  </Typography>
+                  <BarChart data={getData("financialRisk", "workingCapital")} />
+                </Box>
+              </Box>
+            </Box>
+            {/* Fin Riesgo financiero */}
+            <Divider
+              sx={{
+                borderBottomWidth: "1.4px",
+                borderColor: "#575757",
+                opacity: "0.5",
+                margin: "4% 0%",
+              }}
+            />
+            {/* Resultado */}
+            <Box display="flex" flexDirection="row" width="100%">
+              <Box width="100%">
+                <Typography
+                  letterSpacing={0}
+                  fontSize="1.6vw"
+                  fontWeight="500"
+                  color="#333333"
+                >
+                  Riesgo financiero
+                </Typography>
+              </Box>
+            </Box>
+            <Box display="flex" flexDirection="row" width="100%" mt="1%">
+              <Box display="flex" flexDirection="column" width="35%">
+                <Box display="flex" flexDirection="row">
+                  <Box width="50%"></Box>
+                  <Box width="50%">
+                    <Box display="flex" flexDirection="row">
+                      <Box
+                        width="calc(91%/3)"
+                        ml="3%"
+                        borderRight="1px solid #57575780"
+                      >
+                        <InputTitles sx={{ fontSize: "0.7vw", height: "6vh" }}>
+                          ENE-DIC<br></br>2019
+                        </InputTitles>
+                      </Box>
+                      <Box
+                        width="calc(91%/3)"
+                        ml="3%"
+                        borderRight="1px solid #57575780"
+                      >
+                        <InputTitles sx={{ fontSize: "0.7vw" }}>
+                          ENE-DIC<br></br>2020
+                        </InputTitles>
+                      </Box>
+                      <Box width="calc(91%/3)" ml="3%">
+                        <InputTitles sx={{ fontSize: "0.7vw" }}>
+                          ENE-DIC<br></br>2021
+                        </InputTitles>
+                      </Box>
+                    </Box>
+                  </Box>
+                </Box>
+                <Box display="flex" flexDirection="row">
+                  <Box width="50%">
+                    <InputTitles sx={{ fontSize: "0.7vw" }}>VENTAS</InputTitles>
+                  </Box>
+                  <Box width="50%">
+                    <Box display="flex" flexDirection="row">
+                      <Box
+                        width="calc(91%/3)"
+                        ml="3%"
+                        borderRight="1px solid #57575780"
+                      >
+                        <Typography sx={{ ...sxNumbers }}>
+                          {dataIndicators?.data?.results?.period_1?.sales ?? ""}
+                        </Typography>
+                      </Box>
+                      <Box
+                        width="calc(91%/3)"
+                        ml="3%"
+                        borderRight="1px solid #57575780"
+                      >
+                        <Typography sx={{ ...sxNumbers }}>
+                          {dataIndicators?.data?.results?.period_2?.sales ?? ""}
+                        </Typography>
+                      </Box>
+                      <Box width="calc(91%/3)" ml="3%">
+                        <Typography sx={{ ...sxNumbers }}>
+                          {dataIndicators?.data?.results?.period_3?.sales ?? ""}
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </Box>
+                </Box>
+                <Box display="flex" flexDirection="row">
+                  <Box width="50%">
+                    <InputTitles sx={{ fontSize: "0.7vw" }}>
+                      FACTURACIÓN PROMEDIO MES
+                    </InputTitles>
+                  </Box>
+                  <Box width="50%">
+                    <Box display="flex" flexDirection="row">
+                      <Box
+                        width="calc(91%/3)"
+                        ml="3%"
+                        borderRight="1px solid #57575780"
+                      >
+                        <Typography sx={{ ...sxNumbers }}>
+                          {dataIndicators?.data?.results?.period_1
+                            ?.avgMonthBilling ?? ""}
+                        </Typography>
+                      </Box>
+                      <Box
+                        width="calc(91%/3)"
+                        ml="3%"
+                        borderRight="1px solid #57575780"
+                      >
+                        <Typography sx={{ ...sxNumbers }}>
+                          {dataIndicators?.data?.results?.period_2
+                            ?.avgMonthBilling ?? ""}
+                        </Typography>
+                      </Box>
+                      <Box width="calc(91%/3)" ml="3%">
+                        <Typography sx={{ ...sxNumbers }}>
+                          {dataIndicators?.data?.results?.period_3
+                            ?.avgMonthBilling ?? ""}
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </Box>
+                </Box>
+                <Box display="flex" flexDirection="row">
+                  <Box width="50%">
+                    <InputTitles sx={{ fontSize: "0.7vw" }}>
+                      % DESCUENTOS Y REBAJAS / VENTAS
+                    </InputTitles>
+                  </Box>
+                  <Box width="50%">
+                    <Box display="flex" flexDirection="row">
+                      <Box
+                        width="calc(91%/3)"
+                        ml="3%"
+                        borderRight="1px solid #57575780"
+                      >
+                        <Typography sx={{ ...sxNumbers, height: "0%" }}>
+                          {Math.round(
+                            dataIndicators?.data?.results?.period_1
+                              ?.discountsSalesRefunds ?? ""
+                          )}
+                        </Typography>
+                      </Box>
+                      <Box
+                        width="calc(91%/3)"
+                        ml="3%"
+                        borderRight="1px solid #57575780"
+                      >
+                        <Typography sx={{ ...sxNumbers, height: "0%" }}>
+                          {Math.round(
+                            dataIndicators?.data?.results?.period_2
+                              ?.discountsSalesRefunds ?? ""
+                          )}
+                        </Typography>
+                      </Box>
+                      <Box width="calc(91%/3)" ml="3%">
+                        <Typography sx={{ ...sxNumbers, height: "0%" }}>
+                          {Math.round(
+                            dataIndicators?.data?.results?.period_3
+                              ?.discountsSalesRefunds ?? ""
+                          )}
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </Box>
+                </Box>
+              </Box>
+              {/* Gráficas Riesgo Financiero */}
+              <Box display="flex" flexDirection="row" width="65%" height="42vh">
+                <Box
+                  width="98%"
+                  ml="2%"
+                  bgcolor="#fff"
+                  borderRadius="4px"
+                  display="flex"
+                  flexDirection="column"
+                  justifyContent="center"
+                >
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="0.7vw"
+                    fontWeight="600"
+                    color="#8C7E82"
+                    ml="4%"
+                    mb="0%"
+                  >
+                    Comparativo
+                  </Typography>
+                  <Typography
+                    letterSpacing={0}
+                    fontSize="1.042vw"
+                    fontWeight="medium"
+                    color="#333333"
+                    ml="4%"
+                    mb="5%"
+                  >
+                    Ventas
+                  </Typography>
+                  <BarChart data={getData("results", "sales")} />
                 </Box>
               </Box>
             </Box>

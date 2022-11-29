@@ -108,8 +108,8 @@ export default function RegisterBroker() {
   const initialValues = {
     type_identity: null,
     document_number: "",
-    first_name: null,
-    last_name: null,
+    first_name: "",
+    last_name: "",
     email: "",
     address: "",
     phone_number: "",

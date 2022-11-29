@@ -25,7 +25,6 @@ import { FinancialStatInput } from "@styles/financialStatInput";
 import InputTitles from "@styles/inputTitles";
 import scrollSx from "@styles/scroll";
 
-
 //Queries imports
 import { GetCustomerById } from "./queries";
 
@@ -56,15 +55,31 @@ export const FinancialStat = ({ formik }) => {
   }, [id]);
 
   const handleFieldChange = (e) => {
-    const [field, period] = e.target.id.split("-");
-
-    formik.setFieldValue(period, {
-      ...formik.values[period],
-      [e.target.name]: {
-        ...formik.values[period][e.target.name],
-        [field]: e.target.value ? parseFloat(e.target.value) : 0,
-      },
-    });
+    if (
+      e.target.value &&
+      /^([-+*/]? ?(\d+|\(\g\))( ?[-+*\/] ?\g)?)*$/.test(e.target.value)
+    ) {
+      e.target.value = eval(e.target.value);
+      console.log(e.target.value);
+      const [field, period] = e.target.id.split("-");
+      formik.setFieldValue(period, {
+        ...formik.values[period],
+        [e.target.name]: {
+          ...formik.values[period][e.target.name],
+          [field]: e.target.value ? parseFloat(e.target.value) : 0,
+        },
+      });
+    } else {
+      e.target.value = null;
+      const [field, period] = e.target.id.split("-");
+      formik.setFieldValue(period, {
+        ...formik.values[period],
+        [e.target.name]: {
+          ...formik.values[period][e.target.name],
+          [field]: 0,
+        },
+      });
+    }
   };
 
   const resultsOf = (name, period) => {
@@ -266,6 +281,10 @@ export const FinancialStat = ({ formik }) => {
       );
     }
   };
+
+  //Number format
+  const options2 = { style: "currency", currency: "USD" };
+  const numberFormat = new Intl.NumberFormat("en-US", options2);
 
   return (
     <>
@@ -542,114 +561,30 @@ export const FinancialStat = ({ formik }) => {
                   </Button>
                 </Link>
               )}
+              {data?.data?.riskProfile && (
+                <Link href={`/riskProfile?id=${id}`} underline="none">
+                  <Button
+                    variant="standard"
+                    sx={{
+                      backgroundColor: "#488B8F",
+                      color: "#FFFFFF",
+                      textTransform: "none",
+                      borderRadius: "4px",
+                      width: "40%",
 
-              {data?.data?.risk_profile === 0 && (
-                <Box
-                  display="flex"
-                  flexDirection="row"
-                  justifyContent="center"
-                  textAlign="center"
-                  alignItems="center"
-                  padding="3% 8%"
-                  borderRadius="4px"
-                  backgroundColor="#488B8F"
-                >
-                  <Image
-                    src="/assets/Icon - Perfil de riesgo - Desconocido.svg"
-                    width={30}
-                    height={30}
-                  />
-                  <Typography
-                    fontSize="0.7vw"
-                    width="100%"
-                    fontWeight="bold"
-                    color="#FFFFFF"
-                    textTransform="uppercase"
+                      "&:hover": { backgroundColor: "#5EA3A3" },
+                    }}
                   >
-                    Desconocido
-                  </Typography>
-                </Box>
-              )}
-              {data?.data?.riskProfile === 1 && (
-                <Box
-                  display="flex"
-                  flexDirection="row"
-                  justifyContent="center"
-                  textAlign="center"
-                  alignItems="center"
-                  padding="3% 8%"
-                  borderRadius="4px"
-                  backgroundColor="#488B8F"
-                >
-                  <Image
-                    src="/assets/Icon - Perfil de riesgo - Bajo.svg"
-                    width={30}
-                    height={30}
-                  />
-                  <Typography
-                    fontSize="0.7vw"
-                    width="100%"
-                    fontWeight="bold"
-                    color="#FFFFFF"
-                    textTransform="uppercase"
-                  >
-                    Riesgo bajo
-                  </Typography>
-                </Box>
-              )}
-              {data?.data?.risk_profile === 2 && (
-                <Box
-                  display="flex"
-                  flexDirection="row"
-                  justifyContent="center"
-                  textAlign="center"
-                  alignItems="center"
-                  padding="3% 8%"
-                  borderRadius="4px"
-                  backgroundColor="#488B8F"
-                >
-                  <Image
-                    src="/assets/Icon - Perfil de riesgo - Medio.svg"
-                    width={30}
-                    height={30}
-                  />
-                  <Typography
-                    fontSize="0.7vw"
-                    width="100%"
-                    fontWeight="bold"
-                    color="#FFFFFF"
-                    textTransform="uppercase"
-                  >
-                    Riesgo medio
-                  </Typography>
-                </Box>
-              )}
-              {data?.data?.risk_profile === 3 && (
-                <Box
-                  display="flex"
-                  flexDirection="row"
-                  justifyContent="center"
-                  textAlign="center"
-                  alignItems="center"
-                  padding="3% 8%"
-                  borderRadius="4px"
-                  backgroundColor="#488B8F"
-                >
-                  <Image
-                    src="/assets/Icon - Perfil de riesgo - Alto.svg"
-                    width={30}
-                    height={30}
-                  />
-                  <Typography
-                    fontSize="0.7vw"
-                    width="100%"
-                    fontWeight="bold"
-                    color="#FFFFFF"
-                    textTransform="uppercase"
-                  >
-                    Riesgo alto
-                  </Typography>
-                </Box>
+                    <Typography
+                      fontSize="0.7vw"
+                      fontWeight="bold"
+                      color="#FFFFFF"
+                      textTransform="uppercase"
+                    >
+                      Ver
+                    </Typography>
+                  </Button>
+                </Link>
               )}
             </Box>
 
@@ -869,10 +804,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="assets"
@@ -946,10 +881,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="assets"
@@ -1066,10 +1001,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="assets"
@@ -1199,10 +1134,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="assets"
@@ -1275,10 +1210,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="assets"
@@ -1394,10 +1329,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="assets"
@@ -1525,10 +1460,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="assets"
@@ -1601,10 +1536,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="assets"
@@ -1717,10 +1652,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="assets"
@@ -1846,10 +1781,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="assets"
@@ -1922,10 +1857,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="assets"
@@ -2038,10 +1973,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="assets"
@@ -2184,7 +2119,7 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("net_cxc", "first_period")}
                     id="net_cxc-first_period"
                   >
-                    {`$ ${resultsOf("net_cxc", "first_period")}`}
+                    {numberFormat.format(resultsOf("net_cxc", "first_period"))}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -2220,7 +2155,7 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("net_cxc", "second_period")}
                     id="net_cxc-second_period"
                   >
-                    {`$ ${resultsOf("net_cxc", "second_period")}`}
+                    {numberFormat.format(resultsOf("net_cxc", "second_period"))}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -2273,7 +2208,7 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("net_cxc", "third_period")}
                     id="net_cxc-third_period"
                   >
-                    {`$ ${resultsOf("net_cxc", "third_period")}`}
+                    {numberFormat.format(resultsOf("net_cxc", "third_period"))}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -2376,10 +2311,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="assets"
@@ -2453,10 +2388,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="assets"
@@ -2574,10 +2509,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="assets"
@@ -2708,10 +2643,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="assets"
@@ -2785,10 +2720,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="assets"
@@ -2905,10 +2840,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="assets"
@@ -3055,7 +2990,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("total_inventory", "first_period")}
                     id="total_inventory-first_period"
                   >
-                    {`$ ${resultsOf("total_inventory", "first_period")}`}
+                    {numberFormat.format(
+                      resultsOf("total_inventory", "first_period")
+                    )}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -3091,7 +3028,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("total_inventory", "second_period")}
                     id="total_inventory-second_period"
                   >
-                    {`$ ${resultsOf("total_inventory", "second_period")}`}
+                    {numberFormat.format(
+                      resultsOf("total_inventory", "second_period")
+                    )}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -3144,7 +3083,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("total_inventory", "third_period")}
                     id="total_inventory-third_period"
                   >
-                    {`$ ${resultsOf("total_inventory", "third_period")}`}
+                    {numberFormat.format(
+                      resultsOf("total_inventory", "third_period")
+                    )}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -3247,10 +3188,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="assets"
@@ -3324,10 +3265,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="assets"
@@ -3444,10 +3385,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="assets"
@@ -3594,7 +3535,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("current_assets", "first_period")}
                     id="current_assets-first_period"
                   >
-                    {`$ ${resultsOf("current_assets", "first_period")}`}
+                    {numberFormat.format(
+                      resultsOf("current_assets", "first_period")
+                    )}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -3630,7 +3573,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("current_assets", "second_period")}
                     id="current_assets-second_period"
                   >
-                    {`$ ${resultsOf("current_assets", "second_period")}`}
+                    {numberFormat.format(
+                      resultsOf("current_assets", "second_period")
+                    )}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -3683,7 +3628,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("current_assets", "third_period")}
                     id="current_assets-third_period"
                   >
-                    {`$ ${resultsOf("current_assets", "third_period")}`}
+                    {numberFormat.format(
+                      resultsOf("current_assets", "third_period")
+                    )}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -3786,10 +3733,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="assets"
@@ -3863,10 +3810,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="assets"
@@ -3983,10 +3930,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="assets"
@@ -4116,10 +4063,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="assets"
@@ -4193,10 +4140,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="assets"
@@ -4313,10 +4260,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="assets"
@@ -4463,7 +4410,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("gross_fixed_assets", "first_period")}
                     id="gross_fixed_assets-first_period"
                   >
-                    {`$ ${resultsOf("gross_fixed_assets", "first_period")}`}
+                    {numberFormat.format(
+                      resultsOf("gross_fixed_assets", "first_period")
+                    )}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -4499,7 +4448,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("gross_fixed_assets", "second_period")}
                     id="gross_fixed_assets-second_period"
                   >
-                    {`$ ${resultsOf("gross_fixed_assets", "second_period")}`}
+                    {numberFormat.format(
+                      resultsOf("gross_fixed_assets", "second_period")
+                    )}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -4552,7 +4503,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("gross_fixed_assets", "third_period")}
                     id="gross_fixed_assets-third_period"
                   >
-                    {`$ ${resultsOf("gross_fixed_assets", "third_period")}`}
+                    {numberFormat.format(
+                      resultsOf("gross_fixed_assets", "third_period")
+                    )}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -4655,10 +4608,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="assets"
@@ -4731,10 +4684,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="assets"
@@ -4847,10 +4800,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="assets"
@@ -4993,7 +4946,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("net_fixed_assets", "first_period")}
                     id="net_fixed_assets-first_period"
                   >
-                    {`$ ${resultsOf("net_fixed_assets", "first_period")}`}
+                    {numberFormat.format(
+                      resultsOf("net_fixed_assets", "first_period")
+                    )}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -5029,7 +4984,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("net_fixed_assets", "second_period")}
                     id="net_fixed_assets-second_period"
                   >
-                    {`$ ${resultsOf("net_fixed_assets", "second_period")}`}
+                    {numberFormat.format(
+                      resultsOf("net_fixed_assets", "second_period")
+                    )}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -5082,7 +5039,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("net_fixed_assets", "third_period")}
                     id="net_fixed_assets-third_period"
                   >
-                    {`$ ${resultsOf("net_fixed_assets", "third_period")}`}
+                    {numberFormat.format(
+                      resultsOf("net_fixed_assets", "third_period")
+                    )}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -5185,10 +5144,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="assets"
@@ -5262,10 +5221,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="assets"
@@ -5382,10 +5341,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="assets"
@@ -5515,10 +5474,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="assets"
@@ -5592,10 +5551,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="assets"
@@ -5713,10 +5672,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="assets"
@@ -5864,7 +5823,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("total_other_assets", "first_period")}
                     id="total_other_assets-first_period"
                   >
-                    {`$ ${resultsOf("total_other_assets", "first_period")}`}
+                    {numberFormat.format(
+                      resultsOf("total_other_assets", "first_period")
+                    )}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -5900,7 +5861,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("total_other_assets", "second_period")}
                     id="total_other_assets-second_period"
                   >
-                    {`$ ${resultsOf("total_other_assets", "second_period")}`}
+                    {numberFormat.format(
+                      resultsOf("total_other_assets", "second_period")
+                    )}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -5953,7 +5916,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("total_other_assets", "third_period")}
                     id="total_other_assets-third_period"
                   >
-                    {`$ ${resultsOf("total_other_assets", "third_period")}`}
+                    {numberFormat.format(
+                      resultsOf("total_other_assets", "third_period")
+                    )}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -6026,7 +5991,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("total_assets", "first_period")}
                     id="total_assets-first_period"
                   >
-                    {`$ ${resultsOf("total_assets", "first_period")}`}
+                    {numberFormat.format(
+                      resultsOf("total_assets", "first_period")
+                    )}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -6062,7 +6029,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("total_assets", "second_period")}
                     id="total_assets-second_period"
                   >
-                    {`$ ${resultsOf("total_assets", "second_period")}`}
+                    {numberFormat.format(
+                      resultsOf("total_assets", "second_period")
+                    )}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -6115,7 +6084,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("total_assets", "third_period")}
                     id="total_assets-third_period"
                   >
-                    {`$ ${resultsOf("total_assets", "third_period")}`}
+                    {numberFormat.format(
+                      resultsOf("total_assets", "third_period")
+                    )}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -6231,10 +6202,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="passives"
@@ -6309,10 +6280,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="passives"
@@ -6432,10 +6403,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="passives"
@@ -6568,10 +6539,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="passives"
@@ -6644,10 +6615,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="passives"
@@ -6760,10 +6731,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="passives"
@@ -6889,10 +6860,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="passives"
@@ -6966,10 +6937,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="passives"
@@ -7086,10 +7057,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="passives"
@@ -7219,10 +7190,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="passives"
@@ -7295,10 +7266,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="passives"
@@ -7414,10 +7385,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="passives"
@@ -7545,10 +7516,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="passives"
@@ -7622,10 +7593,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="passives"
@@ -7742,10 +7713,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="passives"
@@ -7875,10 +7846,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="passives"
@@ -7952,10 +7923,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="passives"
@@ -8072,10 +8043,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="passives"
@@ -8222,7 +8193,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("current_liabilities", "first_period")}
                     id="current_liabilities-first_period"
                   >
-                    {`$ ${resultsOf("current_liabilities", "first_period")}`}
+                    {numberFormat.format(
+                      resultsOf("current_liabilities", "first_period")
+                    )}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -8258,7 +8231,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("current_liabilities", "second_period")}
                     id="current_liabilities-second_period"
                   >
-                    {`$ ${resultsOf("current_liabilities", "second_period")}`}
+                    {numberFormat.format(
+                      resultsOf("current_liabilities", "second_period")
+                    )}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -8311,7 +8286,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("current_liabilities", "third_period")}
                     id="current_liabilities-third_period"
                   >
-                    {`$ ${resultsOf("current_liabilities", "third_period")}`}
+                    {numberFormat.format(
+                      resultsOf("current_liabilities", "third_period")
+                    )}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -8414,10 +8391,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="passives"
@@ -8492,10 +8469,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="passives"
@@ -8615,10 +8592,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="passives"
@@ -8751,10 +8728,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="passives"
@@ -8828,10 +8805,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="passives"
@@ -8948,10 +8925,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="passives"
@@ -9098,7 +9075,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("lp_passives", "first_period")}
                     id="lp_passives-first_period"
                   >
-                    {`$ ${resultsOf("lp_passives", "first_period")}`}
+                    {numberFormat.format(
+                      resultsOf("lp_passives", "first_period")
+                    )}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -9134,7 +9113,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("lp_passives", "second_period")}
                     id="lp_passives-second_period"
                   >
-                    {`$ ${resultsOf("lp_passives", "second_period")}`}
+                    {numberFormat.format(
+                      resultsOf("lp_passives", "second_period")
+                    )}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -9187,7 +9168,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("lp_passives", "third_period")}
                     id="lp_passives-third_period"
                   >
-                    {`$ ${resultsOf("lp_passives", "third_period")}`}
+                    {numberFormat.format(
+                      resultsOf("lp_passives", "third_period")
+                    )}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -9260,7 +9243,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("total_passives", "first_period")}
                     id="total_passives-first_period"
                   >
-                    {`$ ${resultsOf("total_passives", "first_period")}`}
+                    {numberFormat.format(
+                      resultsOf("total_passives", "first_period")
+                    )}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -9296,7 +9281,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("total_passives", "second_period")}
                     id="total_passives-second_period"
                   >
-                    {`$ ${resultsOf("total_passives", "second_period")}`}
+                    {numberFormat.format(
+                      resultsOf("total_passives", "second_period")
+                    )}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -9349,7 +9336,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("total_passives", "third_period")}
                     id="total_passives-third_period"
                   >
-                    {`$ ${resultsOf("total_passives", "third_period")}`}
+                    {numberFormat.format(
+                      resultsOf("total_passives", "third_period")
+                    )}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -9465,10 +9454,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="patrimony"
@@ -9542,10 +9531,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="patrimony"
@@ -9662,10 +9651,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="patrimony"
@@ -9795,10 +9784,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="patrimony"
@@ -9872,10 +9861,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="patrimony"
@@ -9992,10 +9981,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="patrimony"
@@ -10125,10 +10114,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="patrimony"
@@ -10202,10 +10191,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="patrimony"
@@ -10322,10 +10311,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="patrimony"
@@ -10455,10 +10444,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="patrimony"
@@ -10532,10 +10521,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="patrimony"
@@ -10652,10 +10641,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="patrimony"
@@ -10785,10 +10774,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="patrimony"
@@ -10862,10 +10851,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="patrimony"
@@ -10983,10 +10972,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="patrimony"
@@ -11117,10 +11106,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="patrimony"
@@ -11194,10 +11183,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="patrimony"
@@ -11314,10 +11303,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="patrimony"
@@ -11464,7 +11453,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("total_patrimony", "first_period")}
                     id="total_patrimony-first_period"
                   >
-                    {`$ ${resultsOf("total_patrimony", "first_period")}`}
+                    {numberFormat.format(
+                      resultsOf("total_patrimony", "first_period")
+                    )}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -11500,7 +11491,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("total_patrimony", "second_period")}
                     id="total_patrimony-second_period"
                   >
-                    {`$ ${resultsOf("total_patrimony", "second_period")}`}
+                    {numberFormat.format(
+                      resultsOf("total_patrimony", "second_period")
+                    )}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -11553,7 +11546,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("total_patrimony", "third_period")}
                     id="total_patrimony-third_period"
                   >
-                    {`$ ${resultsOf("total_patrimony", "third_period")}`}
+                    {numberFormat.format(
+                      resultsOf("total_patrimony", "third_period")
+                    )}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -11626,7 +11621,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("passive_and_patrimony", "first_period")}
                     id="passive_and_patrimony-first_period"
                   >
-                    {`$ ${resultsOf("passive_and_patrimony", "first_period")}`}
+                    {numberFormat.format(
+                      resultsOf("passive_and_patrimony", "first_period")
+                    )}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -11662,7 +11659,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("passive_and_patrimony", "second_period")}
                     id="passive_and_patrimony-second_period"
                   >
-                    {`$ ${resultsOf("passive_and_patrimony", "second_period")}`}
+                    {numberFormat.format(
+                      resultsOf("passive_and_patrimony", "second_period")
+                    )}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -11715,7 +11714,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("passive_and_patrimony", "third_period")}
                     id="passive_and_patrimony-third_period"
                   >
-                    {`$ ${resultsOf("passive_and_patrimony", "third_period")}`}
+                    {numberFormat.format(
+                      resultsOf("passive_and_patrimony", "third_period")
+                    )}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -11788,7 +11789,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("total_assets_passives", "first_period")}
                     id="total_assets_passives-first_period"
                   >
-                    {`$ ${resultsOf("total_assets_passives", "first_period")}`}
+                    {numberFormat.format(
+                      resultsOf("total_assets_passives", "first_period")
+                    )}
                   </Typography>
 
                   <Box width="15%" marginLeft="10%" />
@@ -11810,7 +11813,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("total_assets_passives", "second_period")}
                     id="total_assets_passives-second_period"
                   >
-                    {`$ ${resultsOf("total_assets_passives", "second_period")}`}
+                    {numberFormat.format(
+                      resultsOf("total_assets_passives", "second_period")
+                    )}
                   </Typography>
                   <Box width="15%" marginLeft="10%" />
                   <Box width="15%" marginLeft="10%" />
@@ -11832,7 +11837,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("total_assets_passives", "third_period")}
                     id="total_assets_passives-third_period"
                   >
-                    {`$ ${resultsOf("total_assets_passives", "third_period")}`}
+                    {numberFormat.format(
+                      resultsOf("total_assets_passives", "third_period")
+                    )}
                   </Typography>
                   <Box width="15%" marginLeft="10%" />
                   <Box width="15%" marginLeft="10%" />
@@ -11917,10 +11924,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="stateOfResult"
@@ -11995,10 +12002,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="stateOfResult"
@@ -12116,10 +12123,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="stateOfResult"
@@ -12250,10 +12257,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="stateOfResult"
@@ -12328,10 +12335,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="stateOfResult"
@@ -12449,10 +12456,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="stateOfResult"
@@ -12600,7 +12607,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("net_sales", "first_period")}
                     id="net_sales-first_period"
                   >
-                    {`$ ${resultsOf("net_sales", "first_period")}`}
+                    {numberFormat.format(
+                      resultsOf("net_sales", "first_period")
+                    )}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -12636,7 +12645,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("net_sales", "second_period")}
                     id="net_sales-second_period"
                   >
-                    {`$ ${resultsOf("net_sales", "second_period")}`}
+                    {numberFormat.format(
+                      resultsOf("net_sales", "second_period")
+                    )}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -12690,7 +12701,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("net_sales", "third_period")}
                     id="net_sales-third_period"
                   >
-                    {`$ ${resultsOf("net_sales", "third_period")}`}
+                    {numberFormat.format(
+                      resultsOf("net_sales", "third_period")
+                    )}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -12793,10 +12806,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="stateOfResult"
@@ -12871,10 +12884,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="stateOfResult"
@@ -12992,10 +13005,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="stateOfResult"
@@ -13143,7 +13156,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("gross_profit", "first_period")}
                     id="gross_profit-first_period"
                   >
-                    {`$ ${resultsOf("gross_profit", "first_period")}`}
+                    {numberFormat.format(
+                      resultsOf("gross_profit", "first_period")
+                    )}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -13179,7 +13194,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("gross_profit", "second_period")}
                     id="gross_profit-second_period"
                   >
-                    {`$ ${resultsOf("gross_profit", "second_period")}`}
+                    {numberFormat.format(
+                      resultsOf("gross_profit", "second_period")
+                    )}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -13233,7 +13250,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("gross_profit", "third_period")}
                     id="gross_profit-third_period"
                   >
-                    {`$ ${resultsOf("gross_profit", "third_period")}`}
+                    {numberFormat.format(
+                      resultsOf("gross_profit", "third_period")
+                    )}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -13336,10 +13355,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="stateOfResult"
@@ -13415,10 +13434,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="stateOfResult"
@@ -13539,10 +13558,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="stateOfResult"
@@ -13676,10 +13695,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="stateOfResult"
@@ -13754,10 +13773,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="stateOfResult"
@@ -13876,10 +13895,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="stateOfResult"
@@ -14028,7 +14047,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("operating_profit", "first_period")}
                     id="operating_profit-first_period"
                   >
-                    {`$ ${resultsOf("operating_profit", "first_period")}`}
+                    {numberFormat.format(
+                      resultsOf("operating_profit", "first_period")
+                    )}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -14064,7 +14085,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("operating_profit", "second_period")}
                     id="operating_profit-second_period"
                   >
-                    {`$ ${resultsOf("operating_profit", "second_period")}`}
+                    {numberFormat.format(
+                      resultsOf("operating_profit", "second_period")
+                    )}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -14118,7 +14141,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("operating_profit", "third_period")}
                     id="operating_profit-third_period"
                   >
-                    {`$ ${resultsOf("operating_profit", "third_period")}`}
+                    {numberFormat.format(
+                      resultsOf("operating_profit", "third_period")
+                    )}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -14221,10 +14246,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="stateOfResult"
@@ -14299,10 +14324,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="stateOfResult"
@@ -14421,10 +14446,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="stateOfResult"
@@ -14556,10 +14581,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="stateOfResult"
@@ -14634,10 +14659,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="stateOfResult"
@@ -14755,10 +14780,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="stateOfResult"
@@ -14889,10 +14914,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="stateOfResult"
@@ -14968,10 +14993,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="stateOfResult"
@@ -15092,10 +15117,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="stateOfResult"
@@ -15229,10 +15254,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="stateOfResult"
@@ -15308,10 +15333,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="stateOfResult"
@@ -15432,10 +15457,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="stateOfResult"
@@ -15586,7 +15611,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("income_before_taxes", "first_period")}
                     id="income_before_taxes-first_period"
                   >
-                    {`$ ${resultsOf("income_before_taxes", "first_period")}`}
+                    {numberFormat.format(
+                      resultsOf("income_before_taxes", "first_period")
+                    )}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -15622,7 +15649,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("income_before_taxes", "second_period")}
                     id="income_before_taxes-second_period"
                   >
-                    {`$ ${resultsOf("income_before_taxes", "second_period")}`}
+                    {numberFormat.format(
+                      resultsOf("income_before_taxes", "second_period")
+                    )}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -15676,7 +15705,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("income_before_taxes", "third_period")}
                     id="income_before_taxes-third_period"
                   >
-                    {`$ ${resultsOf("income_before_taxes", "third_period")}`}
+                    {numberFormat.format(
+                      resultsOf("income_before_taxes", "third_period")
+                    )}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -15779,10 +15810,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="stateOfResult"
@@ -15858,10 +15889,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="stateOfResult"
@@ -15982,10 +16013,10 @@ export const FinancialStat = ({ formik }) => {
                 >
                   <TextField
                     placeholder="Ingrese Monto"
-                    type="number"
+                    type="text"
                     onWheel={(e) => e.target.blur()}
                     variant="standard"
-                    onChange={(e) => {
+                    onBlur={(e) => {
                       handleFieldChange(e);
                     }}
                     name="stateOfResult"
@@ -16136,7 +16167,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("net_income", "first_period")}
                     id="net_income-first_period"
                   >
-                    {`$ ${resultsOf("net_income", "first_period")}`}
+                    {numberFormat.format(
+                      resultsOf("net_income", "first_period")
+                    )}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -16172,7 +16205,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("net_income", "second_period")}
                     id="net_income-second_period"
                   >
-                    {`$ ${resultsOf("net_income", "second_period")}`}
+                    {numberFormat.format(
+                      resultsOf("net_income", "second_period")
+                    )}
                   </Typography>
                   <Typography
                     letterSpacing={0}
@@ -16226,7 +16261,9 @@ export const FinancialStat = ({ formik }) => {
                     value={resultsOf("net_income", "third_period")}
                     id="net_income-third_period"
                   >
-                    {`$ ${resultsOf("net_income", "third_period")}`}
+                    {numberFormat.format(
+                      resultsOf("net_income", "third_period")
+                    )}
                   </Typography>
                   <Typography
                     letterSpacing={0}

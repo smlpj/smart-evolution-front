@@ -187,29 +187,33 @@ export const ClientListComponent = () => {
       width: 160,
 
       renderCell: (params) => {
-        return params.value === true ? (
-          <>
+        return params.value ? (
+          <Box
+            display="flex"
+            flexDirection="row"
+            justifyContent="center"
+            textAlign="center"
+            alignItems="center"
+            padding="3% 8%"
+            width="100%"
+            borderRadius="4px"
+            backgroundColor="#488B8F"
+          >
+            <Image
+              src="/assets/Icon - Perfil de riesgo - Alto.svg"
+              width={30}
+              height={30}
+            />
             <Typography
               fontSize="80%"
               width="100%"
               fontWeight="bold"
               color="#FFFFFF"
-              textAlign="center"
-              backgroundColor="#488B8F"
               textTransform="uppercase"
-              padding="3% 8%"
-              borderRadius="4px"
             >
-              <Typography
-                fontFamily="icomoon"
-                fontSize="1.5rem"
-                color="#FFFFFF"
-              >
-                &#xe91a;
-              </Typography>
-              Riesgo medio
+              Cargado
             </Typography>
-          </>
+          </Box>
         ) : (
           <Box
             display="flex"
@@ -219,6 +223,7 @@ export const ClientListComponent = () => {
             alignItems="center"
             padding="3% 8%"
             borderRadius="4px"
+            width="100%"
             backgroundColor="#488B8F"
           >
             <Image
@@ -542,11 +547,10 @@ export const ClientListComponent = () => {
           EnteredBy: `${customer.entered_by.first_name} ${customer.entered_by.last_name}`,
           DateCreated: <DateFormat date={customer.created_at} />,
           FinancialProfile: customer.financial_profile,
-          RiskProfile: customer.risk_profile,
+          RiskProfile: customer.riskProfile,
         });
       });
       setCustomer(Customers);
-
     }
 
     if (error) console.log(error);
