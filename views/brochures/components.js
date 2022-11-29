@@ -10,6 +10,8 @@ import DateFormat from "@formats/DateFormat";
 
 import { useFetch } from "@hooks/useFetch";
 
+import downloadFile from "@lib/downloadFile";
+
 import CustomTooltip from "@styles/customTooltip";
 import MuiTextField from "@styles/fields";
 import InputTitles from "@styles/inputTitles";
@@ -24,6 +26,12 @@ import {
 let dataCount;
 
 export const BrochureListComponent = () => {
+  // Hooks
+
+  const [brochure, setBrochure] = useState([]);
+  const [brochureType, setBrochureType] = useState("natural");
+  const [page, setPage] = useState(1);
+
   const columns = [
     {
       field: "id",
@@ -87,9 +95,12 @@ export const BrochureListComponent = () => {
         return (
           <>
             {params.value === true ? (
-              <i className="fa-light fa-badge-check"></i>
+              <i
+                style={{ color: "#488B8F" }}
+                className="fa-light fa-badge-check"
+              ></i>
             ) : (
-              <i class="fa-thin fa-badge"></i>
+              <i style={{ color: "#E66431" }} class="fa-thin fa-badge"></i>
             )}
             <Typography
               fontSize="12px"
@@ -109,7 +120,7 @@ export const BrochureListComponent = () => {
     {
       field: "Ciuu",
       headerName: "CIUU",
-      width: 80,
+      width: 60,
       renderCell: (params) => {
         return (
           <CustomTooltip
@@ -166,6 +177,7 @@ export const BrochureListComponent = () => {
         );
       },
     },
+    // field that exists only if brochureType is ""
     {
       field: "Exp",
       headerName: "EXP. CONSOLIDADO",
@@ -175,6 +187,7 @@ export const BrochureListComponent = () => {
         return (
           <Box
             display="flex"
+            width="100%"
             flexDirection="row"
             justifyContent="center"
             textAlign="center"
@@ -182,29 +195,48 @@ export const BrochureListComponent = () => {
             padding="1% 10%"
             borderRadius="4px"
             backgroundColor="transparent"
-            border="1px solid #488B8F"
+            border={brochureType === "" ? "1px solid #488B8F" : "none"}
             // pointer events
             sx={{
               cursor: "pointer",
             }}
+            onClick={() => {
+              // download files by url only if brochureType is ""
+              if (brochureType === "") {
+                // download files by url and convert to .zip
 
-            // onClick={() => {
-            //   downloadFile(params.value);
-            // }}
+                const urls = params.value;
+                var link = document.createElement('a');
+
+                link.setAttribute('download', null);
+                link.style.display = 'none';
+              
+                document.body.appendChild(link);
+              
+                for (var i = 0; i < urls.length; i++) {
+                  link.setAttribute('href', urls[i]);
+                  link.click();
+                }
+              
+                document.body.removeChild(link);
+              }
+            }}
           >
             <Typography
               fontSize="80%"
               width="100%"
               fontWeight="bold"
-              color="#488B8F"
+              color={brochureType === "" ? "#488B8F" : "#C16060"}
               textTransform="uppercase"
               marginRight="1px"
             >
-              Descargar
+              {brochureType === "" ? "Descargar" : "NO APLICA"}
             </Typography>
-            <Typography fontFamily="icomoon" fontSize="19px" color="#488B8F">
-              &#xe902;
-            </Typography>
+            {brochureType === "" ? ( // if brochureType is "" then show icon
+              <Typography fontFamily="icomoon" fontSize="19px" color="#488B8F">
+                &#xe902;
+              </Typography>
+            ) : null}
           </Box>
         );
       },
@@ -433,12 +465,6 @@ export const BrochureListComponent = () => {
       },
     },
   ];
-  // Hooks
-
-  const [brochure, setBrochure] = useState([]);
-  const [brochureType, setBrochureType] = useState("natural");
-  const [page, setPage] = useState(1);
-
   const {
     fetch: fetch,
     loading: loading,
@@ -455,15 +481,33 @@ export const BrochureListComponent = () => {
       console.log(data);
       let Brochures = [];
       dataCount = data.count;
-      data.data.map((brochure) => {
+      data.results.map((brochure) => {
         Brochures.push({
           id: brochure.id,
           Customer: `${brochure.firstName ?? ""} ${brochure.lastName ?? ""} ${
             brochure.socialReason ?? ""
           }`,
           Status: brochure.status === 0 ? true : false,
-          Ciuu: brochure.ciiu,
+          Ciuu: brochure.ciiu.code,
           DateCreated: <DateFormat date={brochure.created_at} />,
+          Exp:
+            brochureType === ""
+              ? [
+                  brochure.managementBoard,
+                  brochure.shareHoldersAndAssociates,
+                  brochure.principalProducts,
+                  brochure.principalCustomers,
+                  brochure.principalProviders,
+                  brochure.principalCompetitors,
+                  brochure.bankCertification,
+                  brochure.existingAndLegalRepresentationCertification,
+                  brochure.financialStatesCertification,
+                  brochure.rentDeclaration,
+                  brochure.rutCertification,
+                  brochure.legalRepresentativeCertification,
+                  brochure.actionaryCertification,
+                ]
+              : [],
         });
       });
       setBrochure(Brochures);
@@ -486,14 +530,15 @@ export const BrochureListComponent = () => {
     if (data2) {
       let Brochures = [];
       let pageSizeForPagination = data2.count;
-      data2.data.map((brochure) => {
+      data2.results.map((brochure) => {
         Brochures.push({
           id: brochure.id,
           Customer: `${brochure.firstName ?? ""} ${brochure.lastName ?? ""} ${
             brochure.socialReason ?? ""
           }`,
-          Status: brochure.status,
-          Ciuu: brochure.ciuu,
+          Status: brochure.status === 0 ? true : false,
+          Ciuu: brochure.ciiu.code,
+          DateCreated: <DateFormat date={brochure.created_at} />,
         });
       });
       setBrochure(Brochures);
@@ -546,8 +591,7 @@ export const BrochureListComponent = () => {
               fontWeight="bold"
               color="#63595C"
             >
-              Ver prospectos{" "}
-              {brochureType == "" ? "naturales" : "jurídicos"}
+              Ver prospectos {brochureType == "" ? "naturales" : "jurídicos"}
             </Typography>
 
             <Typography
@@ -621,7 +665,7 @@ export const BrochureListComponent = () => {
                       }}
                       onClick={() => {
                         if (page > 1) {
-                          fetch2(page - 1);
+                          fetch2(brochureType + "/", page - 1);
                           setPage(page - 1);
                         }
                       }}
@@ -640,7 +684,7 @@ export const BrochureListComponent = () => {
                       }}
                       onClick={() => {
                         if (page < dataCount / 15) {
-                          fetch2(page + 1);
+                          fetch2(brochureType + "/", page + 1);
                           setPage(page + 1);
                         }
                       }}

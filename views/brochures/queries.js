@@ -13,7 +13,7 @@ export const GetBrochureList = async (type) => {
 
 export const GetBrochureListByQuery = async (type, page) => {
   const res = await Axios.get(
-    `${API_URL}/selfManagement/${type}/?page=${page}`,
+    `${API_URL}/selfManagement/${type}?page=${page}`,
     {
       headers: {
         authorization: "Bearer " + localStorage.getItem("access-token"),
@@ -24,7 +24,7 @@ export const GetBrochureListByQuery = async (type, page) => {
 };
 
 export const DeleteBrochureById = async (type, id) => {
-  const res = await Axios.delete(`${API_URL}/selfManagement/${type}/${id}`, {
+  const res = await Axios.delete(`${API_URL}/selfManagement/${type}${id}`, {
     headers: {
       authorization: "Bearer " + localStorage.getItem("access-token"),
     },
