@@ -38,7 +38,7 @@ export default function ClientTypeSelect({ formik }) {
       setTypeClient(ClientTypes);
     }
 
-    if (error) console.log(error);
+    
   }, [data, loading, error]);
 
   return (

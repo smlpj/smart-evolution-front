@@ -36,7 +36,6 @@ export default function CitySelect({ formik }) {
       setCity(cities);
     }
 
-    if (error) console.log(error);
   }, [data, loading, error]);
 
   useEffect(() => {

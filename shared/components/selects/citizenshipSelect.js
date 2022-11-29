@@ -35,7 +35,6 @@ export default function CitizenshipSelect({ formik }) {
       setCitizenship(Citizenships);
     }
 
-    if (error) console.log(error);
   }, [data, loading, error]);
 
   return (

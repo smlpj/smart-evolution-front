@@ -36,7 +36,6 @@ export default function BrokerByClientSelect({
 
   useEffect(() => {
     if (!isEmitter) {
-      console.log("inversionista cambio", formik.values.investor);
       fetch(formik.values.investor);
     }
   }, [formik.values.investor]);
@@ -51,7 +50,6 @@ export default function BrokerByClientSelect({
       setBroker(brokers);
     }
 
-    if (error) console.log(error);
   }, [data, loading, error]);
 
   return (

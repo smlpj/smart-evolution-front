@@ -35,7 +35,6 @@ export default function AccountSelect({ formik, marginLeft }) {
       setAccount(accounts);
     }
 
-    if (error) console.log(error);
   }, [data, loading, error]);
 
   useEffect(() => {

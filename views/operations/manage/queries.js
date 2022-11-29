@@ -29,6 +29,27 @@ export const CreateOperation = async (values, op) => {
   return res.data;
 };
 
+export const UpdateOperation = async (data) => {
+  const res = await Axios.patch(`${API_URL}/preOperation/${data.id}`, data, {
+    headers: {
+      authorization: "Bearer " + localStorage.getItem("access-token"),
+    },
+  });
+  return res.data;
+};
+
+export const GetOperationById = async (data) => {
+  const res = await Axios.get(`${API_URL}/preOperation/${data}`, {
+    headers: {
+      authorization: "Bearer " + localStorage.getItem("access-token"),
+    },
+  });
+  return res.data;
+};
+
+
+
+
 export const GetBillFraction = async (id) => {
   const res = await Axios.get(`${API_URL}/preOperation/billFraction/${id}`, {
     headers: {
@@ -40,6 +61,15 @@ export const GetBillFraction = async (id) => {
 
 export const DeleteOperation = async (id) => {
   const res = await Axios.delete(`${API_URL}/preOperation/${id}`, {
+    headers: {
+      authorization: "Bearer " + localStorage.getItem("access-token"),
+    },
+  });
+  return res.data;
+};
+
+export const GetRiskProfile = async (data) => {
+  const res = await Axios.get(`${API_URL}/riskProfile/client/${data}`, {
     headers: {
       authorization: "Bearer " + localStorage.getItem("access-token"),
     },

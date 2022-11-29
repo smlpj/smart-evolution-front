@@ -37,7 +37,7 @@ export default function ClientSelect({ formik, customer }) {
       setClient(Clients);
     }
 
-    if (error) console.log(error);
+    
   }, [data, loading, error]);
 
   return (

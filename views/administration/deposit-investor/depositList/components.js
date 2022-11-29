@@ -218,7 +218,7 @@ export const DepositListComponent = () => {
       setDeposit(Deposits);
     }
 
-    if (error) console.log(error);
+    
   }, [data, loading, error]);
 
   const {

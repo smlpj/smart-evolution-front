@@ -35,7 +35,6 @@ export default function BrokerSelect({ formik }) {
       setBroker(Brokers);
     }
 
-    if (error) console.log(error);
   }, [data, loading, error]);
 
   return (

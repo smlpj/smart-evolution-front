@@ -18,7 +18,7 @@ import MuiTextField from "@styles/fields";
 import InputTitles from "@styles/inputTitles";
 import scrollSx from "@styles/scroll";
 
-export const ManageOperationC = ({ formik }) => {
+export const ManageOperationC = ({ formik, updated, ToastContainer }) => {
   return (
     <>
       <Box
@@ -505,14 +505,14 @@ export const ManageOperationC = ({ formik }) => {
           >
             <InputTitles marginBottom={2}>% Descuento</InputTitles>
             <MuiTextField
-              id="discountTax"
+              id="payedPercent"
               placeholder=""
-              name="discountTax"
+              name="payedPercent"
               type="number"
               variant="standard"
               margin="normal"
               disabled
-              value={formik.values.discountTax}
+              value={formik.values.payedPercent}
               InputProps={{
                 disableUnderline: true,
                 sx: {
@@ -530,10 +530,10 @@ export const ManageOperationC = ({ formik }) => {
               }}
               onChange={formik.handleChange}
               error={
-                formik.touched.discountTax && Boolean(formik.errors.discountTax)
+                formik.touched.payedPercent && Boolean(formik.errors.payedPercent)
               }
               sx={
-                formik.touched.discountTax && Boolean(formik.errors.discountTax)
+                formik.touched.payedPercent && Boolean(formik.errors.payedPercent)
                   ? {
                       border: "1.4px solid #E6643180",
                       marginTop: "0px",
@@ -566,7 +566,6 @@ export const ManageOperationC = ({ formik }) => {
               type="number"
               variant="standard"
               margin="normal"
-              disabled
               value={formik.values.payedAmount}
               InputProps={{
                 disableUnderline: true,
@@ -753,7 +752,6 @@ export const ManageOperationC = ({ formik }) => {
               type="number"
               variant="standard"
               margin="normal"
-              disabled
               value={formik.values.operationDays}
               InputProps={{
                 disableUnderline: true,
@@ -1031,14 +1029,14 @@ export const ManageOperationC = ({ formik }) => {
           >
             <InputTitles marginBottom={2}>GM</InputTitles>
             <MuiTextField
-              id="gm"
+              id="GM"
               placeholder=""
-              name="gm"
+              name="GM"
               type="number"
               variant="standard"
               margin="normal"
-              disabled
-              value={formik.values.gm}
+              disabled={formik.values.applyGm ? false : true}
+              value={formik.values.GM}
               InputProps={{
                 disableUnderline: true,
                 sx: {
@@ -1056,9 +1054,9 @@ export const ManageOperationC = ({ formik }) => {
                 ),
               }}
               onChange={formik.handleChange}
-              error={formik.touched.gm && Boolean(formik.errors.gm)}
+              error={formik.touched.gm && Boolean(formik.errors.GM)}
               sx={
-                formik.touched.gm && Boolean(formik.errors.gm)
+                formik.touched.gm && Boolean(formik.errors.GM)
                   ? {
                       border: "1.4px solid #E6643180",
                       marginTop: "0px",
@@ -1108,11 +1106,22 @@ export const ManageOperationC = ({ formik }) => {
               }}
               aria-label="add"
             >
-              {formik.values.id ? "Actualizar" : "Guardar"}
+              {updated && formik.values.id ? "Actualizar" : "Guardar"}
               <BookOutlined sx={{ ml: 1, fontSize: "medium" }} />
             </Button>
           </Box>
         </Box>
+        <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       </Box>
     </>
   );

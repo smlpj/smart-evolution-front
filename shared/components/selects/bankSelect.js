@@ -35,7 +35,6 @@ export default function BankSelect({ formik }) {
       setBank(banks);
     }
 
-    if (error) console.log(error);
   }, [data, loading, error]);
 
   useEffect(() => {

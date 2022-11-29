@@ -549,7 +549,7 @@ export const ClientListComponent = () => {
 
     }
 
-    if (error) console.log(error);
+    
   }, [data, loading, error]);
 
   const {

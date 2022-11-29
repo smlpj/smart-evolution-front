@@ -33,7 +33,7 @@ export default function TypeIDSelect({ formik }) {
       setTypeID(typesID);
     }
 
-    if (error) console.log(error);
+    
   }, [data, loading, error]);
 
   return (
