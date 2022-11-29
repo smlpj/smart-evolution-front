@@ -33,7 +33,6 @@ export default function AccountingAccountSelect({ formik }) {
       setAccount(accounts);
     }
 
-    if (error) console.log(error);
   }, [data, loading, error]);
 
   useEffect(() => {

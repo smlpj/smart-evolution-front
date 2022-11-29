@@ -39,7 +39,7 @@ export default function AccountSelect({ formik, marginLeft }) {
       setAccount(accounts);
     }
 
-    if (error) console.log(error);
+    
   }, [data, loading, error]);
   useEffect(() => {
     if (formik.values.client !== undefined && formik.values.client !== null) {
@@ -57,26 +57,26 @@ export default function AccountSelect({ formik, marginLeft }) {
       <Box>
         <InputTitles marginBottom={2}>Cuenta</InputTitles>
         <Autocomplete
-          id="account"
+          id="clientAccount"
           disablePortal
           options={account}
           getOptionLabel={(option) => option.label}
           onChange={(e, value) => {
             if (value !== null) {
-              formik.setFieldValue("account", value.value);
+              formik.setFieldValue("clientAccount", value.value);
             } else {
-              formik.setFieldValue("account", null);
+              formik.setFieldValue("clientAccount", null);
             }
           }}
           color="#5EA3A3"
           inputValue={
             account.filter(
-              (option) => option.value === formik.values.account
+              (option) => option.value === formik.values.clientAccount
             )[0]?.label
           }
           value={
             account.filter(
-              (option) => option.value === formik.values.account
+              (option) => option.value === formik.values.clientAccount
             )[0] || null
           }
           popupIcon={<KeyboardArrowDownIcon sx={{ color: "#5EA3A3" }} />}
@@ -85,12 +85,12 @@ export default function AccountSelect({ formik, marginLeft }) {
             <MuiTextField
               variant="standard"
               {...params}
-              name="account"
+              name="clientAccount"
               placeholder="Cuenta"
-              value={formik.values.account}
-              error={formik.touched.account && Boolean(formik.errors.account)}
+              value={formik.values.clientAccount}
+              error={formik.touched.clientAccount && Boolean(formik.errors.clientAccount)}
               sx={
-                formik.touched.account && Boolean(formik.errors.account)
+                formik.touched.clientAccount && Boolean(formik.errors.clientAccount)
                   ? { border: "1.4px solid #E6643180" }
                   : null
               }
@@ -105,7 +105,7 @@ export default function AccountSelect({ formik, marginLeft }) {
           )}
         />
         <HelperText position="fixed">
-          {formik.touched.account && formik.errors.account}
+          {formik.touched.clientAccount && formik.errors.clientAccount}
         </HelperText>
       </Box>
     </Box>

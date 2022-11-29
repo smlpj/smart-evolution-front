@@ -35,7 +35,7 @@ export default function EgressSelect({ formik }) {
       setEgress(egresss);
     }
 
-    if (error) console.log(error);
+    
   }, [data, loading, error]);
 
   useEffect(() => {

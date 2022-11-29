@@ -33,7 +33,6 @@ export default function BillSelect({
   const numberFormat1 = new Intl.NumberFormat('es-ES', options1);
 
   useEffect(() => {
-    console.log("customer", formik.values);
     if (formik.values.emitter) {
       fetch(formik.values.emitter);
     }
@@ -51,7 +50,6 @@ export default function BillSelect({
       setValues(bills);
     }
 
-    if (error) console.log(error);
   }, [data, loading, error]);
 
   return (

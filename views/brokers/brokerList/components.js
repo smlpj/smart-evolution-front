@@ -305,7 +305,7 @@ export const BrokerListComponent = () => {
       setBroker(Brokers);
     }
 
-    if (error) console.log(error);
+    
   }, [data, loading, error]);
 
   const {

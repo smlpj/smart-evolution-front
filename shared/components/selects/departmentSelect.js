@@ -35,7 +35,7 @@ export default function DepartmentSelect({ formik }) {
       setDepartment(departments);
     }
 
-    if (error) console.log(error);
+    
   }, [data, loading, error]);
 
   return (

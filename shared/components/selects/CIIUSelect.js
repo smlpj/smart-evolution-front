@@ -46,7 +46,6 @@ export default function CIIUSelect({ formik }) {
       setCIIU(CIIUs);
     }
 
-    if (error) console.log(error);
   }, [data, loading, error]);
 
   return (

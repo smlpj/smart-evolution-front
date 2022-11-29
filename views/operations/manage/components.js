@@ -18,7 +18,7 @@ import MuiTextField from "@styles/fields";
 import InputTitles from "@styles/inputTitles";
 import scrollSx from "@styles/scroll";
 
-export const ManageOperationC = ({ formik }) => {
+export const ManageOperationC = ({ formik, updated, ToastContainer }) => {
   return (
     <>
       <Box
@@ -453,16 +453,16 @@ export const ManageOperationC = ({ formik }) => {
               marginLeft: "1.5rem",
             }}
           >
-            <InputTitles marginBottom={2}>Tasa Descuento</InputTitles>
+            <InputTitles marginBottom={2}>Tasa Inversionista </InputTitles>
             <MuiTextField
-              id="discountTax"
+              id="investorTax"
               placeholder=""
-              name="discountTax"
+              name="investorTax"
               type="number"
               variant="standard"
               margin="normal"
               disabled
-              value={formik.values.discountTax}
+              value={formik.values.investorTax}
               InputProps={{
                 disableUnderline: true,
                 sx: {
@@ -479,9 +479,11 @@ export const ManageOperationC = ({ formik }) => {
                 ),
               }}
               onChange={formik.handleChange}
-              error={formik.touched.discountTax && Boolean(formik.errors.discountTax)}
+              error={
+                formik.touched.investorTax && Boolean(formik.errors.investorTax)
+              }
               sx={
-                formik.touched.discountTax && Boolean(formik.errors.discountTax)
+                formik.touched.investorTax && Boolean(formik.errors.investorTax)
                   ? {
                       border: "1.4px solid #E6643180",
                       marginTop: "0px",
@@ -498,19 +500,19 @@ export const ManageOperationC = ({ formik }) => {
 
           <Box
             sx={{
-              marginLeft: "2rem",
+              marginLeft: "1rem",
             }}
           >
             <InputTitles marginBottom={2}>% Descuento</InputTitles>
             <MuiTextField
-              id="opId"
+              id="payedPercent"
               placeholder=""
-              name="opId"
+              name="payedPercent"
               type="number"
               variant="standard"
               margin="normal"
               disabled
-              value={formik.values.opId}
+              value={formik.values.payedPercent}
               InputProps={{
                 disableUnderline: true,
                 sx: {
@@ -527,9 +529,11 @@ export const ManageOperationC = ({ formik }) => {
                 ),
               }}
               onChange={formik.handleChange}
-              error={formik.touched.opId && Boolean(formik.errors.opId)}
+              error={
+                formik.touched.payedPercent && Boolean(formik.errors.payedPercent)
+              }
               sx={
-                formik.touched.opId && Boolean(formik.errors.opId)
+                formik.touched.payedPercent && Boolean(formik.errors.payedPercent)
                   ? {
                       border: "1.4px solid #E6643180",
                       marginTop: "0px",
@@ -562,7 +566,6 @@ export const ManageOperationC = ({ formik }) => {
               type="number"
               variant="standard"
               margin="normal"
-              disabled
               value={formik.values.payedAmount}
               InputProps={{
                 disableUnderline: true,
@@ -581,7 +584,9 @@ export const ManageOperationC = ({ formik }) => {
                 ),
               }}
               onChange={formik.handleChange}
-              error={formik.touched.payedAmount && Boolean(formik.errors.payedAmount)}
+              error={
+                formik.touched.payedAmount && Boolean(formik.errors.payedAmount)
+              }
               sx={
                 formik.touched.payedAmount && Boolean(formik.errors.payedAmount)
                   ? {
@@ -603,16 +608,16 @@ export const ManageOperationC = ({ formik }) => {
               marginLeft: "1.5rem",
             }}
           >
-            <InputTitles marginBottom={2}>Tasa Inversionista </InputTitles>
+            <InputTitles marginBottom={2}>Tasa Descuento</InputTitles>
             <MuiTextField
-              id="investorTax"
+              id="discountTax"
               placeholder=""
-              name="investorTax"
+              name="discountTax"
               type="number"
               variant="standard"
               margin="normal"
               disabled
-              value={formik.values.investorTax}
+              value={formik.values.discountTax}
               InputProps={{
                 disableUnderline: true,
                 sx: {
@@ -629,9 +634,11 @@ export const ManageOperationC = ({ formik }) => {
                 ),
               }}
               onChange={formik.handleChange}
-              error={formik.touched.investorTax && Boolean(formik.errors.investorTax)}
+              error={
+                formik.touched.discountTax && Boolean(formik.errors.discountTax)
+              }
               sx={
-                formik.touched.investorTax && Boolean(formik.errors.investorTax)
+                formik.touched.discountTax && Boolean(formik.errors.discountTax)
                   ? {
                       border: "1.4px solid #E6643180",
                       marginTop: "0px",
@@ -646,25 +653,25 @@ export const ManageOperationC = ({ formik }) => {
             />
           </Box>
 
-          <Box
+          <Box  
             sx={{
-              marginLeft: "1rem",
+              marginLeft: "2rem",
             }}
           >
             <InputTitles marginBottom={2}>Fecha Fin</InputTitles>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DesktopDatePicker
-                value={formik.values.probableDate}
+                value={formik.values.dateExpiration}
                 onChange={formik.handleChange}
                 renderInput={(params) => (
                   <MuiTextField
-                    id="probableDate"
+                    id="dateExpiration"
                     placeholder="Ingresa la fecha"
-                    name="probableDate"
+                    name="dateExpiration"
                     type="date"
                     variant="standard"
                     margin="normal"
-                    value={formik.values.probableDate}
+                    value={formik.values.dateExpiration}
                     InputProps={{
                       disableUnderline: true,
                       sx: {
@@ -673,10 +680,12 @@ export const ManageOperationC = ({ formik }) => {
                     }}
                     onChange={formik.handleChange}
                     error={
-                      formik.touched.date && Boolean(formik.errors.probableDate)
+                      formik.touched.date &&
+                      Boolean(formik.errors.dateExpiration)
                     }
                     sx={
-                      formik.touched.date && Boolean(formik.errors.probableDate)
+                      formik.touched.date &&
+                      Boolean(formik.errors.dateExpiration)
                         ? {
                             border: "1.4px solid #E6643180",
                             marginTop: "0px",
@@ -743,7 +752,6 @@ export const ManageOperationC = ({ formik }) => {
               type="number"
               variant="standard"
               margin="normal"
-              disabled
               value={formik.values.operationDays}
               InputProps={{
                 disableUnderline: true,
@@ -752,9 +760,13 @@ export const ManageOperationC = ({ formik }) => {
                 },
               }}
               onChange={formik.handleChange}
-              error={formik.touched.operationDays && Boolean(formik.errors.operationDays)}
+              error={
+                formik.touched.operationDays &&
+                Boolean(formik.errors.operationDays)
+              }
               sx={
-                formik.touched.operationDays && Boolean(formik.errors.operationDays)
+                formik.touched.operationDays &&
+                Boolean(formik.errors.operationDays)
                   ? {
                       border: "1.4px solid #E6643180",
                       marginTop: "0px",
@@ -804,9 +816,13 @@ export const ManageOperationC = ({ formik }) => {
                 ),
               }}
               onChange={formik.handleChange}
-              error={formik.touched.investorProfit && Boolean(formik.errors.investorProfit)}
+              error={
+                formik.touched.investorProfit &&
+                Boolean(formik.errors.investorProfit)
+              }
               sx={
-                formik.touched.investorProfit && Boolean(formik.errors.investorProfit)
+                formik.touched.investorProfit &&
+                Boolean(formik.errors.investorProfit)
                   ? {
                       border: "1.4px solid #E6643180",
                       marginTop: "0px",
@@ -863,9 +879,13 @@ export const ManageOperationC = ({ formik }) => {
                 },
               }}
               onChange={formik.handleChange}
-              error={formik.touched.presentValueInvestor && Boolean(formik.errors.presentValueInvestor)}
+              error={
+                formik.touched.presentValueInvestor &&
+                Boolean(formik.errors.presentValueInvestor)
+              }
               sx={
-                formik.touched.presentValueInvestor && Boolean(formik.errors.presentValueInvestor)
+                formik.touched.presentValueInvestor &&
+                Boolean(formik.errors.presentValueInvestor)
                   ? {
                       border: "1.4px solid #E6643180",
                       marginTop: "0px",
@@ -915,9 +935,13 @@ export const ManageOperationC = ({ formik }) => {
                 ),
               }}
               onChange={formik.handleChange}
-              error={formik.touched.presentValueSF && Boolean(formik.errors.presentValueSF)}
+              error={
+                formik.touched.presentValueSF &&
+                Boolean(formik.errors.presentValueSF)
+              }
               sx={
-                formik.touched.presentValueSF && Boolean(formik.errors.presentValueSF)
+                formik.touched.presentValueSF &&
+                Boolean(formik.errors.presentValueSF)
                   ? {
                       border: "1.4px solid #E6643180",
                       marginTop: "0px",
@@ -974,9 +998,13 @@ export const ManageOperationC = ({ formik }) => {
                 },
               }}
               onChange={formik.handleChange}
-              error={formik.touched.commissionSF && Boolean(formik.errors.commissionSF)}
+              error={
+                formik.touched.commissionSF &&
+                Boolean(formik.errors.commissionSF)
+              }
               sx={
-                formik.touched.commissionSF && Boolean(formik.errors.commissionSF)
+                formik.touched.commissionSF &&
+                Boolean(formik.errors.commissionSF)
                   ? {
                       border: "1.4px solid #E6643180",
                       marginTop: "0px",
@@ -1001,14 +1029,14 @@ export const ManageOperationC = ({ formik }) => {
           >
             <InputTitles marginBottom={2}>GM</InputTitles>
             <MuiTextField
-              id="gm"
+              id="GM"
               placeholder=""
-              name="gm"
+              name="GM"
               type="number"
               variant="standard"
               margin="normal"
-              disabled
-              value={formik.values.gm}
+              disabled={formik.values.applyGm ? false : true}
+              value={formik.values.GM}
               InputProps={{
                 disableUnderline: true,
                 sx: {
@@ -1026,9 +1054,9 @@ export const ManageOperationC = ({ formik }) => {
                 ),
               }}
               onChange={formik.handleChange}
-              error={formik.touched.gm && Boolean(formik.errors.gm)}
+              error={formik.touched.gm && Boolean(formik.errors.GM)}
               sx={
-                formik.touched.gm && Boolean(formik.errors.gm)
+                formik.touched.gm && Boolean(formik.errors.GM)
                   ? {
                       border: "1.4px solid #E6643180",
                       marginTop: "0px",
@@ -1078,11 +1106,22 @@ export const ManageOperationC = ({ formik }) => {
               }}
               aria-label="add"
             >
-              {formik.values.id ? "Actualizar" : "Guardar"}
+              {updated && formik.values.id ? "Actualizar" : "Guardar"}
               <BookOutlined sx={{ ml: 1, fontSize: "medium" }} />
             </Button>
           </Box>
         </Box>
+        <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       </Box>
     </>
   );
